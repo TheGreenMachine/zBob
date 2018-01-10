@@ -14,5 +14,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="WPILib User Lib Directory">
+        <CLASSES>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" />
+        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="JAVADOC" />
+        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -1,7 +1,7 @@
 # zBob
 2018 FIRST Power Up Robot Code
 
-# Setup
+# Setting Up A New Gradle Project In IDEA
 * Make an empty directory for the project
 * Paste in the files from GradleRIO Quickstart download (in the java folder)
 * Open a terminal in the directory and run `./gradlew idea`
