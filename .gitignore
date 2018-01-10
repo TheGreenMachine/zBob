@@ -13,3 +13,8 @@ ignored)
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+# User Specific Stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
