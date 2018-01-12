@@ -34,7 +34,7 @@ public abstract class SimpleJoystickFilter implements JoystickFilter {
      * This function is called with the values of each joystick axis in order
      * to produce the new filtered values. This function must be overridden
      * by SimpleJoystickFilter subclasses to produce a full filter.
-     * @param value The value of the joystick axis.
+     * value The value of the joystick axis.
      * @return The filtered value of the joystick axis.
      */
     protected abstract double applyFilter(double toFilter);
