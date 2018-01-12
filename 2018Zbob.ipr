@@ -69,7 +69,6 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/zBob.iml" filepath="$PROJECT_DIR$/zBob.iml" />
       <module fileurl="file://$PROJECT_DIR$/zBob_main.iml" filepath="$PROJECT_DIR$/zBob_main.iml" group="zBob" />
       <module fileurl="file://$PROJECT_DIR$/zBob_test.iml" filepath="$PROJECT_DIR$/zBob_test.iml" group="zBob" />
     </modules>

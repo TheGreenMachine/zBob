@@ -57,11 +57,17 @@ public class Drivetrain extends Subsystem1816 {
         this.rightMain.set(ControlMode.Velocity, rightMain);
         this.leftMain.set(ControlMode.Velocity, leftMain);
 
-        //TODO set Feedback Device right
-        //TODO set Feedback Device left
+        this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+        this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
 
-        //TODO set PID right
-        //TODO set PID left
+        this.rightMain.config_kP(0, p, 20);
+        this.rightMain.config_kI(0, i, 20);
+        this.rightMain.config_kD(0, d, 20);
+        this.rightMain.config_kF(0, f, 20);
+        this.leftMain.config_kP(0, p, 20);
+        this.leftMain.config_kI(0, i, 20);
+        this.leftMain.config_kD(0, d, 20);
+        this.leftMain.config_kF(0, f, 20);
     }
 
     public TalonSRX getRightMain() {
@@ -83,13 +89,13 @@ public class Drivetrain extends Subsystem1816 {
         update();
     }
 
-//    public double talonPositionRight() {
-//        return rightMain.getSelectedSensorPosition();
-//    }
-//
-//    public double talonPositionLeft() {
-//        return leftMain.getSelectedSensorPosition() * -1;
-//    }
+    public double talonPositionRight() {
+        return rightMain.getSelectedSensorPosition(0);
+    }
+
+    public double talonPositionLeft() {
+        return leftMain.getSelectedSensorPosition(0) * -1;
+    }
 
     @Override
     public void update() {
