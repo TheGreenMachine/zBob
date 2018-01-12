@@ -64,10 +64,12 @@ public class Drivetrain extends Subsystem1816 {
         this.rightMain.config_kI(0, i, 20);
         this.rightMain.config_kD(0, d, 20);
         this.rightMain.config_kF(0, f, 20);
+        this.rightMain.config_IntegralZone(0, izone, 20);
         this.leftMain.config_kP(0, p, 20);
         this.leftMain.config_kI(0, i, 20);
         this.leftMain.config_kD(0, d, 20);
         this.leftMain.config_kF(0, f, 20);
+        this.leftMain.config_IntegralZone(0, izone, 20);
     }
 
     public TalonSRX getRightMain() {
