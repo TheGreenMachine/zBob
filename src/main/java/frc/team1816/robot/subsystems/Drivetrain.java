@@ -23,6 +23,8 @@ public class Drivetrain extends Subsystem1816 {
     private double ramprate = 36;
     private int profile = 0;
 
+    private double leftPower, rightPower;
+
     private AHRS navx;
 
     public Drivetrain(int rightMain, int rightSlaveOne, int rightSlaveTwo, int leftMain, int leftSlaveOne, int leftSlaveTwo){
@@ -72,6 +74,13 @@ public class Drivetrain extends Subsystem1816 {
 
     public double getGyroAngle() {
         return navx.getAngle();
+    }
+
+    public void setDrivetrain(double leftPower, double rightPower) {
+        this.leftPower = leftPower;
+        this.rightPower = rightPower;
+
+        update();
     }
 
 //    public double talonPositionRight() {
