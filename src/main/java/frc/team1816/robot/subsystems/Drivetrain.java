@@ -55,11 +55,11 @@ public class Drivetrain extends Subsystem1816 {
         this.rightMain.set(ControlMode.Velocity, rightMain);
         this.leftMain.set(ControlMode.Velocity, leftMain);
 
-        //set Feedback Device right
-        //set Feedback Device left
+        //TODO set Feedback Device right
+        //TODO set Feedback Device left
 
-        //set PID right
-        //set PID left
+        //TODO set PID right
+        //TODO set PID left
     }
 
     public TalonSRX getRightMain() {

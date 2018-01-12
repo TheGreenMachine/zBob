@@ -14,6 +14,8 @@
     <bytecodeTargetLevel target="1.8">
       <module name="2018Zbob_main" target="1.8" />
       <module name="2018Zbob_test" target="1.8" />
+      <module name="zBob_main" target="1.8" />
+      <module name="zBob_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
@@ -31,6 +33,7 @@
             <option value="$PROJECT_DIR$" />
           </set>
         </option>
+        <option name="useAutoImport" value="true" />
       </GradleProjectSettings>
     </option>
   </component>
@@ -66,9 +69,9 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/2018Zbob.iml" filepath="$PROJECT_DIR$/2018Zbob.iml" />
-      <module fileurl="file://$PROJECT_DIR$/2018Zbob_main.iml" filepath="$PROJECT_DIR$/2018Zbob_main.iml" group="2018Zbob" />
-      <module fileurl="file://$PROJECT_DIR$/2018Zbob_test.iml" filepath="$PROJECT_DIR$/2018Zbob_test.iml" group="2018Zbob" />
+      <module fileurl="file://$PROJECT_DIR$/zBob.iml" filepath="$PROJECT_DIR$/zBob.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zBob_main.iml" filepath="$PROJECT_DIR$/zBob_main.iml" group="zBob" />
+      <module fileurl="file://$PROJECT_DIR$/zBob_test.iml" filepath="$PROJECT_DIR$/zBob_test.iml" group="zBob" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
