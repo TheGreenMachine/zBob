@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.team1816.robot.commands.DriveXInchesCommand;
 import frc.team1816.robot.commands.GamepadDriveCommand;
 import frc.team1816.robot.subsystems.Drivetrain;
 
@@ -30,7 +31,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-
+        Command autoCommand = new DriveXInchesCommand(12, .5);
+        autoCommand.start();
     }
 
     @Override

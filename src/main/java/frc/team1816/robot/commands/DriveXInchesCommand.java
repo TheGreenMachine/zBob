@@ -17,7 +17,7 @@ public class DriveXInchesCommand extends Command {
         this.inches = inches;
         this.speed = speed;
         drivetrain = Components.getInstance().drivetrain;
-        ticks = (int) (inches * drivetrain.TICKS_PER_INCH);
+        ticks = (int) (inches * Drivetrain.TICKS_PER_INCH);
         //drivetrain.getRightMain().setSelectedSensorPosition(0,0,10);
         //drivetrain.getLeftMain().setSelectedSensorPosition(0,0,10);
     }
@@ -31,7 +31,7 @@ public class DriveXInchesCommand extends Command {
     protected void execute() {
         double velocity;
         double currentPosition = drivetrain.talonPositionRight() * -1;
-        double currentInches = drivetrain.INCHES_PER_REV * currentPosition;
+        double currentInches = Drivetrain.INCHES_PER_REV * currentPosition;
 
         tempInches = inches - currentInches;
         System.out.println("current inches: " + currentInches);
@@ -42,7 +42,7 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected void end() {
-        drivetrain.setDrivetrain(0,0);
+        drivetrain.setDrivetrain(0, 0);
     }
 
     @Override
