@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
 
 public class Drivetrain extends Subsystem1816 {
-    private static final int TICKS_PER_REV = 1;
-    private static final int TICKS_PER_INCH = 1;
-    private static final int INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+    public static final int TICKS_PER_REV = 1;
+    public static final int TICKS_PER_INCH = 1;
+    public static final int INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
     private double p = 0.2;
@@ -109,9 +109,16 @@ public class Drivetrain extends Subsystem1816 {
         return leftMain.getSelectedSensorPosition(0) * -1;
     }
 
+    public void resetEncoders() {
+        rightMain.getSensorCollection().setQuadraturePosition(0, 10);
+        leftSlaveTwo.getSensorCollection().setQuadraturePosition(0, 10);
+    }
+
     @Override
     public void update() {
         rightMain.set(ControlMode.PercentOutput, rightPower);
         leftMain.set(ControlMode.PercentOutput, leftPower);
+
+        System.out.println("Power: " + rightPower + " Ticks: " + talonPositionRight());
     }
 }

@@ -38,6 +38,7 @@ public class Robot extends IterativeRobot {
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
         Gamepad gamepad1 = Controls.getInstance().gamepad1;
 
+        drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
     }
 
