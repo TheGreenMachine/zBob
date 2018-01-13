@@ -230,7 +230,7 @@ public class Gamepad {
      * @return The current value of the y-axis of the right joystick.
      */
     public double getRightY(){
-        return -joystick.getRawAxis(3);
+        return -joystick.getRawAxis(5);
     }
     
     /**
