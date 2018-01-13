@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32593e22-2c85-4846-8142-7a7832f56da9" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadDriveCommand.java" />
-      <change beforePath="$PROJECT_DIR$/2018Zbob.iws" afterPath="$PROJECT_DIR$/2018Zbob.iws" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Controls.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Controls.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Robot.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Robot.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/JoystickDriveCommand.java" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -78,17 +72,17 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
-              <caret line="21" column="80" lean-forward="false" selection-start-line="21" selection-start-column="80" selection-end-line="21" selection-end-column="80" />
+              <caret line="21" column="114" lean-forward="false" selection-start-line="21" selection-start-column="114" selection-end-line="21" selection-end-column="114" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Drivetrain.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Drivetrain.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1338">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="624">
+              <caret line="52" column="42" lean-forward="false" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
               <folding>
                 <element signature="e#3911#3912#0" expanded="true" />
                 <element signature="e#3972#3973#0" expanded="true" />
@@ -118,7 +112,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GamepadDriveCommand.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GamepadDriveCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadDriveCommand.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="535">
@@ -168,6 +162,7 @@
     <findStrings>
       <find>getRightY</find>
       <find>3)</find>
+      <find>leftslavetwo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -609,10 +604,10 @@
         <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/edinarobotics/utils/gamepad/Gamepad.java" />
         <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java" />
-        <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java" />
         <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadDriveCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Robot.java" />
         <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Controls.java" />
+        <option value="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java" />
       </list>
     </option>
   </component>
@@ -1128,29 +1123,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/Controls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" column="66" lean-forward="false" selection-start-line="25" selection-start-column="66" selection-end-line="25" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1338">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3911#3912#0" expanded="true" />
-            <element signature="e#3972#3973#0" expanded="true" />
-            <element signature="e#4013#4014#0" expanded="true" />
-            <element signature="e#4078#4079#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -1168,14 +1140,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="80" lean-forward="false" selection-start-line="21" selection-start-column="80" selection-end-line="21" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadDriveCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="535">
@@ -1184,6 +1148,37 @@
             <element signature="imports" expanded="true" />
             <element signature="e#603#604#0" expanded="true" />
             <element signature="e#666#667#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/Controls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="25" column="66" lean-forward="false" selection-start-line="25" selection-start-column="66" selection-end-line="25" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="21" column="114" lean-forward="false" selection-start-line="21" selection-start-column="114" selection-end-line="21" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="52" column="42" lean-forward="false" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
+          <folding>
+            <element signature="e#3911#3912#0" expanded="true" />
+            <element signature="e#3972#3973#0" expanded="true" />
+            <element signature="e#4013#4014#0" expanded="true" />
+            <element signature="e#4078#4079#0" expanded="true" />
           </folding>
         </state>
       </provider>

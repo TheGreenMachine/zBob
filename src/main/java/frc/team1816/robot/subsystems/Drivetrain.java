@@ -52,7 +52,7 @@ public class Drivetrain extends Subsystem1816 {
         this.rightSlaveOne.set(ControlMode.Follower, rightMain);
         this.rightSlaveTwo.set(ControlMode.Follower, rightMain);
         this.leftSlaveOne.set(ControlMode.Follower, leftMain);
-        this.leftSlaveOne.set(ControlMode.Follower, leftMain);
+        this.leftSlaveTwo.set(ControlMode.Follower, leftMain);
 
         this.rightMain.set(ControlMode.Velocity, rightMain);
         this.leftMain.set(ControlMode.Velocity, leftMain);
