@@ -18,7 +18,7 @@ public class Drivetrain extends Subsystem1816 {
     private double p = 0.2;
     private double i = 0;
     private double d = 0;
-    private double f = 0;
+    private double f = 0.34;
     private int izone = 100;
     private double ramprate = 36;
     private int profile = 0;
@@ -57,8 +57,18 @@ public class Drivetrain extends Subsystem1816 {
         this.rightMain.set(ControlMode.Velocity, rightMain);
         this.leftMain.set(ControlMode.Velocity, leftMain);
 
-        this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
-        this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 20);
+        this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+        this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+
+        this.rightMain.configNominalOutputForward(0, 10);
+        this.rightMain.configNominalOutputReverse(0, 10);
+        this.rightMain.configPeakOutputForward(1, 10);
+        this.rightMain.configPeakOutputReverse(-1, 10);
+
+        this.leftMain.configNominalOutputForward(0, 10);
+        this.leftMain.configNominalOutputReverse(0, 10);
+        this.leftMain.configPeakOutputForward(1, 10);
+        this.leftMain.configPeakOutputReverse(-1, 10);
 
         this.rightMain.config_kP(0, p, 20);
         this.rightMain.config_kI(0, i, 20);
@@ -101,6 +111,7 @@ public class Drivetrain extends Subsystem1816 {
 
     @Override
     public void update() {
-
+        rightMain.set(ControlMode.PercentOutput, rightPower);
+        leftMain.set(ControlMode.PercentOutput, leftPower);
     }
 }
