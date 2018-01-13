@@ -24,17 +24,20 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected void initialize() {
+        System.out.println("Init");
         drivetrain.resetEncoders();
     }
 
     @Override
     protected void execute() {
         double velocity;
-        double currentPosition = drivetrain.talonPositionRight() * -1;
+        double currentPosition = drivetrain.talonPositionRight();
         double currentInches = Drivetrain.INCHES_PER_REV * currentPosition;
 
         tempInches = inches - currentInches;
-        System.out.println("current inches: " + currentInches);
+        System.out.println("Temp inches: " + tempInches);
+        System.out.println("Current inches: " + currentInches);
+        System.out.println("Current Position: " + currentPosition +"\n");
 
         velocity = speed;
         drivetrain.setDrivetrain(velocity, velocity);
@@ -53,6 +56,7 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected boolean isFinished() {
         if (tempInches <= 0) {
+            System.out.println("Finished");
             return true;
         } else {
             return false;

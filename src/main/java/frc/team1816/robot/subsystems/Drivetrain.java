@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
 
 public class Drivetrain extends Subsystem1816 {
-    public static final int TICKS_PER_REV = 1;
-    public static final int TICKS_PER_INCH = 1;
-    public static final int INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+    public static final double TICKS_PER_REV = 9822;
+    public static final double TICKS_PER_INCH = 781.61;
+    public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
     private double p = 0.2;
@@ -119,6 +119,6 @@ public class Drivetrain extends Subsystem1816 {
         rightMain.set(ControlMode.PercentOutput, rightPower);
         leftMain.set(ControlMode.PercentOutput, leftPower);
 
-        System.out.println("Power: " + rightPower + " Ticks: " + talonPositionRight());
+//        System.out.println("Power: " + rightPower + " Ticks: " + talonPositionRight());
     }
 }
