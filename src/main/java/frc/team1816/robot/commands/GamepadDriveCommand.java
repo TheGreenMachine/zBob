@@ -19,12 +19,12 @@ public class GamepadDriveCommand extends Command {
 
     @Override
     protected void initialize() {
-        System.out.println("GamePadDrive Command Init");
+//        System.out.println("GamePadDrive Command Init");
     }
 
     @Override
     protected void execute() {
-        System.out.println("GamePadDrive Command Executing...");
+//        System.out.println("GamePadDrive Command Executing...");
         double right = gamepad.getRightY();
         double left = gamepad.getLeftY();
 
@@ -33,7 +33,7 @@ public class GamepadDriveCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        System.out.println("GamePadDrive Command Terminated");
+//        System.out.println("GamePadDrive Command Terminated");
         return false;
     }
 }
