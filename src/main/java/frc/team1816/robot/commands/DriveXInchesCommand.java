@@ -10,7 +10,7 @@ public class DriveXInchesCommand extends Command {
     double inches;
     double speed;
     double ticks;
-    double tempInches;
+    double remainingInches;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
@@ -34,8 +34,8 @@ public class DriveXInchesCommand extends Command {
         double currentPosition = drivetrain.talonPositionRight();
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
         
-        tempInches = inches - currentInches;
-        System.out.println("Temp inches: " + tempInches);
+        remainingInches = inches - currentInches;
+        System.out.println("Remaining inches: " + remainingInches);
         System.out.println("Current inches: " + currentInches);
         System.out.println("Current Position: " + currentPosition);
         System.out.println("---");
@@ -52,11 +52,11 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected void interrupted() {
         end();
-    }
+    } 	
 
     @Override
     protected boolean isFinished() {
-        if (tempInches <= 0) {
+        if (remainingInches <= 0) {
             System.out.println("Finished");
             return true;
         } else {

@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Drivetrain;
 
-public class RotateXInchesCommand extends Command {
+public class RotateXDegreesCommand extends Command {
     private Drivetrain drivetrain;
     private double degreesStarted;
     private double degreesToTurn;
     private double target;
 
-    public RotateXInchesCommand(double degreesToTurn){
+    public RotateXDegreesCommand(double degreesToTurn){
         super("rotatexdegreescommand");
         this.degreesToTurn = degreesToTurn;
         drivetrain = Components.getInstance().drivetrain;

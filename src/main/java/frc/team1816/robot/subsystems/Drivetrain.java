@@ -13,6 +13,7 @@ public class Drivetrain extends Subsystem1816 {
     public static final double TICKS_PER_REV = 9822;
     public static final double TICKS_PER_INCH = 781.61;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+    //TODO constants need to be re-measured and updated
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
     private double p = 0.2;

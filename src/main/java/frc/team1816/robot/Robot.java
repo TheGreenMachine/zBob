@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         drivetrain.resetEncoders();
-        Command autoCommand = new DriveXInchesCommand(12, .4);
+        Command autoCommand = new DriveXInchesCommand(12, .8);
         autoCommand.start();
     }
 
