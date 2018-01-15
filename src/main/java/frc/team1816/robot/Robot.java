@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.team1816.robot.commands.DriveXInchesCommand;
 import frc.team1816.robot.commands.GamepadDriveCommand;
+import frc.team1816.robot.commands.RotateXDegreesCommand;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 public class Robot extends IterativeRobot {
@@ -32,7 +33,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         drivetrain.resetEncoders();
-        Command autoCommand = new DriveXInchesCommand(12, .8);
+        Command autoCommand = new RotateXDegreesCommand(90.0);
         autoCommand.start();
     }
 

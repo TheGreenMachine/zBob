@@ -10,7 +10,7 @@ public class RotateXDegreesCommand extends Command {
     private double degreesToTurn;
     private double target;
 
-    public RotateXDegreesCommand(double degreesToTurn){
+    public RotateXDegreesCommand(double degreesToTurn ){
         super("rotatexdegreescommand");
         this.degreesToTurn = degreesToTurn;
         drivetrain = Components.getInstance().drivetrain;
@@ -18,6 +18,7 @@ public class RotateXDegreesCommand extends Command {
 
     @Override
     protected void initialize() {
+    	System.out.println("Init");
         degreesStarted = drivetrain.getGyroAngle();
         target = degreesStarted + degreesToTurn;
 
@@ -28,10 +29,10 @@ public class RotateXDegreesCommand extends Command {
     protected void execute() {
         if(target - degreesStarted < 0){
             //Target angle is between 0 and 180. Therefore, turn left
-            drivetrain.setDrivetrain(-0.5, 0.5);
+            drivetrain.setDrivetrain(0.3, -0.3);
         } else {
             //Target angle is between 180 and 360. Therefore, turn right
-            drivetrain.setDrivetrain(0.5, -0.5);
+            drivetrain.setDrivetrain(-0.3, 0.3);
         }
     }
 
@@ -40,6 +41,7 @@ public class RotateXDegreesCommand extends Command {
         if (Math.abs(drivetrain.getGyroAngle()-target) <= 1){
             System.out.println("Finishing");
             drivetrain.setDrivetrain(0, 0);
+           
             return true;
         } else {
             System.out.println("Current Angle: " + drivetrain.getGyroAngle() + ", Target: " + target);
@@ -52,6 +54,7 @@ public class RotateXDegreesCommand extends Command {
         //End command by stopping robot
         System.out.println("Command ended");
         drivetrain.setDrivetrain(0, 0);
+        System.out.println("Current Angle: "+drivetrain.getGyroAngle()+ "\n Target: " + target +"\n Initial Angle: "+ degreesStarted);
     }
 
     @Override
