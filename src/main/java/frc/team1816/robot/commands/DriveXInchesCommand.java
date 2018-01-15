@@ -32,15 +32,16 @@ public class DriveXInchesCommand extends Command {
     protected void execute() {
         double velocity;
         double currentPosition = drivetrain.talonPositionRight();
-        double currentInches = Drivetrain.INCHES_PER_REV * currentPosition;
-
+        double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
+        
         tempInches = inches - currentInches;
         System.out.println("Temp inches: " + tempInches);
         System.out.println("Current inches: " + currentInches);
-        System.out.println("Current Position: " + currentPosition +"\n");
+        System.out.println("Current Position: " + currentPosition);
+        System.out.println("---");
 
         velocity = speed;
-        drivetrain.setDrivetrain(velocity, velocity);
+        drivetrain.setDrivetrain(-velocity, -velocity);
     }
 
     @Override

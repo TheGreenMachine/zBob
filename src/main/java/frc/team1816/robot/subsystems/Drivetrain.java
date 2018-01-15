@@ -102,11 +102,11 @@ public class Drivetrain extends Subsystem1816 {
     }
 
     public double talonPositionRight() {
-        return rightMain.getSelectedSensorPosition(0);
+        return rightMain.getSelectedSensorPosition(0) * -1;
     }
 
     public double talonPositionLeft() {
-        return leftMain.getSelectedSensorPosition(0) * -1;
+        return leftMain.getSelectedSensorPosition(0);
     }
 
     public void resetEncoders() {
