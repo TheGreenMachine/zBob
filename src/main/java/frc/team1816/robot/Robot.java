@@ -42,7 +42,7 @@ public class Robot extends IterativeRobot {
             //right auto
         }
 
-        Command autoCommand = new RotateXDegreesCommand(90.0);
+        Command autoCommand = new DriveXInchesCommand(500, 0.3);
         autoCommand.start();
     }
 

@@ -11,6 +11,7 @@ public class DriveXInchesCommand extends Command {
     double speed;
     double ticks;
     double remainingInches;
+    double initAngle;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
@@ -26,10 +27,12 @@ public class DriveXInchesCommand extends Command {
     protected void initialize() {
         System.out.println("Init");
         drivetrain.resetEncoders();
+        initAngle = drivetrain.getGyroAngle();
     }
 
     @Override
     protected void execute() {
+        double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double velocity;
         double currentPosition = drivetrain.talonPositionRight();
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
@@ -40,8 +43,24 @@ public class DriveXInchesCommand extends Command {
         System.out.println("Current Position: " + currentPosition);
         System.out.println("---");
 
-        velocity = speed;
-        drivetrain.setDrivetrain(-velocity, -velocity);
+        velocity = -speed;
+
+
+        //consider changing deadzone, need more testing
+        if (deltaAngle > 1) {
+            System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
+            drivetrain.setDrivetrain(velocity*0.5, velocity);
+            System.out.println("L Velocity: " + velocity*0.5 + " R Velocity: "+ velocity);
+        } else if (deltaAngle < - 1 ) {
+            System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
+            drivetrain.setDrivetrain(velocity, velocity*0.5);
+            System.out.println("L Velocity: " + velocity + " R Velocity: "+ velocity*0.5);
+        } else {
+            System.out.println("Delta Angle: " + deltaAngle);
+            drivetrain.setDrivetrain(velocity, velocity);
+            System.out.println("R + L Velocity: " + velocity);
+        }
+
     }
 
     @Override
