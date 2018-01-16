@@ -43,25 +43,36 @@ public class DriveXInchesCommand extends Command {
         System.out.println("Current Position: " + currentPosition);
         System.out.println("---");
 
-        velocity = -speed;
+        velocity = speed;
 
 
-        //consider changing deadzone, need more testing
-        if (deltaAngle > 1) {
-            System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
-            drivetrain.setDrivetrain(velocity*0.5, velocity);
-            System.out.println("L Velocity: " + velocity*0.5 + " R Velocity: "+ velocity);
-        } else if (deltaAngle < - 1 ) {
-            System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
-            drivetrain.setDrivetrain(velocity, velocity*0.5);
-            System.out.println("L Velocity: " + velocity + " R Velocity: "+ velocity*0.5);
-        } else {
-            System.out.println("Delta Angle: " + deltaAngle);
+
+
+        //consider changing deltaAngle deadzone, need more testing
+        if (remainingInches < 6) {
+            if((velocity * (remainingInches / 6)) > .15) {
+                System.out.println("1");
+                velocity = velocity * (remainingInches / 6);
+            } else {
+                System.out.println("2");
+                velocity = .15;
+            }
+            System.out.println("Ramped Down Velocity" + velocity);
             drivetrain.setDrivetrain(velocity, velocity);
-            System.out.println("R + L Velocity: " + velocity);
+            } else if (deltaAngle > 1) {
+                System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
+                drivetrain.setDrivetrain(velocity * 0.5, velocity);
+                System.out.println("L Velocity: " + velocity * 0.5 + " R Velocity: " + velocity);
+            } else if (deltaAngle < -1) {
+                System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
+                drivetrain.setDrivetrain(velocity, velocity * 0.5);
+                System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.5);
+            } else {
+                System.out.println("Delta Angle: " + deltaAngle);
+                drivetrain.setDrivetrain(velocity, velocity);
+                System.out.println("R + L Velocity: " + velocity);
+            }
         }
-
-    }
 
     @Override
     protected void end() {
