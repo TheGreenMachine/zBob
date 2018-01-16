@@ -1,6 +1,7 @@
 package frc.team1816.robot;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,7 +33,15 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        String gamedata;
         drivetrain.resetEncoders();
+        gamedata = DriverStation.getInstance().getGameSpecificMessage();
+        if(gamedata.charAt(0) == 'L') {
+            //left auto
+        } else {
+            //right auto
+        }
+
         Command autoCommand = new RotateXDegreesCommand(90.0);
         autoCommand.start();
     }
