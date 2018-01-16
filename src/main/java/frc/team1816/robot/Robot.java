@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.team1816.robot.commands.AutonomousCommand;
 import frc.team1816.robot.commands.DriveXInchesCommand;
 import frc.team1816.robot.commands.GamepadDriveCommand;
 import frc.team1816.robot.commands.RotateXDegreesCommand;
@@ -24,6 +25,11 @@ public class Robot extends IterativeRobot {
         Controls.getInstance();
 
         drivetrain = Components.getInstance().drivetrain;
+
+        autoChooser = new SendableChooser<>();
+        autoChooser.addObject("Drive Forward Switch", new AutonomousCommand(AutonomousCommand.AutonomousMode.SWITCH_FORWARD));
+        autoChooser.addObject("Drive & Turn Left Switch", new AutonomousCommand(AutonomousCommand.AutonomousMode.LEFT_SWITCH_FORWARD_TURN));
+        autoChooser.addObject("Drive & Turn Right Switch", new AutonomousCommand(AutonomousCommand.AutonomousMode.RIGHT_SWITCH_FORWARD_TURN));
     }
 
     @Override
@@ -42,7 +48,7 @@ public class Robot extends IterativeRobot {
             //right auto
         }
 
-        Command autoCommand = new DriveXInchesCommand(48, .8);
+        Command autoCommand = new RotateXDegreesCommand(90);
         autoCommand.start();
     }
 

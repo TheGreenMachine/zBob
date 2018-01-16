@@ -27,11 +27,11 @@ public class RotateXDegreesCommand extends Command {
 
     @Override
     protected void execute() {
-        if(target - degreesStarted < 0){
-            //Target angle is between 0 and 180. Therefore, turn left
+        if(target - degreesStarted > 0){
+            //Target angle is between 0 and 180. Therefore, turn right
             drivetrain.setDrivetrain(0.3, -0.3);
         } else {
-            //Target angle is between 180 and 360. Therefore, turn right
+            //Target angle is between 180 and 360. Therefore, turn left
             drivetrain.setDrivetrain(-0.3, 0.3);
         }
     }
