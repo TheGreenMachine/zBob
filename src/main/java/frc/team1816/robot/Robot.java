@@ -7,10 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.team1816.robot.commands.AutonomousCommand;
-import frc.team1816.robot.commands.DriveXInchesCommand;
-import frc.team1816.robot.commands.GamepadDriveCommand;
-import frc.team1816.robot.commands.RotateXDegreesCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team1816.robot.commands.*;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 public class Robot extends IterativeRobot {
@@ -27,9 +25,12 @@ public class Robot extends IterativeRobot {
         drivetrain = Components.getInstance().drivetrain;
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Drive Forward Switch", new AutonomousCommand(AutonomousCommand.AutonomousMode.SWITCH_FORWARD));
-        autoChooser.addObject("Drive & Turn Left Switch", new AutonomousCommand(AutonomousCommand.AutonomousMode.LEFT_SWITCH_FORWARD_TURN));
-        autoChooser.addObject("Drive & Turn Right Switch", new AutonomousCommand(AutonomousCommand.AutonomousMode.RIGHT_SWITCH_FORWARD_TURN));
+        autoChooser.addObject("Left Start Auto", new LeftAutoStartCommand());
+        autoChooser.addObject("Right Start Auto", new RightAutoStartCommand());
+        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
+        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
+
+        SmartDashboard.putData("Autonomous", autoChooser);
     }
 
     @Override
@@ -42,13 +43,10 @@ public class Robot extends IterativeRobot {
         String gamedata;
         drivetrain.resetEncoders();
         gamedata = DriverStation.getInstance().getGameSpecificMessage();
-        if(gamedata.charAt(0) == 'L') {
-            //left auto
-        } else {
-            //right auto
-        }
 
-        Command autoCommand = new RotateXDegreesCommand(90);
+        Command autoCommand = autoChooser.getSelected();
+
+        //Command autoCommand = new RotateXDegreesCommand(90);
         autoCommand.start();
     }
 

@@ -61,12 +61,12 @@ public class DriveXInchesCommand extends Command {
             drivetrain.setDrivetrain(velocity, velocity);
             } else if (deltaAngle > 1) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
-                drivetrain.setDrivetrain(velocity * 0.5, velocity);
-                System.out.println("L Velocity: " + velocity * 0.5 + " R Velocity: " + velocity);
+                drivetrain.setDrivetrain(velocity * 0.8, velocity);
+                System.out.println("L Velocity: " + velocity * 0.8 + " R Velocity: " + velocity);
             } else if (deltaAngle < -1) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
-                drivetrain.setDrivetrain(velocity, velocity * 0.5);
-                System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.5);
+                drivetrain.setDrivetrain(velocity, velocity * 0.8);
+                System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.8);
             } else {
                 System.out.println("Delta Angle: " + deltaAngle);
                 drivetrain.setDrivetrain(velocity, velocity);
@@ -77,6 +77,7 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected void end() {
         drivetrain.setDrivetrain(0, 0);
+        drivetrain.resetEncoders();
     }
 
     @Override

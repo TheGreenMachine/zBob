@@ -28,6 +28,9 @@ public class GamepadDriveCommand extends Command {
         double right = -gamepad.getRightY();
         double left = -gamepad.getLeftY();
 
+        System.out.println(right);
+        System.out.println(left);
+
         drivetrain.setDrivetrain(left, right);
     }
 
