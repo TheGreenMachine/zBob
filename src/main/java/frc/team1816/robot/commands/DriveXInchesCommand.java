@@ -61,12 +61,12 @@ public class DriveXInchesCommand extends Command {
             drivetrain.setDrivetrain(velocity, velocity);
             } else if (deltaAngle > 1) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
-                drivetrain.setDrivetrain(velocity * 0.8, velocity);
-                System.out.println("L Velocity: " + velocity * 0.8 + " R Velocity: " + velocity);
+                drivetrain.setDrivetrain(velocity * 0.9, velocity);
+                System.out.println("L Velocity: " + velocity * 0.9 + " R Velocity: " + velocity);
             } else if (deltaAngle < -1) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
-                drivetrain.setDrivetrain(velocity, velocity * 0.8);
-                System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.8);
+                drivetrain.setDrivetrain(velocity, velocity * 0.9);
+                System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.9);
             } else {
                 System.out.println("Delta Angle: " + deltaAngle);
                 drivetrain.setDrivetrain(velocity, velocity);
