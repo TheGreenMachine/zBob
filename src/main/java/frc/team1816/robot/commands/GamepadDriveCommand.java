@@ -34,12 +34,13 @@ public class GamepadDriveCommand extends Command {
         System.out.println(right);
         System.out.println(left);
 
-        if (gamepad.rightBumper().get()) {
-            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(.75);
-            collectorSpeedCommand
-        } if (gamepad.leftBumper().get()) {
-
-        }
+//        if (gamepad.rightBumper().get()) {
+//            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(.75);
+//            collectorSpeedCommand.start();
+//        } if (gamepad.leftBumper().get()) {
+//            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(-0.75);
+//            collectorSpeedCommand.start();
+//        }
 
         drivetrain.setDrivetrain(left, right);
     }

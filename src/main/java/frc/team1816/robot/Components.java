@@ -17,6 +17,7 @@ public class Components {
     private static final int LEFT_MAIN = 1;
     private static final int LEFT_SLAVE_ONE = 2;
     private static final int LEFT_SLAVE_TWO = 3;
+
     private static final int COLLECTOR_LEFT = 7;
     private static final int COLLECTOR_RIGHT = 8;
 
