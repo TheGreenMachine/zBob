@@ -13,6 +13,7 @@ public class Drivetrain extends Subsystem1816 {
     public static final double TICKS_PER_REV = 9822;
     public static final double TICKS_PER_INCH = 781.61;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+    public static final double TICKS_PER_100MS = 8185;
     //TODO constants need to be re-measured and updated
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
@@ -24,7 +25,7 @@ public class Drivetrain extends Subsystem1816 {
     private double ramprate = 36;
     private int profile = 0;
 
-    private double leftPower, rightPower;
+    private double leftSpeed, rightSpeed;
 
     private AHRS navx;
 
@@ -96,19 +97,19 @@ public class Drivetrain extends Subsystem1816 {
         return navx.getAngle();
     }
 
-    public void setDrivetrain(double leftPower, double rightPower) {
-        this.leftPower = - leftPower;
-        this.rightPower = - rightPower;
+    public void setDrivetrain(double leftSpeed, double rightSpeed) {
+        this.leftSpeed = - leftSpeed * TICKS_PER_100MS;
+        this.rightSpeed = - rightSpeed * TICKS_PER_100MS;
 
         update();
     }
 
     public double talonPositionRight() {
-        return rightMain.getSelectedSensorPosition(0) * -1;
+        return rightSlaveTwo.getSelectedSensorPosition(0) * -1;
     }
 
     public double talonPositionLeft() {
-        return leftMain.getSelectedSensorPosition(0);
+        return leftSlaveTwo.getSelectedSensorPosition(0);
     }
 
     public void resetEncoders() {
@@ -118,8 +119,10 @@ public class Drivetrain extends Subsystem1816 {
 
     @Override
     public void update() {
-        rightMain.set(ControlMode.PercentOutput, rightPower);
-        leftMain.set(ControlMode.PercentOutput, leftPower);
+        rightMain.set(ControlMode.Velocity, leftSpeed);
+        leftMain.set(ControlMode.Velocity, rightSpeed);
+        System.out.println("Left Velocity: " + leftMain.getSelectedSensorVelocity(0) + "\t Right Velocity: " + rightMain.getSelectedSensorVelocity(0));
+        System.out.println("L Voltage" + leftMain.getMotorOutputVoltage() + " R Voltage: " + rightMain.getMotorOutputVoltage());
 
 //        System.out.println("Power: " + rightPower + " Ticks: " + talonPositionRight());
     }
