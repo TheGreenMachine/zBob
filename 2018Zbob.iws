@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beaa9913-a03b-4776-b9aa-fb29d6672a1b" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadElevatorCommand.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Elevator.java" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Components.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Robot.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/Robot.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/IRTestingCommand.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/IRTestingCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Drivetrain.java" />
-      <change beforePath="$PROJECT_DIR$/zBob_main.iml" afterPath="$PROJECT_DIR$/zBob_main.iml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadElevatorCommand.java" afterPath="$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadElevatorCommand.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -44,7 +36,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Elevator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Elevator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/subsystems/Elevator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
@@ -90,17 +82,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GamepadElevatorCommand.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GamepadElevatorCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadElevatorCommand.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="553">
-              <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
+              <caret line="27" column="10" lean-forward="false" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#600#601#0" expanded="true" />
                 <element signature="e#672#673#0" expanded="true" />
-                <element signature="e#872#873#0" expanded="true" />
-                <element signature="e#900#901#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#911#912#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -525,20 +517,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadElevatorCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#600#601#0" expanded="true" />
-            <element signature="e#672#673#0" expanded="true" />
-            <element signature="e#872#873#0" expanded="true" />
-            <element signature="e#900#901#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadDriveCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
@@ -573,6 +551,20 @@
             <element signature="e#1186#1187#0" expanded="true" />
             <element signature="e#1228#1229#0" expanded="true" />
             <element signature="e#1296#1297#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team1816/robot/commands/GamepadElevatorCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="553">
+          <caret line="27" column="10" lean-forward="false" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#600#601#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#911#912#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -25,7 +25,7 @@ public class GamepadElevatorCommand extends Command {
     @Override
     protected void execute() {
         //TODO figure out how to set Elevator speed.
-        //double elevatorSpeed = gamepad.
+        //double elevatorSpeed = gamepad.getDPadX();
     }
 
 
