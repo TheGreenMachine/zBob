@@ -4,6 +4,7 @@
 .gradle/4.4/taskHistory/taskHistory.bin
 .gradle/4.4/taskHistory/taskHistory.lock
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/
 
 /build/
 
