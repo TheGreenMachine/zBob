@@ -25,10 +25,10 @@ public class Robot extends IterativeRobot {
         drivetrain = Components.getInstance().drivetrain;
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Auto", new LeftAutoStartCommand());
-        autoChooser.addObject("Right Start Auto", new RightAutoStartCommand());
-        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
-        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
+        //autoChooser.addObject("Left Start Auto", new LeftAutoStartCommand());
+        //autoChooser.addObject("Right Start Auto", new RightAutoStartCommand());
+        //autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
+        autoChooser.addDefault("Auto-Run", new IRTestingCommand(10000, 0.1));
 
         SmartDashboard.putData("Autonomous", autoChooser);
     }

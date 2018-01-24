@@ -16,7 +16,7 @@ public class IRTestingCommand extends Command{
     double ticks;
     double remainingInches;
     private final double TOLERANCE = 0.1;
-    private final double stopVoltage = 1.4;
+    private double stopVoltage = 1.4;
     boolean isStopped = false;
 
     public IRTestingCommand(double inches, double speed){
@@ -37,8 +37,8 @@ public class IRTestingCommand extends Command{
 
     @Override
     protected void execute() {
-        int rawData = IR.getValue();
-        double volts = IR.getVoltage();
+        int rawData = IR.getAverageValue();
+        double volts = IR.getAverageVoltage();
         System.out.println("raw " + rawData + ", volts " + volts);
         //log.log("raw " + rawData + ", volts " + volts);
         double currentPosition = drivetrain.talonPositionRight();
@@ -50,30 +50,31 @@ public class IRTestingCommand extends Command{
         System.out.println("Current Position: " + currentPosition);
         System.out.println("---");
 
-        drivetrain.setDrivetrain(speed, speed);
+//        drivetrain.setDrivetrain(speed, speed);
 
-        //consider changing deltaAngle deadzone, need more testing
-        if (Math.abs(stopVoltage-volts) <= TOLERANCE){
-            System.out.println("Target Reached; Stopping");
-            drivetrain.setDrivetrain(0,0);
-            isStopped = true;
-        }
+//        consider changing deltaAngle deadzone, need more testing
+//        if (Math.abs(stopVoltage-volts) <= TOLERANCE){
+//            System.out.println("Target Reached; Stopping");
+//            drivetrain.setDrivetrain(0,0);
+//            isStopped = true;
+//        }
     }
 
     @Override
     protected boolean isFinished() {
-        if (remainingInches <= 0 || isStopped) {
-            System.out.println("Finished");
-            return true;
-        } else {
-            return false;
-        }
+//        if (remainingInches <= 0 || isStopped) {
+//            System.out.println("Finished");
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return false;
     }
 
     @Override
     protected void end() {
-        drivetrain.setDrivetrain(0, 0);
-        drivetrain.resetEncoders();
+        //drivetrain.setDrivetrain(0, 0);
+        //drivetrain.resetEncoders();
     }
 
     @Override

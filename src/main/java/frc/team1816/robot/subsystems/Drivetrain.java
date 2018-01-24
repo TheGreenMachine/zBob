@@ -59,7 +59,6 @@ public class Drivetrain extends Subsystem1816 {
         this.rightMain.set(ControlMode.Velocity, rightMain);
         this.leftMain.set(ControlMode.Velocity, leftMain);
 
-
         this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
