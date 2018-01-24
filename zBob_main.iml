@@ -22,21 +22,5 @@
     <orderEntry type="library" name="Gradle: openrio.mirror.third.ctre:CTRE-phoenix-java:5.2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: openrio.mirror.third.kauailabs:navx-java:3.0.346" level="project" />
     <orderEntry type="library" name="Gradle: openrio.powerup:MatchData:2018.01.07" level="project" />
-    <orderEntry type="module-library">
-      <library name="WPILib User Lib Directory">
-        <CLASSES>
-          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
-        </SOURCES>
-        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" />
-        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="JAVADOC" />
-        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="SOURCES" />
-      </library>
-    </orderEntry>
   </component>
 </module>

@@ -13,7 +13,7 @@ public class GamepadElevatorCommand extends Command {
     public GamepadElevatorCommand(Gamepad gamepad){
         super("gamepadelevatorcommand");
         this.elevator = Components.getInstance().elevator;
-        this. gamepad = gamepad;
+        this.gamepad = gamepad;
         requires(elevator);
     }
 
