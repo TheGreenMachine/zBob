@@ -13,17 +13,17 @@ public class Components {
     public AnalogInput ai;
     public Elevator elevator;
 
-    private static final int RIGHT_MAIN = 4;
-    private static final int RIGHT_SLAVE_ONE = 5;
-    private static final int RIGHT_SLAVE_TWO = 6;
+    private static final int RIGHT_MAIN = 7;
+    private static final int RIGHT_SLAVE_ONE = 8;
+    private static final int RIGHT_SLAVE_TWO = 9;
     private static final int LEFT_MAIN = 1;
     private static final int LEFT_SLAVE_ONE = 2;
     private static final int LEFT_SLAVE_TWO = 3;
 
-    private static final int COLLECTOR_LEFT = 7;
-    private static final int COLLECTOR_RIGHT = 8;
+    private static final int COLLECTOR_LEFT = 4;
+    private static final int COLLECTOR_RIGHT = 5;
 
-    private static final int ELEVATOR_MAIN = 9;
+    private static final int ELEVATOR_MAIN = 6;
 
     private static final int UPPER_LIMIT = 0; //optoswitch
     private static final int LOWER_LIMIT = 1; //optoswitch

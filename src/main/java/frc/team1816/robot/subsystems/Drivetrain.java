@@ -59,7 +59,6 @@ public class Drivetrain extends Subsystem1816 {
         this.rightMain.set(ControlMode.Velocity, rightMain);
         this.leftMain.set(ControlMode.Velocity, leftMain);
 
-
         this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
@@ -105,25 +104,26 @@ public class Drivetrain extends Subsystem1816 {
     }
 
     public double talonPositionRight() {
-        return rightSlaveTwo.getSelectedSensorPosition(0) * -1;
+        return rightMain.getSelectedSensorPosition(0) * -1;
     }
 
     public double talonPositionLeft() {
-        return leftSlaveTwo.getSelectedSensorPosition(0);
+        return leftMain.getSelectedSensorPosition(0);
     }
 
     public void resetEncoders() {
-        rightMain.getSensorCollection().setQuadraturePosition(0, 10);
-        leftSlaveTwo.getSensorCollection().setQuadraturePosition(0, 10);
+        rightMain.getSensorCollection().setQuadraturePosition(0, 10); //grayhill encoder
+        leftMain.getSensorCollection().setQuadraturePosition(0, 10); // cimcoder
+        leftSlaveOne.getSensorCollection().setQuadraturePosition(0,10); //cimcoder
     }
 
     @Override
     public void update() {
         rightMain.set(ControlMode.Velocity, leftSpeed);
         leftMain.set(ControlMode.Velocity, rightSpeed);
-        System.out.println("Left Velocity: " + leftMain.getSelectedSensorVelocity(0) + "\t Right Velocity: " + rightMain.getSelectedSensorVelocity(0));
-        System.out.println("L Voltage" + leftMain.getMotorOutputVoltage() + " R Voltage: " + rightMain.getMotorOutputVoltage());
+//        System.out.println("Left Velocity: " + leftMain.getSelectedSensorVelocity(0) + "\t Right Velocity: " + rightMain.getSelectedSensorVelocity(0));
+        System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +
+                "\tTalon 7 Encoder: " + rightMain.getSelectedSensorPosition(0));
 
-//        System.out.println("Power: " + rightPower + " Ticks: " + talonPositionRight());
     }
 }
