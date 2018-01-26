@@ -30,7 +30,7 @@ public class Drivetrain extends Subsystem1816 {
 
     private double leftSpeed, rightSpeed;
 
-    private double previousHeading;
+    private String prevHeadingTarget;
 
     private AHRS navx;
 
@@ -149,7 +149,11 @@ public class Drivetrain extends Subsystem1816 {
         update();
     }
 
-    public void setPrevHeading(double heading) {
-        this.previousHeading = heading;
+    public void setPrevTargetHeading(String heading) {
+        this.prevHeadingTarget = heading;
+    }
+
+    public String getPrevTargetHeading() {
+        return prevHeadingTarget;
     }
 }

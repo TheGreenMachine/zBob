@@ -41,7 +41,7 @@ public class RotateXDegreesCommand extends Command {
         if ((Math.abs(target)-Math.abs(drivetrain.getGyroAngle())<=1)){
             System.out.println("Finishing");
             drivetrain.setDrivetrain(0, 0);
-           drivetrain.setPrevHeading(drivetrain.getGyroAngle());
+            drivetrain.setPrevTargetHeading(Double.toString(target));
             return true;
         } else {
             System.out.println("Current Angle: " + drivetrain.getGyroAngle() + ", Target: " + target);

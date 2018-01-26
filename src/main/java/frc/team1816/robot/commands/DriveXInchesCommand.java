@@ -27,7 +27,12 @@ public class DriveXInchesCommand extends Command {
     protected void initialize() {
         System.out.println("Init");
         drivetrain.resetEncoders();
-        initAngle = drivetrain.getGyroAngle();
+        if(drivetrain.getPrevTargetHeading() != null) {
+            initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
+            drivetrain.setPrevTargetHeading(null);
+        } else {
+            initAngle = drivetrain.getGyroAngle();
+        }
     }
 
     @Override
@@ -50,6 +55,7 @@ public class DriveXInchesCommand extends Command {
 
         //consider changing deltaAngle deadzone, need more testing
         if (remainingInches < 6) {
+
             if((velocity * (remainingInches / 6)) > .15) {
                 System.out.println("1");
                 velocity = velocity * (remainingInches / 6);
@@ -57,13 +63,14 @@ public class DriveXInchesCommand extends Command {
                 System.out.println("2");
                 velocity = .15;
             }
-            System.out.println("Ramped Down Velocity" + velocity);
+
             drivetrain.setDrivetrain(velocity, velocity);
-            } else if (deltaAngle > 1) {
+
+            } else if (deltaAngle > 3) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
                 drivetrain.setDrivetrain(velocity * 0.9, velocity);
                 System.out.println("L Velocity: " + velocity * 0.9 + " R Velocity: " + velocity);
-            } else if (deltaAngle < -1) {
+            } else if (deltaAngle < -3) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
                 drivetrain.setDrivetrain(velocity, velocity * 0.9);
                 System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.9);
