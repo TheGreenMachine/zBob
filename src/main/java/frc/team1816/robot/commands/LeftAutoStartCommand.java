@@ -13,7 +13,7 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         if(target == 'L') {
             System.out.println("Left Start Auto ---- Target: L");
-            addSequential(new DriveXInchesCommand(140, 0.8));
+            addSequential(new DriveXInchesCommand(100, 0.8));
             addSequential(new RotateXDegreesCommand(90));
             addSequential(new DriveXInchesCommand(10, 0.5));
         } else {

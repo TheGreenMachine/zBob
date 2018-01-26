@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
 
 public class Drivetrain extends Subsystem1816 {
-    public static final double TICKS_PER_REV = 9822;
-    public static final double TICKS_PER_INCH = 781.61;
+    public static final double TICKS_PER_REV = 1024.6;
+    public static final double TICKS_PER_INCH = 54.32;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
-    public static final double TICKS_PER_100MS = 8185;
+    public static final double TICKS_PER_100MS = 853;
     //TODO constants need to be re-measured and updated for competition bot
 
     public static final double SLOW_MOD = 0.5;
@@ -100,8 +100,8 @@ public class Drivetrain extends Subsystem1816 {
     }
 
     public void setDrivetrain(double leftSpeed, double rightSpeed) {
-        this.leftSpeed = - leftSpeed * TICKS_PER_100MS;
-        this.rightSpeed = - rightSpeed * TICKS_PER_100MS;
+        this.leftSpeed = leftSpeed * TICKS_PER_100MS;
+        this.rightSpeed = rightSpeed * TICKS_PER_100MS;
 
         update();
     }
@@ -135,8 +135,8 @@ public class Drivetrain extends Subsystem1816 {
         leftMain.set(ControlMode.Velocity, rightSpeed);
 
 //        Print Encoder Values
-        System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +
-                "\tTalon 7 Encoder: " + rightMain.getSelectedSensorPosition(0));
+//        System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +
+//                "\tTalon 7 Encoder: " + rightMain.getSelectedSensorPosition(0));
 
     }
 
