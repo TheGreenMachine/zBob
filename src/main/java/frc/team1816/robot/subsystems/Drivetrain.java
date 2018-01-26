@@ -28,7 +28,7 @@ public class Drivetrain extends Subsystem1816 {
     private double ramprate = 36;
     private int profile = 0;
 
-    private double leftSpeed, rightSpeed;
+    private double leftSpeed, rightSpeed, rotation;
 
     private String prevHeadingTarget;
 
@@ -101,10 +101,10 @@ public class Drivetrain extends Subsystem1816 {
         return navx.getAngle();
     }
 
-    public void setDrivetrain(double leftSpeed, double rightSpeed) {
+    public void setDrivetrain(double leftSpeed, double rightSpeed, double rotation) {
         this.leftSpeed = leftSpeed; //* TICKS_PER_100MS;
         this.rightSpeed = rightSpeed; //* TICKS_PER_100MS;
-
+        this.rotation = rotation;
         update();
     }
 
@@ -128,15 +128,20 @@ public class Drivetrain extends Subsystem1816 {
         if(slowMode) {
             leftSpeed *= SLOW_MOD;
             rightSpeed *= SLOW_MOD;
+            rotation *= SLOW_MOD;
         }
+
+        double rightVelocity = rightSpeed;
+        double leftVelocity = leftSpeed;
 
 //        System.out.println("Slow mode = " + slowMode);
 //        System.out.println("L Velocity: " + leftSpeed + "\tR Velocity: " + rightSpeed);
-
+        rightVelocity -= rotation*.55;
+        leftVelocity += rotation*.55;
         //rightMain.set(ControlMode.Velocity, rightSpeed);
         //leftMain.set(ControlMode.Velocity, leftSpeed);
-        rightMain.set(ControlMode.PercentOutput, rightSpeed);
-        leftMain.set(ControlMode.PercentOutput, leftSpeed);
+        rightMain.set(ControlMode.PercentOutput, rightVelocity);
+        leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
 //        Print Encoder Values
 //        System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +

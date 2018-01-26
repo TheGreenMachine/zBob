@@ -28,9 +28,9 @@ public class GamepadDriveCommand extends Command {
     @Override
     protected void execute() {
 //        System.out.println("GamePadDrive Command Executing...");
-        double right = -gamepad.getRightY();
+        double right = -gamepad.getLeftY();
         double left = -gamepad.getLeftY();
-
+        double rotation = -gamepad.getRightX();
         //System.out.println(right);
         //System.out.println(left);
 
@@ -41,7 +41,7 @@ public class GamepadDriveCommand extends Command {
 //            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(-0.75);
 //            collectorSpeedCommand.start();
 //        }
-            drivetrain.setDrivetrain(left, right);
+            drivetrain.setDrivetrain(left, right, rotation);
     }
 
     @Override
