@@ -45,9 +45,9 @@ public class Drivetrain extends Subsystem1816 {
 
         navx = new AHRS(I2C.Port.kMXP);
 
-        this.leftMain.setInverted(true);
-        this.leftSlaveOne.setInverted(true);
-        this.leftSlaveTwo.setInverted(true);
+        this.rightMain.setInverted(true);
+        this.rightSlaveOne.setInverted(true);
+        this.rightSlaveTwo.setInverted(true);
 
         this.rightMain.setNeutralMode(NeutralMode.Brake);
         this.rightSlaveOne.setNeutralMode(NeutralMode.Brake);
@@ -108,12 +108,19 @@ public class Drivetrain extends Subsystem1816 {
         update();
     }
 
+    public void setDrivetrain(double leftSpeed, double rightSpeed) {
+        this.leftSpeed = leftSpeed;
+        this.rightSpeed = rightSpeed;
+        rotation = 0;
+        update();
+    }
+
     public double talonPositionRight() {
-        return rightMain.getSelectedSensorPosition(0);
+        return rightMain.getSelectedSensorPosition(0) * -1;
     }
 
     public double talonPositionLeft() {
-        return leftMain.getSelectedSensorPosition(0) * -1;
+        return leftMain.getSelectedSensorPosition(0);
     }
 
     public void resetEncoders() {

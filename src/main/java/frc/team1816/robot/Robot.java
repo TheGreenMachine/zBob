@@ -40,13 +40,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        String gamedata;
+        //String gamedata;
         drivetrain.resetEncoders();
-        gamedata = DriverStation.getInstance().getGameSpecificMessage();
+        //gamedata = DriverStation.getInstance().getGameSpecificMessage();
 
-        //Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = autoChooser.getSelected();
 
-        Command autoCommand = new RotateXDegreesCommand(90);
+        //Command autoCommand = new RotateXDegreesCommand(90);
         autoCommand.start();
     }
 

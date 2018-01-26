@@ -7,11 +7,12 @@ import frc.team1816.robot.subsystems.Drivetrain;
 public class DriveXInchesCommand extends Command {
 
     private Drivetrain drivetrain;
-    double inches;
-    double speed;
-    double ticks;
-    double remainingInches;
-    double initAngle;
+    private double inches;
+    private double speed;
+    private double ticks;
+    private double remainingInches;
+    private double initAngle;
+    private static final double ROTATION_OFFSET_P = 0.02;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
@@ -39,7 +40,7 @@ public class DriveXInchesCommand extends Command {
     protected void execute() {
         double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double velocity;
-        double currentPosition = -drivetrain.talonPositionRight();
+        double currentPosition = drivetrain.talonPositionLeft();
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
         
         remainingInches = inches - currentInches;
@@ -66,14 +67,14 @@ public class DriveXInchesCommand extends Command {
 
             drivetrain.setDrivetrain(velocity, velocity);
 
-            } else if (deltaAngle > 3) {
+            } else if (deltaAngle > 0) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
-                drivetrain.setDrivetrain(velocity * 0.9, velocity);
-                System.out.println("L Velocity: " + velocity * 0.9 + " R Velocity: " + velocity);
-            } else if (deltaAngle < -3) {
+                drivetrain.setDrivetrain(velocity - deltaAngle * ROTATION_OFFSET_P, velocity);
+                System.out.println("L Velocity: " + (velocity - deltaAngle * ROTATION_OFFSET_P) + " R Velocity: " + velocity);
+            } else if (deltaAngle < 0) {
                 System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
-                drivetrain.setDrivetrain(velocity, velocity * 0.9);
-                System.out.println("L Velocity: " + velocity + " R Velocity: " + velocity * 0.9);
+                drivetrain.setDrivetrain(velocity, velocity - deltaAngle * ROTATION_OFFSET_P);
+                System.out.println("L Velocity: " + velocity + " R Velocity: " + (velocity - deltaAngle * ROTATION_OFFSET_P));
             } else {
                 System.out.println("Delta Angle: " + deltaAngle);
                 drivetrain.setDrivetrain(velocity, velocity);
