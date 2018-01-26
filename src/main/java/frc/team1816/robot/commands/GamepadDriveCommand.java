@@ -31,8 +31,8 @@ public class GamepadDriveCommand extends Command {
         double right = gamepad.getRightY();
         double left = gamepad.getLeftY();
 
-        System.out.println(right);
-        System.out.println(left);
+        //System.out.println(right);
+        //System.out.println(left);
 
 //        if (gamepad.rightBumper().get()) {
 //            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(.75);
