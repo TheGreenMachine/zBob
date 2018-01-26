@@ -100,6 +100,7 @@ public class Drivetrain extends Subsystem1816 {
     }
 
     public void setDrivetrain(double leftSpeed, double rightSpeed) {
+        //NOTE: Negative Speed/Power = Forwards Movement
         this.leftSpeed = leftSpeed * TICKS_PER_100MS;
         this.rightSpeed = rightSpeed * TICKS_PER_100MS;
 
