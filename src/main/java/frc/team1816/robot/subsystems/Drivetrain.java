@@ -14,7 +14,10 @@ public class Drivetrain extends Subsystem1816 {
     public static final double TICKS_PER_INCH = 781.61;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
     public static final double TICKS_PER_100MS = 8185;
-    //TODO constants need to be re-measured and updated
+    //TODO constants need to be re-measured and updated for competition bot
+
+    public static final double SLOW_MOD = 0.5;
+    private boolean slowMode;
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
     private double p = 0.2;
@@ -113,17 +116,32 @@ public class Drivetrain extends Subsystem1816 {
 
     public void resetEncoders() {
         rightMain.getSensorCollection().setQuadraturePosition(0, 10); //grayhill encoder
-        leftMain.getSensorCollection().setQuadraturePosition(0, 10); // cimcoder
+        leftMain.getSensorCollection().setQuadraturePosition(0, 10); // grayhill encoder
         leftSlaveOne.getSensorCollection().setQuadraturePosition(0,10); //cimcoder
     }
 
     @Override
     public void update() {
+
+        if(slowMode) {
+            leftSpeed *= SLOW_MOD;
+            rightSpeed *= SLOW_MOD;
+        }
+
+//        System.out.println("Slow mode = " + slowMode);
+//        System.out.println("L Velocity: " + leftSpeed + "\tR Velocity: " + rightSpeed);
+
         rightMain.set(ControlMode.Velocity, leftSpeed);
         leftMain.set(ControlMode.Velocity, rightSpeed);
-//        System.out.println("Left Velocity: " + leftMain.getSelectedSensorVelocity(0) + "\t Right Velocity: " + rightMain.getSelectedSensorVelocity(0));
+
+//        Print Encoder Values
         System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +
                 "\tTalon 7 Encoder: " + rightMain.getSelectedSensorPosition(0));
 
+    }
+
+    public void setSlowMode(boolean slowModeToggle) {
+        this.slowMode = slowModeToggle;
+        update();
     }
 }

@@ -1,6 +1,7 @@
 /.gradle/
 .iws
 .iml
+.ipr
 
 ./.gradle
 

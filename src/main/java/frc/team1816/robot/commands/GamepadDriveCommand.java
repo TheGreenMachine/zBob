@@ -41,8 +41,7 @@ public class GamepadDriveCommand extends Command {
 //            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(-0.75);
 //            collectorSpeedCommand.start();
 //        }
-
-        drivetrain.setDrivetrain(left, right);
+            drivetrain.setDrivetrain(left, right);
     }
 
     @Override
