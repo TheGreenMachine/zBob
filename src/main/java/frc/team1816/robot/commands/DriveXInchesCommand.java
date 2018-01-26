@@ -32,7 +32,7 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected void execute() {
-        double deltaAngle = 0; //drivetrain.getGyroAngle() - initAngle;
+        double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double velocity;
         double currentPosition = -drivetrain.talonPositionRight();
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;

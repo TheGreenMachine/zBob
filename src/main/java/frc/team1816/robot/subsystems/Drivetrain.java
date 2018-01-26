@@ -30,6 +30,8 @@ public class Drivetrain extends Subsystem1816 {
 
     private double leftSpeed, rightSpeed;
 
+    private double previousHeading;
+
     private AHRS navx;
 
     public Drivetrain(int rightMain, int rightSlaveOne, int rightSlaveTwo, int leftMain, int leftSlaveOne, int leftSlaveTwo){
@@ -43,9 +45,9 @@ public class Drivetrain extends Subsystem1816 {
 
         navx = new AHRS(I2C.Port.kMXP);
 
-        this.rightMain.setInverted(true);
-        this.rightSlaveOne.setInverted(true);
-        this.rightSlaveTwo.setInverted(true);
+        this.leftMain.setInverted(true);
+        this.leftSlaveOne.setInverted(true);
+        this.leftSlaveTwo.setInverted(true);
 
         this.rightMain.setNeutralMode(NeutralMode.Brake);
         this.rightSlaveOne.setNeutralMode(NeutralMode.Brake);
@@ -100,19 +102,18 @@ public class Drivetrain extends Subsystem1816 {
     }
 
     public void setDrivetrain(double leftSpeed, double rightSpeed) {
-        //NOTE: Negative Speed/Power = Forwards Movement
-        this.leftSpeed = leftSpeed * TICKS_PER_100MS;
-        this.rightSpeed = rightSpeed * TICKS_PER_100MS;
+        this.leftSpeed = leftSpeed; //* TICKS_PER_100MS;
+        this.rightSpeed = rightSpeed; //* TICKS_PER_100MS;
 
         update();
     }
 
     public double talonPositionRight() {
-        return rightMain.getSelectedSensorPosition(0) * -1;
+        return rightMain.getSelectedSensorPosition(0);
     }
 
     public double talonPositionLeft() {
-        return leftMain.getSelectedSensorPosition(0);
+        return leftMain.getSelectedSensorPosition(0) * -1;
     }
 
     public void resetEncoders() {
@@ -132,8 +133,10 @@ public class Drivetrain extends Subsystem1816 {
 //        System.out.println("Slow mode = " + slowMode);
 //        System.out.println("L Velocity: " + leftSpeed + "\tR Velocity: " + rightSpeed);
 
-        rightMain.set(ControlMode.Velocity, leftSpeed);
-        leftMain.set(ControlMode.Velocity, rightSpeed);
+        //rightMain.set(ControlMode.Velocity, rightSpeed);
+        //leftMain.set(ControlMode.Velocity, leftSpeed);
+        rightMain.set(ControlMode.PercentOutput, rightSpeed);
+        leftMain.set(ControlMode.PercentOutput, leftSpeed);
 
 //        Print Encoder Values
 //        System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +
@@ -144,5 +147,9 @@ public class Drivetrain extends Subsystem1816 {
     public void setSlowMode(boolean slowModeToggle) {
         this.slowMode = slowModeToggle;
         update();
+    }
+
+    public void setPrevHeading(double heading) {
+        this.previousHeading = heading;
     }
 }

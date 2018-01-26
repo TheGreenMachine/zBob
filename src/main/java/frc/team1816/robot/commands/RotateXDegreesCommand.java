@@ -29,10 +29,10 @@ public class RotateXDegreesCommand extends Command {
     protected void execute() {
         if(target - degreesStarted > 0){
             //Target angle is between 0 and 180. Therefore, turn right
-            drivetrain.setDrivetrain(-0.6, 0.6);
+            drivetrain.setDrivetrain(0.6, -0.6);
         } else {
             //Target angle is between 180 and 360. Therefore, turn left
-            drivetrain.setDrivetrain(0.6, -0.6);
+            drivetrain.setDrivetrain(-0.6, 0.6);
         }
     }
 
@@ -41,7 +41,7 @@ public class RotateXDegreesCommand extends Command {
         if ((Math.abs(target)-Math.abs(drivetrain.getGyroAngle())<=1)){
             System.out.println("Finishing");
             drivetrain.setDrivetrain(0, 0);
-           
+           drivetrain.setPrevHeading(drivetrain.getGyroAngle());
             return true;
         } else {
             System.out.println("Current Angle: " + drivetrain.getGyroAngle() + ", Target: " + target);

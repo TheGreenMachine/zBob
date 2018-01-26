@@ -28,8 +28,8 @@ public class GamepadDriveCommand extends Command {
     @Override
     protected void execute() {
 //        System.out.println("GamePadDrive Command Executing...");
-        double right = gamepad.getRightY();
-        double left = gamepad.getLeftY();
+        double right = -gamepad.getRightY();
+        double left = -gamepad.getLeftY();
 
         //System.out.println(right);
         //System.out.println(left);
