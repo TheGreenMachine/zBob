@@ -46,10 +46,10 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
 //        gamedata = DriverStation.getInstance().getGameSpecificMessage();
 
-//        Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = autoChooser.getSelected();
 
 //        Command autoCommand = new RotateXDegreesCommand(90);
-        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
+//        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
         autoCommand.start();
     }
 
