@@ -1,5 +1,6 @@
 package frc.team1816.robot.commands;
 
+import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -32,7 +33,8 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new RotateXDegreesCommand(90));
             addSequential(new DriveXInchesCommand(10, 0.1));
         } else {
-            addSequential(new DriveXInchesCommand(140,0.5));
+            addSequential(new DriveXInchesCommand(24,0.25));
+
         }
     }
 }
