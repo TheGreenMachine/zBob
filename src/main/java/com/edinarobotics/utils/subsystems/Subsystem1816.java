@@ -29,7 +29,7 @@ public abstract class Subsystem1816 extends Subsystem implements Updatable {
      * Sets the default command of the subsystem to be a MaintainStateCommand.
      */
     protected void initDefaultCommand() {
-        setDefaultCommand(new MaintainStateCommand(this));
+        //setDefaultCommand(new MaintainStateCommand(this));
     }
     
     /**

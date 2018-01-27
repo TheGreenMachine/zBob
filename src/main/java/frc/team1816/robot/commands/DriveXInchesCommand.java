@@ -1,5 +1,6 @@
 package frc.team1816.robot.commands;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.Robot;
@@ -8,20 +9,30 @@ import frc.team1816.robot.subsystems.Drivetrain;
 public class DriveXInchesCommand extends Command {
 
     private Drivetrain drivetrain;
+    private AnalogInput analogInput;
     private double initPosition;
     private double inches;
     private double speed;
     private double ticks;
     private double remainingInches;
     private double initAngle;
+    private boolean tripped = false;
     private static final double ROTATION_OFFSET_P = 0.03;
+    private final double TOLERANCE = 0.1;
+    private final double stopVoltage = 1.6;
+    private final boolean USE_IR;
 
-    public DriveXInchesCommand(double inches, double speed) {
+    public DriveXInchesCommand(double inches, double speed, boolean useIr) {
         super("drivexinchescommand");
         this.inches = inches;
         this.speed = speed;
         drivetrain = Components.getInstance().drivetrain;
+        analogInput = Components.getInstance().ai;
+        analogInput.setOversampleBits(4);
+        analogInput.setAverageBits(2);
+        AnalogInput.setGlobalSampleRate(62500);
         ticks = (int) (inches * Drivetrain.TICKS_PER_INCH);
+        USE_IR = useIr;
         //drivetrain.getRightMain().setSelectedSensorPosition(0,0,10);
         //drivetrain.getLeftMain().setSelectedSensorPosition(0,0,10);
     }
@@ -48,6 +59,21 @@ public class DriveXInchesCommand extends Command {
         double currentPosition = drivetrain.talonPositionLeft() - initPosition;
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
         StringBuilder sb = new StringBuilder();
+
+        if (USE_IR) {
+            int rawData = analogInput.getValue();
+            double volts = analogInput.getVoltage();
+            System.out.println("raw " + rawData + ", volts " + volts);
+
+            if (Math.abs(stopVoltage - volts) <= TOLERANCE && !tripped) {
+                System.out.println("-----IR TRIPPED, SLOWING DOWN-----");
+                initPosition = drivetrain.talonPositionLeft();
+                inches = 6;
+                currentPosition = drivetrain.talonPositionLeft() - initPosition;
+                currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
+                tripped = true;
+            }
+        }
 
         remainingInches = inches - Math.abs(currentInches);
 //        System.out.println("---");
@@ -131,6 +157,8 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected boolean isFinished() {
+        double volts = analogInput.getVoltage();
+
         if (remainingInches <= 0) {
             System.out.println("DriveX Finished");
             return true;

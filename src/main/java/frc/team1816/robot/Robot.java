@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Left Start Auto", new LeftAutoStartCommand());
         autoChooser.addObject("Right Start Auto", new RightAutoStartCommand());
         autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
-        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
+        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
 
         SmartDashboard.putData("Autonomous", autoChooser);
     }
@@ -46,10 +46,10 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
 //        gamedata = DriverStation.getInstance().getGameSpecificMessage();
 
-        Command autoCommand = autoChooser.getSelected();
+//        Command autoCommand = autoChooser.getSelected();
 
 //        Command autoCommand = new RotateXDegreesCommand(90);
-//        Command autoCommand = new DriveXInchesCommand(36,0.2);
+        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
         autoCommand.start();
     }
 
