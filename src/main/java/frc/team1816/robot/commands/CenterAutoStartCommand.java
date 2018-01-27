@@ -8,7 +8,12 @@ public class CenterAutoStartCommand extends CommandGroup{
 
     public CenterAutoStartCommand() {
 
-        target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+        try {
+            target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+        } catch (Exception e) {
+            System.out.println("NO TARGET!");
+            target = 'n';
+        }
 
         if(target == 'L') {
 

@@ -18,7 +18,7 @@ public class RotateXDegreesCommand extends Command {
 
     @Override
     protected void initialize() {
-    	System.out.println("Init");
+    	System.out.println("Init RotateX");
         degreesStarted = drivetrain.getGyroAngle();
         target = degreesStarted + degreesToTurn;
 
@@ -27,21 +27,27 @@ public class RotateXDegreesCommand extends Command {
 
     @Override
     protected void execute() {
-        if(target - degreesStarted > 0){
+        System.out.println("Current Angle: " + drivetrain.getGyroAngle());
+        if(target - drivetrain.getGyroAngle() > 0){
             //Target angle is between 0 and 180. Therefore, turn right
-            drivetrain.setDrivetrain(0.6, -0.6);
+            drivetrain.setDrivetrain(.25, -0.25);
+            System.out.println("Rotating Right");
         } else {
             //Target angle is between 180 and 360. Therefore, turn left
-            drivetrain.setDrivetrain(-0.6, 0.6);
+            drivetrain.setDrivetrain(-0.25, .25);
+            System.out.println("Rotating Left");
         }
+
     }
 
     @Override
     protected boolean isFinished() {
-        if ((Math.abs(target)-Math.abs(drivetrain.getGyroAngle())<=1)){
-            System.out.println("Finishing");
+        if (Math.abs(target-drivetrain.getGyroAngle())<=1){
+            System.out.println("RotateX Finishing");
             drivetrain.setDrivetrain(0, 0);
             drivetrain.setPrevTargetHeading(Double.toString(target));
+            System.out.println("Final gyro angle: " + drivetrain.getGyroAngle());
+            System.out.println("Final target angle: " + Double.toString(target));
             return true;
         } else {
             System.out.println("Current Angle: " + drivetrain.getGyroAngle() + ", Target: " + target);
@@ -52,15 +58,15 @@ public class RotateXDegreesCommand extends Command {
     @Override
     protected void end() {
         //End command by stopping robot
-        System.out.println("Command ended");
+        System.out.println("RotateX Ended");
         drivetrain.setDrivetrain(0, 0);
-        System.out.println("Current Angle: "+drivetrain.getGyroAngle()+ "\n Target: " + target +"\n Initial Angle: "+ degreesStarted);
+        //System.out.println("Current Angle: "+drivetrain.getGyroAngle()+ "\n Target: " + target +"\n Initial Angle: "+ degreesStarted);
     }
 
     @Override
     protected void interrupted() {
         //End if command is interrupted
-        System.out.println("Command Interrupted");
+        System.out.println("RotateX Interrupted");
         end();
     }
 }

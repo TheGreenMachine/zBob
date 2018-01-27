@@ -12,7 +12,7 @@ public class DriveXInchesCommand extends Command {
     private double ticks;
     private double remainingInches;
     private double initAngle;
-    private static final double ROTATION_OFFSET_P = 0.02;
+    private static final double ROTATION_OFFSET_P = 0.03;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
@@ -26,11 +26,13 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected void initialize() {
-        System.out.println("Init");
+        System.out.println("DriveX Init");
         drivetrain.resetEncoders();
         if(drivetrain.getPrevTargetHeading() != null) {
             initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
             drivetrain.setPrevTargetHeading(null);
+            System.out.println("init target Angle: " + initAngle);
+            System.out.println("intial gyro angle: " + drivetrain.getGyroAngle());
         } else {
             initAngle = drivetrain.getGyroAngle();
         }
@@ -43,44 +45,49 @@ public class DriveXInchesCommand extends Command {
         double currentPosition = drivetrain.talonPositionLeft();
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
         
-        remainingInches = inches - currentInches;
-        System.out.println("Remaining inches: " + remainingInches);
-        System.out.println("Current inches: " + currentInches);
-        System.out.println("Current Position: " + currentPosition);
-        System.out.println("---");
+        remainingInches = inches - Math.abs(currentInches);
+//        System.out.println("---");
+//        System.out.println("Remaining inches: " + remainingInches);
+//        System.out.println("Current inches: " + currentInches);
+//        System.out.println("Current Position: " + currentPosition);
+//        System.out.println("---");
 
         velocity = speed;
 
+//        if(deltaAngle>velocity) {
+//            deltaAngle = velocity / ROTATION_OFFSET_P;
+//        }
 
-
+//        deltaAngle = 0;
 
         //consider changing deltaAngle deadzone, need more testing
         if (remainingInches < 6) {
 
             if((velocity * (remainingInches / 6)) > .15) {
-                System.out.println("1");
                 velocity = velocity * (remainingInches / 6);
             } else {
-                System.out.println("2");
                 velocity = .15;
             }
 
             drivetrain.setDrivetrain(velocity, velocity);
 
-            } else if (deltaAngle > 0) {
-                System.out.println("Delta Angle: " + deltaAngle + " deltaAngle>1");
-                drivetrain.setDrivetrain(velocity - deltaAngle * ROTATION_OFFSET_P, velocity);
-                System.out.println("L Velocity: " + (velocity - deltaAngle * ROTATION_OFFSET_P) + " R Velocity: " + velocity);
             } else if (deltaAngle < 0) {
-                System.out.println("Delta Angle: " + deltaAngle + " deltaAngle<1");
-                drivetrain.setDrivetrain(velocity, velocity - deltaAngle * ROTATION_OFFSET_P);
-                System.out.println("L Velocity: " + velocity + " R Velocity: " + (velocity - deltaAngle * ROTATION_OFFSET_P));
+                System.out.println("DriveX Correcting Right\t delta angle: " + deltaAngle);
+                drivetrain.setDrivetrain(velocity, velocity - Math.abs(deltaAngle * ROTATION_OFFSET_P));
+                System.out.println("L Velocity: " + (velocity) + " R Velocity: " + (velocity - deltaAngle * ROTATION_OFFSET_P));
+                System.out.println("---");
+            } else if (deltaAngle > 0) {
+                System.out.println("DriveX Correcting Left\t delta angle: " + deltaAngle);
+                drivetrain.setDrivetrain(velocity - Math.abs(deltaAngle * ROTATION_OFFSET_P), velocity);
+                System.out.println("L Velocity: " + (velocity - deltaAngle * ROTATION_OFFSET_P) + " R Velocity: " + (velocity));
+                System.out.println("---");
             } else {
-                System.out.println("Delta Angle: " + deltaAngle);
+                System.out.println("DriveX Straight\t delta angle: " + deltaAngle);
                 drivetrain.setDrivetrain(velocity, velocity);
                 System.out.println("R + L Velocity: " + velocity);
+                System.out.println("---");
             }
-        }
+    }
 
     @Override
     protected void end() {
@@ -96,7 +103,7 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected boolean isFinished() {
         if (remainingInches <= 0) {
-            System.out.println("Finished");
+            System.out.println("DriveX Finished");
             return true;
         } else {
             return false;
