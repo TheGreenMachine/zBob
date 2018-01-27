@@ -62,11 +62,21 @@ public class DriveXInchesCommand extends Command {
 
         //consider changing deltaAngle deadzone, need more testing
         if (remainingInches < 6) {
+            if(speed > 0) {
+                if ((velocity * (remainingInches / 6)) > .15) {
 
-            if((velocity * (remainingInches / 6)) > .15) {
-                velocity = velocity * (remainingInches / 6);
-            } else {
-                velocity = .15;
+                    velocity = velocity * (remainingInches / 6);
+                } else {
+                    velocity = .15;
+                }
+            }
+            else {
+                if ((velocity * (remainingInches / 6)) < -.15) {
+
+                    velocity = velocity * (remainingInches / 6);
+                } else {
+                    velocity = -.15;
+                }
             }
 
             drivetrain.setDrivetrain(velocity, velocity);
@@ -87,6 +97,7 @@ public class DriveXInchesCommand extends Command {
                 System.out.println("R + L Velocity: " + velocity);
                 System.out.println("---");
             }
+            System.out.println("Remaining Inches: " + remainingInches);
     }
 
     @Override
