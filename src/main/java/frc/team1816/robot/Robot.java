@@ -1,6 +1,7 @@
 package frc.team1816.robot;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
+import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,6 +14,7 @@ import frc.team1816.robot.subsystems.Drivetrain;
 
 public class Robot extends IterativeRobot {
 
+    public static Logging logger;
     private Drivetrain drivetrain;
     private double time;
     private SendableChooser<Command> autoChooser;
@@ -21,6 +23,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
+        logger = new Logging("LogTest");
 
         drivetrain = Components.getInstance().drivetrain;
 
@@ -35,7 +38,6 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledInit() {
-
     }
 
     @Override
@@ -47,7 +49,7 @@ public class Robot extends IterativeRobot {
         Command autoCommand = autoChooser.getSelected();
 
 //        Command autoCommand = new RotateXDegreesCommand(90);
-//        Command autoCommand = new DriveXInchesCommand(140,0.2);
+//        Command autoCommand = new DriveXInchesCommand(36,0.2);
         autoCommand.start();
     }
 

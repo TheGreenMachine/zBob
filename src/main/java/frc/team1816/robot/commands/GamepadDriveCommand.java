@@ -1,6 +1,7 @@
 package frc.team1816.robot.commands;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
+import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Collector;
@@ -34,14 +35,10 @@ public class GamepadDriveCommand extends Command {
         //System.out.println(right);
         //System.out.println(left);
 
-//        if (gamepad.rightBumper().get()) {
-//            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(.75);
-//            collectorSpeedCommand.start();
-//        } if (gamepad.leftBumper().get()) {
-//            SetCollectorSpeedCommand collectorSpeedCommand = new SetCollectorSpeedCommand(-0.75);
-//            collectorSpeedCommand.start();
-//        }
-            drivetrain.setDrivetrain(left, right, rotation);
+        drivetrain.setDrivetrain(left, right, rotation);
+
+//        System.out.println("Left Ticks: " + drivetrain.talonPositionLeft());
+//        System.out.println("Right Ticks: " + drivetrain.talonPositionRight());
     }
 
     @Override

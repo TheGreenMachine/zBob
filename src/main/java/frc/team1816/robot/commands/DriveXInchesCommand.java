@@ -1,20 +1,20 @@
 package frc.team1816.robot.commands;
 
-import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
+import frc.team1816.robot.Robot;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 public class DriveXInchesCommand extends Command {
 
     private Drivetrain drivetrain;
+    private double initPosition;
     private double inches;
     private double speed;
     private double ticks;
     private double remainingInches;
     private double initAngle;
     private static final double ROTATION_OFFSET_P = 0.03;
-    private Logging log;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
@@ -22,7 +22,6 @@ public class DriveXInchesCommand extends Command {
         this.speed = speed;
         drivetrain = Components.getInstance().drivetrain;
         ticks = (int) (inches * Drivetrain.TICKS_PER_INCH);
-        log = new Logging("LogTest");
         //drivetrain.getRightMain().setSelectedSensorPosition(0,0,10);
         //drivetrain.getLeftMain().setSelectedSensorPosition(0,0,10);
     }
@@ -30,7 +29,7 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected void initialize() {
         System.out.println("DriveX Init");
-        drivetrain.resetEncoders();
+        initPosition = drivetrain.talonPositionLeft();
         if (drivetrain.getPrevTargetHeading() != null) {
             initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
             drivetrain.setPrevTargetHeading(null);
@@ -46,7 +45,7 @@ public class DriveXInchesCommand extends Command {
         double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double leftVelocity;
         double rightVelocity;
-        double currentPosition = drivetrain.talonPositionLeft();
+        double currentPosition = drivetrain.talonPositionLeft() - initPosition;
         double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
         StringBuilder sb = new StringBuilder();
 
@@ -84,7 +83,7 @@ public class DriveXInchesCommand extends Command {
             }
 
             rightVelocity = leftVelocity;
-            log.log("Ticks:" + "," + drivetrain.talonPositionRight());
+            Robot.logger.log("Ticks:" + "," + drivetrain.talonPositionRight());
             drivetrain.setDrivetrain(leftVelocity, rightVelocity);
 
         } else if (deltaAngle < 0) {
@@ -116,7 +115,7 @@ public class DriveXInchesCommand extends Command {
         sb.append(",");
         sb.append(rightVelocity);
 
-        log.log(sb.toString());
+        Robot.logger.log(sb.toString());
     }
 
     @Override
