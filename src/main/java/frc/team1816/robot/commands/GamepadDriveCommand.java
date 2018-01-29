@@ -36,9 +36,6 @@ public class GamepadDriveCommand extends Command {
         //System.out.println(left);
 
         drivetrain.setDrivetrain(left, right, rotation);
-
-//        System.out.println("Left Ticks: " + drivetrain.talonPositionLeft());
-//        System.out.println("Right Ticks: " + drivetrain.talonPositionRight());
     }
 
     @Override

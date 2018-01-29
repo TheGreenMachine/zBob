@@ -1,6 +1,5 @@
 package frc.team1816.robot.commands;
 
-import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Robot;
