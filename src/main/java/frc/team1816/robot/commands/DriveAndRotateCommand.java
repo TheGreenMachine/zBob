@@ -46,14 +46,14 @@ public class DriveAndRotateCommand extends Command {
         initPositionRight = drivetrain.talonPositionRight();
 
         if (Math.signum(heading) == 1) {
-            rightTarget = (heading / 360) * 2 * Math.PI * (inches - Drivetrain.WHEEL_THICKNESS / 2);
-            leftTarget = (heading / 360) * 2 * Math.PI * (inches + Drivetrain.WHEEL_THICKNESS / 2);
+            rightTarget = (heading / 360) * 2 * Math.PI * (inches);
+            leftTarget = (heading / 360) * 2 * Math.PI * (inches + Drivetrain.WHEEL_THICKNESS);
         } else {
             heading *= -1;
             leftTurn = true;
 
-            rightTarget = (heading / 360) * 2 * Math.PI * (inches + Drivetrain.WHEEL_THICKNESS / 2);
-            leftTarget = (heading / 360) * 2 * Math.PI * (inches - Drivetrain.WHEEL_THICKNESS / 2);
+            rightTarget = (heading / 360) * 2 * Math.PI * (inches + Drivetrain.WHEEL_THICKNESS);
+            leftTarget = (heading / 360) * 2 * Math.PI * (inches);
         }
     }
 
@@ -76,21 +76,21 @@ public class DriveAndRotateCommand extends Command {
                 leftVelocity = 0;
                 System.out.println("STOPPED LEFT");
             } else {
-                leftVelocity = (speed * (inches + Drivetrain.WHEEL_THICKNESS / 2)) / 100;
+                leftVelocity = (speed * inches) / 100;
                 System.out.println("Left Velocity: " + leftVelocity);
             }
 
-            rightVelocity = (speed * (inches - Drivetrain.WHEEL_THICKNESS / 2)) / 100;
+            rightVelocity = (speed * (inches + Drivetrain.WHEEL_THICKNESS)) / 100;
             System.out.println("Right Velocity: " + rightVelocity);
         } else {
             if (remainingInchesRight <= 0) {
                 rightVelocity = 0;
                 System.out.println("STOPPED RIGHT");
             } else {
-                rightVelocity = (speed * (inches + Drivetrain.WHEEL_THICKNESS / 2)) / 100;
+                rightVelocity = (speed * inches) / 100;
                 System.out.println("Right Velocity: " + rightVelocity);
             }
-            leftVelocity = (speed * (inches - Drivetrain.WHEEL_THICKNESS / 2)) / 100;
+            leftVelocity = (speed * (inches + Drivetrain.WHEEL_THICKNESS)) / 100;
             System.out.println("Left Velocity: " + leftVelocity);
         }
 
