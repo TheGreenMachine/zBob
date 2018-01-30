@@ -91,10 +91,28 @@ public class DriveXInchesCommand extends Command {
 
 //        deltaAngle = 0;
 
-        if (remainingInches < 6) {
+        if(currentInches < 6) {
+            if(speed > 0) {
+                if(leftVelocity * (currentInches/6) < .1) {
+                    leftVelocity = .15;
+                }
+                else {
+                    leftVelocity = leftVelocity * (currentInches / 6);
+                }
+            }
+            else {
+                if(leftVelocity * (currentInches/6) > -.1) {
+                    leftVelocity = -.15;
+                }
+                else {
+                    leftVelocity = leftVelocity * (currentInches / 6);
+                }
+            }
+        }
+
+        if (remainingInches < 10) {
             if (speed > 0) {
                 if ((leftVelocity * (remainingInches / 6)) > .15) {
-
                     leftVelocity = leftVelocity * (remainingInches / 6);
                 } else {
                     leftVelocity = .15;
@@ -107,12 +125,14 @@ public class DriveXInchesCommand extends Command {
                     leftVelocity = -.15;
                 }
             }
+        }
 
             rightVelocity = leftVelocity;
             Robot.logger.log("Ticks:" + "," + drivetrain.talonPositionRight());
-            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
+//            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
 
-        } else if (deltaAngle < 0) {
+//         } else if
+         if (deltaAngle < 0) {
             System.out.println("DriveX Correcting Right\t delta angle: " + deltaAngle);
             rightVelocity = rightVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
             drivetrain.setDrivetrain(leftVelocity, rightVelocity);
