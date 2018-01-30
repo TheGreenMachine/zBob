@@ -78,6 +78,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
+        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
+        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
+        System.out.println("Gyro: " + drivetrain.getGyroAngle());
         Scheduler.getInstance().run();
     }
 
