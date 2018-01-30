@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.PIDController;
 
 public class Drivetrain extends Subsystem1816 {
     public static final double TICKS_PER_REV = 1024.6;
-    public static final double TICKS_PER_INCH = 48.888;
+    public static final double TICKS_PER_INCH = 46.932;
     public static final double WHEEL_THICKNESS = 24;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
     public static final double TICKS_PER_100MS = 853;

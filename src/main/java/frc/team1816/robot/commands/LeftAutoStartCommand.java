@@ -30,12 +30,13 @@ public class LeftAutoStartCommand extends CommandGroup {
             Robot.logger.close();
         } else if (target == 'R'){
             System.out.println("Left Start Auto ---- Target: R");
-            addSequential(new DriveXInchesCommand(260, 0.3, false));
+            addSequential(new DriveXInchesCommand(250, 0.7, false));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(125, 0.3, false));
+            addSequential(new DriveXInchesCommand(170, 0.7, false));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(10, 0.1, false));
+            addSequential(new DriveXInchesCommand(10, 0.5, false));
         } else {
+            System.out.println("Left Start Auto ---- Auto-Run");
             addSequential(new DriveXInchesCommand(24,0.25, false));
 
         }
