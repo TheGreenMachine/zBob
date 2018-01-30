@@ -61,30 +61,43 @@ public class ArcDriveCommand extends Command {
         double currentInchesRight = drivetrain.ticksToInches(currentPositionRight);
         StringBuilder sb = new StringBuilder();
 
-        remainingInchesLeft = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesLeft);
-        remainingInchesRight = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesRight);
+        remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
+        remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
+
+        //velocity ratios need to be looked at and tweaked
 
         if (leftTurn) {
+            System.out.println("Left Turn");
+
+            leftVelocity = (speed * ((radius - Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            System.out.println("Left Velocity: " + leftVelocity);
+
+            rightVelocity = (speed * ((radius + Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            System.out.println("Right Velocity: " + rightVelocity);
+
             if (remainingInchesLeft <= 0) {
                 leftVelocity = 0;
                 System.out.println("STOPPED LEFT");
-            } else {
-                leftVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2)) / 100;
-                System.out.println("Left Velocity: " + leftVelocity);
+            } else if (remainingInchesRight <=0){
+                rightVelocity = 0;
+                System.out.println("STOPPED RIGHT");
             }
-
-            rightVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2)) / 100;
-            System.out.println("Right Velocity: " + rightVelocity);
         } else {
+            System.out.println("Right Turn");
+
+            rightVelocity = (speed * ((radius - Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            System.out.println("Right Velocity: " + rightVelocity);
+
+            leftVelocity = (speed * ((radius + Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            System.out.println("Left Velocity: " + leftVelocity);
+
             if (remainingInchesRight <= 0) {
                 rightVelocity = 0;
                 System.out.println("STOPPED RIGHT");
-            } else {
-                rightVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2)) / 100;
-                System.out.println("Right Velocity: " + rightVelocity);
+            } else if (remainingInchesLeft <= 0) {
+                leftVelocity = 0;
+                System.out.println("STOPPED LEFT");
             }
-            leftVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2)) / 100;
-            System.out.println("Left Velocity: " + leftVelocity);
         }
 
         drivetrain.setDrivetrain(leftVelocity, rightVelocity);
