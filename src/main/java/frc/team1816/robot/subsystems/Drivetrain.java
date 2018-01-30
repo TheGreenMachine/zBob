@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.PIDController;
 public class Drivetrain extends Subsystem1816 {
     public static final double TICKS_PER_REV = 1024.6;
     public static final double TICKS_PER_INCH = 46.932;
-    public static final double WHEEL_THICKNESS = 24;
+    public static final double DRIVETRAIN_WIDTH = 24;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
     public static final double TICKS_PER_100MS = 853;
     //TODO constants need to be re-measured and updated for competition bot
@@ -168,6 +168,14 @@ public class Drivetrain extends Subsystem1816 {
 
     public String getPrevTargetHeading() {
         return prevHeadingTarget;
+    }
+
+    public double inchesToTicks(double inches) {
+        return (inches / 6) * TICKS_PER_REV;
+    }
+
+    public double ticksToInches(double ticks) {
+        return ticks * (1 / TICKS_PER_REV) * INCHES_PER_REV;
     }
 
 }

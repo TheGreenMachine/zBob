@@ -2,7 +2,6 @@ package frc.team1816.robot;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -42,12 +41,10 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        //String gamedata;
         drivetrain.resetEncoders();
-//        gamedata = DriverStation.getInstance().getGameSpecificMessage();
 //        Command autoCommand = autoChooser.getSelected();
-        Command autoCommand = new DriveAndRotateCommand(60, 0.3, 20);
-        System.out.println("Auto name: " + autoCommand.getName());
+        Command autoCommand = new ArcDriveCommand(24, 0.3, 90);
+        System.out.println("Auto Running: " + autoCommand.getName());
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
         autoCommand.start();
