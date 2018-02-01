@@ -42,8 +42,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         drivetrain.resetEncoders();
-//        Command autoCommand = autoChooser.getSelected();
-        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
+        Command autoCommand = autoChooser.getSelected();
+//        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
         System.out.println("Auto Running: " + autoCommand.getName());
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(120,0.2, true);

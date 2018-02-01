@@ -152,6 +152,8 @@ public class DriveXInchesCommand extends Command {
         }
 
         System.out.println("Remaining Inches: " + remainingInches);
+        System.out.println("Inches Traveled: " + currentInches);
+        System.out.println("Talon Pos L: " + drivetrain.talonPositionLeft());
 
         sb.append(System.currentTimeMillis());
         sb.append(",");
