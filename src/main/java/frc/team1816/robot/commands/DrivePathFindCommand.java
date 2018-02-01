@@ -36,11 +36,11 @@ public class DrivePathFindCommand extends Command {
                 endPoints
         };
 
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.0, 2.0, 60);
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60);
         System.out.println("Trajectory configured");
         trajectory = Pathfinder.generate(waypoints, config);
 
-        TankModifier modifier = new TankModifier(trajectory).modify(.5);
+        TankModifier modifier = new TankModifier(trajectory).modify(Drivetrain.DRIVETRAIN_WIDTH_METERS);
 
         System.out.println(trajectory.length() + " Trajectories calculated");
 
@@ -65,6 +65,7 @@ public class DrivePathFindCommand extends Command {
         File save = new File("trajectory.csv");
         Pathfinder.writeToCSV(save, trajectory);
 
+        System.out.println("File Path: " + save.getAbsolutePath());
         System.out.println("Init completed");
     }
 
