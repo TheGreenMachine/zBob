@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 //        Command autoCommand = autoChooser.getSelected();
 //        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
         Waypoint start = new Waypoint(0, 0, 0);
-        Waypoint end = new Waypoint(.8128, 2.7432, Pathfinder.d2r(20));
+        Waypoint end = new Waypoint( -.8128, -2.7432, 0);
 
         Command autoCommand = new DrivePathFindCommand(start, end);
         System.out.println("Auto Running: " + autoCommand.getName());

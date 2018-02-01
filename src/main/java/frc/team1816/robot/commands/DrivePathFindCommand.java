@@ -9,6 +9,8 @@ import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
+import java.io.File;
+
 public class DrivePathFindCommand extends Command {
     private Drivetrain drivetrain;
     private Waypoint startPoints;
@@ -30,17 +32,17 @@ public class DrivePathFindCommand extends Command {
         System.out.println("Init started");
 
         Waypoint[] waypoints = new Waypoint[] {
-                endPoints,
-                startPoints
+                startPoints,
+                endPoints
         };
 
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW, 0.05, 1.0, 2.0, 60);
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.0, 2.0, 60);
         System.out.println("Trajectory configured");
         trajectory = Pathfinder.generate(waypoints, config);
 
         TankModifier modifier = new TankModifier(trajectory).modify(.5);
 
-        System.out.println("Trajectory calculated");
+        System.out.println(trajectory.length() + " Trajectories calculated");
 
         left = new EncoderFollower(modifier.getLeftTrajectory());
         right = new EncoderFollower(modifier.getRightTrajectory());
@@ -60,6 +62,9 @@ public class DrivePathFindCommand extends Command {
             initAngle = drivetrain.getGyroAngle();
         }
 
+        File save = new File("trajectory.csv");
+        Pathfinder.writeToCSV(save, trajectory);
+
         System.out.println("Init completed");
     }
 
@@ -67,19 +72,21 @@ public class DrivePathFindCommand extends Command {
     protected void execute() {
         double l = left.calculate((int) drivetrain.talonPositionLeft());
         double r = right.calculate((int) drivetrain.talonPositionRight());
-        System.out.println("Left ticks: " + l);
-        System.out.println("Right ticks: " + r);
+//        System.out.println("Left ticks: " + l);
+//        System.out.println("Right ticks: " + r);
 
         double gyroHeading = drivetrain.getGyroAngle();
         double desiredHeading = Pathfinder.r2d(left.getHeading());
+
+        System.out.println("Gyro Heading: " + gyroHeading + "\t Desired Heading: " + desiredHeading);
 
         double angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
         double turn = 0.8 * (-1.0 / 80.0) * angleDifference;
 
         System.out.println("Angle Difference: " + angleDifference);
 
-        System.out.println("Left Speed: " + (l + turn));
-        System.out.println("Right Speed: " + (r + turn));
+//        System.out.println("Left Speed: " + (l + turn));
+//        System.out.println("Right Speed: " + (r + turn));
 
         drivetrain.setDrivetrain(l + turn, r - turn);
     }
