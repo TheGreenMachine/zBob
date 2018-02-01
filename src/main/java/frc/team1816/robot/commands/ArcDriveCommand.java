@@ -9,27 +9,23 @@ import frc.team1816.robot.subsystems.Drivetrain;
 public class ArcDriveCommand extends Command {
 
     private Drivetrain drivetrain;
-    private AnalogInput analogInput;
     private double initPositionLeft;
     private double initPositionRight;
     private double radius;
     private double speed;
-    private double ticks;
     private double rightTarget;
     private double leftTarget;
     private double remainingInchesRight;
     private double remainingInchesLeft;
     private double heading;
     private boolean leftTurn = false;
-    private boolean tripped = false;
-    private static final double ROTATION_OFFSET_P = 0.03;
 
     public ArcDriveCommand(double radius, double speed, double heading) {
         super("arcdrivecommand");
         this.radius = radius;
         this.speed = speed;
-        drivetrain = Components.getInstance().drivetrain;
         this.heading = heading;
+        drivetrain = Components.getInstance().drivetrain;
     }
 
     @Override
@@ -37,6 +33,10 @@ public class ArcDriveCommand extends Command {
         System.out.println("ArcDrive Init");
         initPositionLeft = drivetrain.talonPositionLeft();
         initPositionRight = drivetrain.talonPositionRight();
+
+        if (speed > (radius / (radius + 12))){
+            speed = radius / (radius + 12);
+        }
 
         if (Math.signum(heading) == 1) {
             rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
@@ -55,11 +55,12 @@ public class ArcDriveCommand extends Command {
         //double deltaAngle = drivetrain.getGyroAngle() - heading;
         double leftVelocity;
         double rightVelocity;
+        //Why not reset encoders?
         double currentPositionLeft = drivetrain.talonPositionLeft() - initPositionLeft;
         double currentPositionRight = drivetrain.talonPositionRight() - initPositionRight;
         double currentInchesLeft = drivetrain.ticksToInches(currentPositionLeft);
         double currentInchesRight = drivetrain.ticksToInches(currentPositionRight);
-        StringBuilder sb = new StringBuilder();
+        //StringBuilder sb = new StringBuilder();
 
         remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
         remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
@@ -105,20 +106,20 @@ public class ArcDriveCommand extends Command {
         System.out.println("Remaining Inches Left: " + remainingInchesLeft);
         System.out.println("Remaining Inches Right: " + remainingInchesRight);
 
-        sb.append(System.currentTimeMillis());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionLeft());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionRight());
-        sb.append(leftVelocity);
-        sb.append(",");
-        sb.append(rightVelocity);
-        sb.append(",");
-        sb.append(remainingInchesLeft);
-        sb.append(",");
-        sb.append(remainingInchesRight);
-
-        Robot.logger.log(sb.toString());
+//        sb.append(System.currentTimeMillis());
+//        sb.append(",");
+//        sb.append(drivetrain.talonPositionLeft());
+//        sb.append(",");
+//        sb.append(drivetrain.talonPositionRight());
+//        sb.append(leftVelocity);
+//        sb.append(",");
+//        sb.append(rightVelocity);
+//        sb.append(",");
+//        sb.append(remainingInchesLeft);
+//        sb.append(",");
+//        sb.append(remainingInchesRight);
+//
+//        Robot.logger.log(sb.toString());
     }
 
     @Override
