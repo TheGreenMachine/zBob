@@ -33,17 +33,21 @@ public class ArcDriveCommand extends Command {
         initPositionLeft = drivetrain.talonPositionLeft();
         initPositionRight = drivetrain.talonPositionRight();
 
-        if (speed > (radius / (radius + drivetrain.DRIVETRAIN_WIDTH / 2))){
-            speed = radius / (radius + drivetrain.DRIVETRAIN_WIDTH / 2);
+        //Maximum base speed s.t v(inner) and v(outer) are bound between 1 and -1
+        if (speed > (1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2))){
+            speed = 1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2);
         }
 
         if (Math.signum(heading) == 1) {
+
+            //Target distance in inches for each motor
             rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
             leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
         } else {
             heading *= -1;
             leftTurn = true;
 
+            //Target distance in inches for each motor
             rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
             leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
         }
@@ -51,7 +55,6 @@ public class ArcDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        //double deltaAngle = drivetrain.getGyroAngle() - heading;
         double leftVelocity;
         double rightVelocity;
         double currentPositionLeft = drivetrain.talonPositionLeft() - initPositionLeft;
@@ -60,18 +63,20 @@ public class ArcDriveCommand extends Command {
         double currentInchesRight = drivetrain.ticksToInches(currentPositionRight);
         StringBuilder sb = new StringBuilder();
 
+        //Calculate remaining inches based on target inches and current inches
         remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
         remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
-
-        //velocity ratios need to be looked at and tweaked
 
         if (leftTurn) {
             System.out.println("Left Turn");
 
-            leftVelocity = (speed * ((radius - Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            //ratio of velocities:
+            //v(outer):v(inner) -- (r+w/2):(r-w/2)
+            //multiply our base speed by the ratios to produce a scaled speed, capped at 1
+            leftVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Left Velocity: " + leftVelocity);
 
-            rightVelocity = (speed * ((radius + Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            rightVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Right Velocity: " + rightVelocity);
 
             if (remainingInchesLeft <= 0) {
@@ -84,10 +89,13 @@ public class ArcDriveCommand extends Command {
         } else {
             System.out.println("Right Turn");
 
-            rightVelocity = (speed * ((radius - Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            //ratio of velocities:
+            //v(outer):v(inner) -- (r+w/2):(r-w/2)
+            //multiply our base speed by the ratios to produce a scaled speed, capped at 1
+            rightVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Right Velocity: " + rightVelocity);
 
-            leftVelocity = (speed * ((radius + Drivetrain.DRIVETRAIN_WIDTH / 2) / radius));
+            leftVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Left Velocity: " + leftVelocity);
 
             if (remainingInchesRight <= 0) {
@@ -104,26 +112,27 @@ public class ArcDriveCommand extends Command {
         System.out.println("Remaining Inches Left: " + remainingInchesLeft + "\t L Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionLeft() - initPositionLeft));
         System.out.println("Remaining Inches Right: " + remainingInchesRight + "\t R Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionRight() - initPositionRight));
 
-//        sb.append(System.currentTimeMillis());
-//        sb.append(",");
-//        sb.append(drivetrain.talonPositionLeft());
-//        sb.append(",");
-//        sb.append(drivetrain.talonPositionRight());
-//        sb.append(leftVelocity);
-//        sb.append(",");
-//        sb.append(rightVelocity);
-//        sb.append(",");
-//        sb.append(remainingInchesLeft);
-//        sb.append(",");
-//        sb.append(remainingInchesRight);
-//
-//        Robot.logger.log(sb.toString());
+        //Logging
+        sb.append(System.currentTimeMillis());
+        sb.append(",");
+        sb.append(drivetrain.talonPositionLeft());
+        sb.append(",");
+        sb.append(drivetrain.talonPositionRight());
+        sb.append(leftVelocity);
+        sb.append(",");
+        sb.append(rightVelocity);
+        sb.append(",");
+        sb.append(remainingInchesLeft);
+        sb.append(",");
+        sb.append(remainingInchesRight);
+
+        Robot.logger.log(sb.toString());
     }
 
     @Override
     protected void end() {
         drivetrain.setDrivetrain(0, 0);
-        drivetrain.resetEncoders();
+        //drivetrain.resetEncoders();
     }
 
     @Override
