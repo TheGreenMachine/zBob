@@ -130,6 +130,10 @@ public class Drivetrain extends Subsystem1816 {
         leftSlaveOne.getSensorCollection().setQuadraturePosition(0,10); //cimcoder
     }
 
+    public void resetHeading() {
+        navx.reset();
+    }
+
     @Override
     public void update() {
 

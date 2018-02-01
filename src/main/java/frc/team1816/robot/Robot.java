@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
 import frc.team1816.robot.subsystems.Drivetrain;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Waypoint;
 
 public class Robot extends IterativeRobot {
 
@@ -42,8 +44,13 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
         drivetrain.resetEncoders();
+        drivetrain.resetHeading();
 //        Command autoCommand = autoChooser.getSelected();
-        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
+//        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
+        Waypoint start = new Waypoint(0, 0, 0);
+        Waypoint end = new Waypoint(.8128, 2.7432, Pathfinder.d2r(20));
+
+        Command autoCommand = new DrivePathFindCommand(start, end);
         System.out.println("Auto Running: " + autoCommand.getName());
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
