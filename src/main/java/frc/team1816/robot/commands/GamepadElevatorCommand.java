@@ -28,6 +28,11 @@ public class GamepadElevatorCommand extends Command {
     protected void execute() {
         power = - gamepad.getLeftY();
 
+        if(power > 0) {
+            power = 1;
+        } else {
+            power = -1;
+        }
         if (elevator.upperLimit.get() && power>0) {
             power = 0;
         } else if(elevator.lowerLimit.get() && power<0) {
