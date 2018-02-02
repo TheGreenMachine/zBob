@@ -44,15 +44,15 @@ public class ArcDriveCommand extends Command {
         if (Math.signum(heading) == 1) {
 
             //Target distance in inches for each motor
-            rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
-            leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+            rightTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+            leftTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
         } else {
             heading *= -1;
             leftTurn = true;
 
             //Target distance in inches for each motor
-            rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
-            leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+            rightTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+            leftTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
         }
 
         if (leftTurn) {

@@ -42,11 +42,12 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         logger = new Logging("AutoLog");
         drivetrain.resetEncoders();
-//        Command autoCommand = autoChooser.getSelected();
-        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
-        System.out.println("Auto Running: " + autoCommand.getName());
+        Command autoCommand = autoChooser.getSelected();
+//        Command autoCommand = new ArcDriveCommand(48, 0.4, 180);
 //        Command autoCommand = new RotateXDegreesCommand(90);
-//        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
+//        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
+
+        System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
     }
 
