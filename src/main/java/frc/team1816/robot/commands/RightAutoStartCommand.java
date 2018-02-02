@@ -8,6 +8,9 @@ public class RightAutoStartCommand extends CommandGroup{
 
     public RightAutoStartCommand() {
 
+    }
+
+    public void selectAutoR() {
         try {
             target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
         } catch (Exception e) {

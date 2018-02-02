@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("Left Start Auto", new LeftAutoStartCommand());
         autoChooser.addObject("Right Start Auto", new RightAutoStartCommand());
-        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
+//        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
 
         SmartDashboard.putData("Autonomous", autoChooser);
@@ -42,8 +42,15 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         logger = new Logging("AutoLog");
         drivetrain.resetEncoders();
-        Command autoCommand = autoChooser.getSelected();
-//        Command autoCommand = new ArcDriveCommand(48, 0.4, 180);
+
+        LeftAutoStartCommand autoL = (LeftAutoStartCommand) autoChooser.getSelected();
+        autoL.selectAutoL();
+        RightAutoStartCommand autoR = (RightAutoStartCommand) autoChooser.getSelected();
+        autoR.selectAutoR();
+
+//        Command autoCommand = autoChooser.getSelected();
+
+        Command autoCommand = new ArcDriveCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
 

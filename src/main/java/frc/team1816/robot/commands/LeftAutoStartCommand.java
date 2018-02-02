@@ -5,10 +5,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Robot;
 
 public class LeftAutoStartCommand extends CommandGroup {
+    char target;
 
     public LeftAutoStartCommand() {
-        char target;
 
+    }
+
+    public void selectAutoL() {
         try {
             target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
         } catch (Exception e) {
