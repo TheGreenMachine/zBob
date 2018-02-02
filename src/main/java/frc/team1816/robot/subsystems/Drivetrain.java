@@ -10,8 +10,14 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
 
 public class Drivetrain extends Subsystem1816 {
-    public static final double TICKS_PER_REV = 1024.6;
-    public static final double TICKS_PER_INCH = 46.932;
+//    COMPETITION ROBOT CONSTANTS
+//    public static final double TICKS_PER_REV = 1024.6;
+//    public static final double TICKS_PER_INCH = 46.932;
+
+//    PRACTICE ROBOT CONSTANTS
+    public static final double TICKS_PER_REV = 9900;
+    public static final double TICKS_PER_INCH = 785;
+    
     public static final double DRIVETRAIN_WIDTH = 24;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
     public static final double TICKS_PER_100MS = 853;
@@ -88,6 +94,9 @@ public class Drivetrain extends Subsystem1816 {
         this.leftMain.config_kD(0, d, 20);
         this.leftMain.config_kF(0, f, 20);
         this.leftMain.config_IntegralZone(0, izone, 20);
+
+        //reverse left encoder direction for practice bot functionality
+        this.leftMain.setSensorPhase(true);
     }
 
     public TalonSRX getRightMain() {

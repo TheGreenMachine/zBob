@@ -22,7 +22,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
-        logger = new Logging("LogTest");
 
         drivetrain = Components.getInstance().drivetrain;
 
@@ -41,9 +40,10 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        logger = new Logging("AutoLog");
         drivetrain.resetEncoders();
-        Command autoCommand = autoChooser.getSelected();
-//        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
+//        Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
         System.out.println("Auto Running: " + autoCommand.getName());
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(120,0.2, true);
@@ -52,6 +52,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
+        logger = new Logging("TeleopLog");
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
         Gamepad gamepad1 = Controls.getInstance().gamepad1;
 
@@ -84,5 +85,9 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    public void closeLogger() {
+        logger.close();
     }
 }

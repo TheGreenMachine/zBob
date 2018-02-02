@@ -1,5 +1,6 @@
 package frc.team1816.robot.commands;
 
+import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.Robot;
@@ -19,6 +20,8 @@ public class ArcDriveCommand extends Command {
     private double heading;
     private boolean leftTurn = false;
 
+    private double leftVelocity, rightVelocity;
+
     public ArcDriveCommand(double radius, double speed, double heading) {
         super("arcdrivecommand");
         this.radius = radius;
@@ -34,7 +37,7 @@ public class ArcDriveCommand extends Command {
         initPositionRight = drivetrain.talonPositionRight();
 
         //Maximum base speed s.t v(inner) and v(outer) are bound between 1 and -1
-        if (speed > (1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2))){
+        if (speed > (1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2))) {
             speed = 1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2);
         }
 
@@ -51,21 +54,6 @@ public class ArcDriveCommand extends Command {
             rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
             leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
         }
-    }
-
-    @Override
-    protected void execute() {
-        double leftVelocity;
-        double rightVelocity;
-        double currentPositionLeft = drivetrain.talonPositionLeft() - initPositionLeft;
-        double currentPositionRight = drivetrain.talonPositionRight() - initPositionRight;
-        double currentInchesLeft = drivetrain.ticksToInches(currentPositionLeft);
-        double currentInchesRight = drivetrain.ticksToInches(currentPositionRight);
-        StringBuilder sb = new StringBuilder();
-
-        //Calculate remaining inches based on target inches and current inches
-        remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
-        remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
 
         if (leftTurn) {
             System.out.println("Left Turn");
@@ -73,19 +61,12 @@ public class ArcDriveCommand extends Command {
             //ratio of velocities:
             //v(outer):v(inner) -- (r+w/2):(r-w/2)
             //multiply our base speed by the ratios to produce a scaled speed, capped at 1
+
             leftVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Left Velocity: " + leftVelocity);
 
             rightVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Right Velocity: " + rightVelocity);
-
-            if (remainingInchesLeft <= 0) {
-                leftVelocity = 0;
-                System.out.println("STOPPED LEFT");
-            } else if (remainingInchesRight <=0){
-                rightVelocity = 0;
-                System.out.println("STOPPED RIGHT");
-            }
         } else {
             System.out.println("Right Turn");
 
@@ -97,57 +78,116 @@ public class ArcDriveCommand extends Command {
 
             leftVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
             System.out.println("Left Velocity: " + leftVelocity);
+        }
+    }
 
-            if (remainingInchesRight <= 0) {
-                rightVelocity = 0;
-                System.out.println("STOPPED RIGHT");
-            } else if (remainingInchesLeft <= 0) {
-                leftVelocity = 0;
-                System.out.println("STOPPED LEFT");
+    @Override
+    protected void execute() {
+
+        double currentPositionLeft = drivetrain.talonPositionLeft() - initPositionLeft;
+        double currentPositionRight = drivetrain.talonPositionRight() - initPositionRight;
+        double currentInchesLeft = drivetrain.ticksToInches(currentPositionLeft);
+        double currentInchesRight = drivetrain.ticksToInches(currentPositionRight);
+        StringBuilder sb = new StringBuilder();
+
+        //Calculate remaining inches based on target inches and current inches
+        remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
+        remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
+
+        if (remainingInchesRight <= 0) {
+            rightVelocity = 0;
+            System.out.println("STOPPED RIGHT");
+        } else if (remainingInchesLeft <= 0) {
+            leftVelocity = 0;
+            System.out.println("STOPPED LEFT");
+        }
+
+        System.out.println("R Velocity: " + rightVelocity);
+        System.out.println("L Velocity: " + leftVelocity);
+
+//        if (leftTurn) {
+//            System.out.println("Left Turn");
+//
+//            //ratio of velocities:
+//            //v(outer):v(inner) -- (r+w/2):(r-w/2)
+//            //multiply our base speed by the ratios to produce a scaled speed, capped at 1
+//
+//            leftVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+//            System.out.println("Left Velocity: " + leftVelocity);
+//
+//            rightVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+//            System.out.println("Right Velocity: " + rightVelocity);
+//
+//            if (remainingInchesLeft <= 0) {
+//                leftVelocity = 0;
+//                System.out.println("STOPPED LEFT");
+//            } else if (remainingInchesRight <=0){
+//                rightVelocity = 0;
+//                System.out.println("STOPPED RIGHT");
+//            }
+//        } else {
+//            System.out.println("Right Turn");
+//
+//            //ratio of velocities:
+//            //v(outer):v(inner) -- (r+w/2):(r-w/2)
+//            //multiply our base speed by the ratios to produce a scaled speed, capped at 1
+//            rightVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+//            System.out.println("Right Velocity: " + rightVelocity);
+//
+//            leftVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+//            System.out.println("Left Velocity: " + leftVelocity);
+//
+//            if (remainingInchesRight <= 0) {
+//                rightVelocity = 0;
+//                System.out.println("STOPPED RIGHT");
+//            } else if (remainingInchesLeft <= 0) {
+//                leftVelocity = 0;
+//                System.out.println("STOPPED LEFT");
+//            }
+//        }
+
+            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
+
+            System.out.println("Remaining Inches Left: " + remainingInchesLeft + "\t L Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionLeft() - initPositionLeft));
+            System.out.println("Remaining Inches Right: " + remainingInchesRight + "\t R Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionRight() - initPositionRight));
+
+            //Logging
+            sb.append(System.currentTimeMillis());
+            sb.append(",");
+            sb.append(drivetrain.talonPositionLeft());
+            sb.append(",");
+            sb.append(drivetrain.talonPositionRight());
+            sb.append(",");
+            sb.append(leftVelocity);
+            sb.append(",");
+            sb.append(rightVelocity);
+            sb.append(",");
+            sb.append(remainingInchesLeft);
+            sb.append(",");
+            sb.append(remainingInchesRight);
+
+            Robot.logger.log(sb.toString());
+        }
+
+        @Override
+        protected void end () {
+            drivetrain.setDrivetrain(0, 0);
+            //drivetrain.resetEncoders();
+        }
+
+        @Override
+        protected void interrupted () {
+            end();
+        }
+
+        @Override
+        protected boolean isFinished () {
+            if (remainingInchesLeft <= 0 && remainingInchesRight <= 0) {
+                System.out.println("DriveArc Finished");
+                return true;
+            } else {
+                return false;
             }
         }
 
-        drivetrain.setDrivetrain(leftVelocity, rightVelocity);
-
-        System.out.println("Remaining Inches Left: " + remainingInchesLeft + "\t L Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionLeft() - initPositionLeft));
-        System.out.println("Remaining Inches Right: " + remainingInchesRight + "\t R Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionRight() - initPositionRight));
-
-        //Logging
-        sb.append(System.currentTimeMillis());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionLeft());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionRight());
-        sb.append(leftVelocity);
-        sb.append(",");
-        sb.append(rightVelocity);
-        sb.append(",");
-        sb.append(remainingInchesLeft);
-        sb.append(",");
-        sb.append(remainingInchesRight);
-
-        Robot.logger.log(sb.toString());
     }
-
-    @Override
-    protected void end() {
-        drivetrain.setDrivetrain(0, 0);
-        //drivetrain.resetEncoders();
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        if (remainingInchesLeft <= 0 && remainingInchesRight <= 0) {
-            System.out.println("DriveArc Finished");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-}

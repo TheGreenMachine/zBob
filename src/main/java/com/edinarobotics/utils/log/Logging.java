@@ -1,5 +1,6 @@
 package com.edinarobotics.utils.log;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -14,7 +15,9 @@ public class Logging {
 		filename = name;
 		
 		try {
-			writer = new PrintWriter(new FileWriter("/home/lvuser/" + filename + ".csv"), true);
+			File file = new File("/home/lvuser" + filename + ".csv");
+			file.delete();
+			writer = new PrintWriter(new FileWriter("/home/lvuser/" + filename + ".csv", false), true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
