@@ -30,8 +30,9 @@ public class LeftAutoStartCommand extends CommandGroup {
 
             System.out.println("Experimental Arc Auto");
             addSequential(new DriveXInchesCommand(60, 0.5, false));
-            addSequential(new ArcDriveCommand(48, 0.5, 90));
+            addSequential(new ArcDriveCommand(48, 0.4, 90));
             addSequential(new DriveXInchesCommand(12,0.5,false));
+
         } else if (target == 'R'){
             System.out.println("Left Start Auto ---- Target: R");
             addSequential(new DriveXInchesCommand(250, 0.7, false));
