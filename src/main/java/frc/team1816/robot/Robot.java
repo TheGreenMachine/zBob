@@ -24,7 +24,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
-        logger = new Logging("LogTest");
 
         drivetrain = Components.getInstance().drivetrain;
 
@@ -43,14 +42,16 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        logger = new Logging("LogTest");
         drivetrain.resetEncoders();
         drivetrain.resetHeading();
 //        Command autoCommand = autoChooser.getSelected();
 //        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
         Waypoint start = new Waypoint(0, 0, 0);
-        Waypoint end = new Waypoint( -.8128, -2.7432, 0);
+        Waypoint half = new Waypoint(4, 0, 0);
+        Waypoint end = new Waypoint( 8, 0, 0);
 
-        Command autoCommand = new DrivePathFindCommand(start, end);
+        Command autoCommand = new DrivePathFindCommand(start, half, end);
         System.out.println("Auto Running: " + autoCommand.getName());
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(120,0.2, true);

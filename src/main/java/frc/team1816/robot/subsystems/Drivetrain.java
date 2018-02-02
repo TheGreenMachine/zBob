@@ -89,6 +89,8 @@ public class Drivetrain extends Subsystem1816 {
         this.leftMain.config_kD(0, d, 20);
         this.leftMain.config_kF(0, f, 20);
         this.leftMain.config_IntegralZone(0, izone, 20);
+
+        this.leftMain.setSensorPhase(true);
     }
 
     public TalonSRX getRightMain() {

@@ -2,6 +2,7 @@ package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
+import frc.team1816.robot.Robot;
 import frc.team1816.robot.subsystems.Drivetrain;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
@@ -14,16 +15,18 @@ import java.io.File;
 public class DrivePathFindCommand extends Command {
     private Drivetrain drivetrain;
     private Waypoint startPoints;
+    private Waypoint midPoint;
     private Waypoint endPoints;
     private Trajectory trajectory;
     private EncoderFollower left;
     private EncoderFollower right;
     private double initAngle;
 
-    public DrivePathFindCommand(Waypoint startPoints, Waypoint endPoints) {
+    public DrivePathFindCommand(Waypoint startPoints, Waypoint midPoint, Waypoint endPoints) {
         super("drivepathfindcommand");
         drivetrain = Components.getInstance().drivetrain;
         this.startPoints = startPoints;
+        this.midPoint = midPoint;
         this.endPoints = endPoints;
     }
 
@@ -33,6 +36,7 @@ public class DrivePathFindCommand extends Command {
 
         Waypoint[] waypoints = new Waypoint[] {
                 startPoints,
+                midPoint,
                 endPoints
         };
 
@@ -48,10 +52,10 @@ public class DrivePathFindCommand extends Command {
         right = new EncoderFollower(modifier.getRightTrajectory());
 
         left.configureEncoder((int)drivetrain.talonPositionLeft(),(int) Drivetrain.TICKS_PER_REV, .1524);
-        left.configurePIDVA(1.0, 0.0, 0.0, 1/1.7,0);
+        left.configurePIDVA(.5, 0.0, 0.0, 1/1.7,0);
 
         right.configureEncoder((int)drivetrain.talonPositionLeft(),(int) Drivetrain.TICKS_PER_REV, .1524);
-        right.configurePIDVA(1.0, 0.0, 0.0, 1/1.7,0);
+        right.configurePIDVA(.5, 0.0, 0.0, 1/1.7,0);
 
         if (drivetrain.getPrevTargetHeading() != null) {
             initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
@@ -67,6 +71,21 @@ public class DrivePathFindCommand extends Command {
 
         System.out.println("File Path: " + save.getAbsolutePath());
         System.out.println("Init completed");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Gyro Heading");
+        stringBuilder.append(",");
+        stringBuilder.append("Correction");
+        stringBuilder.append(",");
+        stringBuilder.append("Left Power");
+        stringBuilder.append(",");
+        stringBuilder.append("Left Power + Turn");
+        stringBuilder.append(",");
+        stringBuilder.append("Right Power");
+        stringBuilder.append(",");
+        stringBuilder.append("Right Power + Turn");
+        stringBuilder.append(",");
+        Robot.logger.log(stringBuilder.toString());
     }
 
     @Override
@@ -89,7 +108,11 @@ public class DrivePathFindCommand extends Command {
 //        System.out.println("Left Speed: " + (l + turn));
 //        System.out.println("Right Speed: " + (r + turn));
 
-        drivetrain.setDrivetrain(l + turn, r - turn);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(gyroHeading).append(",").append(angleDifference).append(",").append(l).append(",").append((l + turn)).append(",").append(r).append(",").append((r + turn));
+        Robot.logger.log(stringBuilder.toString());
+
+        drivetrain.setDrivetrain(l - turn, r + turn);
     }
 
     @Override
