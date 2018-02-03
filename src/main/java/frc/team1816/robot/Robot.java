@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
         Waypoint half = new Waypoint(4, 0, 0);
         Waypoint end = new Waypoint( 8, 0, 0);
 
+//        Command autoCommand = new MotionProfileCommand("/home/lvuser/pathFinder/right.csv", "/home/lvuser/pathFinder/left.csv");
         Command autoCommand = new DrivePathFindCommand(start, half, end);
         System.out.println("Auto Running: " + autoCommand.getName());
 //        Command autoCommand = new RotateXDegreesCommand(90);

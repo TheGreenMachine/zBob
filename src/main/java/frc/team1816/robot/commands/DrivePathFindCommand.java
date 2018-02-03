@@ -1,5 +1,6 @@
 package frc.team1816.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.Robot;
@@ -44,6 +45,12 @@ public class DrivePathFindCommand extends Command {
         System.out.println("Trajectory configured");
         trajectory = Pathfinder.generate(waypoints, config);
 
+        System.out.println("Reading file");
+        File rightCsv = new File("/home/lvuser/pathFinder/right_detailed.csv");
+        File leftCsv = new File("/home/lvuser/pathFinder/lef_detailed.csv");
+        System.out.println("Read file");
+
+
         TankModifier modifier = new TankModifier(trajectory).modify(Drivetrain.DRIVETRAIN_WIDTH_METERS);
 
         System.out.println(trajectory.length() + " Trajectories calculated");
@@ -66,10 +73,10 @@ public class DrivePathFindCommand extends Command {
             initAngle = drivetrain.getGyroAngle();
         }
 
-        File save = new File("trajectory.csv");
-        Pathfinder.writeToCSV(save, trajectory);
-
-        System.out.println("File Path: " + save.getAbsolutePath());
+//        File save = new File("trajectory.csv");
+//        Pathfinder.writeToCSV(save, trajectory);
+//
+//        System.out.println("File Path: " + save.getAbsolutePath());
         System.out.println("Init completed");
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -112,7 +119,8 @@ public class DrivePathFindCommand extends Command {
         stringBuilder.append(gyroHeading).append(",").append(angleDifference).append(",").append(l).append(",").append((l + turn)).append(",").append(r).append(",").append((r + turn));
         Robot.logger.log(stringBuilder.toString());
 
-        drivetrain.setDrivetrain(l - turn, r + turn);
+        drivetrain.getRightMain().set(ControlMode.Position, r - turn);
+        drivetrain.getLeftMain().set(ControlMode.Position, l + turn);
     }
 
     @Override
