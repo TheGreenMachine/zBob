@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.PIDController;
 
 public class Drivetrain extends Subsystem1816 {
 //    COMPETITION ROBOT CONSTANTS
@@ -20,22 +19,21 @@ public class Drivetrain extends Subsystem1816 {
     
     public static final double DRIVETRAIN_WIDTH = 24;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
-    public static final double TICKS_PER_100MS = 853;
-    //TODO constants need to be re-measured and updated for competition bot
+    public static final double MAX_VELOCITY_TICKS_PER_100MS = 750;
 
     public static final double SLOW_MOD = 0.5;
     private boolean slowMode;
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
-    private double p = 0.2;
-    private double i = 0;
-    private double d = 0;
-    private double f = 0.34;
-    private int izone = 100;
+    public double p = 0.2;
+    public double i = 0;
+    public double d = 0;
+    public double f = 0.34;
+    public int izone = 100;
     private double ramprate = 36;
     private int profile = 0;
 
-    private double leftSpeed, rightSpeed, rotation;
+    private double leftPower, rightPower, rotation;
 
     private String prevHeadingTarget;
 
@@ -111,16 +109,16 @@ public class Drivetrain extends Subsystem1816 {
         return navx.getAngle();
     }
 
-    public void setDrivetrain(double leftSpeed, double rightSpeed, double rotation) {
-        this.leftSpeed = leftSpeed; //* TICKS_PER_100MS;
-        this.rightSpeed = rightSpeed; //* TICKS_PER_100MS;
+    public void setDrivetrain(double leftPower, double rightPower, double rotation) {
+        this.leftPower = leftPower;
+        this.rightPower = rightPower;
         this.rotation = rotation;
         update();
     }
 
-    public void setDrivetrain(double leftSpeed, double rightSpeed) {
-        this.leftSpeed = leftSpeed;
-        this.rightSpeed = rightSpeed;
+    public void setDrivetrain(double leftPower, double rightPower) {
+        this.leftPower = leftPower;
+        this.rightPower = rightPower;
         rotation = 0;
         update();
     }
@@ -143,27 +141,31 @@ public class Drivetrain extends Subsystem1816 {
     public void update() {
 
         if(slowMode) {
-            leftSpeed *= SLOW_MOD;
-            rightSpeed *= SLOW_MOD;
+            leftPower *= SLOW_MOD;
+            rightPower *= SLOW_MOD;
             rotation *= SLOW_MOD;
         }
 
-        double rightVelocity = rightSpeed;
-        double leftVelocity = leftSpeed;
+        double rightVelocity = rightPower * MAX_VELOCITY_TICKS_PER_100MS;
+        double leftVelocity = leftPower * MAX_VELOCITY_TICKS_PER_100MS;
 
-//        System.out.println("Slow mode = " + slowMode);
-//        System.out.println("L Velocity: " + leftSpeed + "\tR Velocity: " + rightSpeed);
-        rightVelocity -= rotation*.55;
-        leftVelocity += rotation*.55;
-        //rightMain.set(ControlMode.Velocity, rightSpeed);
-        //leftMain.set(ControlMode.Velocity, leftSpeed);
-        rightMain.set(ControlMode.PercentOutput, rightVelocity);
-        leftMain.set(ControlMode.PercentOutput, leftVelocity);
+        rightVelocity -= rotation * .55 * MAX_VELOCITY_TICKS_PER_100MS;
+        leftVelocity += rotation * .55 * MAX_VELOCITY_TICKS_PER_100MS;
 
-//        Print Encoder Values
-//        System.out.println("Talon 1 Encoder: " + leftMain.getSelectedSensorPosition(0) + "\tTalon 2 Encoder: " + leftSlaveOne.getSelectedSensorPosition(0) +
-//                "\tTalon 7 Encoder: " + rightMain.getSelectedSensorPosition(0));
+        rightMain.set(ControlMode.Velocity, rightVelocity);
+        leftMain.set(ControlMode.Velocity, leftVelocity);
 
+//        rightMain.set(ControlMode.PercentOutput, rightVelocity);
+//        leftMain.set(ControlMode.PercentOutput, leftVelocity);
+
+        System.out.println("----------------------");
+        System.out.println("L Power: " + leftPower);
+        System.out.println("R Power: " + rightPower);
+        System.out.println("L Velocity In: " + leftVelocity);
+        System.out.println("R Velocity In: " + rightVelocity);
+        System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
+        System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+        System.out.println("----------------------");
     }
 
     public void setSlowMode(boolean slowModeToggle) {
@@ -179,6 +181,14 @@ public class Drivetrain extends Subsystem1816 {
         return prevHeadingTarget;
     }
 
+    public double getLeftTalonVelocity() {
+        return leftMain.getSelectedSensorVelocity(0);
+    }
+
+    public double getRightTalonVelocity() {
+        return rightMain.getSelectedSensorVelocity(0);
+    }
+
     public double inchesToTicks(double inches) {
         return (inches / (6.25 * Math.PI)) * TICKS_PER_REV;
     }
@@ -187,4 +197,25 @@ public class Drivetrain extends Subsystem1816 {
         return ticks * (1 / TICKS_PER_REV) * INCHES_PER_REV;
     }
 
+    public void updatePIDValues(double p, double i, double d, double f, int izone) {
+        this.p = p;
+        this.i = i;
+        this.d = d;
+        this.f = f;
+        this.izone = izone;
+
+        this.leftMain.config_kP(0, p, 20);
+        this.leftMain.config_kI(0, i, 20);
+        this.leftMain.config_kD(0, d, 20);
+        this.leftMain.config_kF(0, f, 20);
+        this.leftMain.config_IntegralZone(0, izone, 20);
+
+        this.rightMain.config_kP(0, p, 20);
+        this.rightMain.config_kI(0, i, 20);
+        this.rightMain.config_kD(0, d, 20);
+        this.rightMain.config_kF(0, f, 20);
+        this.rightMain.config_IntegralZone(0, izone, 20);
+
+        System.out.println("P: " + p + " I: " + i + " D: " + d + " F: " + f + " izone: " + izone);
+    }
 }

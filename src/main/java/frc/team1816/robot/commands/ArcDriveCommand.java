@@ -22,6 +22,8 @@ public class ArcDriveCommand extends Command {
 
     private double leftVelocity, rightVelocity;
 
+    StringBuilder sb;
+
     public ArcDriveCommand(double radius, double speed, double heading) {
         super("arcdrivecommand");
         this.radius = radius;
@@ -85,6 +87,23 @@ public class ArcDriveCommand extends Command {
             leftVelocity = (speed * (radius / (radius - Drivetrain.DRIVETRAIN_WIDTH / 2)));
             System.out.println("Left Velocity: " + leftVelocity);
         }
+
+        sb = new StringBuilder();
+        sb.append("System Time");
+        sb.append(",");
+        sb.append("Talon Pos L");
+        sb.append(",");
+        sb.append("Talon Pos R");
+        sb.append(",");
+        sb.append("Talon V L");
+        sb.append(",");
+        sb.append("Talon V R");
+        sb.append(",");
+        sb.append("Remaining In L");
+        sb.append(",");
+        sb.append("Remaining In R");
+
+        Robot.logger.log(sb.toString());
     }
 
     @Override
@@ -94,7 +113,6 @@ public class ArcDriveCommand extends Command {
         double currentPositionRight = drivetrain.talonPositionRight() - initPositionRight;
         double currentInchesLeft = drivetrain.ticksToInches(currentPositionLeft);
         double currentInchesRight = drivetrain.ticksToInches(currentPositionRight);
-        StringBuilder sb = new StringBuilder();
 
         //Calculate remaining inches based on target inches and current inches
         remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);

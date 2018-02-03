@@ -40,13 +40,13 @@ public class GamepadElevatorCommand extends Command {
 
 //        Needs fixing
 //
-//        if (!elevator.upperLimit.get() && power > 0) {
-//            System.out.println("STOPPED : UPPER LIMIT");
-//            power = 0;
-//        } else if(!elevator.lowerLimit.get() && power < 0) {
-//            System.out.println("STOPPED : LOWER LIMIT");
-//            power = 0;
-//        }
+        if (!elevator.upperLimit.get() && power < 0) {
+            System.out.println("STOPPED : UPPER LIMIT");
+            power = 0;
+        } else if(!elevator.lowerLimit.get() && power > 0) {
+            System.out.println("STOPPED : LOWER LIMIT");
+            power = 0;
+        }
 
         elevator.setElevatorSpeed(power);
     }

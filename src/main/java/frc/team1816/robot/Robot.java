@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
@@ -24,9 +25,12 @@ public class Robot extends IterativeRobot {
     private LeftAutoStartCommand leftAuto;
     private RightAutoStartCommand rightAuto;
 
+    private NetworkTable table;
+
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
+        table = NetworkTable.getTable("Shuffleboard_PID");
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -41,6 +45,12 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
 
         SmartDashboard.putData("Autonomous", autoChooser);
+
+        table.putNumber("P", drivetrain.p);
+        table.putNumber("I", drivetrain.i);
+        table.putNumber("D", drivetrain.d);
+        table.putNumber("F", drivetrain.f);
+        table.putNumber("izone", drivetrain.izone);
     }
 
     @Override
@@ -74,6 +84,14 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
+
+        double pValue = table.getDouble("P", drivetrain.p);
+        double iValue = table.getDouble("I", drivetrain.i);
+        double dValue = table.getDouble("D", drivetrain.d);
+        double fValue = table.getDouble("F", drivetrain.f);
+        double izone = table.getDouble("izone", drivetrain.izone);
+
+        drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
     }
 
     @Override
@@ -92,9 +110,11 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
-        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
-        System.out.println("Gyro: " + drivetrain.getGyroAngle());
+//        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
+//        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
+//        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
+//        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
+//        System.out.println("Gyro: " + drivetrain.getGyroAngle());
         Scheduler.getInstance().run();
     }
 
