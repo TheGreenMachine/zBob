@@ -4,10 +4,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Drivetrain extends Subsystem1816 {
     public static final double TICKS_PER_REV = 1024.6;
@@ -21,10 +23,11 @@ public class Drivetrain extends Subsystem1816 {
     public static final double SLOW_MOD = 0.5;
     private boolean slowMode;
 
-    private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
+    private DifferentialDrive differentialDrive;
+    private WPI_TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
     private double p = 0.2;
-    private double i = 0;
-    private double d = 0;
+    private double i = 0.05;
+    private double d = 0.05;
     private double f = 0.34;
     private int izone = 100;
     private double ramprate = 36;
@@ -38,12 +41,12 @@ public class Drivetrain extends Subsystem1816 {
 
     public Drivetrain(int rightMain, int rightSlaveOne, int rightSlaveTwo, int leftMain, int leftSlaveOne, int leftSlaveTwo){
         super();
-        this.rightMain = new TalonSRX(rightMain);
-        this.rightSlaveOne = new TalonSRX(rightSlaveOne);
-        this.rightSlaveTwo = new TalonSRX(rightSlaveTwo);
-        this.leftMain = new TalonSRX(leftMain);
-        this.leftSlaveOne = new TalonSRX(leftSlaveOne);
-        this.leftSlaveTwo = new TalonSRX(leftSlaveTwo);
+        this.rightMain = new WPI_TalonSRX(rightMain);
+        this.rightSlaveOne = new WPI_TalonSRX(rightSlaveOne);
+        this.rightSlaveTwo = new WPI_TalonSRX(rightSlaveTwo);
+        this.leftMain = new WPI_TalonSRX(leftMain);
+        this.leftSlaveOne = new WPI_TalonSRX(leftSlaveOne);
+        this.leftSlaveTwo = new WPI_TalonSRX(leftSlaveTwo);
 
         navx = new AHRS(I2C.Port.kMXP);
 
@@ -95,6 +98,8 @@ public class Drivetrain extends Subsystem1816 {
         this.leftMain.config_IntegralZone(0, izone, 20);
 
         this.leftMain.setSensorPhase(true);
+
+        differentialDrive = new DifferentialDrive(this.leftMain, this.rightMain);
     }
 
     public TalonSRX getRightMain() {
@@ -103,6 +108,12 @@ public class Drivetrain extends Subsystem1816 {
 
     public TalonSRX getLeftMain() {
         return leftMain;
+    }
+
+    public void stop() { differentialDrive.stopMotor(); }
+
+    public void tank(double leftSpeed, double rightSpeed) {
+        differentialDrive.tankDrive(leftSpeed, rightSpeed);
     }
 
     public double getGyroAngle() {

@@ -19,6 +19,8 @@ public class DrivePathFindCommand extends Command {
     private Waypoint midPoint;
     private Waypoint endPoints;
     private Trajectory trajectory;
+    private Trajectory rightTrajectory;
+    private Trajectory leftTrajectory;
     private EncoderFollower left;
     private EncoderFollower right;
     private double initAngle;
@@ -35,7 +37,7 @@ public class DrivePathFindCommand extends Command {
     protected void initialize() {
         System.out.println("Init started");
 
-        Waypoint[] waypoints = new Waypoint[] {
+        Waypoint[] waypoints = new Waypoint[]{
                 startPoints,
                 midPoint,
                 endPoints
@@ -43,26 +45,28 @@ public class DrivePathFindCommand extends Command {
 
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60);
         System.out.println("Trajectory configured");
-        trajectory = Pathfinder.generate(waypoints, config);
+//        trajectory = Pathfinder.generate(waypoints, config);
 
         System.out.println("Reading file");
         File rightCsv = new File("/home/lvuser/pathFinder/right_detailed.csv");
-        File leftCsv = new File("/home/lvuser/pathFinder/lef_detailed.csv");
-        System.out.println("Read file");
+        File leftCsv = new File("/home/lvuser/pathFinder/left_detailed.csv");
 
+        rightTrajectory = Pathfinder.readFromCSV(rightCsv);
+        leftTrajectory = Pathfinder.readFromCSV(leftCsv);
+        System.out.println("Read CSV");
 
-        TankModifier modifier = new TankModifier(trajectory).modify(Drivetrain.DRIVETRAIN_WIDTH_METERS);
+//        TankModifier modifier = new TankModifier(trajectory).modify(Drivetrain.DRIVETRAIN_WIDTH_METERS);
 
-        System.out.println(trajectory.length() + " Trajectories calculated");
+//        System.out.println(trajectory.length() + " Trajectories calculated");
 
-        left = new EncoderFollower(modifier.getLeftTrajectory());
-        right = new EncoderFollower(modifier.getRightTrajectory());
+        left = new EncoderFollower(leftTrajectory);
+        right = new EncoderFollower(rightTrajectory);
 
-        left.configureEncoder((int)drivetrain.talonPositionLeft(),(int) Drivetrain.TICKS_PER_REV, .1524);
-        left.configurePIDVA(.5, 0.0, 0.0, 1/1.7,0);
+        left.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .1524);
+        left.configurePIDVA(.02, 0.0, 0.0, 1 / 1.7, 0);
 
-        right.configureEncoder((int)drivetrain.talonPositionLeft(),(int) Drivetrain.TICKS_PER_REV, .1524);
-        right.configurePIDVA(.5, 0.0, 0.0, 1/1.7,0);
+        right.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .1524);
+        right.configurePIDVA(.02, 0.0, 0.0, 1 / 1.7, 0);
 
         if (drivetrain.getPrevTargetHeading() != null) {
             initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
@@ -119,8 +123,7 @@ public class DrivePathFindCommand extends Command {
         stringBuilder.append(gyroHeading).append(",").append(angleDifference).append(",").append(l).append(",").append((l + turn)).append(",").append(r).append(",").append((r + turn));
         Robot.logger.log(stringBuilder.toString());
 
-        drivetrain.getRightMain().set(ControlMode.Position, r - turn);
-        drivetrain.getLeftMain().set(ControlMode.Position, l + turn);
+        drivetrain.tank(l + turn, r - turn);
     }
 
     @Override
@@ -130,7 +133,7 @@ public class DrivePathFindCommand extends Command {
 
     @Override
     protected void end() {
-        drivetrain.setDrivetrain(0, 0);
+        drivetrain.stop();
     }
 
     @Override

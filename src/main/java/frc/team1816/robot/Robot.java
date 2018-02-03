@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         logger = new Logging("LogTest");
         drivetrain.resetEncoders();
-        drivetrain.resetHeading();
+//        drivetrain.resetHeading();
 //        Command autoCommand = autoChooser.getSelected();
 //        Command autoCommand = new ArcDriveCommand(24, 0.4, 90);
         Waypoint start = new Waypoint(0, 0, 0);
