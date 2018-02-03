@@ -25,8 +25,8 @@ public class Components {
 
     private static final int ELEVATOR_MAIN = 4;
 
-    private static final int UPPER_LIMIT = 0; //optoswitch
-    private static final int LOWER_LIMIT = 1; //optoswitch
+    private static final int UPPER_LIMIT = 9; //optoswitch
+    private static final int LOWER_LIMIT = 8; //optoswitch
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, RIGHT_SLAVE_TWO, LEFT_MAIN, LEFT_SLAVE_ONE, LEFT_SLAVE_TWO);

@@ -10,24 +10,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
 import frc.team1816.robot.subsystems.Drivetrain;
+import frc.team1816.robot.subsystems.Elevator;
 
 public class Robot extends IterativeRobot {
 
     public static Logging logger;
     private Drivetrain drivetrain;
+    private Elevator elevator;
     private double time;
     private SendableChooser<Command> autoChooser;
     private int _loops = 0;
+
+    private LeftAutoStartCommand leftAuto;
+    private RightAutoStartCommand rightAuto;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
 
         drivetrain = Components.getInstance().drivetrain;
+        elevator = Components.getInstance().elevator;
+
+        leftAuto = new LeftAutoStartCommand();
+        rightAuto = new RightAutoStartCommand();
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Auto", new LeftAutoStartCommand());
-        autoChooser.addObject("Right Start Auto", new RightAutoStartCommand());
+        autoChooser.addObject("Left Start Auto", leftAuto);
+        autoChooser.addObject("Right Start Auto", rightAuto);
 //        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
 
@@ -43,10 +52,8 @@ public class Robot extends IterativeRobot {
         logger = new Logging("AutoLog");
         drivetrain.resetEncoders();
 
-        LeftAutoStartCommand autoL = (LeftAutoStartCommand) autoChooser.getSelected();
-        autoL.selectAutoL();
-        RightAutoStartCommand autoR = (RightAutoStartCommand) autoChooser.getSelected();
-        autoR.selectAutoR();
+        leftAuto.selectAutoL();
+        rightAuto.selectAutoR();
 
 //        Command autoCommand = autoChooser.getSelected();
 
@@ -66,6 +73,7 @@ public class Robot extends IterativeRobot {
 
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
+        elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
     }
 
     @Override

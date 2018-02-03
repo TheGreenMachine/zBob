@@ -36,23 +36,29 @@ public class ArcDriveCommand extends Command {
         initPositionLeft = drivetrain.talonPositionLeft();
         initPositionRight = drivetrain.talonPositionRight();
 
-        //Maximum base speed s.t v(inner) and v(outer) are bound between 1 and -1
-        if (speed > (1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2))) {
-            speed = 1 / (radius + drivetrain.DRIVETRAIN_WIDTH / 2);
+//        Maximum base speed s.t v(inner) and v(outer) are bound between 1 and -1
+
+        if((speed * radius / (radius - (drivetrain.DRIVETRAIN_WIDTH / 2)) > 1)) {
+            speed = (radius - drivetrain.DRIVETRAIN_WIDTH / 2) / radius;
         }
+//
+//        if (speed > radius / (radius - drivetrain.DRIVETRAIN_WIDTH / 2)) {
+//            System.out.println("Speed Overwritten; Base Speed = " + speed);
+//            speed = radius / (radius - drivetrain.DRIVETRAIN_WIDTH / 2);
+//        }
 
         if (Math.signum(heading) == 1) {
 
             //Target distance in inches for each motor
-            rightTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
-            leftTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+            rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+            leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
         } else {
             heading *= -1;
             leftTurn = true;
 
             //Target distance in inches for each motor
-            rightTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
-            leftTarget = drivetrain.inchesToTicks((heading / 360) * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+            rightTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+            leftTarget = drivetrain.inchesToTicks((heading / 360) * 2 * Math.PI * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
         }
 
         if (leftTurn) {
@@ -62,10 +68,10 @@ public class ArcDriveCommand extends Command {
             //v(outer):v(inner) -- (r+w/2):(r-w/2)
             //multiply our base speed by the ratios to produce a scaled speed, capped at 1
 
-            leftVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+            leftVelocity = (speed * (radius / (radius + Drivetrain.DRIVETRAIN_WIDTH / 2)));
             System.out.println("Left Velocity: " + leftVelocity);
 
-            rightVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+            rightVelocity = (speed * (radius / (radius - Drivetrain.DRIVETRAIN_WIDTH / 2)));
             System.out.println("Right Velocity: " + rightVelocity);
         } else {
             System.out.println("Right Turn");
@@ -73,10 +79,10 @@ public class ArcDriveCommand extends Command {
             //ratio of velocities:
             //v(outer):v(inner) -- (r+w/2):(r-w/2)
             //multiply our base speed by the ratios to produce a scaled speed, capped at 1
-            rightVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
+            rightVelocity = (speed * (radius / (radius + Drivetrain.DRIVETRAIN_WIDTH / 2)));
             System.out.println("Right Velocity: " + rightVelocity);
 
-            leftVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
+            leftVelocity = (speed * (radius / (radius - Drivetrain.DRIVETRAIN_WIDTH / 2)));
             System.out.println("Left Velocity: " + leftVelocity);
         }
     }
@@ -93,58 +99,6 @@ public class ArcDriveCommand extends Command {
         //Calculate remaining inches based on target inches and current inches
         remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
         remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
-
-        if (remainingInchesRight <= 0) {
-            rightVelocity = 0;
-            System.out.println("STOPPED RIGHT");
-        } else if (remainingInchesLeft <= 0) {
-            leftVelocity = 0;
-            System.out.println("STOPPED LEFT");
-        }
-
-        System.out.println("R Velocity: " + rightVelocity);
-        System.out.println("L Velocity: " + leftVelocity);
-
-//        if (leftTurn) {
-//            System.out.println("Left Turn");
-//
-//            //ratio of velocities:
-//            //v(outer):v(inner) -- (r+w/2):(r-w/2)
-//            //multiply our base speed by the ratios to produce a scaled speed, capped at 1
-//
-//            leftVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
-//            System.out.println("Left Velocity: " + leftVelocity);
-//
-//            rightVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
-//            System.out.println("Right Velocity: " + rightVelocity);
-//
-//            if (remainingInchesLeft <= 0) {
-//                leftVelocity = 0;
-//                System.out.println("STOPPED LEFT");
-//            } else if (remainingInchesRight <=0){
-//                rightVelocity = 0;
-//                System.out.println("STOPPED RIGHT");
-//            }
-//        } else {
-//            System.out.println("Right Turn");
-//
-//            //ratio of velocities:
-//            //v(outer):v(inner) -- (r+w/2):(r-w/2)
-//            //multiply our base speed by the ratios to produce a scaled speed, capped at 1
-//            rightVelocity = (speed * (radius - Drivetrain.DRIVETRAIN_WIDTH / 2));
-//            System.out.println("Right Velocity: " + rightVelocity);
-//
-//            leftVelocity = (speed * (radius + Drivetrain.DRIVETRAIN_WIDTH / 2));
-//            System.out.println("Left Velocity: " + leftVelocity);
-//
-//            if (remainingInchesRight <= 0) {
-//                rightVelocity = 0;
-//                System.out.println("STOPPED RIGHT");
-//            } else if (remainingInchesLeft <= 0) {
-//                leftVelocity = 0;
-//                System.out.println("STOPPED LEFT");
-//            }
-//        }
 
             drivetrain.setDrivetrain(leftVelocity, rightVelocity);
 
@@ -172,7 +126,6 @@ public class ArcDriveCommand extends Command {
         @Override
         protected void end () {
             drivetrain.setDrivetrain(0, 0);
-            //drivetrain.resetEncoders();
         }
 
         @Override
@@ -182,7 +135,7 @@ public class ArcDriveCommand extends Command {
 
         @Override
         protected boolean isFinished () {
-            if (remainingInchesLeft <= 0 && remainingInchesRight <= 0) {
+            if (remainingInchesLeft <= 0 || remainingInchesRight <= 0) {
                 System.out.println("DriveArc Finished");
                 return true;
             } else {
