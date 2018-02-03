@@ -25,10 +25,10 @@ public class Drivetrain extends Subsystem1816 {
     private boolean slowMode;
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
-    public double p = 0.2;
-    public double i = 0;
+    public double p = 0.05;
+    public double i = 0.005;
     public double d = 0;
-    public double f = 0.34;
+    public double f = 1.34;
     public int izone = 100;
     private double ramprate = 36;
     private int profile = 0;
@@ -66,9 +66,6 @@ public class Drivetrain extends Subsystem1816 {
         this.leftSlaveOne.set(ControlMode.Follower, leftMain);
         this.leftSlaveTwo.set(ControlMode.Follower, leftMain);
 
-        this.rightMain.set(ControlMode.Velocity, rightMain);
-        this.leftMain.set(ControlMode.Velocity, leftMain);
-
         this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
@@ -95,6 +92,9 @@ public class Drivetrain extends Subsystem1816 {
 
 //      Reverse Right Encoder direction
         this.rightMain.setSensorPhase(true);
+
+        this.rightMain.selectProfileSlot(0,0);
+        this.leftMain.selectProfileSlot(0,0);
     }
 
     public TalonSRX getRightMain() {
