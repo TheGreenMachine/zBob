@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
-        table = NetworkTable.getTable("Shuffleboard_PID");
+        // table = NetworkTable.getTable("Shuffleboard_PID");
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -46,11 +46,11 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
-        table.putNumber("P", drivetrain.p);
-        table.putNumber("I", drivetrain.i);
-        table.putNumber("D", drivetrain.d);
-        table.putNumber("F", drivetrain.f);
-        table.putNumber("izone", drivetrain.izone);
+        // table.putNumber("P", drivetrain.p);
+        // table.putNumber("I", drivetrain.i);
+        // table.putNumber("D", drivetrain.d);
+        // table.putNumber("F", drivetrain.f);
+        // table.putNumber("izone", drivetrain.izone);
     }
 
     @Override
@@ -85,13 +85,13 @@ public class Robot extends IterativeRobot {
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
 
-        double pValue = table.getDouble("P", drivetrain.p);
-        double iValue = table.getDouble("I", drivetrain.i);
-        double dValue = table.getDouble("D", drivetrain.d);
-        double fValue = table.getDouble("F", drivetrain.f);
-        double izone = table.getDouble("izone", drivetrain.izone);
-
-        drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
+        // double pValue = table.getDouble("P", drivetrain.p);
+        // double iValue = table.getDouble("I", drivetrain.i);
+        // double dValue = table.getDouble("D", drivetrain.d);
+        // double fValue = table.getDouble("F", drivetrain.f);
+        // double izone = table.getDouble("izone", drivetrain.izone);
+        //
+        // drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
     }
 
     @Override

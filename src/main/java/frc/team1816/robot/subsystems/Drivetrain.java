@@ -16,7 +16,7 @@ public class Drivetrain extends Subsystem1816 {
 //    PRACTICE ROBOT CONSTANTS
 //    public static final double TICKS_PER_REV = 9900;
 //    public static final double TICKS_PER_INCH = 785;
-    
+
     public static final double DRIVETRAIN_WIDTH = 24;
     public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
     public static final double MAX_VELOCITY_TICKS_PER_100MS = 750;
@@ -146,26 +146,26 @@ public class Drivetrain extends Subsystem1816 {
             rotation *= SLOW_MOD;
         }
 
-        double rightVelocity = rightPower * MAX_VELOCITY_TICKS_PER_100MS;
-        double leftVelocity = leftPower * MAX_VELOCITY_TICKS_PER_100MS;
+        double rightVelocity = rightPower; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
+        double leftVelocity = leftPower; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
 
-        rightVelocity -= rotation * .55 * MAX_VELOCITY_TICKS_PER_100MS;
-        leftVelocity += rotation * .55 * MAX_VELOCITY_TICKS_PER_100MS;
+        rightVelocity -= rotation * .55; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
+        leftVelocity += rotation * .55; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
 
-        rightMain.set(ControlMode.Velocity, rightVelocity);
-        leftMain.set(ControlMode.Velocity, leftVelocity);
+        // rightMain.set(ControlMode.Velocity, rightVelocity);
+        // leftMain.set(ControlMode.Velocity, leftVelocity);
 
-//        rightMain.set(ControlMode.PercentOutput, rightVelocity);
-//        leftMain.set(ControlMode.PercentOutput, leftVelocity);
+       rightMain.set(ControlMode.PercentOutput, rightVelocity);
+       leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
-        System.out.println("----------------------");
-        System.out.println("L Power: " + leftPower);
-        System.out.println("R Power: " + rightPower);
-        System.out.println("L Velocity In: " + leftVelocity);
-        System.out.println("R Velocity In: " + rightVelocity);
-        System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
-        System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
-        System.out.println("----------------------");
+        // System.out.println("----------------------");
+        // System.out.println("L Power: " + leftPower);
+        // System.out.println("R Power: " + rightPower);
+        // System.out.println("L Velocity In: " + leftVelocity);
+        // System.out.println("R Velocity In: " + rightVelocity);
+        // System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
+        // System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+        // System.out.println("----------------------");
     }
 
     public void setSlowMode(boolean slowModeToggle) {
