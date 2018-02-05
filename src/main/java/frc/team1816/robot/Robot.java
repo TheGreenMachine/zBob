@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
+import frc.team1816.robot.subsystems.Collector;
 import frc.team1816.robot.subsystems.Drivetrain;
 import frc.team1816.robot.subsystems.Elevator;
 
@@ -18,9 +19,9 @@ public class Robot extends IterativeRobot {
     public static Logging logger;
     private Drivetrain drivetrain;
     private Elevator elevator;
-    private double time;
+    private Collector collector;
+
     private SendableChooser<Command> autoChooser;
-    private int _loops = 0;
 
     private LeftAutoStartCommand leftAuto;
     private RightAutoStartCommand rightAuto;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
+        collector = Components.getInstance().collector;
 
         leftAuto = new LeftAutoStartCommand();
         rightAuto = new RightAutoStartCommand();
@@ -84,6 +86,7 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
+        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
         // double pValue = table.getDouble("P", drivetrain.p);
         // double iValue = table.getDouble("I", drivetrain.i);

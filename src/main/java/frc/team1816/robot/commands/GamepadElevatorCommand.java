@@ -37,13 +37,10 @@ public class GamepadElevatorCommand extends Command {
 
 //        System.out.println("Upper opto: " + elevator.upperLimit.get() + "\t Lower opto: " + elevator.lowerLimit.get());
 
-
-//        Needs fixing
-//
-        if (!elevator.upperLimit.get() && power < 0) {
+        if (elevator.getUpperLimit() && power < 0) {
             System.out.println("STOPPED : UPPER LIMIT");
             power = 0;
-        } else if(!elevator.lowerLimit.get() && power > 0) {
+        } else if(elevator.getLowerLimit() && power > 0) {
             System.out.println("STOPPED : LOWER LIMIT");
             power = 0;
         }

@@ -22,6 +22,8 @@ public class Components {
 
     private static final int COLLECTOR_LEFT = 1;
     private static final int COLLECTOR_RIGHT = 2;
+    private static final int COLLECTOR_SOLENOID_LEFT = 1;
+    private static final int COLLECTOR_SOLENOID_RIGHT = 1;
 
     private static final int ELEVATOR_MAIN = 4;
 
@@ -30,7 +32,7 @@ public class Components {
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, RIGHT_SLAVE_TWO, LEFT_MAIN, LEFT_SLAVE_ONE, LEFT_SLAVE_TWO);
-        collector = new Collector(COLLECTOR_RIGHT, COLLECTOR_LEFT);
+        collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, COLLECTOR_SOLENOID_LEFT, COLLECTOR_SOLENOID_RIGHT);
         ai = new AnalogInput(3);
         elevator = new Elevator(ELEVATOR_MAIN, UPPER_LIMIT, LOWER_LIMIT);
     }

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class Elevator extends Subsystem1816 {
 
     private TalonSRX elevatorMaster;
-    public DigitalInput upperLimit, lowerLimit;
+    private DigitalInput upperLimit, lowerLimit;
     private double speed;
     private AnalogInput pot;
 
@@ -29,6 +29,15 @@ public class Elevator extends Subsystem1816 {
     public void setElevatorSpeed(double speed){
         this.speed = speed;
         update();
+    }
+
+//    Limit Switches are true when open
+    public boolean getUpperLimit() {
+        return !upperLimit.get();
+    }
+
+    public boolean getLowerLimit() {
+        return !lowerLimit.get();
     }
 
     @Override

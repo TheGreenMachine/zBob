@@ -7,6 +7,7 @@ import com.edinarobotics.utils.gamepad.gamepadfilters.GamepadFilter;
 import com.edinarobotics.utils.gamepad.gamepadfilters.GamepadFilterSet;
 import com.edinarobotics.utils.gamepad.gamepadfilters.PowerFilter;
 import frc.team1816.robot.commands.SetCollectorSpeedCommand;
+import frc.team1816.robot.commands.ToggleCollectorCommand;
 import frc.team1816.robot.commands.ToggleSlowModeCommand;
 
 import java.util.ArrayList;
@@ -27,8 +28,9 @@ public class Controls {
         gamepad0 = new FilteredGamepad(0, driveGamepadFilterSet0);
         gamepad1 = new FilteredGamepad(1, driveGamepadFilterSet0);
 
-        gamepad0.leftTrigger().whenPressed(new ToggleSlowModeCommand(true));
-        gamepad0.leftTrigger().whenReleased(new ToggleSlowModeCommand(false));
+        gamepad0.leftTrigger().whileHeld(new ToggleSlowModeCommand(true));
+
+        gamepad1.rightBumper().whileHeld(new ToggleCollectorCommand(true));
 
 //        gamepad0.rightBumper().whenPressed(new SetCollectorSpeedCommand(.75));
 //        gamepad0.rightBumper().whenReleased(new SetCollectorSpeedCommand(0));
