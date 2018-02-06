@@ -44,5 +44,6 @@
         <jarDirectory url="file://$USER_HOME$/wpilib/java/current/lib" recursive="true" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Gradle: jaci.pathfinder:Pathfinder-Java:1.8" level="project" />
   </component>
 </module>

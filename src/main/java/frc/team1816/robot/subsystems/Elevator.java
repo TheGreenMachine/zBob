@@ -21,12 +21,14 @@ public class Elevator extends Subsystem1816 {
         this.upperLimit = new DigitalInput(upperLimit);
         this.lowerLimit = new DigitalInput(lowerLimit);
 
-        this.elevatorMaster.set(ControlMode.PercentOutput, elevatorMaster); //TODO syntax from Drivetrain, makes little sense, look into this
+        this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);
+        this.elevatorMaster.setInverted(true);
     }
 
     public void setElevatorSpeed(double speed){
         this.speed = speed;
+        update();
     }
 
     @Override

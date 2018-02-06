@@ -27,10 +27,24 @@ public class GamepadElevatorCommand extends Command {
     @Override
     protected void execute() {
         power = - gamepad.getLeftY();
-
-        if (elevator.upperLimit.get() && power>0) {
+        if(power > 0.05) {
+            power = 0.5 * power + 0.5;
+        } else if (power < - 0.05) {
+            power = 0.5 * power - 0.5;
+        } else {
             power = 0;
-        } else if(elevator.lowerLimit.get() && power<0) {
+        }
+
+//        System.out.println("Upper opto: " + elevator.upperLimit.get() + "\t Lower opto: " + elevator.lowerLimit.get());
+
+
+//        Needs fixing
+//
+        if (!elevator.upperLimit.get() && power < 0) {
+            System.out.println("STOPPED : UPPER LIMIT");
+            power = 0;
+        } else if(!elevator.lowerLimit.get() && power > 0) {
+            System.out.println("STOPPED : LOWER LIMIT");
             power = 0;
         }
 
