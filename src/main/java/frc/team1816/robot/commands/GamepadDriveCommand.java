@@ -35,12 +35,14 @@ public class GamepadDriveCommand extends Command {
         double right = gamepad.getLeftY();
         double left = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
-        //System.out.println(right);
-        //System.out.println(left);
+
         sb.append(drivetrain.talonPositionLeft());
         sb.append(",");
         sb.append(drivetrain.talonPositionRight());
         Robot.logger.log(sb.toString());
+
+        System.out.println("left enc" + drivetrain.talonPositionLeft() + " right enc: " + drivetrain.talonPositionRight());
+        System.out.println("left spd" + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
 
         drivetrain.setDrivetrain(left, right, rotation);
     }

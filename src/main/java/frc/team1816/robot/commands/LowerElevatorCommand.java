@@ -22,7 +22,7 @@ public class LowerElevatorCommand extends Command {
     protected boolean isFinished() {
         if(elevator.getLowerLimit()) {
             elevator.setElevatorSpeed(0);
-            System.out.println("stopped");
+            System.out.println("stopped lowering");
             return true;
         } else {
             return false;

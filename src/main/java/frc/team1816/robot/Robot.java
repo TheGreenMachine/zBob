@@ -67,9 +67,9 @@ public class Robot extends IterativeRobot {
         leftAuto.selectAutoL();
         rightAuto.selectAutoR();
 
-//        Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = autoChooser.getSelected();
 
-        Command autoCommand = new ArcDriveCommand(48, 0.4, 90);
+//        Command autoCommand = new ArcDriveCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
 

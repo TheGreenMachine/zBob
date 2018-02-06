@@ -7,8 +7,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem1816 {
+public class Elevator extends Subsystem {
 
     private TalonSRX elevatorMaster;
     private DigitalInput upperLimit, lowerLimit;
@@ -23,17 +24,23 @@ public class Elevator extends Subsystem1816 {
 
         this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);
-        this.elevatorMaster.setInverted(true);
+//        this.elevatorMaster.setInverted(true);
     }
 
     public void setElevatorSpeed(double speed){
-        if(getUpperLimit() && speed < 0 ) {
-            speed = 0;
-        } else if (getLowerLimit() && speed > 0) {
-            speed = 0;
+        if(this.speed != speed) {
+            this.speed = speed;
+
+            if(getUpperLimit() && speed > 0 ) {
+                System.out.println("set speed: stopped elevator up");
+                speed = 0;
+            } else if (getLowerLimit() && speed < 0) {
+                System.out.println("set speed: stopped elevator down");
+                speed = 0;
+            }
+
+            elevatorMaster.set(ControlMode.PercentOutput, speed);
         }
-        this.speed = speed;
-        update();
     }
 
 //    Limit Switches are true when open
@@ -46,11 +53,20 @@ public class Elevator extends Subsystem1816 {
     }
 
     @Override
-    public void update() {
-        elevatorMaster.set(ControlMode.PercentOutput, speed);
-        if (getLowerLimit()||getUpperLimit()){
-            setElevatorSpeed(0);
-            System.out.println("Stopped in Subsystem");
+    public void periodic() {
+        if(getUpperLimit() && speed > 0 ) {
+            System.out.println("periodic: stopped elevator up");
+            speed = 0;
+            elevatorMaster.set(ControlMode.PercentOutput, speed);
+        } else if (getLowerLimit() && speed < 0) {
+            System.out.println("periodic: stopped elevator down");
+            speed = 0;
+            elevatorMaster.set(ControlMode.PercentOutput, speed);
         }
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+
     }
 }

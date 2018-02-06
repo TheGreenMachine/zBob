@@ -15,14 +15,14 @@ public class RaiseElevatorCommand extends Command {
 
     public void initialize() {
         System.out.println("Raising Elevator");
-        elevator.setElevatorSpeed(1);
+        elevator.setElevatorSpeed(.8);
     }
 
     @Override
     protected boolean isFinished() {
         if(elevator.getUpperLimit()) {
             elevator.setElevatorSpeed(0);
-            System.out.println("stopped");
+            System.out.println("stopped raising");
             return true;
         } else {
             return false;
