@@ -27,6 +27,11 @@ public class Elevator extends Subsystem1816 {
     }
 
     public void setElevatorSpeed(double speed){
+        if(getUpperLimit() && speed < 0 ) {
+            speed = 0;
+        } else if (getLowerLimit() && speed > 0) {
+            speed = 0;
+        }
         this.speed = speed;
         update();
     }
@@ -43,5 +48,9 @@ public class Elevator extends Subsystem1816 {
     @Override
     public void update() {
         elevatorMaster.set(ControlMode.PercentOutput, speed);
+        if (getLowerLimit()||getUpperLimit()){
+            setElevatorSpeed(0);
+            System.out.println("Stopped in Subsystem");
+        }
     }
 }

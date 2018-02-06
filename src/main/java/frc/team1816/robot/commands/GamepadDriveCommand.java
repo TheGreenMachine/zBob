@@ -24,7 +24,7 @@ public class GamepadDriveCommand extends Command {
 
     @Override
     protected void initialize() {
-        System.out.println("GamePadDrive Command Init");
+//        System.out.println("GamePadDrive Command Init");
     }
 
     @Override

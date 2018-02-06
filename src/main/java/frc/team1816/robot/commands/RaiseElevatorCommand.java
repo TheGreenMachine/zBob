@@ -14,6 +14,7 @@ public class RaiseElevatorCommand extends Command {
     }
 
     public void initialize() {
+        System.out.println("Raising Elevator");
         elevator.setElevatorSpeed(1);
     }
 
@@ -21,6 +22,7 @@ public class RaiseElevatorCommand extends Command {
     protected boolean isFinished() {
         if(elevator.getUpperLimit()) {
             elevator.setElevatorSpeed(0);
+            System.out.println("stopped");
             return true;
         } else {
             return false;

@@ -86,7 +86,7 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
-        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
+//        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
         // double pValue = table.getDouble("P", drivetrain.p);
         // double iValue = table.getDouble("I", drivetrain.i);

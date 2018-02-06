@@ -14,13 +14,15 @@ public class LowerElevatorCommand extends Command {
     }
 
     public void initialize() {
-        elevator.setElevatorSpeed(-1);
+        elevator.setElevatorSpeed(-.8);
+        System.out.println("Lowering Elevator");
     }
 
     @Override
     protected boolean isFinished() {
         if(elevator.getLowerLimit()) {
             elevator.setElevatorSpeed(0);
+            System.out.println("stopped");
             return true;
         } else {
             return false;
