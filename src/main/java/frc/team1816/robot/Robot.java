@@ -79,13 +79,15 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        logger = new Logging("TeleopLog");
+        //logger = new Logging("TeleopLog");
+        //logger = new Logging("SameSpeedLog");
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
         Gamepad gamepad1 = Controls.getInstance().gamepad1;
 
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
+       // logger.log();
 //        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
         // double pValue = table.getDouble("P", drivetrain.p);

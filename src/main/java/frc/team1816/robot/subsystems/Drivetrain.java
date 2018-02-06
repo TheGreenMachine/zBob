@@ -151,7 +151,7 @@ public class Drivetrain extends Subsystem1816 {
 
         rightVelocity -= rotation * .55; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
         leftVelocity += rotation * .55; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
-
+        System.out.println("RV: "+rightVelocity+" LV: "+leftVelocity);
         // rightMain.set(ControlMode.Velocity, rightVelocity);
         // leftMain.set(ControlMode.Velocity, leftVelocity);
 

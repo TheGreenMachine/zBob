@@ -1,6 +1,7 @@
 package frc.team1816.robot.commands;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
+import com.edinarobotics.utils.log.Logger;
 import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
@@ -13,6 +14,7 @@ public class GamepadDriveCommand extends Command {
     private Drivetrain drivetrain;
     private Collector collector;
     private Gamepad gamepad;
+    public static Logging logger;
 
     public GamepadDriveCommand(Gamepad gamepad) {
         super("gamepaddrivecommand");
@@ -30,12 +32,13 @@ public class GamepadDriveCommand extends Command {
     @Override
     protected void execute() {
 //        System.out.println("GamePadDrive Command Executing...");
+
         StringBuilder sb = new StringBuilder();
 
         double right = gamepad.getLeftY();
         double left = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
-
+        System.out.println(left+" "+right);
         sb.append(drivetrain.talonPositionLeft());
         sb.append(",");
         sb.append(drivetrain.talonPositionRight());
@@ -45,11 +48,13 @@ public class GamepadDriveCommand extends Command {
         System.out.println("left spd" + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
 
         drivetrain.setDrivetrain(left, right, rotation);
+        logger.log("Left Input: "+left+"Left Spd: "+drivetrain.getLeftTalonVelocity()+" Right input: "+right+" Right Spd: "+drivetrain.getRightTalonVelocity());
     }
 
     @Override
     protected boolean isFinished() {
 //        System.out.println("GamePadDrive Command Terminated");
+        logger.close();
         return false;
     }
 }
