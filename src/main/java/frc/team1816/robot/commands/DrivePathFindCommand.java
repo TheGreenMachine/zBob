@@ -112,7 +112,7 @@ public class DrivePathFindCommand extends Command {
         System.out.println("Gyro Heading: " + gyroHeading + "\t Desired Heading: " + desiredHeading);
 
         double angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
-        double turn = 0.8 * (-1.0 / 80.0) * angleDifference;
+        double turn = 0.004 * angleDifference;
 
         System.out.println("Angle Difference: " + angleDifference);
 
@@ -123,7 +123,7 @@ public class DrivePathFindCommand extends Command {
         stringBuilder.append(gyroHeading).append(",").append(angleDifference).append(",").append(l).append(",").append((l + turn)).append(",").append(r).append(",").append((r + turn));
         Robot.logger.log(stringBuilder.toString());
 
-        drivetrain.tank(l + turn, r - turn);
+        drivetrain.setDrivetrain(l + turn, r - turn);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class DrivePathFindCommand extends Command {
 
     @Override
     protected void end() {
-        drivetrain.stop();
+        drivetrain.setDrivetrain(0, 0);
     }
 
     @Override

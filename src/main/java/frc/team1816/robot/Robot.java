@@ -97,13 +97,6 @@ public class Robot extends IterativeRobot {
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
 
-        double pValue = table.getDouble("P", drivetrain.p);
-        double iValue = table.getDouble("I", drivetrain.i);
-        double dValue = table.getDouble("D", drivetrain.d);
-        double fValue = table.getDouble("F", drivetrain.f);
-        double izone = table.getDouble("izone", drivetrain.izone);
-
-        drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
     }
 
     @Override
