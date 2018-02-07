@@ -25,13 +25,18 @@ public class Drivetrain extends Subsystem1816 {
     private boolean slowMode;
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
-    public double p = 0.05;
-    public double i = 0.007;
-    public double d = 0;
-    public double f = 1.34;
-    public int izone = 15;
-    private double ramprate = 36;
-    private int profile = 0;
+
+    private static final double p_L = 0.05;
+    private static final double i_L = 0.007;
+    private static final double d_L = 0;
+    private static final double f_L = 1.34;
+    private static final int izone_L = 15;
+
+    private static final double p_R = 0.07;
+    private static final double i_R = 0.007;
+    private static final double d_R = 0;
+    private static final double f_R = 1.34;
+    private static final int izone_R = 15;
 
     private double leftPower, rightPower, rotation;
 
@@ -79,19 +84,20 @@ public class Drivetrain extends Subsystem1816 {
         this.leftMain.configPeakOutputForward(1, 10);
         this.leftMain.configPeakOutputReverse(-1, 10);
 
-        this.rightMain.config_kP(0, p, 20);
-        this.rightMain.config_kI(0, i, 20);
-        this.rightMain.config_kD(0, d, 20);
-        this.rightMain.config_kF(0, f, 20);
-        this.rightMain.config_IntegralZone(0, izone, 20);
-        this.leftMain.config_kP(0, p, 20);
-        this.leftMain.config_kI(0, i, 20);
-        this.leftMain.config_kD(0, d, 20);
-        this.leftMain.config_kF(0, f, 20);
-        this.leftMain.config_IntegralZone(0, izone, 20);
+        this.leftMain.config_kP(0, p_L, 20);
+        this.leftMain.config_kI(0, i_L, 20);
+        this.leftMain.config_kD(0, d_L, 20);
+        this.leftMain.config_kF(0, f_L, 20);
+        this.leftMain.config_IntegralZone(0, izone_L, 20);
 
-        this.rightMain.selectProfileSlot(0,0);
+        this.rightMain.config_kP(0, p_R, 20);
+        this.rightMain.config_kI(0, i_R, 20);
+        this.rightMain.config_kD(0, d_R, 20);
+        this.rightMain.config_kF(0, f_R, 20);
+        this.rightMain.config_IntegralZone(0, izone_R, 20);
+
         this.leftMain.selectProfileSlot(0,0);
+        this.rightMain.selectProfileSlot(0,0);
     }
 
     public TalonSRX getRightMain() {
@@ -206,25 +212,31 @@ public class Drivetrain extends Subsystem1816 {
         return ticks * (1 / TICKS_PER_REV) * INCHES_PER_REV;
     }
 
-    public void updatePIDValues(double p, double i, double d, double f, int izone) {
-        this.p = p;
-        this.i = i;
-        this.d = d;
-        this.f = f;
-        this.izone = izone;
+    public void updatePIDValuesL(double p, double i, double d, double f, int izone) {
+        this.p_L = p;
+        this.i_L = i;
+        this.d_L = d;
+        this.f_L = f;
+        this.izone_L = izone;
 
         this.leftMain.config_kP(0, p, 20);
         this.leftMain.config_kI(0, i, 20);
         this.leftMain.config_kD(0, d, 20);
         this.leftMain.config_kF(0, f, 20);
         this.leftMain.config_IntegralZone(0, izone, 20);
+    }
+
+    public void updatePIDValuesR(double p, double i, double d, double f, int izone) {
+        this.p_R = p;
+        this.i_R = i;
+        this.d_R = d;
+        this.f_R = f;
+        this.izone_R = izone;
 
         this.rightMain.config_kP(0, p, 20);
         this.rightMain.config_kI(0, i, 20);
         this.rightMain.config_kD(0, d, 20);
         this.rightMain.config_kF(0, f, 20);
         this.rightMain.config_IntegralZone(0, izone, 20);
-
-        System.out.println("P: " + p + " I: " + i + " D: " + d + " F: " + f + " izone: " + izone);
     }
 }

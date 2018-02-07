@@ -48,11 +48,17 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
-         table.putNumber("P", drivetrain.p);
-         table.putNumber("I", drivetrain.i);
-         table.putNumber("D", drivetrain.d);
-         table.putNumber("F", drivetrain.f);
-         table.putNumber("izone", drivetrain.izone);
+         table.putNumber("Left P", drivetrain.p_L);
+         table.putNumber("Left I", drivetrain.i_L);
+         table.putNumber("Left D", drivetrain.d_L);
+         table.putNumber("Left F", drivetrain.f_L);
+         table.putNumber("Left izone", drivetrain.izone_L);
+
+         table.putNumber("Right P", drivetrain.p_R);
+         table.putNumber("Right I", drivetrain.i_R);
+         table.putNumber("Right D", drivetrain.d_R);
+         table.putNumber("Right F", drivetrain.f_R);
+         table.putNumber("Right izone", drivetrain.izone_R);
     }
 
     @Override
@@ -90,13 +96,20 @@ public class Robot extends IterativeRobot {
 
         // collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
-         double pValue = table.getDouble("P", drivetrain.p);
-         double iValue = table.getDouble("I", drivetrain.i);
-         double dValue = table.getDouble("D", drivetrain.d);
-         double fValue = table.getDouble("F", drivetrain.f);
-         double izone = table.getDouble("izone", drivetrain.izone);
+         double pValueL = table.getDouble("Left P", drivetrain.p_L);
+         double pValueL = table.getDouble("Left I", drivetrain.i_L);
+         double pValueL = table.getDouble("Left D", drivetrain.d_L);
+         double pValueL = table.getDouble("Left F", drivetrain.f_L);
+         double pValueL = table.getDouble("Left izone", drivetrain.izone_L);
 
-         drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
+         double pValueR = table.getDouble("Right P", drivetrain.p_R);
+         double pValueR = table.getDouble("Right I", drivetrain.i_R);
+         double pValueR = table.getDouble("Right D", drivetrain.d_R);
+         double pValueR = table.getDouble("Right F", drivetrain.f_R);
+         double pValueR = table.getDouble("Right izone", drivetrain.izone_R);
+
+         drivetrain.updatePIDValuesL(pValueL, iValueL, dValueL, fValueL, (int) izoneL);
+         drivetrain.updatePIDValuesR(pValueR, iValueR, dValueR, fValueR, (int) izoneR)
     }
 
     @Override
