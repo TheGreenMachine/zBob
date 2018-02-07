@@ -13,14 +13,18 @@ public class DriveXInchesCommand extends Command {
     private double initPosition;
     private double inches;
     private double speed;
-    private double ticks;
+//    private double ticks;
     private double remainingInches;
     private double initAngle;
     private boolean tripped = false;
+
     private static final double ROTATION_OFFSET_P = 0.03;
     private final double TOLERANCE = 0.1;
     private final double stopVoltage = 1.6;
     private final boolean USE_IR;
+    private final double RAMP_MIN_POWER = .15;
+    private final double RAMP_UP_INCHES = 6;
+    private final double RAMP_DOWN_INCHES = 24;
 
     public DriveXInchesCommand(double inches, double speed, boolean useIr) {
         super("drivexinchescommand");
@@ -31,7 +35,7 @@ public class DriveXInchesCommand extends Command {
         analogInput.setOversampleBits(4);
         analogInput.setAverageBits(2);
         AnalogInput.setGlobalSampleRate(62500);
-        ticks = (int) (inches * Drivetrain.TICKS_PER_INCH);
+//        ticks = (int) (inches * Drivetrain.TICKS_PER_INCH);
         USE_IR = useIr;
         //drivetrain.getRightMain().setSelectedSensorPosition(0,0,10);
         //drivetrain.getLeftMain().setSelectedSensorPosition(0,0,10);
@@ -40,12 +44,14 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected void initialize() {
         System.out.println("DriveX Init");
-        initPosition = drivetrain.talonPositionLeft();
+//        initPosition = drivetrain.talonPositionLeft();
+        initPosition = drivetrain.getLeftTalonInches();
+
         if (drivetrain.getPrevTargetHeading() != null) {
             initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
             drivetrain.setPrevTargetHeading(null);
-            System.out.println("init target Angle: " + initAngle);
-            System.out.println("intial gyro angle: " + drivetrain.getGyroAngle());
+            System.out.println("init target angle: " + initAngle);
+            System.out.println("init gyro angle: " + drivetrain.getGyroAngle());
         } else {
             initAngle = drivetrain.getGyroAngle();
         }
@@ -56,8 +62,8 @@ public class DriveXInchesCommand extends Command {
         double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double leftVelocity;
         double rightVelocity;
-        double currentPosition = drivetrain.talonPositionLeft() - initPosition;
-        double currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
+//        double currentPosition = drivetrain.talonPositionLeft() - initPosition;
+        double currentInches = drivetrain.getLeftTalonInches() - initPosition;
         StringBuilder sb = new StringBuilder();
 
         if (USE_IR) {
@@ -67,23 +73,17 @@ public class DriveXInchesCommand extends Command {
 
             if (Math.abs(stopVoltage - volts) <= TOLERANCE && !tripped) {
                 System.out.println("-----IR TRIPPED, SLOWING DOWN-----");
-                initPosition = drivetrain.talonPositionLeft();
+//                initPosition = drivetrain.talonPositionLeft();
+                initPosition = drivetrain.getLeftTalonInches();
                 inches = 6;
-                currentPosition = drivetrain.talonPositionLeft() - initPosition;
-                currentInches = currentPosition / Drivetrain.TICKS_PER_INCH;
+                currentInches = drivetrain.getLeftTalonInches() - initPosition;
                 tripped = true;
             }
         }
 
         remainingInches = inches - Math.abs(currentInches);
-//        System.out.println("---");
-//        System.out.println("Remaining inches: " + remainingInches);
-//        System.out.println("Current inches: " + currentInches);
-//        System.out.println("Current Position: " + currentPosition);
-//        System.out.println("---");
 
         leftVelocity = speed;
-        rightVelocity = speed;
 
 //        if(deltaAngle>velocity) {
 //            deltaAngle = velocity / ROTATION_OFFSET_P;
@@ -91,65 +91,62 @@ public class DriveXInchesCommand extends Command {
 
 //        deltaAngle = 0;
 
-        if(currentInches < 6) {
-            if(speed > 0) {
-                if(leftVelocity * (currentInches/6) < .1) {
-                    leftVelocity = .15;
-                }
-                else {
-                    leftVelocity = leftVelocity * (currentInches / 6);
-                }
-            }
-            else {
-                if(leftVelocity * (currentInches/6) > -.1) {
-                    leftVelocity = -.15;
-                }
-                else {
-                    leftVelocity = leftVelocity * (currentInches / 6);
-                }
-            }
-        }
 
-        if (remainingInches < 10) {
+//        RAMP UP RATE
+        if (currentInches < RAMP_UP_INCHES) {
             if (speed > 0) {
-                if ((leftVelocity * (remainingInches / 6)) > .15) {
-                    leftVelocity = leftVelocity * (remainingInches / 6);
+                if (leftVelocity * (currentInches / RAMP_UP_INCHES) < RAMP_MIN_POWER) {
+                    leftVelocity = RAMP_MIN_POWER;
                 } else {
-                    leftVelocity = .15;
+                    leftVelocity = leftVelocity * (currentInches / RAMP_UP_INCHES);
                 }
             } else {
-                if ((leftVelocity * (remainingInches / 6)) < -.15) {
-
-                    leftVelocity = leftVelocity * (remainingInches / 6);
+                if (leftVelocity * (currentInches / RAMP_UP_INCHES) > -RAMP_MIN_POWER) {
+                    leftVelocity = -RAMP_MIN_POWER;
                 } else {
-                    leftVelocity = -.15;
+                    leftVelocity = leftVelocity * (currentInches / RAMP_UP_INCHES);
                 }
             }
         }
 
-            rightVelocity = leftVelocity;
-            Robot.logger.log("Ticks:" + "," + drivetrain.talonPositionRight());
-//            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
 
-//         } else if
-         if (deltaAngle < 0) {
+//        RAMP DOWN RATE
+        if (remainingInches < RAMP_DOWN_INCHES) {
+            if (speed > 0) {
+                if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) > RAMP_MIN_POWER) {
+                    leftVelocity = leftVelocity * (remainingInches / RAMP_DOWN_INCHES);
+                } else {
+                    leftVelocity = RAMP_MIN_POWER;
+                }
+            } else {
+                if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) < -RAMP_MIN_POWER) {
+
+                    leftVelocity = leftVelocity * (remainingInches / RAMP_DOWN_INCHES);
+                } else {
+                    leftVelocity = -RAMP_MIN_POWER;
+                }
+            }
+        }
+
+        rightVelocity = leftVelocity;
+
+        if (deltaAngle < 0) {
             System.out.println("DriveX Correcting Right\t delta angle: " + deltaAngle);
             rightVelocity = rightVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
-            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
             System.out.println("L Velocity: " + leftVelocity + " R Velocity: " + rightVelocity);
             System.out.println("---");
         } else if (deltaAngle > 0) {
             System.out.println("DriveX Correcting Left\t delta angle: " + deltaAngle);
-            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
             leftVelocity = leftVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
             System.out.println("L Velocity: " + leftVelocity + " R Velocity: " + rightVelocity);
             System.out.println("---");
         } else {
             System.out.println("DriveX Straight\t delta angle: " + deltaAngle);
-            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
             System.out.println("R + L Velocity: " + leftVelocity);
             System.out.println("---");
         }
+
+        drivetrain.setDrivetrain(leftVelocity, rightVelocity);
 
         System.out.println("Remaining Inches: " + remainingInches);
         System.out.println("Inches Traveled: " + currentInches);
@@ -179,7 +176,7 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        double volts = analogInput.getVoltage();
+//        double volts = analogInput.getVoltage();
 
         if (remainingInches <= 0) {
             System.out.println("DriveX Finished");

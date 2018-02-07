@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.I2C;
 public class Drivetrain extends Subsystem1816 {
 //    COMPETITION ROBOT CONSTANTS
     public static final double TICKS_PER_REV = 1025;
-    public static final double TICKS_PER_INCH = 52.2028;
+    public static final double TICKS_PER_INCH = 47.73; //52.2028;
 
 //    PRACTICE ROBOT CONSTANTS
 //    public static final double TICKS_PER_REV = 9900;
@@ -26,10 +26,10 @@ public class Drivetrain extends Subsystem1816 {
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
     public double p = 0.05;
-    public double i = 0.005;
+    public double i = 0.007;
     public double d = 0;
     public double f = 1.34;
-    public int izone = 100;
+    public int izone = 15;
     private double ramprate = 36;
     private int profile = 0;
 
@@ -90,9 +90,6 @@ public class Drivetrain extends Subsystem1816 {
         this.leftMain.config_kF(0, f, 20);
         this.leftMain.config_IntegralZone(0, izone, 20);
 
-//      Reverse Right Encoder direction
-        this.rightMain.setSensorPhase(true);
-
         this.rightMain.selectProfileSlot(0,0);
         this.leftMain.selectProfileSlot(0,0);
     }
@@ -107,6 +104,10 @@ public class Drivetrain extends Subsystem1816 {
 
     public double getGyroAngle() {
         return navx.getAngle();
+    }
+
+    public boolean gyroActiveCheck() {
+        return navx.isConnected();
     }
 
     public void setDrivetrain(double leftPower, double rightPower, double rotation) {
@@ -124,11 +125,19 @@ public class Drivetrain extends Subsystem1816 {
     }
 
     public double talonPositionRight() {
-        return rightMain.getSelectedSensorPosition(0) * -1;
+        return rightMain.getSelectedSensorPosition(0);
     }
 
     public double talonPositionLeft() {
         return leftMain.getSelectedSensorPosition(0);
+    }
+
+    public double getLeftTalonInches() {
+        return ticksToInches(leftMain.getSelectedSensorPosition(0));
+    }
+
+    public double getRightTalonInches() {
+        return ticksToInches(rightMain.getSelectedSensorPosition(0));
     }
 
     public void resetEncoders() {
@@ -146,17 +155,17 @@ public class Drivetrain extends Subsystem1816 {
             rotation *= SLOW_MOD;
         }
 
-        double rightVelocity = rightPower; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
-        double leftVelocity = leftPower; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
+        double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
+        double leftVelocity = leftPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
-        rightVelocity -= rotation * .55; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
-        leftVelocity += rotation * .55; //FOR PID: * MAX_VELOCITY_TICKS_PER_100MS;
-        System.out.println("RV: "+rightVelocity+" LV: "+leftVelocity);
-        // rightMain.set(ControlMode.Velocity, rightVelocity);
-        // leftMain.set(ControlMode.Velocity, leftVelocity);
+        rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
+        leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
-       rightMain.set(ControlMode.PercentOutput, rightVelocity);
-       leftMain.set(ControlMode.PercentOutput, leftVelocity);
+         rightMain.set(ControlMode.Velocity, rightVelocity);
+         leftMain.set(ControlMode.Velocity, leftVelocity);
+
+//       rightMain.set(ControlMode.PercentOutput, rightVelocity);
+//       leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
         // System.out.println("----------------------");
         // System.out.println("L Power: " + leftPower);

@@ -14,7 +14,7 @@ public class GamepadDriveCommand extends Command {
     private Drivetrain drivetrain;
     private Collector collector;
     private Gamepad gamepad;
-    public static Logging logger;
+    public StringBuilder sb;
 
     public GamepadDriveCommand(Gamepad gamepad) {
         super("gamepaddrivecommand");
@@ -26,35 +26,48 @@ public class GamepadDriveCommand extends Command {
 
     @Override
     protected void initialize() {
-//        System.out.println("GamePadDrive Command Init");
+        sb = new StringBuilder();
+//        sb.append("Talon Pos L");
+//        sb.append(",");
+//        sb.append("Talon Pos R");
+//        sb.append(",");
+//        sb.append("Talon V L");
+//        sb.append(",");
+//        sb.append("Talon V R");
+//
+//        Robot.logger.log(sb.toString());
     }
 
     @Override
     protected void execute() {
 //        System.out.println("GamePadDrive Command Executing...");
 
-        StringBuilder sb = new StringBuilder();
+        sb.append(drivetrain.talonPositionLeft());
+        sb.append(",");
+        sb.append(drivetrain.talonPositionRight());
+        sb.append(",");
+        sb.append(drivetrain.getLeftTalonVelocity());
+        sb.append(",");
+        sb.append(drivetrain.getRightTalonVelocity());
+        Robot.logger.log(sb.toString());
 
         double right = gamepad.getLeftY();
         double left = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
-        System.out.println(left+" "+right);
-        sb.append(drivetrain.talonPositionLeft());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionRight());
-        Robot.logger.log(sb.toString());
 
-        System.out.println("left enc" + drivetrain.talonPositionLeft() + " right enc: " + drivetrain.talonPositionRight());
-        System.out.println("left spd" + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
+//        System.out.println("left enc: " + drivetrain.talonPositionLeft() + " right enc: " + drivetrain.talonPositionRight());
+//        System.out.println("left spd: " + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
+//
+//        System.out.println("gyro angle: " + drivetrain.getGyroAngle());
+//        System.out.println("gyro connected: " + drivetrain.gyroActiveCheck());
 
         drivetrain.setDrivetrain(left, right, rotation);
-        logger.log("Left Input: "+left+"Left Spd: "+drivetrain.getLeftTalonVelocity()+" Right input: "+right+" Right Spd: "+drivetrain.getRightTalonVelocity());
     }
 
     @Override
     protected boolean isFinished() {
 //        System.out.println("GamePadDrive Command Terminated");
-        logger.close();
+        Robot.logger.close();
         return false;
     }
 }
