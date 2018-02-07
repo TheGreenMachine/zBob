@@ -26,17 +26,17 @@ public class Drivetrain extends Subsystem1816 {
 
     private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
 
-    private static final double p_L = 0.05;
-    private static final double i_L = 0.007;
-    private static final double d_L = 0;
-    private static final double f_L = 1.34;
-    private static final int izone_L = 15;
+    public static double p_L = 0.05;
+    public static double i_L = 0.007;
+    public static double d_L = 0;
+    public static double f_L = 1.34;
+    public static int izone_L = 15;
 
-    private static final double p_R = 0.07;
-    private static final double i_R = 0.007;
-    private static final double d_R = 0;
-    private static final double f_R = 1.34;
-    private static final int izone_R = 15;
+    public static double p_R = 0.07;
+    public static double i_R = 0.007;
+    public static double d_R = 0;
+    public static double f_R = 1.34;
+    public static int izone_R = 15;
 
     private double leftPower, rightPower, rotation;
 

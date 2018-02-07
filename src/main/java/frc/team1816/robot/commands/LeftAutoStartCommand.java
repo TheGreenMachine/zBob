@@ -44,11 +44,15 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         } else if (target == 'R'){
             System.out.println("Left Start Auto ---- Target: R");
-            addSequential(new DriveXInchesCommand(250, 0.7, false));
+            addSequential(new DriveXInchesCommand(175, 0.7, false));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(170, 0.7, false));
+            addSequential(new DriveXInchesCommand(160, 0.7, false));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(10, 0.5, false));
+            addSequential(new DriveXInchesCommand(20, 0.5, false));
+            addSequential(new RaiseElevatorCommand());
+            addSequential(new WaitCommand(1));
+            addSequential(new LowerElevatorCommand());
+            addSequential(new DriveXInchesCommand(20, -.5, false));
         } else {
             System.out.println("Left Start Auto ---- Auto-Run");
             addSequential(new DriveXInchesCommand(24,0.25, false));
