@@ -118,11 +118,13 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
-        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
-        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
-        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
-        System.out.println("Gyro: " + drivetrain.getGyroAngle());
+//        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
+//        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
+//        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
+//        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
+//        System.out.println("Gyro: " + drivetrain.getGyroAngle());
+        System.out.println("Elevator ticks: " + elevator.getTicks());
+
         Scheduler.getInstance().run();
     }
 

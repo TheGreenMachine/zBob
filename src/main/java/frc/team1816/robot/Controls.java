@@ -26,20 +26,20 @@ public class Controls {
         gamepad0 = new FilteredGamepad(0, driveGamepadFilterSet0);
         gamepad1 = new FilteredGamepad(1, driveGamepadFilterSet0);
 
-        gamepad0.leftTrigger().whenPressed(new ToggleSlowModeCommand(true));
-        gamepad0.leftTrigger().whenReleased(new ToggleSlowModeCommand(false));
+        gamepad0.leftBumper().whenPressed(new ToggleSlowModeCommand(true));
+        gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
 
-//        gamepad1.rightBumper().whenPressed(new ToggleCollectorCommand(true));
-//        gamepad1.rightBumper().whenReleased(new ToggleCollectorCommand(false));
+        gamepad1.diamondUp().whenPressed(new ToggleCollectorCommand(true));
+        gamepad1.diamondDown().whenReleased(new ToggleCollectorCommand(false));
 
         gamepad1.dPadLeft().whenPressed(new RaiseElevatorCommand());
         gamepad1.dPadRight().whenPressed(new LowerElevatorCommand());
 
-//        gamepad0.rightBumper().whenPressed(new SetCollectorSpeedCommand(.75));
-//        gamepad0.rightBumper().whenReleased(new SetCollectorSpeedCommand(0));
-//
-//        gamepad0.leftBumper().whenPressed(new SetCollectorSpeedCommand(-.75));
-//        gamepad0.leftBumper().whenReleased(new SetCollectorSpeedCommand(0));
+        gamepad1.rightBumper().whenPressed(new SetCollectorSpeedCommand(.75));
+        gamepad1.rightBumper().whenReleased(new SetCollectorSpeedCommand(0));
+
+        gamepad1.leftBumper().whenPressed(new SetCollectorSpeedCommand(-.75));
+        gamepad1.leftBumper().whenReleased(new SetCollectorSpeedCommand(0));
     }
 
     public static Controls getInstance(){

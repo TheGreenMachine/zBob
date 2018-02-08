@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Intellij-zBob_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Intellij-zBob_main.iml" group="zBob" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Intellij-zBob_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Intellij-zBob_test.iml" group="zBob" />
       <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/zBob.iml" filepath="$PROJECT_DIR$/.idea/modules/zBob.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/zBob_main.iml" filepath="$PROJECT_DIR$/.idea/modules/zBob_main.iml" group="zBob" />

@@ -20,21 +20,23 @@ public class Components {
     private static final int LEFT_SLAVE_ONE = 13;
     private static final int LEFT_SLAVE_TWO = 12;
 
-    private static final int COLLECTOR_LEFT = 1;
-    private static final int COLLECTOR_RIGHT = 2;
-    private static final int COLLECTOR_SOLENOID_LEFT = 1;
-    private static final int COLLECTOR_SOLENOID_RIGHT = 2;
+    private static final int COLLECTOR_LEFT = 2;
+    private static final int COLLECTOR_RIGHT = 4;
+    private static final int COLLECTOR_SOLENOID_FRONT = 5;
 
-    private static final int ELEVATOR_MAIN = 4;
+    private static final int ELEVATOR_MAIN = 1;
+    private static final int ELEVATOR_ENC_1 = 1;
+    private static final int ELEVATOR_ENC_2 = 2;
+    private static final int CLIMBER_SOLENOID = 4;
 
-    private static final int UPPER_LIMIT = 9; //optoswitch
-    private static final int LOWER_LIMIT = 8; //optoswitch
+    private static final int UPPER_LIMIT = 9;
+    private static final int LOWER_LIMIT = 8;
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, RIGHT_SLAVE_TWO, LEFT_MAIN, LEFT_SLAVE_ONE, LEFT_SLAVE_TWO);
-//        collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, COLLECTOR_SOLENOID_LEFT, COLLECTOR_SOLENOID_RIGHT);
+        collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, COLLECTOR_SOLENOID_FRONT);
         ai = new AnalogInput(3);
-        elevator = new Elevator(ELEVATOR_MAIN, UPPER_LIMIT, LOWER_LIMIT);
+        elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT, CLIMBER_SOLENOID);
     }
 
     public static Components getInstance(){

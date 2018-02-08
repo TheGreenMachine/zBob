@@ -12,20 +12,18 @@ public class Collector extends Subsystem1816 {
     private TalonSRX right;
     private TalonSRX left;
 
-    private Solenoid rightSolenoid;
-    private Solenoid leftSolenoid;
+    private Solenoid frontSolenoid;
 
     private double power;
     private boolean collectorOpen;
 
-    public Collector(int leftTalon, int rightTalon, int leftSolenoidID, int rightSolenoidID) {
+    public Collector(int leftTalon, int rightTalon, int frontSolenoidID) {
         super();
 
         this.left = new TalonSRX(leftTalon);
         this.right = new TalonSRX(rightTalon);
 
-        this.leftSolenoid = new Solenoid(leftSolenoidID);
-        this.rightSolenoid = new Solenoid(rightSolenoidID);
+        this.frontSolenoid = new Solenoid(frontSolenoidID);
 
         this.right.setInverted(true);
 
@@ -50,7 +48,6 @@ public class Collector extends Subsystem1816 {
         left.set(ControlMode.PercentOutput, power);
         right.set(ControlMode.PercentOutput, power);
 
-        leftSolenoid.set(collectorOpen);
-        rightSolenoid.set(collectorOpen);
+        frontSolenoid.set(collectorOpen);
     }
 }
