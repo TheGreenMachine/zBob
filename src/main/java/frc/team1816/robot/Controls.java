@@ -26,11 +26,16 @@ public class Controls {
         gamepad0 = new FilteredGamepad(0, driveGamepadFilterSet0);
         gamepad1 = new FilteredGamepad(1, driveGamepadFilterSet0);
 
+        //Driver Controller Mapping
         gamepad0.leftBumper().whenPressed(new ToggleSlowModeCommand(true));
         gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
 
+        //Operator Controller Mapping
         gamepad1.diamondUp().whenPressed(new ToggleCollectorCommand(true));
         gamepad1.diamondDown().whenReleased(new ToggleCollectorCommand(false));
+
+        gamepad1.diamondLeft().whenPressed(new ToggleClimberShifterCommand(true));
+        gamepad1.diamondRight().whenPressed(new ToggleClimberShifterCommand(false));
 
         gamepad1.dPadLeft().whenPressed(new RaiseElevatorCommand());
         gamepad1.dPadRight().whenPressed(new LowerElevatorCommand());
@@ -41,7 +46,7 @@ public class Controls {
         gamepad1.leftBumper().whenPressed(new SetCollectorSpeedCommand(-.75));
         gamepad1.leftBumper().whenReleased(new SetCollectorSpeedCommand(0));
 
-        gamepad1.dPadUp().whileHeld(new TalonTestCommand(8, 0.5));
+//        gamepad1.dPadUp().whileHeld(new TalonTestCommand(8, 0.5));
     }
 
     public static Controls getInstance(){

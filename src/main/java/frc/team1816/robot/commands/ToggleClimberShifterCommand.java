@@ -5,12 +5,12 @@ import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Climber;
 
 
-public class EngageClimberShifterCommand extends Command {
+public class ToggleClimberShifterCommand extends Command {
     private Climber climber;
     private boolean shift;
 
-    public EngageClimberShifterCommand(boolean shift) {
-        super("engageclimbershiftercommand");
+    public ToggleClimberShifterCommand(boolean shift) {
+        super("toggleclimbershiftercommand");
         climber = Components.getInstance().climber;
         this.shift = shift;
         requires(climber);
@@ -18,7 +18,11 @@ public class EngageClimberShifterCommand extends Command {
 
     @Override
     protected void initialize() {
-        climber.engageShifter();
+        if(shift) {
+            climber.engageShifter();
+        } else {
+            climber.disengageShifter();
+        }
     }
 
     @Override

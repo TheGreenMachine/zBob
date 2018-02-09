@@ -13,8 +13,10 @@ public class Climber extends Subsystem {
     private double climberSpeed;
     private Solenoid shifterSolenoid;
 
-    public Climber(int climberMain, int climberSlaveOne, int climberSlaveTwo, int climberSlaveThree) {
+    public Climber(int climberMain, int climberSlaveOne, int climberSlaveTwo, int climberSlaveThree, int shifterSolenoidID) {
         super();
+
+        this.shifterSolenoid = new Solenoid(shifterSolenoidID);
 
         this.climberMain = new TalonSRX(climberMain);
         this.climberSlaveOne = new TalonSRX(climberSlaveOne);
@@ -51,7 +53,6 @@ public class Climber extends Subsystem {
 
     public void initDefaultCommand() {
         // TODO: Set the default command, if any, for a subsystem here. Example:
-        //    setDefaultCommand(new MySpecialCommand());
     }
 }
 

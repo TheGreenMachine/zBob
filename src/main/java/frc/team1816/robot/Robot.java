@@ -129,7 +129,7 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
-        
+
 //        System.out.println("Elevator ticks: " + elevator.getTicks());
 
 //        System.out.println("left talon v " + drivetrain.getLeftTalonVelocity());
