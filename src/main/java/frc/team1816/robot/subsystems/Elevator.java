@@ -21,13 +21,12 @@ public class Elevator extends Subsystem {
 
     private static int MAX_ENCODER_TICKS = 1000;
 
-    public Elevator(int elevatorMaster, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit, int shifterSolenoidID) {
+    public Elevator(int elevatorMaster, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit) {
         super();
         this.elevatorMaster = new TalonSRX(elevatorMaster);
         this.elevatorEncoder = new Encoder(encoderPort1, encoderPort2, false, Encoder.EncodingType.k4X);
         this.upperLimit = new DigitalInput(upperLimit);
         this.lowerLimit = new DigitalInput(lowerLimit);
-        this.shifterSolenoid = new Solenoid(shifterSolenoidID);
 
         this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);

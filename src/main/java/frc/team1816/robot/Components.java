@@ -52,7 +52,7 @@ public class Components {
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, RIGHT_SLAVE_TWO, LEFT_MAIN, LEFT_SLAVE_ONE, LEFT_SLAVE_TWO);
         collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, COLLECTOR_SOLENOID_FRONT);
         ai = new AnalogInput(3);
-        elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT, CLIMBER_SOLENOID);
+        elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT);
         climber = new Climber(CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_FOUR, CLIMBER_SOLENOID);
 
         compressor = new Compressor(PCM_NODE_ID);
