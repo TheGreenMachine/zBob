@@ -1,6 +1,7 @@
 package frc.team1816.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import frc.team1816.robot.subsystems.Climber;
 import frc.team1816.robot.subsystems.Collector;
 import frc.team1816.robot.subsystems.Drivetrain;
 import frc.team1816.robot.subsystems.Elevator;
@@ -12,6 +13,7 @@ public class Components {
     public Collector collector;
     public AnalogInput ai;
     public Elevator elevator;
+    public Climber climber;
 
     private static final int RIGHT_MAIN = 6;
     private static final int RIGHT_SLAVE_ONE = 5;
@@ -41,8 +43,8 @@ public class Components {
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, RIGHT_SLAVE_TWO, LEFT_MAIN, LEFT_SLAVE_ONE, LEFT_SLAVE_TWO);
         collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, COLLECTOR_SOLENOID_FRONT);
         ai = new AnalogInput(3);
-        elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT, CLIMBER_SOLENOID,
-                CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_FOUR);
+        elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT, CLIMBER_SOLENOID);
+        climber = new Climber(CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_FOUR);
     }
 
     public static Components getInstance(){

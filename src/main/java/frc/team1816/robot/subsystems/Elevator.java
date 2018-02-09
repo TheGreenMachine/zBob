@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Elevator extends Subsystem {
 
     private TalonSRX elevatorMaster;
-    private TalonSRX climberOne, climberTwo, climberThree, climberFour;
     private DigitalInput upperLimit, lowerLimit;
     private double speed;
     private double climberSpeed;
@@ -22,23 +21,13 @@ public class Elevator extends Subsystem {
 
     private static int MAX_ENCODER_TICKS = 1000;
 
-    public Elevator(int elevatorMaster, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit, int shifterSolenoidID
-            , int climberOne, int climberTwo, int climberThree, int climberFour) {
+    public Elevator(int elevatorMaster, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit, int shifterSolenoidID) {
         super();
         this.elevatorMaster = new TalonSRX(elevatorMaster);
         this.elevatorEncoder = new Encoder(encoderPort1, encoderPort2, false, Encoder.EncodingType.k4X);
         this.upperLimit = new DigitalInput(upperLimit);
         this.lowerLimit = new DigitalInput(lowerLimit);
         this.shifterSolenoid = new Solenoid(shifterSolenoidID);
-
-        this.climberOne = new TalonSRX(climberOne);
-        this.climberTwo = new TalonSRX(climberTwo);
-        this.climberThree = new TalonSRX(climberThree);
-        this.climberFour = new TalonSRX(climberFour);
-
-        this.climberTwo.set(ControlMode.Follower, climberOne);
-        this.climberThree.set(ControlMode.Follower, climberOne);
-        this.climberFour.set(ControlMode.Follower, climberOne);
 
         this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);
@@ -57,23 +46,6 @@ public class Elevator extends Subsystem {
             }
 
             elevatorMaster.set(ControlMode.PercentOutput, speed);
-        }
-    }
-
-    public void setClimberSpeed(double speed) {
-        if(speed > 0) {
-            this.climberSpeed = 0;
-        } else {
-            this.climberSpeed = speed;
-        }
-
-        climberOne.set(ControlMode.PercentOutput, this.speed);
-        System.out.println("climber percent output" + climberOne.getMotorOutputPercent());
-    }
-
-    public void engageShifter() {
-        if(climberEngaged) {
-            shifterSolenoid.set(true);
         }
     }
 
@@ -99,7 +71,6 @@ public class Elevator extends Subsystem {
     }
 
     public void resetEncoders() {
-        this.elevatorEncoder.reset();
         elevatorEncoder.reset();
     }
 

@@ -10,9 +10,12 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
+import frc.team1816.robot.subsystems.Climber;
 import frc.team1816.robot.subsystems.Collector;
 import frc.team1816.robot.subsystems.Drivetrain;
 import frc.team1816.robot.subsystems.Elevator;
+
+import java.awt.*;
 
 public class Robot extends IterativeRobot {
 
@@ -20,6 +23,7 @@ public class Robot extends IterativeRobot {
     private Drivetrain drivetrain;
     private Elevator elevator;
     private Collector collector;
+    private Climber climber;
 
     private SendableChooser<Command> autoChooser;
 
@@ -36,6 +40,7 @@ public class Robot extends IterativeRobot {
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
         collector = Components.getInstance().collector;
+        climber = Components.getInstance().climber;
 
         leftAuto = new LeftAutoStartCommand();
         rightAuto = new RightAutoStartCommand();
@@ -97,6 +102,7 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
+        climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));
 
         // collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
@@ -123,11 +129,12 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
-        System.out.println("Elevator ticks: " + elevator.getTicks());
+        
+//        System.out.println("Elevator ticks: " + elevator.getTicks());
 
-        System.out.println("left talon v " + drivetrain.getLeftTalonVelocity());
-        System.out.println("right talon v" + drivetrain.getRightTalonVelocity());
-        System.out.println("elevator out voltage" + elevator.getElevatorOutputVoltage());
+//        System.out.println("left talon v " + drivetrain.getLeftTalonVelocity());
+//        System.out.println("right talon v" + drivetrain.getRightTalonVelocity());
+//        System.out.println("elevator out voltage" + elevator.getElevatorOutputVoltage());
 
         Scheduler.getInstance().run();
     }

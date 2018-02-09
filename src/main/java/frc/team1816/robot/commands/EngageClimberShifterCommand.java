@@ -2,23 +2,23 @@ package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
-import frc.team1816.robot.subsystems.Elevator;
+import frc.team1816.robot.subsystems.Climber;
 
 
 public class EngageClimberShifterCommand extends Command {
-    private Elevator elevator;
+    private Climber climber;
     private boolean shift;
 
     public EngageClimberShifterCommand(boolean shift) {
         super("engageclimbershiftercommand");
-        elevator = Components.getInstance().elevator;
+        climber = Components.getInstance().climber;
         this.shift = shift;
-        requires(elevator);
+        requires(climber);
     }
 
     @Override
     protected void initialize() {
-        elevator.engageShifter();
+        climber.engageShifter();
     }
 
     @Override
