@@ -36,8 +36,8 @@ public class GamepadElevatorCommand extends Command {
             power = 0;
         }
 
-        climbSpeed = - gamepad.getRightY();
-        System.out.println("Climber power: " + climbSpeed);
+        climbSpeed = - gamepad.getRightX();
+        System.out.println("Climber input pow: " + climbSpeed);
 
 //        System.out.println("Upper opto: " + elevator.upperLimit.get() + "\t Lower opto: " + elevator.lowerLimit.get());
 

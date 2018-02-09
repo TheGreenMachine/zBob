@@ -125,6 +125,10 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
         System.out.println("Elevator ticks: " + elevator.getTicks());
 
+        System.out.println("left talon v " + drivetrain.getLeftTalonVelocity());
+        System.out.println("right talon v" + drivetrain.getRightTalonVelocity());
+        System.out.println("elevator out voltage" + elevator.getElevatorOutputVoltage());
+
         Scheduler.getInstance().run();
     }
 

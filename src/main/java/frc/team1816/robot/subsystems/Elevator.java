@@ -68,6 +68,7 @@ public class Elevator extends Subsystem {
         }
 
         climberOne.set(ControlMode.PercentOutput, this.speed);
+        System.out.println("climber percent output" + climberOne.getMotorOutputPercent());
     }
 
     public void engageShifter() {
@@ -91,6 +92,10 @@ public class Elevator extends Subsystem {
 
     public double getHeightPercent() {
         return (elevatorEncoder.get() / MAX_ENCODER_TICKS * 100);
+    }
+
+    public double getElevatorOutputVoltage() {
+        return elevatorMaster.getMotorOutputPercent();
     }
 
     public void resetEncoders() {
