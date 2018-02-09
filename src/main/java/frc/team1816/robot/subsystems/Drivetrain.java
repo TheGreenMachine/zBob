@@ -112,7 +112,7 @@ public class Drivetrain extends Subsystem1816 {
 
 
     public double getGyroAngle() {
-        return navx.getAngle();
+        return navx.getYaw();
     }
 
     public void setDrivetrain(double leftPower, double rightPower, double rotation) {

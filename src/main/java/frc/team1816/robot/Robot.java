@@ -79,7 +79,8 @@ public class Robot extends IterativeRobot {
 
 //        Command autoCommand = autoChooser.getSelected();
 
-        Command autoCommand = new ArcDriveCommand(48, 0.4, 90);
+        Command autoCommand = new DrivePathFindCommand(start, half, end);
+//        Command autoCommand = new ArcDriveCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
 

@@ -24,6 +24,7 @@ public class DrivePathFindCommand extends Command {
     private EncoderFollower left;
     private EncoderFollower right;
     private double initAngle;
+    private int iteration = 0;
 
     public DrivePathFindCommand(Waypoint startPoints, Waypoint midPoint, Waypoint endPoints) {
         super("drivepathfindcommand");
@@ -62,20 +63,13 @@ public class DrivePathFindCommand extends Command {
         left = new EncoderFollower(leftTrajectory);
         right = new EncoderFollower(rightTrajectory);
 
-        left.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .1524);
-        left.configurePIDVA(.02, 0.0, 0.0, 1 / 1.7, 0);
+        left.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .3333);
+        left.configurePIDVA(.05, 0.005, 0.0, 1 / 4, 0);
 
-        right.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .1524);
-        right.configurePIDVA(.02, 0.0, 0.0, 1 / 1.7, 0);
+        right.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .3333);
+        right.configurePIDVA(.05, 0.005, 0.0, 1 / 4, 0);
 
-        if (drivetrain.getPrevTargetHeading() != null) {
-            initAngle = Double.parseDouble(drivetrain.getPrevTargetHeading()); //gets the heading it should be at after rotateX
-            drivetrain.setPrevTargetHeading(null);
-            System.out.println("init target Angle: " + initAngle);
-            System.out.println("initial gyro angle: " + drivetrain.getGyroAngle());
-        } else {
-            initAngle = drivetrain.getGyroAngle();
-        }
+        initAngle = drivetrain.getGyroAngle();
 
 //        File save = new File("trajectory.csv");
 //        Pathfinder.writeToCSV(save, trajectory);
@@ -101,6 +95,7 @@ public class DrivePathFindCommand extends Command {
 
     @Override
     protected void execute() {
+        iteration++;
         double l = left.calculate((int) drivetrain.talonPositionLeft());
         double r = right.calculate((int) drivetrain.talonPositionRight());
 //        System.out.println("Left ticks: " + l);
@@ -112,7 +107,15 @@ public class DrivePathFindCommand extends Command {
         System.out.println("Gyro Heading: " + gyroHeading + "\t Desired Heading: " + desiredHeading);
 
         double angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
-        double turn = 0.004 * angleDifference;
+        double turn = 0.03 * angleDifference;
+
+        if (turn > 0) {
+            turn = Math.min(turn, 0.4);
+        } else if (turn < 0) {
+            turn = Math.max(turn, -0.4);
+        } else {
+            turn = 0;
+        }
 
         System.out.println("Angle Difference: " + angleDifference);
 
@@ -122,12 +125,20 @@ public class DrivePathFindCommand extends Command {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(gyroHeading).append(",").append(angleDifference).append(",").append(l).append(",").append((l + turn)).append(",").append(r).append(",").append((r + turn));
         Robot.logger.log(stringBuilder.toString());
+        System.out.println("Left Talon Ticks: " + drivetrain.talonPositionLeft());
+        System.out.println("Right Talon Ticks: " + drivetrain.talonPositionRight());
 
-        drivetrain.setDrivetrain(l + turn, r - turn);
+//        Trajectory.Segment testSegmentLeft = leftTrajectory.get(iteration);
+//        double testLeft = testSegmentLeft.velocity;
+//        Trajectory.Segment testSegmentRight = rightTrajectory.get(iteration);
+//        double testRight = testSegmentRight.velocity;
+
+        drivetrain.setDrivetrain(l, r);
     }
 
     @Override
     protected boolean isFinished() {
+//        return rightTrajectory.length() < iteration;
         return right.isFinished() && left.isFinished();
     }
 
