@@ -24,7 +24,7 @@ public class Drivetrain extends Subsystem1816 {
     public static final double SLOW_MOD = 0.5;
     private boolean slowMode;
 
-    private TalonSRX rightMain, rightSlaveOne, rightSlaveTwo, leftMain, leftSlaveOne, leftSlaveTwo;
+    private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
     public static double p_L = 0.05;
     public static double i_L = 0.007;
@@ -44,32 +44,25 @@ public class Drivetrain extends Subsystem1816 {
 
     private AHRS navx;
 
-    public Drivetrain(int rightMain, int rightSlaveOne, int rightSlaveTwo, int leftMain, int leftSlaveOne, int leftSlaveTwo){
+    public Drivetrain(int rightMain, int rightSlaveOne, int leftMain, int leftSlaveOne){
         super();
         this.rightMain = new TalonSRX(rightMain);
         this.rightSlaveOne = new TalonSRX(rightSlaveOne);
-        this.rightSlaveTwo = new TalonSRX(rightSlaveTwo);
         this.leftMain = new TalonSRX(leftMain);
         this.leftSlaveOne = new TalonSRX(leftSlaveOne);
-        this.leftSlaveTwo = new TalonSRX(leftSlaveTwo);
 
         navx = new AHRS(I2C.Port.kMXP);
 
         this.rightMain.setInverted(true);
         this.rightSlaveOne.setInverted(true);
-        this.rightSlaveTwo.setInverted(true);
 
         this.rightMain.setNeutralMode(NeutralMode.Brake);
         this.rightSlaveOne.setNeutralMode(NeutralMode.Brake);
-        this.rightSlaveTwo.setNeutralMode(NeutralMode.Brake);
         this.leftMain.setNeutralMode(NeutralMode.Brake);
         this.leftSlaveOne.setNeutralMode(NeutralMode.Brake);
-        this.leftSlaveTwo.setNeutralMode(NeutralMode.Brake);
 
         this.rightSlaveOne.set(ControlMode.Follower, rightMain);
-        this.rightSlaveTwo.set(ControlMode.Follower, rightMain);
         this.leftSlaveOne.set(ControlMode.Follower, leftMain);
-        this.leftSlaveTwo.set(ControlMode.Follower, leftMain);
 
         this.rightMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.leftMain.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);

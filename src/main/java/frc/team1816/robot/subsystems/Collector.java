@@ -14,16 +14,17 @@ public class Collector extends Subsystem1816 {
 
     private Solenoid frontSolenoid;
 
-    private double power;
+    private double leftPower;
+    private double rightPower;
     private boolean collectorOpen;
 
-    public Collector(int leftTalon, int rightTalon, int frontSolenoidID) {
+    public Collector(int leftTalon, int rightTalon, int frontSolenoidID, int pcmNode) {
         super();
 
         this.left = new TalonSRX(leftTalon);
         this.right = new TalonSRX(rightTalon);
 
-        this.frontSolenoid = new Solenoid(frontSolenoidID);
+        this.frontSolenoid = new Solenoid(pcmNode, frontSolenoidID);
 
         this.right.setInverted(true);
 
@@ -34,8 +35,9 @@ public class Collector extends Subsystem1816 {
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
     }
 
-    public void setCollectorSpeed(double power) {
-        this.power = power;
+    public void setCollectorSpeed(double lpower, double rpower) {
+        this.leftPower = lpower;
+        this.rightPower = rpower;
         update();
     }
 
@@ -45,8 +47,8 @@ public class Collector extends Subsystem1816 {
 
     @Override
     public void update() {
-        left.set(ControlMode.PercentOutput, power);
-        right.set(ControlMode.PercentOutput, power);
+        left.set(ControlMode.PercentOutput, leftPower);
+        right.set(ControlMode.PercentOutput, rightPower);
 
         frontSolenoid.set(collectorOpen);
     }

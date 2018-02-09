@@ -17,7 +17,6 @@ public class SetCollectorSpeedCommand extends Command {
 
     @Override
     protected void initialize() {
-        collector.setCollectorSpeed(power);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class SetCollectorSpeedCommand extends Command {
 
     @Override
     protected void interrupted() {
-        collector.setCollectorSpeed(0);
+        collector.setCollectorSpeed(0,0);
         System.out.println("INTERRUPTED!!!");
     }
 }

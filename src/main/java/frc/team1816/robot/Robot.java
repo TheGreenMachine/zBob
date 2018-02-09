@@ -103,8 +103,7 @@ public class Robot extends IterativeRobot {
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
         climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));
-
-        // collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
+        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
     }
 

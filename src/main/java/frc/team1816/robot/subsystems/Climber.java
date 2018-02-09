@@ -13,10 +13,10 @@ public class Climber extends Subsystem {
     private double climberSpeed;
     private Solenoid shifterSolenoid;
 
-    public Climber(int climberMain, int climberSlaveOne, int climberSlaveTwo, int climberSlaveThree, int shifterSolenoidID) {
+    public Climber(int climberMain, int climberSlaveOne, int climberSlaveTwo, int climberSlaveThree, int shifterSolenoidID, int pcmNode) {
         super();
 
-        this.shifterSolenoid = new Solenoid(shifterSolenoidID);
+        this.shifterSolenoid = new Solenoid(pcmNode, shifterSolenoidID);
 
         this.climberMain = new TalonSRX(climberMain);
         this.climberSlaveOne = new TalonSRX(climberSlaveOne);

@@ -40,12 +40,6 @@ public class Controls {
         gamepad1.dPadLeft().whenPressed(new RaiseElevatorCommand());
         gamepad1.dPadRight().whenPressed(new LowerElevatorCommand());
 
-        gamepad1.rightBumper().whenPressed(new SetCollectorSpeedCommand(.75));
-        gamepad1.rightBumper().whenReleased(new SetCollectorSpeedCommand(0));
-
-        gamepad1.leftBumper().whenPressed(new SetCollectorSpeedCommand(-.75));
-        gamepad1.leftBumper().whenReleased(new SetCollectorSpeedCommand(0));
-
 //        gamepad1.dPadUp().whileHeld(new TalonTestCommand(8, 0.5));
     }
 

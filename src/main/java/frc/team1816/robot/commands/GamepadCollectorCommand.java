@@ -10,7 +10,8 @@ public class GamepadCollectorCommand extends Command {
     private Collector collector;
     private Gamepad gamepad;
 
-    private double power;
+    private double lpower;
+    private double rpower;
     private boolean collectorOpen;
 
     public GamepadCollectorCommand(Gamepad gamepad) {
@@ -29,14 +30,17 @@ public class GamepadCollectorCommand extends Command {
     @Override
     protected void execute() {
         if(gamepad.leftTrigger().get()) {
-            power = 0.75;
+            lpower = 1;
+            rpower = 1;
         } else if (gamepad.rightTrigger().get()) {
-            power = -0.75;
+            lpower = -1;
+            rpower = -1;
         } else {
-            power = 0;
+            lpower = 0;
+            rpower = 0;
         }
 
-        collector.setCollectorSpeed(power);
+        collector.setCollectorSpeed(lpower, rpower);
     }
 
     @Override
