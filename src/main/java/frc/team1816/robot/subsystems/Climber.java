@@ -31,6 +31,8 @@ public class Climber extends Subsystem {
         this.climberSlaveOne.setNeutralMode(NeutralMode.Brake);
         this.climberSlaveTwo.setNeutralMode(NeutralMode.Brake);
         this.climberSlaveThree.setNeutralMode(NeutralMode.Brake);
+
+        shifterSolenoid.set(false);
     }
 
     public void setClimberSpeed(double speed) {

@@ -10,30 +10,30 @@ import frc.team1816.robot.subsystems.Elevator;
 public class GamepadClimberCommand extends Command {
 
     private Climber climber;
+    private Elevator elevator;
     private Gamepad gamepad;
     private double climberSpeed;
 
     public GamepadClimberCommand(Gamepad gamepad) {
         super("gamepadelevatorcommand");
         this.climber = Components.getInstance().climber;
+        this.elevator = Components.getInstance().elevator;
         this.gamepad = gamepad;
         requires(climber);
     }
 
     @Override
     protected void initialize() {
-        System.out.println("Initialized GamepadElevatorCommand");
+//        System.out.println("Initialized GamepadElevatorCommand");
     }
 
     @Override
     protected void execute() {
         climberSpeed = - gamepad.getRightY();
 
-        if(climberSpeed > 0) {
-            climberSpeed = 0;
+        if(elevator.getHeightPercent() > 15){
+            climber.setClimberSpeed(climberSpeed);
         }
-
-        climber.setClimberSpeed(climberSpeed);
     }
 
 

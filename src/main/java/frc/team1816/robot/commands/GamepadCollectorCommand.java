@@ -24,7 +24,7 @@ public class GamepadCollectorCommand extends Command {
 
     @Override
     protected void initialize() {
-        System.out.println("Initialized GamepadCollectorCommand");
+//        System.out.println("Initialized GamepadCollectorCommand");
     }
 
     @Override

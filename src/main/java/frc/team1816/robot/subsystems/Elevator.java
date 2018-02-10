@@ -13,13 +13,9 @@ public class Elevator extends Subsystem {
     private TalonSRX elevatorMaster, elevatorSlave;
     private DigitalInput upperLimit, lowerLimit;
     private double speed;
-    private double climberSpeed;
     private Encoder elevatorEncoder;
-    private Solenoid shifterSolenoid;
 
-    private boolean climberEngaged = false;
-
-    private static int MAX_ENCODER_TICKS = 1000;
+    private static int MAX_ENCODER_TICKS = 3100;
 
     public Elevator(int elevatorMaster, int elevatorSlave, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit) {
         super();
@@ -32,6 +28,8 @@ public class Elevator extends Subsystem {
         this.elevatorSlave.set(ControlMode.Follower, elevatorMaster);
         this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);
+
+        elevatorEncoder.setReverseDirection(true);
     }
 
     public void setElevatorSpeed(double speed) {
@@ -64,7 +62,7 @@ public class Elevator extends Subsystem {
     }
 
     public double getHeightPercent() {
-        return (elevatorEncoder.get() / MAX_ENCODER_TICKS * 100);
+        return (( getTicks() / MAX_ENCODER_TICKS ) * 100);
     }
 
     public double getElevatorOutputVoltage() {
@@ -72,6 +70,7 @@ public class Elevator extends Subsystem {
     }
 
     public void resetEncoders() {
+        System.out.println("Resetting Encoder");
         elevatorEncoder.reset();
     }
 

@@ -21,7 +21,7 @@ public class GamepadElevatorCommand extends Command {
 
     @Override
     protected void initialize() {
-        System.out.println("Initialized GamepadElevatorCommand");
+//        System.out.println("Initialized GamepadElevatorCommand");
     }
 
     @Override
@@ -45,6 +45,8 @@ public class GamepadElevatorCommand extends Command {
 //            power = 0;
 //        }
 
+        System.out.println("elevator enc ticks: " + elevator.getTicks());
+        System.out.println("elevator height percent: " + elevator.getHeightPercent() + "%");
         elevator.setElevatorSpeed(power);
     }
 

@@ -33,8 +33,8 @@ public class Components {
     //Elevator Constants
     private static final int ELEVATOR_MAIN = 1;
     private static final int ELEVATOR_SLAVE = 7;
-    private static final int ELEVATOR_ENC_1 = 1;
-    private static final int ELEVATOR_ENC_2 = 2;
+    private static final int ELEVATOR_ENC_1 = 0;
+    private static final int ELEVATOR_ENC_2 = 1;
 
     private static final int UPPER_LIMIT = 9;
     private static final int LOWER_LIMIT = 8;
