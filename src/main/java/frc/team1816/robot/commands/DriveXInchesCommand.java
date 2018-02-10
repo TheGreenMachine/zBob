@@ -24,7 +24,7 @@ public class DriveXInchesCommand extends Command {
     private final boolean USE_IR;
     private final double RAMP_MIN_POWER = .15;
     private final double RAMP_UP_INCHES = 6;
-    private final double RAMP_DOWN_INCHES = 24;
+    private final double RAMP_DOWN_INCHES = 6;
 
     public DriveXInchesCommand(double inches, double speed, boolean useIr) {
         super("drivexinchescommand");
@@ -144,6 +144,7 @@ public class DriveXInchesCommand extends Command {
             System.out.println("DriveX Straight\t delta angle: " + deltaAngle);
             System.out.println("R + L Velocity: " + leftVelocity);
             System.out.println("---");
+            rightVelocity = leftVelocity;
         }
 
         drivetrain.setDrivetrain(leftVelocity, rightVelocity);

@@ -16,7 +16,7 @@ public class Drivetrain extends Subsystem1816{
     public static double TICKS_PER_INCH;
 
     public static double DRIVETRAIN_WIDTH;
-    public static double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+    public static double INCHES_PER_REV;
     public static double MAX_VELOCITY_TICKS_PER_100MS;
 
     public static final double SLOW_MOD = 0.5;
@@ -30,7 +30,7 @@ public class Drivetrain extends Subsystem1816{
     public static double f_L = 1.34;
     public static int izone_L = 15;
 
-    public static double p_R = 0.07;
+    public static double p_R = 0.03;
     public static double i_R = 0.007;
     public static double d_R = 0;
     public static double f_R = 1.34;
@@ -57,6 +57,7 @@ public class Drivetrain extends Subsystem1816{
         TICKS_PER_INCH = Double.valueOf(properties.getProperty("TICKS_PER_INCH"));
         DRIVETRAIN_WIDTH = Double.valueOf(properties.getProperty("DRIVETRAIN_WIDTH"));
         MAX_VELOCITY_TICKS_PER_100MS = Double.valueOf(properties.getProperty("MAX_VELOCITY_TICKS_PER_100MS"));
+        INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
 
         System.out.println("Ticks per inch:" + TICKS_PER_INCH +
                 "\nTicks per rev " + TICKS_PER_REV +
@@ -221,6 +222,7 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public double ticksToInches(double ticks) {
+        System.out.println("ticks per rev: " + TICKS_PER_REV + " inches per rev: " + INCHES_PER_REV);
         return ticks * (1 / TICKS_PER_REV) * INCHES_PER_REV;
     }
 
