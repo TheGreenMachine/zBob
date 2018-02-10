@@ -56,7 +56,7 @@ public class GamepadDriveCommand extends Command {
         double rotation = gamepad.getRightX();
 
 //        System.out.println("left enc: " + drivetrain.talonPositionLeft() + " right enc: " + drivetrain.talonPositionRight());
-//        System.out.println("left spd: " + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
+        System.out.println("left spd: " + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
 //
 //        System.out.println("gyro angle: " + drivetrain.getGyroAngle());
 //        System.out.println("gyro connected: " + drivetrain.gyroActiveCheck());

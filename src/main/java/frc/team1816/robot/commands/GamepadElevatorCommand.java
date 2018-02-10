@@ -45,8 +45,8 @@ public class GamepadElevatorCommand extends Command {
 //            power = 0;
 //        }
 
-        System.out.println("elevator enc ticks: " + elevator.getTicks());
-        System.out.println("elevator height percent: " + elevator.getHeightPercent() + "%");
+//        System.out.println("elevator enc ticks: " + elevator.getTicks());
+//        System.out.println("elevator height percent: " + elevator.getHeightPercent() + "%");
         elevator.setElevatorSpeed(power);
     }
 

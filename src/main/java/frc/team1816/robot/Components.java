@@ -18,20 +18,18 @@ public class Components {
     public Compressor compressor;
 
     //Drivetrain Constants
-    private static final int RIGHT_MAIN = 6;
-    private static final int RIGHT_SLAVE_ONE = 5;
-//    private static final int RIGHT_SLAVE_TWO = 7;
+    private static final int RIGHT_MAIN = 5;
+    private static final int RIGHT_SLAVE_ONE = 4;
     private static final int LEFT_MAIN = 14;
     private static final int LEFT_SLAVE_ONE = 13;
-//    private static final int LEFT_SLAVE_TWO = 12;
 
     //Collector Constants
     private static final int COLLECTOR_LEFT = 2;
-    private static final int COLLECTOR_RIGHT = 4;
+    private static final int COLLECTOR_RIGHT = 1;
     private static final int COLLECTOR_SOLENOID_FRONT = 0;
 
     //Elevator Constants
-    private static final int ELEVATOR_MAIN = 1;
+    private static final int ELEVATOR_MAIN = 6;
     private static final int ELEVATOR_SLAVE = 7;
     private static final int ELEVATOR_ENC_1 = 0;
     private static final int ELEVATOR_ENC_2 = 1;
@@ -40,10 +38,10 @@ public class Components {
     private static final int LOWER_LIMIT = 8;
 
     //Climber Constants
-    private static final int CLIMBER_ONE = 8;
-    private static final int CLIMBER_TWO = 9;
+    private static final int CLIMBER_ONE = 12;
+    private static final int CLIMBER_TWO = 11;
     private static final int CLIMBER_THREE = 10;
-    private static final int CLIMBER_FOUR = 11;
+    private static final int CLIMBER_FOUR = 3; // motor may be removed
     private static final int CLIMBER_SOLENOID = 1;
 
     //Compressor
