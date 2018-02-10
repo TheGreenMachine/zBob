@@ -12,6 +12,7 @@ public class ToggleCollectorCommand extends Command {
     public ToggleCollectorCommand(boolean collectorToggle) {
         super("toggleslowmodecommand");
         collector = Components.getInstance().collector;
+        this.collectorToggle = collectorToggle;
         requires(collector);
     }
 
@@ -28,5 +29,5 @@ public class ToggleCollectorCommand extends Command {
 
     protected void end() {}
 
-    protected void interrupted() { }
+    protected void interrupted() { super.interrupted(); }
 }

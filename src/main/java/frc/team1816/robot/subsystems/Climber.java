@@ -44,7 +44,7 @@ public class Climber extends Subsystem {
     }
 
     public void engageShifter() {
-            shifterSolenoid.set(true);
+        shifterSolenoid.set(true);
     }
 
     public void disengageShifter() {
