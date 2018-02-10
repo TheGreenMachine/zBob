@@ -7,19 +7,17 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
 
-public class Drivetrain extends Subsystem1816 {
-//    COMPETITION ROBOT CONSTANTS
-    public static final double TICKS_PER_REV = 1025;
-    public static final double TICKS_PER_INCH = 47.73; //52.2028;
+public class Drivetrain extends Subsystem1816{
+    public static double TICKS_PER_REV;
+    public static double TICKS_PER_INCH;
 
-//    PRACTICE ROBOT CONSTANTS
-//    public static final double TICKS_PER_REV = 9900;
-//    public static final double TICKS_PER_INCH = 785;
-
-    public static final double DRIVETRAIN_WIDTH = 24;
-    public static final double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
-    public static final double MAX_VELOCITY_TICKS_PER_100MS = 750;
+    public static double DRIVETRAIN_WIDTH;
+    public static double INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+    public static double MAX_VELOCITY_TICKS_PER_100MS;
 
     public static final double SLOW_MOD = 0.5;
     private boolean slowMode;
@@ -46,6 +44,27 @@ public class Drivetrain extends Subsystem1816 {
 
     public Drivetrain(int rightMain, int rightSlaveOne, int leftMain, int leftSlaveOne){
         super();
+        Properties properties = new Properties();
+        try {
+            FileInputStream in = new FileInputStream("/home/lvuser/drivetrain.properties");
+            properties.load(in);
+            in.close();
+        } catch (Exception e){
+            System.out.println("properties file not found");
+        }
+
+        TICKS_PER_REV = Double.valueOf(properties.getProperty("TICKS_PER_REV"));
+        TICKS_PER_INCH = Double.valueOf(properties.getProperty("TICKS_PER_INCH"));
+        DRIVETRAIN_WIDTH = Double.valueOf(properties.getProperty("DRIVETRAIN_WIDTH"));
+        MAX_VELOCITY_TICKS_PER_100MS = Double.valueOf(properties.getProperty("MAX_VELOCITY_TICKS_PER_100MS"));
+
+        System.out.println("Ticks per inch:" + TICKS_PER_INCH +
+                "\nTicks per rev " + TICKS_PER_REV +
+                "\nDrivetrain width " + DRIVETRAIN_WIDTH +
+                "\nMax velocity " + MAX_VELOCITY_TICKS_PER_100MS);
+        System.out.println("properties loaded");
+
+
         this.rightMain = new TalonSRX(rightMain);
         this.rightSlaveOne = new TalonSRX(rightSlaveOne);
         this.leftMain = new TalonSRX(leftMain);
