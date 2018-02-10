@@ -62,6 +62,7 @@ public class GamepadDriveCommand extends Command {
 //        System.out.println("gyro connected: " + drivetrain.gyroActiveCheck());
 
         drivetrain.setDrivetrain(left, right, rotation);
+
     }
 
     @Override

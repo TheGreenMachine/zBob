@@ -11,14 +11,14 @@ public class EngageClimberShifterCommand extends Command {
 
     public EngageClimberShifterCommand(boolean shift) {
         super("engageclimbershiftercommand");
-        elevator = Components.getInstance().elevator;
+        //elevator = Components.getInstance().elevator;
         this.shift = shift;
-        requires(elevator);
+        //requires(elevator);
     }
 
     @Override
     protected void initialize() {
-        elevator.engageShifter();
+        //elevator.engageShifter();
     }
 
     @Override

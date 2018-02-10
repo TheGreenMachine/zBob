@@ -7,7 +7,7 @@ import frc.team1816.robot.subsystems.Collector;
 
 
 public class GamepadCollectorCommand extends Command {
-    private Collector collector;
+    //private Collector collector;
     private Gamepad gamepad;
 
     private double power;
@@ -15,10 +15,10 @@ public class GamepadCollectorCommand extends Command {
 
     public GamepadCollectorCommand(Gamepad gamepad) {
         super("gamepadcollectorcommand");
-        this.collector = Components.getInstance().collector;
+      //  this.collector = Components.getInstance().collector;
         this.gamepad = gamepad;
 
-        requires(collector);
+        //requires(collector);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class GamepadCollectorCommand extends Command {
             power = 0;
         }
 
-        collector.setCollectorSpeed(power);
+        //collector.setCollectorSpeed(power);
     }
 
     @Override

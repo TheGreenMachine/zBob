@@ -6,17 +6,17 @@ import frc.team1816.robot.subsystems.Collector;
 
 public class ToggleCollectorCommand extends Command {
 
-    private Collector collector;
+    //private Collector collector;
     private boolean collectorToggle;
 
     public ToggleCollectorCommand(boolean collectorToggle) {
         super("toggleslowmodecommand");
-        collector = Components.getInstance().collector;
-        requires(collector);
+      //  collector = Components.getInstance().collector;
+        //requires(collector);
     }
 
     protected void initialize() {
-        collector.toggleCollector(collectorToggle);
+        //collector.toggleCollector(collectorToggle);
     }
 
     protected void execute() {}

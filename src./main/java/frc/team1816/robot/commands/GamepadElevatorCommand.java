@@ -8,16 +8,16 @@ import frc.team1816.robot.subsystems.Elevator;
 
 public class GamepadElevatorCommand extends Command {
 
-    private Elevator elevator;
+   // private Elevator elevator;
     private Gamepad gamepad;
     private double power;
     private double climbSpeed;
 
     public GamepadElevatorCommand(Gamepad gamepad) {
         super("gamepadelevatorcommand");
-        this.elevator = Components.getInstance().elevator;
+     //   this.elevator = Components.getInstance().elevator;
         this.gamepad = gamepad;
-        requires(elevator);
+       // requires(elevator);
     }
 
     @Override
@@ -49,8 +49,8 @@ public class GamepadElevatorCommand extends Command {
 //            power = 0;
 //        }
 
-        elevator.setClimberSpeed(climbSpeed);
-        elevator.setElevatorSpeed(power);
+       // elevator.setClimberSpeed(climbSpeed);
+       // elevator.setElevatorSpeed(power);
     }
 
 
