@@ -6,18 +6,18 @@ import frc.team1816.robot.subsystems.Collector;
 
 public class SetCollectorSpeedCommand extends Command {
     private double power;
-    private Collector collector;
+  //  private Collector collector;
 
     public SetCollectorSpeedCommand(double power) {
         super("setcollectorspeedcommand");
         this.power = power;
-        collector = Components.getInstance().collector;
-        requires(collector);
+    //    collector = Components.getInstance().collector;
+    //    requires(collector);
     }
 
     @Override
     protected void initialize() {
-        collector.setCollectorSpeed(power);
+        //collector.setCollectorSpeed(power);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class SetCollectorSpeedCommand extends Command {
 
     @Override
     protected void interrupted() {
-        collector.setCollectorSpeed(0);
+        //collector.setCollectorSpeed(0);
         System.out.println("INTERRUPTED!!!");
     }
 }

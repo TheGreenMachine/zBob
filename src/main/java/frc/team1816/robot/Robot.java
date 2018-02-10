@@ -37,14 +37,14 @@ public class Robot extends IterativeRobot {
         elevator = Components.getInstance().elevator;
         collector = Components.getInstance().collector;
 
-        leftAuto = new LeftAutoStartCommand();
-        rightAuto = new RightAutoStartCommand();
+        //leftAuto = new LeftAutoStartCommand();
+        //rightAuto = new RightAutoStartCommand();
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Auto", leftAuto);
-        autoChooser.addObject("Right Start Auto", rightAuto);
+        //autoChooser.addObject("Left Start Auto", leftAuto);
+        //autoChooser.addObject("Right Start Auto", rightAuto);
 //        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
-        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
+        //autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
@@ -92,11 +92,11 @@ public class Robot extends IterativeRobot {
         logger = new Logging("TeleopLog1");
 
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
-        Gamepad gamepad1 = Controls.getInstance().gamepad1;
+        //Gamepad gamepad1 = Controls.getInstance().gamepad1;
 
         drivetrain.resetEncoders();
-        drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
-        elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
+        drivetrain.setDefaultCommand(new GetPDPStats(gamepad0));
+        //elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
 
         // collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
@@ -123,7 +123,7 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
-        System.out.println("Elevator ticks: " + elevator.getTicks());
+        //System.out.println("Elevator ticks: " + elevator.getTicks());
 
         Scheduler.getInstance().run();
     }

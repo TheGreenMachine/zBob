@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-public class Logging {
+public class    Logging {
 
 	private PrintWriter writer;
 	private String filename;
@@ -34,6 +34,7 @@ public class Logging {
 		
 		try {
 			writer.println(whatToWrite);
+			System.out.println("we're writing this...." + whatToWrite);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
