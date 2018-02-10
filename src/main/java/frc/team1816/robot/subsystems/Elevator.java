@@ -70,7 +70,7 @@ public class Elevator extends Subsystem {
     }
 
     public void resetEncoders() {
-        System.out.println("Resetting Encoder");
+//        System.out.println("Resetting Encoder");
         elevatorEncoder.reset();
     }
 
