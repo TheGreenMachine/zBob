@@ -29,9 +29,9 @@ public class GamepadClimberCommand extends Command {
     protected void execute() {
         climberSpeed = - gamepad.getRightY();
 
-//        if(climberSpeed > 0) {
-//            climberSpeed = 0;
-//        }
+        if(climberSpeed > 0) {
+            climberSpeed = 0;
+        }
 
         climber.setClimberSpeed(climberSpeed);
     }
