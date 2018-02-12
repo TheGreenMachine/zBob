@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Left Start Auto", leftAuto);
         autoChooser.addObject("Right Start Auto", rightAuto);
 //        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
-        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8, false));
+        autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
 
         SmartDashboard.putData("Autonomous", autoChooser);
 

@@ -22,9 +22,9 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         if(target == 'L') {
             System.out.println("Left Start Auto ---- Target: L");
-            addSequential(new DriveXInchesCommand(140, 0.8, false));
+            addSequential(new DriveXInchesCommand(140, 0.8));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(10, 0.8, false));
+            addSequential(new DriveXInchesCommand(10, 0.8));
 
             addSequential(new WaitCommand(1));
 
@@ -34,9 +34,9 @@ public class LeftAutoStartCommand extends CommandGroup {
 //            addSequential(new LowerElevatorCommand());
 //            addSequential(new WaitCommand(0.5));
 
-            addSequential(new DriveXInchesCommand(12, -0.5, false));
+            addSequential(new DriveXInchesCommand(12, -0.5));
             addSequential(new RotateXDegreesCommand(-90));
-            addSequential(new DriveXInchesCommand(24, 0.5, false));
+            addSequential(new DriveXInchesCommand(24, 0.5));
 
 //            System.out.println("Experimental Arc Auto");
 //            addSequential(new DriveXInchesCommand(60, 0.5, false));
@@ -45,18 +45,18 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         } else if (target == 'R'){
             System.out.println("Left Start Auto ---- Target: R");
-            addSequential(new DriveXInchesCommand(185, 0.8, false));
+            addSequential(new DriveXInchesCommand(185, 0.8));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(160, 0.8, false));
+            addSequential(new DriveXInchesCommand(160, 0.8));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(20, 0.5, false));
+            addSequential(new DriveXInchesCommand(20, 0.5));
             addSequential(new RaiseElevatorCommand());
             addSequential(new WaitCommand(1));
             addSequential(new LowerElevatorCommand());
-            addSequential(new DriveXInchesCommand(20, -.5, false));
+            addSequential(new DriveXInchesCommand(20, -.5));
         } else {
             System.out.println("Left Start Auto ---- Auto-Run");
-            addSequential(new DriveXInchesCommand(140,0.5, false));
+            addSequential(new DriveXInchesCommand(140,0.5));
         }
     }
 }

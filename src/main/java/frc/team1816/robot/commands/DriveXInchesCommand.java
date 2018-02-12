@@ -1,6 +1,5 @@
 package frc.team1816.robot.commands;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.Robot;
@@ -9,7 +8,6 @@ import frc.team1816.robot.subsystems.Drivetrain;
 public class DriveXInchesCommand extends Command {
 
     private Drivetrain drivetrain;
-    private AnalogInput analogInput;
     private double initPosition;
     private double inches;
     private double speed;
@@ -18,27 +16,29 @@ public class DriveXInchesCommand extends Command {
     private double initAngle;
     private boolean tripped = false;
 
+    private double startSpeed;
+    private double endSpeed;
+
     private static final double ROTATION_OFFSET_P = 0.03;
     private final double TOLERANCE = 0.1;
     private final double stopVoltage = 1.6;
-    private final boolean USE_IR;
-    private final double RAMP_MIN_POWER = .15;
     private final double RAMP_UP_INCHES = 6;
     private final double RAMP_DOWN_INCHES = 6;
 
-    public DriveXInchesCommand(double inches, double speed, boolean useIr) {
+    public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
         this.inches = inches;
         this.speed = speed;
         drivetrain = Components.getInstance().drivetrain;
-        analogInput = Components.getInstance().ai;
-        analogInput.setOversampleBits(4);
-        analogInput.setAverageBits(2);
-        AnalogInput.setGlobalSampleRate(62500);
-//        ticks = (int) (inches * Drivetrain.TICKS_PER_INCH);
-        USE_IR = useIr;
-        //drivetrain.getRightMain().setSelectedSensorPosition(0,0,10);
-        //drivetrain.getLeftMain().setSelectedSensorPosition(0,0,10);
+    }
+
+    public DriveXInchesCommand(double inches, double speed, double startSpeed, double endSpeed) {
+        super("drivexinchescommand");
+        this.inches = inches;
+        this.speed = speed;
+        this.startSpeed = startSpeed;
+        this.endSpeed = endSpeed;
+        drivetrain = Components.getInstance().drivetrain;
     }
 
     @Override
@@ -66,21 +66,6 @@ public class DriveXInchesCommand extends Command {
         double currentInches = drivetrain.getLeftTalonInches() - initPosition;
         StringBuilder sb = new StringBuilder();
 
-        if (USE_IR) {
-            int rawData = analogInput.getValue();
-            double volts = analogInput.getVoltage();
-            System.out.println("raw " + rawData + ", volts " + volts);
-
-            if (Math.abs(stopVoltage - volts) <= TOLERANCE && !tripped) {
-                System.out.println("-----IR TRIPPED, SLOWING DOWN-----");
-//                initPosition = drivetrain.talonPositionLeft();
-                initPosition = drivetrain.getLeftTalonInches();
-                inches = 6;
-                currentInches = drivetrain.getLeftTalonInches() - initPosition;
-                tripped = true;
-            }
-        }
-
         remainingInches = inches - Math.abs(currentInches);
 
         leftVelocity = speed;
@@ -95,14 +80,14 @@ public class DriveXInchesCommand extends Command {
 //        RAMP UP RATE
         if (currentInches < RAMP_UP_INCHES) {
             if (speed > 0) {
-                if (leftVelocity * (currentInches / RAMP_UP_INCHES) < RAMP_MIN_POWER) {
-                    leftVelocity = RAMP_MIN_POWER;
+                if (leftVelocity * (currentInches / RAMP_UP_INCHES) < startSpeed) {
+                    leftVelocity = startSpeed;
                 } else {
                     leftVelocity = leftVelocity * (currentInches / RAMP_UP_INCHES);
                 }
             } else {
-                if (leftVelocity * (currentInches / RAMP_UP_INCHES) > -RAMP_MIN_POWER) {
-                    leftVelocity = -RAMP_MIN_POWER;
+                if (leftVelocity * (currentInches / RAMP_UP_INCHES) > -startSpeed) {
+                    leftVelocity = -startSpeed;
                 } else {
                     leftVelocity = leftVelocity * (currentInches / RAMP_UP_INCHES);
                 }
@@ -113,17 +98,17 @@ public class DriveXInchesCommand extends Command {
 //        RAMP DOWN RATE
         if (remainingInches < RAMP_DOWN_INCHES) {
             if (speed > 0) {
-                if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) > RAMP_MIN_POWER) {
+                if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) > endSpeed) {
                     leftVelocity = leftVelocity * (remainingInches / RAMP_DOWN_INCHES);
                 } else {
-                    leftVelocity = RAMP_MIN_POWER;
+                    leftVelocity = endSpeed;
                 }
             } else {
-                if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) < -RAMP_MIN_POWER) {
+                if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) < -endSpeed) {
 
                     leftVelocity = leftVelocity * (remainingInches / RAMP_DOWN_INCHES);
                 } else {
-                    leftVelocity = -RAMP_MIN_POWER;
+                    leftVelocity = -endSpeed;
                 }
             }
         }

@@ -23,9 +23,9 @@ public class RightAutoStartScaleCommand extends CommandGroup {
         if (target == 'R') {
             System.out.println("Right Start Scale Auto ---- Target: R");
 
-            addSequential(new DriveXInchesCommand(324, 0.8, false));
+            addSequential(new DriveXInchesCommand(324, 0.8));
             addSequential(new RotateXDegreesCommand(-90));
-            addSequential(new DriveXInchesCommand(12, 0.5, false));
+            addSequential(new DriveXInchesCommand(12, 0.5));
 
             addSequential(new WaitCommand(1));
 
@@ -35,18 +35,18 @@ public class RightAutoStartScaleCommand extends CommandGroup {
 //            addSequential(new LowerElevatorCommand());
 //            addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(12, -0.5, false));
+            addSequential(new DriveXInchesCommand(12, -0.5));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(24, 0.5, false));
+            addSequential(new DriveXInchesCommand(24, 0.5));
 
         } else if (target == 'L') {
             System.out.println("Right Start Scale Auto ---- Target: R");
 
-            addSequential(new DriveXInchesCommand(185,0.8,false));
+            addSequential(new DriveXInchesCommand(185,0.8));
             addSequential(new RotateXDegreesCommand(-90));
-            addSequential(new DriveXInchesCommand(170, 0.8, false));
+            addSequential(new DriveXInchesCommand(170, 0.8));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(12,0.5,false));
+            addSequential(new DriveXInchesCommand(12,0.5));
 
             addSequential(new WaitCommand(1));
 
@@ -56,11 +56,11 @@ public class RightAutoStartScaleCommand extends CommandGroup {
 //            addSequential(new LowerElevatorCommand());
 //            addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(12, -0.5, false));
+            addSequential(new DriveXInchesCommand(12, -0.5));
 
         } else {
             System.out.println("Right Start Scale Auto ---- Auto-Run");
-            addSequential(new DriveXInchesCommand(140,0.5,false));
+            addSequential(new DriveXInchesCommand(140,0.5));
         }
     }
 }
