@@ -11,21 +11,20 @@ public class LeftAutoStartCommand extends CommandGroup {
 
     }
 
-    public void selectAutoL() {
+    public void selectAuto() {
         try {
             target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+            System.out.println("Switch Auto Selection: " + target);
         } catch (Exception e) {
             System.out.println("NO TARGET!");
             target = 'n';
         }
 
-        System.out.println("Selection: " + target);
-
         if(target == 'L') {
             System.out.println("Left Start Auto ---- Target: L");
             addSequential(new DriveXInchesCommand(140, 0.8, false));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(10, 0.8, true));
+            addSequential(new DriveXInchesCommand(10, 0.8, false));
 
             addSequential(new WaitCommand(1));
 
@@ -46,9 +45,9 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         } else if (target == 'R'){
             System.out.println("Left Start Auto ---- Target: R");
-            addSequential(new DriveXInchesCommand(185, 0.7, false));
+            addSequential(new DriveXInchesCommand(185, 0.8, false));
             addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(160, 0.7, false));
+            addSequential(new DriveXInchesCommand(160, 0.8, false));
             addSequential(new RotateXDegreesCommand(90));
             addSequential(new DriveXInchesCommand(20, 0.5, false));
             addSequential(new RaiseElevatorCommand());
@@ -57,8 +56,7 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new DriveXInchesCommand(20, -.5, false));
         } else {
             System.out.println("Left Start Auto ---- Auto-Run");
-            addSequential(new DriveXInchesCommand(24,0.25, false));
-
+            addSequential(new DriveXInchesCommand(140,0.5, false));
         }
     }
 }

@@ -76,8 +76,8 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
 
         try {
-            leftAuto.selectAutoL();
-            rightAuto.selectAutoR();
+            leftAuto.selectAuto();
+            rightAuto.selectAuto();
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
