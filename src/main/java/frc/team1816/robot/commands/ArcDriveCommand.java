@@ -118,47 +118,50 @@ public class ArcDriveCommand extends Command {
         remainingInchesLeft = drivetrain.ticksToInches(leftTarget) - Math.abs(currentInchesLeft);
         remainingInchesRight = drivetrain.ticksToInches(rightTarget) - Math.abs(currentInchesRight);
 
-            drivetrain.setDrivetrain(leftVelocity, rightVelocity);
+        drivetrain.setDrivetrain(leftVelocity, rightVelocity);
 
-            System.out.println("Remaining Inches Left: " + remainingInchesLeft + "\t L Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionLeft() - initPositionLeft));
-            System.out.println("Remaining Inches Right: " + remainingInchesRight + "\t R Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionRight() - initPositionRight));
+        System.out.println("Remaining Inches Left: " + remainingInchesLeft + "\t L Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionLeft() - initPositionLeft));
+        System.out.println("Remaining Inches Right: " + remainingInchesRight + "\t R Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionRight() - initPositionRight));
 
-            //Logging
-            sb.append(System.currentTimeMillis());
-            sb.append(",");
-            sb.append(drivetrain.talonPositionLeft());
-            sb.append(",");
-            sb.append(drivetrain.talonPositionRight());
-            sb.append(",");
-            sb.append(leftVelocity);
-            sb.append(",");
-            sb.append(rightVelocity);
-            sb.append(",");
-            sb.append(remainingInchesLeft);
-            sb.append(",");
-            sb.append(remainingInchesRight);
+        //Logging
+        sb.append(System.currentTimeMillis());
+        sb.append(",");
+        sb.append(drivetrain.talonPositionLeft());
+        sb.append(",");
+        sb.append(drivetrain.talonPositionRight());
+        sb.append(",");
+        sb.append(leftVelocity);
+        sb.append(",");
+        sb.append(rightVelocity);
+        sb.append(",");
+        sb.append(remainingInchesLeft);
+        sb.append(",");
+        sb.append(remainingInchesRight);
+        sb.append(",");
+        sb.append(System.currentTimeMillis());
 
-            Robot.logger.log(sb.toString());
-        }
-
-        @Override
-        protected void end () {
-            drivetrain.setDrivetrain(0, 0);
-        }
-
-        @Override
-        protected void interrupted () {
-            end();
-        }
-
-        @Override
-        protected boolean isFinished () {
-            if (remainingInchesLeft <= 0 || remainingInchesRight <= 0) {
-                System.out.println("DriveArc Finished");
-                return true;
-            } else {
-                return false;
-            }
-        }
-
+        Robot.logger.log(sb.toString());
+        System.out.println(System.currentTimeMillis());
     }
+
+    @Override
+    protected void end () {
+        drivetrain.setDrivetrain(0, 0);
+    }
+
+    @Override
+    protected void interrupted () {
+        end();
+    }
+
+    @Override
+    protected boolean isFinished () {
+        if (remainingInchesLeft <= 0 || remainingInchesRight <= 0) {
+            System.out.println("DriveArc Finished");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
