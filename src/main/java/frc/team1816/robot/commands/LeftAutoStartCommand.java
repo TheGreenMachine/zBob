@@ -45,21 +45,21 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         } else if (target == 'R'){
 
-            System.out.println("Experimental Gyro-Based Arc Auto");
-            addSequential(new DriveXInchesCommand(24,0.6,0.4,0.4));
-            addSequential(new ArcDriveCommand(48,0.4,90));
-            addSequential(new DriveXInchesCommand(24,0.6,0.4,0.4));
+            System.out.println("Left Start Auto ---- Target: R");
+            addSequential(new DriveXInchesCommand(185, 0.8));
+            addSequential(new RotateXDegreesCommand(90));
+            addSequential(new DriveXInchesCommand(160, 0.8));
+            addSequential(new RotateXDegreesCommand(90));
+            addSequential(new DriveXInchesCommand(20, 0.5));
+            addSequential(new RaiseElevatorCommand());
+            addSequential(new WaitCommand(1));
+            addSequential(new LowerElevatorCommand());
+            addSequential(new DriveXInchesCommand(20, -.5));
 
-//            System.out.println("Left Start Auto ---- Target: R");
-//            addSequential(new DriveXInchesCommand(185, 0.8));
-//            addSequential(new RotateXDegreesCommand(90));
-//            addSequential(new DriveXInchesCommand(160, 0.8));
-//            addSequential(new RotateXDegreesCommand(90));
-//            addSequential(new DriveXInchesCommand(20, 0.5));
-//            addSequential(new RaiseElevatorCommand());
-//            addSequential(new WaitCommand(1));
-//            addSequential(new LowerElevatorCommand());
-//            addSequential(new DriveXInchesCommand(20, -.5));
+//            System.out.println("Experimental Gyro-Based Arc Auto");
+//            addSequential(new DriveXInchesCommand(24,0.6,0.4,0.4));
+//            addSequential(new ArcDriveCommand(48,0.4,90));
+//            addSequential(new DriveXInchesCommand(24,0.6,0.4,0.4));
         } else {
             System.out.println("Left Start Auto ---- Auto-Run");
             addSequential(new DriveXInchesCommand(140,0.5));

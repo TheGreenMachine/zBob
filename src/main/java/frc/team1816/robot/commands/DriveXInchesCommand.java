@@ -29,6 +29,10 @@ public class DriveXInchesCommand extends Command {
         super("drivexinchescommand");
         this.inches = inches;
         this.speed = speed;
+
+        this.endSpeed = speed;
+        this.startSpeed = speed;
+
         drivetrain = Components.getInstance().drivetrain;
     }
 
