@@ -22,6 +22,8 @@ public class ArcDriveCommand extends Command {
 
     private double leftVelocity, rightVelocity;
 
+    private double initAngle, currentAngle;
+
     StringBuilder sb;
 
     public ArcDriveCommand(double radius, double speed, double heading) {
@@ -37,6 +39,7 @@ public class ArcDriveCommand extends Command {
         System.out.println("ArcDrive Init");
         initPositionLeft = drivetrain.talonPositionLeft();
         initPositionRight = drivetrain.talonPositionRight();
+        initAngle = drivetrain.getGyroAngle();
 
 //        Maximum base speed s.t v(inner) and v(outer) are bound between 1 and -1
 
@@ -122,6 +125,8 @@ public class ArcDriveCommand extends Command {
 
         System.out.println("Remaining Inches Left: " + remainingInchesLeft + "\t L Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionLeft() - initPositionLeft));
         System.out.println("Remaining Inches Right: " + remainingInchesRight + "\t R Inches Traveled: " + drivetrain.ticksToInches(drivetrain.talonPositionRight() - initPositionRight));
+
+        System.out.println("target angle: " + heading + "deltaAngle: " + (drivetrain.getGyroAngle() - initAngle));
 
         //Logging
         sb.append(System.currentTimeMillis());

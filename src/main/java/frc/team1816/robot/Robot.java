@@ -15,8 +15,6 @@ import frc.team1816.robot.subsystems.Collector;
 import frc.team1816.robot.subsystems.Drivetrain;
 import frc.team1816.robot.subsystems.Elevator;
 
-import java.awt.*;
-
 public class Robot extends IterativeRobot {
 
     public static Logging logger;
@@ -84,7 +82,7 @@ public class Robot extends IterativeRobot {
 
         //Command autoCommand = autoChooser.getSelected();
 
-        Command autoCommand = new ArcDriveCommand(48, 0.4, 90);
+        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
 

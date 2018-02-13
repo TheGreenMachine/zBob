@@ -222,7 +222,6 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public double ticksToInches(double ticks) {
-        System.out.println("ticks per rev: " + TICKS_PER_REV + " inches per rev: " + INCHES_PER_REV);
         return ticks * (1 / TICKS_PER_REV) * INCHES_PER_REV;
     }
 
