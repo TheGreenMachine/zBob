@@ -27,6 +27,8 @@ public class Robot extends IterativeRobot {
 
     private LeftAutoStartCommand leftAuto;
     private RightAutoStartCommand rightAuto;
+    private LeftAutoStartScaleCommand leftScaleAuto;
+    private RightAutoStartScaleCommand rightScaleAuto;
 
     private NetworkTable table;
 
@@ -42,10 +44,14 @@ public class Robot extends IterativeRobot {
 
         leftAuto = new LeftAutoStartCommand();
         rightAuto = new RightAutoStartCommand();
+        leftScaleAuto = new LeftAutoStartScaleCommand();
+        rightScaleAuto = new RightAutoStartScaleCommand();
 
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("Left Start Auto", leftAuto);
         autoChooser.addObject("Right Start Auto", rightAuto);
+        autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
+        autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
 //        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
 
@@ -76,13 +82,16 @@ public class Robot extends IterativeRobot {
         try {
             leftAuto.selectAuto();
             rightAuto.selectAuto();
+            leftScaleAuto.selectAuto();
+            rightScaleAuto.selectAuto();
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
-        //Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = autoChooser.getSelected();
 
-        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
+//        Command autoCommand = new ArcDriveCommand(48,0.4,90);
+//        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
 //        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
 

@@ -97,6 +97,8 @@ public class ArcDriveGyroCommand extends Command {
     protected boolean isFinished () {
         if (currentAngle > targetAngle) {
             System.out.println("DriveArc Finished");
+            drivetrain.setDrivetrain(0,0);
+            drivetrain.setPrevTargetHeading(Double.toString(targetAngle));
             return true;
         } else {
             return false;
