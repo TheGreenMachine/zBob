@@ -24,13 +24,13 @@ public class Drivetrain extends Subsystem1816{
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
-    public static double p_L = 0.05;
+    public static double p_L = 0.035;
     public static double i_L = 0.007;
     public static double d_L = 0;
     public static double f_L = 1.34;
     public static int izone_L = 15;
 
-    public static double p_R = 0.03;
+    public static double p_R = 0.07;
     public static double i_R = 0.007;
     public static double d_R = 0;
     public static double f_R = 1.34;

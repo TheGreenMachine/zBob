@@ -72,11 +72,21 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledInit() {
+        try {
+            logger.close();
+            System.out.println("Logger closed");
+        } catch (Exception e) {
+            System.out.println("Logger not instantiated yet...");
+        }
     }
 
     @Override
     public void autonomousInit() {
         logger = new Logging("AutoLog");
+        StringBuilder builder = new StringBuilder();
+        builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",").append("Left Set Velocity").append(",").append("Right Set Velocity").append(",").append("Left Velocity").append(",").append("Right Velocity").append(",").append("Gyro Heading");
+        logger.log(builder.toString());
+
         drivetrain.resetEncoders();
 
         try {
@@ -88,12 +98,12 @@ public class Robot extends IterativeRobot {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
-        Command autoCommand = autoChooser.getSelected();
+//        Command autoCommand = autoChooser.getSelected();
 
 //        Command autoCommand = new ArcDriveCommand(48,0.4,90);
 //        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
-//        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
+        Command autoCommand = new DriveXInchesCommand(600,0.75);
 
         System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
@@ -164,6 +174,8 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+
+
 
     public void closeLogger() {
         logger.close();

@@ -23,7 +23,7 @@ public class DriveXInchesCommand extends Command {
     private final double TOLERANCE = 0.1;
     private final double stopVoltage = 1.6;
     private final double RAMP_UP_INCHES = 6;
-    private final double RAMP_DOWN_INCHES = 6;
+    private final double RAMP_DOWN_INCHES = 12;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
@@ -101,6 +101,7 @@ public class DriveXInchesCommand extends Command {
 
 //        RAMP DOWN RATE
         if (remainingInches < RAMP_DOWN_INCHES) {
+            Robot.logger.log("-----ENTERING RAMP DOWN-----");
             if (speed > 0) {
                 if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) > endSpeed) {
                     leftVelocity = leftVelocity * (remainingInches / RAMP_DOWN_INCHES);
@@ -144,11 +145,19 @@ public class DriveXInchesCommand extends Command {
 
         sb.append(System.currentTimeMillis());
         sb.append(",");
-        sb.append(drivetrain.talonPositionLeft());
+        sb.append(drivetrain.getLeftTalonInches());
+        sb.append(",");
+        sb.append(drivetrain.getRightTalonInches());
         sb.append(",");
         sb.append(leftVelocity);
         sb.append(",");
         sb.append(rightVelocity);
+        sb.append(",");
+        sb.append(drivetrain.getLeftTalonVelocity());
+        sb.append(",");
+        sb.append(drivetrain.getRightTalonVelocity());
+        sb.append(",");
+        sb.append(drivetrain.getGyroAngle());
 
         Robot.logger.log(sb.toString());
     }

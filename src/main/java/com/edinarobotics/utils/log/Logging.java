@@ -16,7 +16,7 @@ public class Logging {
 		
 		try {
 			File file = new File("/home/lvuser" + filename + ".csv");
-			file.delete();
+			if (file.exists()) file.delete();
 			writer = new PrintWriter(new FileWriter("/home/lvuser/" + filename + ".csv", false), true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
