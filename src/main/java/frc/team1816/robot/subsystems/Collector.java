@@ -29,6 +29,8 @@ public class Collector extends Subsystem {
 
         this.left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+
+        this.frontSolenoid.set(false); //TODO set default state appropriately
     }
 
     public void setCollectorSpeed(double lpower, double rpower) {

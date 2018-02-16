@@ -39,10 +39,6 @@ public class RotateXDegreesCommand extends Command {
     protected void execute() {
         System.out.println("Current Angle: " + drivetrain.getGyroAngle());
 
-        //ramp down rate -- not working
-//        if(Math.abs(target - drivetrain.getGyroAngle()) > 20 && velocity >= 0.4)
-//            velocity *= (target - drivetrain.getGyroAngle()) / 20;
-
         if(target - drivetrain.getGyroAngle() > 0){
             //Target angle is between 0 and 180. Therefore, turn right
             if (dimeTurn)
@@ -58,6 +54,9 @@ public class RotateXDegreesCommand extends Command {
                 drivetrain.setDrivetrain(0, velocity);
             System.out.println("Rotating Left");
         }
+
+        if(Math.abs(target - drivetrain.getGyroAngle()) > 20 && velocity >= 0.4)
+            velocity *= (target - drivetrain.getGyroAngle()) / 20;
 
     }
 
