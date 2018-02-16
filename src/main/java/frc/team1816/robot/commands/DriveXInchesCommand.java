@@ -19,7 +19,7 @@ public class DriveXInchesCommand extends Command {
     private double startSpeed;
     private double endSpeed;
 
-    private static final double ROTATION_OFFSET_P = 0.03;
+    private static final double ROTATION_OFFSET_P = 0.06;
     private final double TOLERANCE = 0.1;
     private final double stopVoltage = 1.6;
     private final double RAMP_UP_INCHES = 6;
@@ -121,11 +121,13 @@ public class DriveXInchesCommand extends Command {
         rightVelocity = leftVelocity;
 
         if (deltaAngle < 0) {
+            Robot.logger.log("-----RIGHT GYRO CORRECTION-----");
             System.out.println("DriveX Correcting Right\t delta angle: " + deltaAngle);
             rightVelocity = rightVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
             System.out.println("L Velocity: " + leftVelocity + " R Velocity: " + rightVelocity);
             System.out.println("---");
         } else if (deltaAngle > 0) {
+            Robot.logger.log("-----LEFT GYRO CORRECTION-----");
             System.out.println("DriveX Correcting Left\t delta angle: " + deltaAngle);
             leftVelocity = leftVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
             System.out.println("L Velocity: " + leftVelocity + " R Velocity: " + rightVelocity);
@@ -175,8 +177,6 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-//        double volts = analogInput.getVoltage();
-
         if (remainingInches <= 0) {
             System.out.println("DriveX Finished");
             return true;

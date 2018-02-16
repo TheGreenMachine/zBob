@@ -74,7 +74,6 @@ public class Elevator extends Subsystem {
         elevatorEncoder.reset();
     }
 
-    @Override
     public void periodic() {
         if (getUpperLimit() && speed > 0) {
             System.out.println("periodic: stopped elevator up");

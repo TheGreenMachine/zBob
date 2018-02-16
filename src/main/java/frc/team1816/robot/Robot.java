@@ -98,12 +98,12 @@ public class Robot extends IterativeRobot {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
-//        Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = autoChooser.getSelected();
 
 //        Command autoCommand = new ArcDriveCommand(48,0.4,90);
 //        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
-        Command autoCommand = new DriveXInchesCommand(600,0.75);
+//        Command autoCommand = new DriveXInchesCommand(240,0.75);
 
         System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
@@ -160,6 +160,7 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
+//        System.out.println("Gyro Status: " + drivetrain.gyroActiveCheck());
 
 //        System.out.println("Elevator ticks: " + elevator.getTicks());
 
