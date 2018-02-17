@@ -82,7 +82,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        logger = new Logging("AutoLog");
+//        logger = new Logging("AutoLog");
+        logger = Logging.getInstance("Autolog");
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",").append("Left Set Velocity").append(",").append("Right Set Velocity").append(",").append("Left Velocity").append(",").append("Right Velocity").append(",").append("Gyro Heading");
         logger.log(builder.toString());
@@ -111,7 +112,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        logger = new Logging("TeleopLog1");
+//        logger = new Logging("TeleopLog1");
+        logger = Logging.getInstance("TeleopLog");
 
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
         Gamepad gamepad1 = Controls.getInstance().gamepad1;

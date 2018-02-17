@@ -9,9 +9,11 @@ public class Logging {
 
 	private PrintWriter writer;
 	private String filename;
+
+	public static Logging instance;
 	
-	public Logging(String name) {
-		
+	private Logging(String name) {
+
 		filename = name;
 		
 		try {
@@ -48,5 +50,16 @@ public class Logging {
 			e.printStackTrace();
 		}
 	}
+
+    public static Logging getInstance(String name){
+        if (instance == null){
+            instance = new Logging(name);
+        }
+        else {
+            instance.close();
+            instance = new Logging(name);
+        }
+        return instance;
+    }
 	
 }
