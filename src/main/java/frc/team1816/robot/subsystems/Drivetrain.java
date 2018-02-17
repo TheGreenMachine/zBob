@@ -252,4 +252,10 @@ public class Drivetrain extends Subsystem1816{
         this.rightMain.config_kF(0, f, 20);
         this.rightMain.config_IntegralZone(0, izone, 20);
     }
+
+    public String getLogString() {
+        return ""  + System.currentTimeMillis() + "," + getLeftTalonInches() + "," + getRightTalonInches()
+                + "," +getLeftTalonVelocity() + "," +getRightTalonVelocity() + "," +getGyroAngle();
+    }
 }
+
