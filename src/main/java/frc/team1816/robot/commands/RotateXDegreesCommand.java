@@ -45,17 +45,17 @@ public class RotateXDegreesCommand extends Command {
                 drivetrain.setDrivetrain(velocity, -velocity);
             else
                 drivetrain.setDrivetrain(velocity, 0);
-            System.out.println("Rotating Right");
+            System.out.println("Rotating Right at " + velocity + " velocity");
         } else {
             //Target angle is between 180 and 360. Therefore, turn left
             if (dimeTurn)
                 drivetrain.setDrivetrain(-velocity, velocity);
             else
                 drivetrain.setDrivetrain(0, velocity);
-            System.out.println("Rotating Left");
+            System.out.println("Rotating Left at " + velocity + " velocity");
         }
 
-        if(Math.abs(target - drivetrain.getGyroAngle()) > 20 && velocity >= 0.4)
+        if(Math.abs(target - drivetrain.getGyroAngle()) < 20 && velocity >= 0.4)
             velocity *= (target - drivetrain.getGyroAngle()) / 20;
 
     }

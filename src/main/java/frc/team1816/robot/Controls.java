@@ -31,8 +31,8 @@ public class Controls {
         gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
 
         //Operator Controller Mapping
-        gamepad1.diamondUp().whenPressed(new ToggleCollectorCommand(true));
-        gamepad1.diamondDown().whenReleased(new ToggleCollectorCommand(false));
+        gamepad1.leftBumper().whenPressed(new ToggleCollectorCommand(true));
+        gamepad1.rightBumper().whenReleased(new ToggleCollectorCommand(false));
 
         gamepad1.diamondLeft().whenPressed(new ToggleClimberShifterCommand(true));
         gamepad1.diamondRight().whenPressed(new ToggleClimberShifterCommand(false));

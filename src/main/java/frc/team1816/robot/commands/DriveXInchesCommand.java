@@ -145,23 +145,23 @@ public class DriveXInchesCommand extends Command {
         System.out.println("Inches Traveled: " + currentInches);
         System.out.println("Talon Pos L: " + drivetrain.talonPositionLeft());
 
-        sb.append(System.currentTimeMillis());
-        sb.append(",");
-        sb.append(drivetrain.getLeftTalonInches());
-        sb.append(",");
-        sb.append(drivetrain.getRightTalonInches());
-        sb.append(",");
-        sb.append(leftVelocity);
-        sb.append(",");
-        sb.append(rightVelocity);
-        sb.append(",");
-        sb.append(drivetrain.getLeftTalonVelocity());
-        sb.append(",");
-        sb.append(drivetrain.getRightTalonVelocity());
-        sb.append(",");
-        sb.append(drivetrain.getGyroAngle());
-
-        Robot.logger.log(sb.toString());
+//        sb.append(System.currentTimeMillis());
+//        sb.append(",");
+//        sb.append(drivetrain.getLeftTalonInches());
+//        sb.append(",");
+//        sb.append(drivetrain.getRightTalonInches());
+//        sb.append(",");
+//        sb.append(leftVelocity);
+//        sb.append(",");
+//        sb.append(rightVelocity);
+//        sb.append(",");
+//        sb.append(drivetrain.getLeftTalonVelocity());
+//        sb.append(",");
+//        sb.append(drivetrain.getRightTalonVelocity());
+//        sb.append(",");
+//        sb.append(drivetrain.getGyroAngle());
+//
+//        Robot.logger.log(sb.toString());
     }
 
     @Override

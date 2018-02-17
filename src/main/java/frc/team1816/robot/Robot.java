@@ -2,6 +2,7 @@ package frc.team1816.robot;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,12 +31,22 @@ public class Robot extends IterativeRobot {
     private LeftAutoStartScaleCommand leftScaleAuto;
     private RightAutoStartScaleCommand rightScaleAuto;
 
+    public static NetworkTableInstance offSeasonNetworkTable;
+
     private NetworkTable table;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
         table = NetworkTable.getTable("Shuffleboard_PID");
+
+        try {
+            //week zero stuff
+            offSeasonNetworkTable = NetworkTableInstance.create();
+            offSeasonNetworkTable.startClient("10.0.100.5");
+        } catch (Exception e) {
+            System.out.println("No Offseason Network Table Available");
+        }
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -85,7 +96,8 @@ public class Robot extends IterativeRobot {
 //        logger = new Logging("AutoLog");
         logger = Logging.getInstance("Autolog");
         StringBuilder builder = new StringBuilder();
-        builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",").append("Left Set Velocity").append(",").append("Right Set Velocity").append(",").append("Left Velocity").append(",").append("Right Velocity").append(",").append("Gyro Heading");
+        builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
+                .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Gyro Heading");
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();
@@ -153,6 +165,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
+        logger.log(drivetrain.getLogString());
         Scheduler.getInstance().run();
     }
 
