@@ -133,13 +133,15 @@ public class Drivetrain extends Subsystem1816{
         this.leftPower = leftPower;
         this.rightPower = rightPower;
         this.rotation = rotation;
+
         update();
     }
 
     public void setDrivetrain(double leftPower, double rightPower) {
         this.leftPower = leftPower;
         this.rightPower = rightPower;
-        rotation = 0;
+        this.rotation = 0;
+
         update();
     }
 
@@ -171,7 +173,6 @@ public class Drivetrain extends Subsystem1816{
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
-            rotation *= SLOW_MOD;
         }
 
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
@@ -255,7 +256,8 @@ public class Drivetrain extends Subsystem1816{
 
     public String getLogString() {
         return ""  + System.currentTimeMillis() + "," + getLeftTalonInches() + "," + getRightTalonInches()
-                + "," +getLeftTalonVelocity() + "," +getRightTalonVelocity() + "," +getGyroAngle();
+                + "," +getLeftTalonVelocity() + "," +getRightTalonVelocity() + "," + leftPower + "," + rightPower
+                + "," + rotation + "," + getGyroAngle();
     }
 }
 

@@ -3,6 +3,7 @@ package frc.team1816.robot;
 import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -39,14 +40,6 @@ public class Robot extends IterativeRobot {
         Components.getInstance();
         Controls.getInstance();
         table = NetworkTable.getTable("Shuffleboard_PID");
-
-        try {
-            //week zero stuff
-            offSeasonNetworkTable = NetworkTableInstance.create();
-            offSeasonNetworkTable.startClient("10.0.100.5");
-        } catch (Exception e) {
-            System.out.println("No Offseason Network Table Available");
-        }
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -95,9 +88,13 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
 //        logger = new Logging("AutoLog");
         logger = Logging.getInstance("Autolog");
+
+        logger.log(DriverStation.getInstance().getGameSpecificMessage());
+
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
-                .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Gyro Heading");
+                .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Set Power L").append(",")
+                .append("Set Power R").append(",").append("Set Power Gyro").append(",").append("Gyro Heading");
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();

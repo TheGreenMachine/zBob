@@ -15,14 +15,6 @@ public class LeftAutoStartCommand extends CommandGroup {
     public void selectAuto() {
         try {
             target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
-////
-//            String gameData = Robot.offSeasonNetworkTable
-//                    .getTable("OffseasonFMSInfo")
-//                    .getEntry("GameData")
-//                    .getString("defaultValue");
-//            System.out.println("Game Data: " + gameData);
-//
-//            target = gameData.charAt(0);
 
             System.out.println("Switch Auto Selection: " + target);
         } catch (Exception e) {
@@ -32,23 +24,24 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         if(target == 'L') {
             System.out.println("Switch ---- Target: L");
-            addSequential(new DriveXInchesCommand(134, 0.8));
-            addSequential(new RotateXDegreesCommand(90));
-//            addSequential(new DriveXInchesCommand(4, 0.8));
 
-//            addSequential(new WaitCommand(1));
+            addParallel(new SetElevatorHeightPercentCommand(40));
+
+            addSequential(new DriveXInchesCommand(128, 0.8));
+            addSequential(new RotateXDegreesCommand(90, true),3);
+            addSequential(new DriveXInchesCommand(4, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new SetElevatorHeightPercentCommand(40));
             addSequential(new ToggleCollectorCommand(true));
-            addSequential(new SetCollectorSpeedCommand(1));
+            addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
-            addSequential(new LowerElevatorCommand());
+            addSequential(new DriveXInchesCommand(4, -0.5),3);
             addSequential(new SetCollectorSpeedCommand(0));
+            addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(20, -0.5));
-            addSequential(new RotateXDegreesCommand(-90));
+            addSequential(new DriveXInchesCommand(30, -0.5));
+            addSequential(new RotateXDegreesCommand(90),3);
             addSequential(new DriveXInchesCommand(24, 0.5));
 
 //            System.out.println("Experimental Arc Auto");
@@ -57,20 +50,23 @@ public class LeftAutoStartCommand extends CommandGroup {
 //            addSequential(new DriveXInchesCommand(12,0.5,false));
 
         } else if (target == 'R'){
-
             System.out.println("Switch ---- Target: R");
-            addSequential(new DriveXInchesCommand(193, 0.8));
-            addSequential(new RotateXDegreesCommand(90));
-            addSequential(new DriveXInchesCommand(90, 0.8));
-            addSequential(new RotateXDegreesCommand(90));
+
+            addParallel(new SetElevatorHeightPercentCommand(40));
+
+            addSequential(new DriveXInchesCommand(194, 0.8));
+            addSequential(new RotateXDegreesCommand(90,true),3);
+            addSequential(new DriveXInchesCommand(114, 0.8));
+            addSequential(new RotateXDegreesCommand(90,true),3);
+            addSequential(new DriveXInchesCommand(6, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new SetElevatorHeightPercentCommand(40));
             addSequential(new ToggleCollectorCommand(true));
-            addSequential(new SetCollectorSpeedCommand(1));
+            addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
-            addSequential(new LowerElevatorCommand());
+            addSequential(new DriveXInchesCommand(4, -0.5),3);
             addSequential(new SetCollectorSpeedCommand(0));
+            addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(20, -.5));

@@ -37,10 +37,10 @@ public class Controls {
         gamepad1.diamondLeft().whenPressed(new ToggleClimberShifterCommand(true));
         gamepad1.diamondRight().whenPressed(new ToggleClimberShifterCommand(false));
 
-        gamepad1.dPadLeft().whenPressed(new RaiseElevatorCommand());
-        gamepad1.dPadRight().whenPressed(new LowerElevatorCommand());
-
-        gamepad1.dPadUp().whenPressed(new SetElevatorHeightPercentCommand(30));
+        gamepad1.dPadUp().whenPressed(new RaiseElevatorCommand());
+        gamepad1.dPadDown().whenPressed(new LowerElevatorCommand());
+        gamepad1.dPadLeft().whenPressed(new SetElevatorHeightPercentCommand(30));
+        gamepad1.dPadRight().whenPressed(new SetElevatorHeightPercentCommand(60));
 
 //        gamepad1.dPadUp().whileHeld(new TalonTestCommand(8, 0.5));
     }

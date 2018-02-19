@@ -23,15 +23,19 @@ public class DriveXInchesCommand extends Command {
     private final double TOLERANCE = 0.1;
     private final double stopVoltage = 1.6;
     private final double RAMP_UP_INCHES = 6;
-    private final double RAMP_DOWN_INCHES = 12;
+    private double RAMP_DOWN_INCHES = 36;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
         this.inches = inches;
         this.speed = speed;
 
-        this.endSpeed = speed;
-        this.startSpeed = speed;
+        this.endSpeed = 0.2;
+        this.startSpeed = 0.2;
+
+        if(inches < RAMP_DOWN_INCHES) {
+            RAMP_DOWN_INCHES = inches;
+        }
 
         drivetrain = Components.getInstance().drivetrain;
     }

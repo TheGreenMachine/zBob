@@ -11,7 +11,7 @@ public class RotateXDegreesCommand extends Command {
     private boolean dimeTurn = false;
     private double target;
 
-    private double velocity = 0.75;
+    private double velocity = 0.7;
 
     public RotateXDegreesCommand(double degreesToTurn ){
         super("rotatexdegreescommand");
@@ -23,6 +23,14 @@ public class RotateXDegreesCommand extends Command {
         super("rotatexdegreescommand");
         this.degreesToTurn = degreesToTurn;
         this.dimeTurn = dimeTurn;
+        drivetrain = Components.getInstance().drivetrain;
+    }
+
+    public RotateXDegreesCommand(double degreesToTurn, boolean dimeTurn, double speed) {
+        super("rotatexdegrees");
+        this.degreesToTurn = degreesToTurn;
+        this.dimeTurn = dimeTurn;
+        this.velocity = speed;
         drivetrain = Components.getInstance().drivetrain;
     }
 
@@ -40,14 +48,12 @@ public class RotateXDegreesCommand extends Command {
         System.out.println("Current Angle: " + drivetrain.getGyroAngle());
 
         if(target - drivetrain.getGyroAngle() > 0){
-            //Target angle is between 0 and 180. Therefore, turn right
             if (dimeTurn)
                 drivetrain.setDrivetrain(velocity, -velocity);
             else
                 drivetrain.setDrivetrain(velocity, 0);
             System.out.println("Rotating Right at " + velocity + " velocity");
         } else {
-            //Target angle is between 180 and 360. Therefore, turn left
             if (dimeTurn)
                 drivetrain.setDrivetrain(-velocity, velocity);
             else
@@ -55,14 +61,16 @@ public class RotateXDegreesCommand extends Command {
             System.out.println("Rotating Left at " + velocity + " velocity");
         }
 
-        if(Math.abs(target - drivetrain.getGyroAngle()) < 20 && velocity >= 0.4)
+        if(Math.abs(target - drivetrain.getGyroAngle()) < 20 && velocity >= 0.3)
             velocity *= (target - drivetrain.getGyroAngle()) / 20;
 
     }
 
     @Override
     protected boolean isFinished() {
-        if ((target-drivetrain.getGyroAngle())<=1 && (target-drivetrain.getGyroAngle()) >=-1){
+
+        //Right turns are overshooting and becoming left turns, mess with end condition
+        if (Math.abs(target-drivetrain.getGyroAngle())<=2){
             System.out.println("RotateX Finishing");
             drivetrain.setDrivetrain(0, 0);
             drivetrain.setPrevTargetHeading(Double.toString(target));
