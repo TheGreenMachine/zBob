@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Ramp extends Subsystem {
     private Solenoid rampSolenoid;
+    private boolean deployState = true; //test
 
     public Ramp(int pcmNodeRamp, int rampID){
         super();
@@ -12,7 +13,7 @@ public class Ramp extends Subsystem {
         rampSolenoid.set(false);
     }
 
-    public void deployRamps(boolean deployState){
+    public void deployRamps(){
         rampSolenoid.set(deployState);
     }
 

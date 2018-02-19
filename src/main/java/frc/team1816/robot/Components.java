@@ -2,10 +2,7 @@ package frc.team1816.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
-import frc.team1816.robot.subsystems.Climber;
-import frc.team1816.robot.subsystems.Collector;
-import frc.team1816.robot.subsystems.Drivetrain;
-import frc.team1816.robot.subsystems.Elevator;
+import frc.team1816.robot.subsystems.*;
 
 public class Components {
     private static Components instance;
@@ -16,6 +13,7 @@ public class Components {
     public Elevator elevator;
     public Climber climber;
     public Compressor compressor;
+    public Ramp ramp;
 
     //Drivetrain Constants
     private static final int RIGHT_MAIN = 5;
