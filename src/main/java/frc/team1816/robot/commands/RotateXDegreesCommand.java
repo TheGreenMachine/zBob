@@ -62,7 +62,7 @@ public class RotateXDegreesCommand extends Command {
         }
 
         if(Math.abs(target - drivetrain.getGyroAngle()) < 20 && velocity >= 0.3)
-            velocity *= (target - drivetrain.getGyroAngle()) / 20;
+            velocity *= (target - drivetrain.getGyroAngle()) / 30;
 
     }
 
@@ -72,14 +72,14 @@ public class RotateXDegreesCommand extends Command {
         //Right turns are overshooting and becoming left turns, mess with end condition
         System.out.println("deltaAngle: " + (target - drivetrain.getGyroAngle()));
 
-        if ((target - drivetrain.getGyroAngle()) >= -5 && (target - drivetrain.getGyroAngle()) <= 4){
+        if ((Math.abs(target - drivetrain.getGyroAngle()) <= 2)){
             System.out.println("RotateX Finishing");
             drivetrain.setDrivetrain(0, 0);
             drivetrain.setPrevTargetHeading(Double.toString(target));
             System.out.println("Final gyro angle: " + drivetrain.getGyroAngle());
             System.out.println("Final target angle: " + Double.toString(target));
             return true;
-        } else {
+        } else{
             System.out.println("Current Angle: " + drivetrain.getGyroAngle() + ", Target: " + target);
             return false;
         }
