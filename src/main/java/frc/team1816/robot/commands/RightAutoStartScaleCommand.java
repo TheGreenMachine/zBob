@@ -41,27 +41,24 @@ public class RightAutoStartScaleCommand extends CommandGroup {
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new WaitCommand(0.2));
         } else if (target == 'L') {
-            System.out.println("Scale ---- Target: L");
+            System.out.println("Scale ---- Target: R");
 
-            addSequential(new DriveXInchesCommand(225,0.8));
-
-            addParallel(new SetElevatorHeightPercentCommand(50));
+//            addSequential(new DriveXInchesCommand(225,0.8));
+            addSequential(new DriveXInchesCommand(12,0.8));
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new RotateXDegreesCommand(-90,true,0.6),3);
-            addSequential(new WaitCommand(0.2));
-            addSequential(new DriveXInchesCommand(200, 0.8));
-            addSequential(new WaitCommand(0.2));
+            addSequential(new RotateXDegreesCommand(-90,true,0.7),3);
+            addSequential(new DriveXInchesCommand(180, 0.8));
             addSequential(new RotateXDegreesCommand(90,true,0.6),3);
-            addSequential(new WaitCommand(0.2));
+            addParallel(new RaiseElevatorCommand());
             addSequential(new DriveXInchesCommand(20,0.6),5);
 
-            addSequential(new RaiseElevatorCommand());
+            addSequential(new WaitCommand(3));
             addSequential(new ToggleCollectorCommand(true));
             addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
-            addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new LowerElevatorCommand());
+            addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(12, -0.5));
