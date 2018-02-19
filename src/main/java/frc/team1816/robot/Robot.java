@@ -2,6 +2,8 @@ package frc.team1816.robot;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,6 +29,10 @@ public class Robot extends IterativeRobot {
 
     private LeftAutoStartCommand leftAuto;
     private RightAutoStartCommand rightAuto;
+    private LeftAutoStartScaleCommand leftScaleAuto;
+    private RightAutoStartScaleCommand rightScaleAuto;
+
+    public static NetworkTableInstance offSeasonNetworkTable;
 
     private NetworkTable table;
 
@@ -42,10 +48,14 @@ public class Robot extends IterativeRobot {
 
         leftAuto = new LeftAutoStartCommand();
         rightAuto = new RightAutoStartCommand();
+        leftScaleAuto = new LeftAutoStartScaleCommand();
+        rightScaleAuto = new RightAutoStartScaleCommand();
 
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("Left Start Auto", leftAuto);
         autoChooser.addObject("Right Start Auto", rightAuto);
+        autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
+        autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
 //        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
 
@@ -66,25 +76,44 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledInit() {
+        try {
+            logger.close();
+            System.out.println("Logger closed");
+        } catch (Exception e) {
+            System.out.println("Logger not instantiated yet...");
+        }
     }
 
     @Override
     public void autonomousInit() {
-        logger = new Logging("AutoLog");
+//        logger = new Logging("AutoLog");
+        logger = Logging.getInstance("Autolog");
+
+        logger.log(DriverStation.getInstance().getGameSpecificMessage());
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
+                .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Set Power L").append(",")
+                .append("Set Power R").append(",").append("Set Power Gyro").append(",").append("Gyro Heading");
+        logger.log(builder.toString());
+
         drivetrain.resetEncoders();
 
         try {
             leftAuto.selectAuto();
             rightAuto.selectAuto();
+            leftScaleAuto.selectAuto();
+            rightScaleAuto.selectAuto();
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
-        //Command autoCommand = autoChooser.getSelected();
+        Command autoCommand = autoChooser.getSelected();
 
-        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
+//        Command autoCommand = new ArcDriveCommand(48,0.4,90);
+//        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(90);
-//        Command autoCommand = new DriveXInchesCommand(48,0.5, false);
+//        Command autoCommand = new DriveXInchesCommand(240,0.75);
 
         System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
@@ -92,7 +121,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        logger = new Logging("TeleopLog1");
+//        logger = new Logging("TeleopLog1");
+        logger = Logging.getInstance("TeleopLog");
 
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
         Gamepad gamepad1 = Controls.getInstance().gamepad1;
@@ -132,6 +162,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
+        logger.log(drivetrain.getLogString());
         Scheduler.getInstance().run();
     }
 
@@ -141,6 +172,7 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
+//        System.out.println("Gyro Status: " + drivetrain.gyroActiveCheck());
 
 //        System.out.println("Elevator ticks: " + elevator.getTicks());
 
@@ -155,6 +187,8 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+
+
 
     public void closeLogger() {
         logger.close();

@@ -4,17 +4,20 @@ import com.edinarobotics.utils.gamepad.Gamepad;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
+import frc.team1816.robot.subsystems.Drivetrain;
 import frc.team1816.robot.subsystems.Elevator;
 
 public class GamepadElevatorCommand extends Command {
 
     private Elevator elevator;
     private Gamepad gamepad;
+    private Drivetrain drivetrain;
     private double power;
 
     public GamepadElevatorCommand(Gamepad gamepad) {
         super("gamepadelevatorcommand");
         this.elevator = Components.getInstance().elevator;
+        this.drivetrain = Components.getInstance().drivetrain;
         this.gamepad = gamepad;
         requires(elevator);
     }
@@ -26,7 +29,7 @@ public class GamepadElevatorCommand extends Command {
 
     @Override
     protected void execute() {
-        power = gamepad.getLeftY();
+        power = gamepad.getRightY();
         if(power > 0.05) {
             power = 0.5 * power + 0.5;
         } else if (power < - 0.05) {
@@ -37,17 +40,15 @@ public class GamepadElevatorCommand extends Command {
 
 //        System.out.println("Upper opto: " + elevator.upperLimit.get() + "\t Lower opto: " + elevator.lowerLimit.get());
 
-//        if (elevator.getUpperLimit() && power < 0) {
-//            System.out.println("STOPPED : UPPER LIMIT");
-//            power = 0;
-//        } else if(elevator.getLowerLimit() && power > 0) {
-//            System.out.println("STOPPED : LOWER LIMIT");
-//            power = 0;
-//        }
-
 //        System.out.println("elevator enc ticks: " + elevator.getTicks());
 //        System.out.println("elevator height percent: " + elevator.getHeightPercent() + "%");
         elevator.setElevatorSpeed(power);
+
+        if(elevator.getHeightPercent() > 50) {
+            drivetrain.setSlowMode(true);
+        } else {
+            drivetrain.setSlowMode(false);
+        }
     }
 
 

@@ -29,7 +29,7 @@ public class GamepadClimberCommand extends Command {
 
     @Override
     protected void execute() {
-        climberSpeed = - gamepad.getRightY();
+        climberSpeed = - gamepad.getLeftY();
 
         if(elevator.getHeightPercent() > 15){
             climber.setClimberSpeed(climberSpeed);

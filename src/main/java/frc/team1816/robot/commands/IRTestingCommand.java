@@ -32,7 +32,6 @@ public class IRTestingCommand extends Command{
     protected void initialize() {
         System.out.println("Init");
         drivetrain.resetEncoders();
-        log = new Logging("IRTest");
     }
 
     @Override

@@ -24,13 +24,13 @@ public class Drivetrain extends Subsystem1816{
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
-    public static double p_L = 0.05;
+    public static double p_L = 0.035;
     public static double i_L = 0.007;
     public static double d_L = 0;
     public static double f_L = 1.34;
     public static int izone_L = 15;
 
-    public static double p_R = 0.03;
+    public static double p_R = 0.07;
     public static double i_R = 0.007;
     public static double d_R = 0;
     public static double f_R = 1.34;
@@ -133,13 +133,15 @@ public class Drivetrain extends Subsystem1816{
         this.leftPower = leftPower;
         this.rightPower = rightPower;
         this.rotation = rotation;
+
         update();
     }
 
     public void setDrivetrain(double leftPower, double rightPower) {
         this.leftPower = leftPower;
         this.rightPower = rightPower;
-        rotation = 0;
+        this.rotation = 0;
+
         update();
     }
 
@@ -171,7 +173,6 @@ public class Drivetrain extends Subsystem1816{
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
-            rotation *= SLOW_MOD;
         }
 
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
@@ -252,4 +253,11 @@ public class Drivetrain extends Subsystem1816{
         this.rightMain.config_kF(0, f, 20);
         this.rightMain.config_IntegralZone(0, izone, 20);
     }
+
+    public String getLogString() {
+        return ""  + System.currentTimeMillis() + "," + getLeftTalonInches() + "," + getRightTalonInches()
+                + "," +getLeftTalonVelocity() + "," +getRightTalonVelocity() + "," + leftPower + "," + rightPower
+                + "," + rotation + "," + getGyroAngle();
+    }
 }
+

@@ -4,19 +4,22 @@ import com.edinarobotics.utils.gamepad.Gamepad;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Collector;
+import frc.team1816.robot.subsystems.Elevator;
 
 
 public class GamepadCollectorCommand extends Command {
     private Collector collector;
+    private Elevator elevator;
     private Gamepad gamepad;
 
     private double lpower;
     private double rpower;
-    private boolean collectorOpen;
+    private boolean belowCloseThreshold = true;
 
     public GamepadCollectorCommand(Gamepad gamepad) {
         super("gamepadcollectorcommand");
         this.collector = Components.getInstance().collector;
+        this.elevator = Components.getInstance().elevator;
         this.gamepad = gamepad;
 
         requires(collector);
@@ -41,6 +44,13 @@ public class GamepadCollectorCommand extends Command {
         }
 
         collector.setCollectorSpeed(lpower, rpower);
+
+        if(elevator.getHeightPercent() > 5 && belowCloseThreshold) {
+            collector.toggleCollector(false); //close collector if above 5% height
+            belowCloseThreshold = false;
+        } else if(elevator.getHeightPercent() < 5) {
+            belowCloseThreshold = true;
+        }
     }
 
     @Override

@@ -19,16 +19,24 @@ public class DriveXInchesCommand extends Command {
     private double startSpeed;
     private double endSpeed;
 
-    private static final double ROTATION_OFFSET_P = 0.03;
+    private static final double ROTATION_OFFSET_P = 0.06;
     private final double TOLERANCE = 0.1;
     private final double stopVoltage = 1.6;
     private final double RAMP_UP_INCHES = 6;
-    private final double RAMP_DOWN_INCHES = 6;
+    private double RAMP_DOWN_INCHES = 36;
 
     public DriveXInchesCommand(double inches, double speed) {
         super("drivexinchescommand");
         this.inches = inches;
         this.speed = speed;
+
+        this.endSpeed = 0.2;
+        this.startSpeed = 0.2;
+
+        if(inches < RAMP_DOWN_INCHES) {
+            RAMP_DOWN_INCHES = inches;
+        }
+
         drivetrain = Components.getInstance().drivetrain;
     }
 
@@ -97,6 +105,7 @@ public class DriveXInchesCommand extends Command {
 
 //        RAMP DOWN RATE
         if (remainingInches < RAMP_DOWN_INCHES) {
+            Robot.logger.log("-----ENTERING RAMP DOWN-----");
             if (speed > 0) {
                 if ((leftVelocity * (remainingInches / RAMP_DOWN_INCHES)) > endSpeed) {
                     leftVelocity = leftVelocity * (remainingInches / RAMP_DOWN_INCHES);
@@ -116,11 +125,13 @@ public class DriveXInchesCommand extends Command {
         rightVelocity = leftVelocity;
 
         if (deltaAngle < 0) {
+            Robot.logger.log("-----RIGHT GYRO CORRECTION-----");
             System.out.println("DriveX Correcting Right\t delta angle: " + deltaAngle);
             rightVelocity = rightVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
             System.out.println("L Velocity: " + leftVelocity + " R Velocity: " + rightVelocity);
             System.out.println("---");
         } else if (deltaAngle > 0) {
+            Robot.logger.log("-----LEFT GYRO CORRECTION-----");
             System.out.println("DriveX Correcting Left\t delta angle: " + deltaAngle);
             leftVelocity = leftVelocity - Math.abs(deltaAngle * ROTATION_OFFSET_P);
             System.out.println("L Velocity: " + leftVelocity + " R Velocity: " + rightVelocity);
@@ -138,15 +149,23 @@ public class DriveXInchesCommand extends Command {
         System.out.println("Inches Traveled: " + currentInches);
         System.out.println("Talon Pos L: " + drivetrain.talonPositionLeft());
 
-        sb.append(System.currentTimeMillis());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionLeft());
-        sb.append(",");
-        sb.append(leftVelocity);
-        sb.append(",");
-        sb.append(rightVelocity);
-
-        Robot.logger.log(sb.toString());
+//        sb.append(System.currentTimeMillis());
+//        sb.append(",");
+//        sb.append(drivetrain.getLeftTalonInches());
+//        sb.append(",");
+//        sb.append(drivetrain.getRightTalonInches());
+//        sb.append(",");
+//        sb.append(leftVelocity);
+//        sb.append(",");
+//        sb.append(rightVelocity);
+//        sb.append(",");
+//        sb.append(drivetrain.getLeftTalonVelocity());
+//        sb.append(",");
+//        sb.append(drivetrain.getRightTalonVelocity());
+//        sb.append(",");
+//        sb.append(drivetrain.getGyroAngle());
+//
+//        Robot.logger.log(sb.toString());
     }
 
     @Override
@@ -162,8 +181,6 @@ public class DriveXInchesCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-//        double volts = analogInput.getVoltage();
-
         if (remainingInches <= 0) {
             System.out.println("DriveX Finished");
             return true;

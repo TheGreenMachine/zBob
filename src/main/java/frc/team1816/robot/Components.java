@@ -34,8 +34,8 @@ public class Components {
     private static final int ELEVATOR_ENC_1 = 0;
     private static final int ELEVATOR_ENC_2 = 1;
 
-    private static final int UPPER_LIMIT = 9;
-    private static final int LOWER_LIMIT = 8;
+    private static final int UPPER_LIMIT = 4;
+    private static final int LOWER_LIMIT = 2;
 
     //Climber Constants
     private static final int CLIMBER_ONE = 12;
@@ -46,6 +46,8 @@ public class Components {
 
     //Compressor
     private static final int PCM_NODE_ID = 10;
+
+    //Ramp Constants
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, LEFT_MAIN, LEFT_SLAVE_ONE);

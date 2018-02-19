@@ -17,6 +17,7 @@ public class SetCollectorSpeedCommand extends Command {
 
     @Override
     protected void initialize() {
+        collector.setCollectorSpeed(power, power);
     }
 
     @Override

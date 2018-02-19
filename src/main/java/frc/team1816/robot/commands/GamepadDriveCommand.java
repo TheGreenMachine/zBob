@@ -8,6 +8,7 @@ import frc.team1816.robot.Components;
 import frc.team1816.robot.Robot;
 import frc.team1816.robot.subsystems.Collector;
 import frc.team1816.robot.subsystems.Drivetrain;
+import frc.team1816.robot.subsystems.Elevator;
 
 public class GamepadDriveCommand extends Command {
 
@@ -26,31 +27,11 @@ public class GamepadDriveCommand extends Command {
 
     @Override
     protected void initialize() {
-        sb = new StringBuilder();
-//        sb.append("Talon Pos L");
-//        sb.append(",");
-//        sb.append("Talon Pos R");
-//        sb.append(",");
-//        sb.append("Talon V L");
-//        sb.append(",");
-//        sb.append("Talon V R");
-//
-//        Robot.logger.log(sb.toString());
+
     }
 
     @Override
     protected void execute() {
-//        System.out.println("GamePadDrive Command Executing...");
-
-        sb.append(drivetrain.talonPositionLeft());
-        sb.append(",");
-        sb.append(drivetrain.talonPositionRight());
-        sb.append(",");
-        sb.append(drivetrain.getLeftTalonVelocity());
-        sb.append(",");
-        sb.append(drivetrain.getRightTalonVelocity());
-        Robot.logger.log(sb.toString());
-
         double right = gamepad.getLeftY();
         double left = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
