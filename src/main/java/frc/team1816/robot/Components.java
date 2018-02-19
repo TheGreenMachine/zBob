@@ -47,6 +47,8 @@ public class Components {
     //Compressor
     private static final int PCM_NODE_ID = 10;
 
+    //Ramp Constants
+
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, LEFT_MAIN, LEFT_SLAVE_ONE);
         collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, COLLECTOR_SOLENOID_FRONT, PCM_NODE_ID);
