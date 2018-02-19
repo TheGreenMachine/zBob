@@ -70,7 +70,9 @@ public class RotateXDegreesCommand extends Command {
     protected boolean isFinished() {
 
         //Right turns are overshooting and becoming left turns, mess with end condition
-        if (Math.abs(target-drivetrain.getGyroAngle())<=2){
+        System.out.println("deltaAngle: " + (target - drivetrain.getGyroAngle()));
+
+        if ((target - drivetrain.getGyroAngle()) >= -3 && (target - drivetrain.getGyroAngle()) <= 3){
             System.out.println("RotateX Finishing");
             drivetrain.setDrivetrain(0, 0);
             drivetrain.setPrevTargetHeading(Double.toString(target));
