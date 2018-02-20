@@ -61,8 +61,9 @@ public class RotateXDegreesCommand extends Command {
             System.out.println("Rotating Left at " + velocity + " velocity");
         }
 
-        if(Math.abs(target - drivetrain.getGyroAngle()) < 20 && velocity >= 0.3)
-            velocity *= (target - drivetrain.getGyroAngle()) / 30;
+        double currentDelta = Math.abs(target - drivetrain.getGyroAngle());
+        if(currentDelta < 20 && velocity >= 0.3)
+            velocity *= currentDelta / 30;
 
     }
 
