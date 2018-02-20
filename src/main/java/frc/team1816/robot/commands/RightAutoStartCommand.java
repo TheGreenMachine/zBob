@@ -41,7 +41,7 @@ public class RightAutoStartCommand extends CommandGroup{
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(30, -0.5));
-            addSequential(new RotateXDegreesCommand(90),3);
+            addSequential(new RotateXDegreesCommand(-90),3);
             addSequential(new DriveXInchesCommand(24, 0.5));
 
         } else if (target == 'L'){
