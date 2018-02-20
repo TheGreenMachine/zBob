@@ -14,7 +14,7 @@ public class LowerElevatorCommand extends Command {
     }
 
     public void initialize() {
-        elevator.setElevatorSpeed(-.8);
+        elevator.setElevatorSpeed(-1);
         System.out.println("Lowering Elevator");
     }
 

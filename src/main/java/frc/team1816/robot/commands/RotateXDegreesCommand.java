@@ -62,8 +62,8 @@ public class RotateXDegreesCommand extends Command {
         }
 
         double currentDelta = Math.abs(target - drivetrain.getGyroAngle());
-        if(currentDelta < 20 && velocity >= 0.3)
-            velocity *= currentDelta / 30;
+        if(currentDelta < 20 && velocity >= 0.35)
+            velocity *= currentDelta / 20;
 
     }
 

@@ -8,6 +8,7 @@ public class SetElevatorHeightPercentCommand extends Command {
     private Elevator elevator;
     private double targetHeightPercent;
 
+
     public SetElevatorHeightPercentCommand(double heightPercent) {
         super ("raiseelevatorcommand");
         this.elevator = Components.getInstance().elevator;
@@ -18,9 +19,9 @@ public class SetElevatorHeightPercentCommand extends Command {
     public void initialize() {
         System.out.println("Raising Elevator");
         if(elevator.getHeightPercent() > targetHeightPercent) {
-            elevator.setElevatorSpeed(-.8);
+            elevator.setElevatorSpeed(-1);
         } else if (elevator.getHeightPercent() < targetHeightPercent) {
-            elevator.setElevatorSpeed(.8);
+            elevator.setElevatorSpeed(1);
         }
     }
 

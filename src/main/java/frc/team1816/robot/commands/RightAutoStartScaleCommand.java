@@ -14,7 +14,7 @@ public class RightAutoStartScaleCommand extends CommandGroup {
 
     public void selectAuto() {
         try {
-            target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+            target = DriverStation.getInstance().getGameSpecificMessage().charAt(1);
 
             System.out.println("Scale Auto Selection: " + target);
         } catch (Exception e) {

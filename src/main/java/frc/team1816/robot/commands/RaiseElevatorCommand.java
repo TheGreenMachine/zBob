@@ -15,7 +15,7 @@ public class RaiseElevatorCommand extends Command {
 
     public void initialize() {
         System.out.println("Raising Elevator");
-        elevator.setElevatorSpeed(.8);
+        elevator.setElevatorSpeed(1);
     }
 
     @Override
