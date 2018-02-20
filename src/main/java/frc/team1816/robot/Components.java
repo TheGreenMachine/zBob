@@ -32,7 +32,7 @@ public class Components {
     private static final int ELEVATOR_ENC_1 = 0;
     private static final int ELEVATOR_ENC_2 = 1;
 
-    private static final int UPPER_LIMIT = 4;
+    private static final int UPPER_LIMIT = 3;
     private static final int LOWER_LIMIT = 2;
 
     //Climber Constants

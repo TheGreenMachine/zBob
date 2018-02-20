@@ -44,11 +44,6 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new RotateXDegreesCommand(90),3);
             addSequential(new DriveXInchesCommand(24, 0.5));
 
-//            System.out.println("Experimental Arc Auto");
-//            addSequential(new DriveXInchesCommand(60, 0.5, false));
-//            addSequential(new ArcDriveCommand(48, 0.4, 90));
-//            addSequential(new DriveXInchesCommand(12,0.5,false));
-
         } else if (target == 'R'){
             System.out.println("Switch ---- Target: R");
 

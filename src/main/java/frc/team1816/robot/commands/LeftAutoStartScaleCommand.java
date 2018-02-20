@@ -50,10 +50,9 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
             //Turn and place cube on scale
             addSequential(new DriveXInchesCommand(70,-0.8,0.6,0.2));
             addParallel(new RaiseElevatorCommand());
-//            addSequential(new RotateXDegreesCommand(-120,true,0.4),3); // why cant we turn left
-            addSequential(new RotateXDegreesCommand(250, true,0.5),3);
+            addSequential(new RotateXDegreesCommand(-120,true,0.4),3); // why cant we turn left
+//            addSequential(new RotateXDegreesCommand(250, true,0.5),3); //maybe we can turn left now
             addSequential(new SetCollectorSpeedCommand(0));
-//            addSequential(new RaiseElevatorCommand());
             addSequential(new DriveXInchesCommand(12,0.8));
             addSequential(new WaitCommand(1));
             addSequential(new SetCollectorSpeedCommand(-1));
@@ -63,14 +62,14 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
         } else if (target == 'R') {
             System.out.println("Scale ---- Target: R");
 
-//            addSequential(new DriveXInchesCommand(225,0.8));
+            addSequential(new DriveXInchesCommand(225,0.8));
             addSequential(new DriveXInchesCommand(12,0.8));
 
             addSequential(new WaitCommand(0.2));
             addSequential(new RotateXDegreesCommand(90,true,0.7),3);
             addSequential(new DriveXInchesCommand(180, 0.8));
-            addSequential(new RotateXDegreesCommand(-90,true,0.6),3);
             addParallel(new RaiseElevatorCommand());
+            addSequential(new RotateXDegreesCommand(-90,true,0.6),3);
             addSequential(new DriveXInchesCommand(20,0.6),5);
 
             addSequential(new WaitCommand(3));
