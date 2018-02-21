@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
-import frc.team1816.robot.subsystems.Climber;
-import frc.team1816.robot.subsystems.Collector;
-import frc.team1816.robot.subsystems.Drivetrain;
-import frc.team1816.robot.subsystems.Elevator;
+import frc.team1816.robot.subsystems.*;
 
 public class Robot extends IterativeRobot {
 
@@ -24,6 +21,7 @@ public class Robot extends IterativeRobot {
     private Elevator elevator;
     private Collector collector;
     private Climber climber;
+    private Ramp ramp;
 
     private SendableChooser<Command> autoChooser;
 
@@ -45,6 +43,7 @@ public class Robot extends IterativeRobot {
         elevator = Components.getInstance().elevator;
         collector = Components.getInstance().collector;
         climber = Components.getInstance().climber;
+        ramp = Components.getInstance().ramp;
 
         leftAuto = new LeftAutoStartCommand();
         rightAuto = new RightAutoStartCommand();
@@ -86,7 +85,6 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-//        logger = new Logging("AutoLog");
         logger = Logging.getInstance("Autolog");
 
         logger.log(DriverStation.getInstance().getGameSpecificMessage());
@@ -121,7 +119,6 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-//        logger = new Logging("TeleopLog1");
         logger = Logging.getInstance("TeleopLog");
 
         Gamepad gamepad0 = Controls.getInstance().gamepad0;
@@ -172,7 +169,7 @@ public class Robot extends IterativeRobot {
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
 //        System.out.println("Gyro: " + drivetrain.getGyroAngle());
-        System.out.println("Gyro Status: " + drivetrain.gyroActiveCheck());
+//        System.out.println("Gyro Status: " + drivetrain.gyroActiveCheck());
 
 //        System.out.println("Elevator ticks: " + elevator.getTicks());
 

@@ -10,12 +10,10 @@ public class DeployRampCommand extends Command {
 
     private Ramp ramp;
     private Gamepad gamepad;
-    private Drivetrain drivetrain;
 
     public DeployRampCommand(Gamepad gamepad){
       super("deployrampcommand");
       this.ramp = Components.getInstance().ramp;
-      this.drivetrain = Components.getInstance().drivetrain;
       this.gamepad = gamepad;
       requires(ramp);
     }
@@ -23,6 +21,7 @@ public class DeployRampCommand extends Command {
     public void execute() {
             ramp.deployRamps();
     }
+
     @Override
     protected boolean isFinished() {
         return true;

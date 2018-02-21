@@ -42,10 +42,11 @@ public class Components {
     private static final int CLIMBER_FOUR = 3; // motor may be removed
     private static final int CLIMBER_SOLENOID = 1;
 
+    //Ramp Constants
+    private static final int RAMP_SOLENOID = 2;
+
     //Compressor
     private static final int PCM_NODE_ID = 10;
-
-    //Ramp Constants
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, LEFT_MAIN, LEFT_SLAVE_ONE);
@@ -53,6 +54,7 @@ public class Components {
         ai = new AnalogInput(3);
         elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_SLAVE, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT);
         climber = new Climber(CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_FOUR, CLIMBER_SOLENOID, PCM_NODE_ID);
+        ramp = new Ramp(PCM_NODE_ID, RAMP_SOLENOID);
 
         compressor = new Compressor(PCM_NODE_ID);
         compressor.start();

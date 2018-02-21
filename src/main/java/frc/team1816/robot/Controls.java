@@ -42,9 +42,9 @@ public class Controls {
         gamepad1.dPadLeft().whenPressed(new SetElevatorHeightPercentCommand(30));
         gamepad1.dPadRight().whenPressed(new SetElevatorHeightPercentCommand(60));
 
+        //Ramp Deployal (Operator Gamepad)
         if(gamepad1.middleLeft().get() && gamepad1.middleRight().get()){
             new DeployRampCommand(gamepad1);
-            
         }
 
 //        gamepad1.dPadUp().whileHeld(new TalonTestCommand(8, 0.5));
