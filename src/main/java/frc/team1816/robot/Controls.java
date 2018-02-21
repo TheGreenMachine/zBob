@@ -42,12 +42,19 @@ public class Controls {
         gamepad1.dPadLeft().whenPressed(new SetElevatorHeightPercentCommand(30));
         gamepad1.dPadRight().whenPressed(new SetElevatorHeightPercentCommand(60));
 
-        //Ramp Deployal (Operator Gamepad)
-        if(gamepad1.middleLeft().get() && gamepad1.middleRight().get()){
-            new DeployRampCommand(gamepad1);
-        }
+//        Ramp Deployal (Operator Gamepad)
+//        Double button failsafe not working
+//
+//        if(gamepad0.middleLeft().get() && gamepad0.middleRight().get()){
+//            System.out.println("Ramps triggered");
+//            new DeployRampCommand();
+//        }
 
-//        gamepad1.dPadUp().whileHeld(new TalonTestCommand(8, 0.5));
+//        gamepad0.diamondUp().whenPressed(new DeployRampCommand());
+
+        gamepad0.middleRight().whenPressed(new DeployRampCommand());
+        gamepad0.middleRight().whenReleased(new ResetRampsCommand());
+
     }
 
     public static Controls getInstance(){

@@ -1,25 +1,22 @@
 package frc.team1816.robot.commands;
 
-import com.edinarobotics.utils.gamepad.Gamepad;
-import edu.wpi.first.wpilibj.command.Command;
-import frc.team1816.robot.Components;
-import frc.team1816.robot.subsystems.Drivetrain;
-import frc.team1816.robot.subsystems.Ramp;
+        import edu.wpi.first.wpilibj.command.Command;
+        import frc.team1816.robot.Components;
+        import frc.team1816.robot.subsystems.Ramp;
 
 public class DeployRampCommand extends Command {
 
     private Ramp ramp;
-    private Gamepad gamepad;
 
-    public DeployRampCommand(Gamepad gamepad){
-      super("deployrampcommand");
-      this.ramp = Components.getInstance().ramp;
-      this.gamepad = gamepad;
-      requires(ramp);
+    public DeployRampCommand(){
+        super("deployrampcommand");
+        this.ramp = Components.getInstance().ramp;
+        requires(ramp);
     }
 
     public void execute() {
-            ramp.deployRamps();
+        ramp.deployRamps();
+        System.out.println("Deploying Ramps");
     }
 
     @Override

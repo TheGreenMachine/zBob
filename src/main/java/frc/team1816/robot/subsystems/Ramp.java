@@ -10,11 +10,15 @@ public class Ramp extends Subsystem {
     public Ramp(int pcmNodeRamp, int rampID){
         super();
         rampSolenoid = new Solenoid(pcmNodeRamp, rampID);
-        rampSolenoid.set(false);
+        rampSolenoid.set(false); //TODO test this value
     }
 
     public void deployRamps(){
         rampSolenoid.set(deployState);
+    }
+
+    public void resetRamps() {
+        rampSolenoid.set(!deployState);
     }
 
     public void initDefaultCommand() {

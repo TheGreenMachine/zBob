@@ -13,6 +13,8 @@ public class GamepadElevatorCommand extends Command {
     private Gamepad gamepad;
     private Drivetrain drivetrain;
     private double power;
+    private boolean slowModeCheck;
+    private boolean slowModeSetCheck;
 
     public GamepadElevatorCommand(Gamepad gamepad) {
         super("gamepadelevatorcommand");
@@ -46,9 +48,27 @@ public class GamepadElevatorCommand extends Command {
 
         if(elevator.getHeightPercent() > 50) {
             drivetrain.setSlowMode(true);
-        } else {
-            drivetrain.setSlowMode(false);
+            slowModeCheck = true;
         }
+        else {
+            if(slowModeCheck) {
+                drivetrain.setSlowMode(false);
+                slowModeCheck = false;
+            }
+        }
+//            drivetrain.setSlowMode(true);
+//            slowModeSetCheck = true;
+//        }
+//
+//        if(slowModeSetCheck) {
+//            slowModeSetCheck = false;
+//            slowModeCheck = true;
+//        }
+//
+//        if(slowModeCheck) {
+//            drivetrain.setSlowMode(false);
+//            slowModeCheck = false;
+//        }
     }
 
 
