@@ -50,12 +50,10 @@ public class LeftAutoStartCommand extends CommandGroup {
             addParallel(new SetElevatorHeightPercentCommand(20));
 
             addSequential(new DriveXInchesCommand(210, 0.7));
-//            addSequential(new RotateXDegreesCommand(90,true),3);
-            addSequential(new RotateXDegreesCommand(90,true,.5));
-//            addSequential(new WaitCommand(0.2));
+            addSequential(new RotateXDegreesCommand(90,true,.5),3);
             addSequential(new DriveXInchesCommand(138, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40));
-            addSequential(new RotateXDegreesCommand(90,true,.5));
+            addSequential(new RotateXDegreesCommand(90,true,.5),3);
             addSequential(new DriveXInchesCommand(9, 0.5),3);
 
             addSequential(new WaitCommand(0.2));

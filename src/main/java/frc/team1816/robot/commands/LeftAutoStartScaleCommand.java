@@ -34,9 +34,6 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
                 addSequential(new DriveXInchesCommand(285, 1)); //prev v 0.8
-//                addSequential(new DriveXInchesCommand(140, 1));
-//                addParallel(new RaiseElevatorCommand());
-//                addSequential(new DriveXInchesCommand(145,1));
 
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.5), 3); //prev v 0.6
@@ -73,8 +70,6 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
                 addSequential(new DriveXInchesCommand(285, 1));
-//                addParallel(new RaiseElevatorCommand());
-//                addSequential(new DriveXInchesCommand(145,1));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.6), 3);
                 addSequential(new WaitCommand(0.1));
