@@ -24,16 +24,16 @@ public class Drivetrain extends Subsystem1816{
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
-    public static double p_L = 0.035;
-    public static double i_L = 0.007;
+    public static double p_L = 0.1;
+    public static double i_L = 0;
     public static double d_L = 0;
-    public static double f_L = 1.34;
+    public static double f_L = 1.232;
     public static int izone_L = 15;
 
-    public static double p_R = 0.07;
-    public static double i_R = 0.007;
+    public static double p_R = 0.1;
+    public static double i_R = 0;
     public static double d_R = 0;
-    public static double f_R = 1.34;
+    public static double f_R = 1.239;
     public static int izone_R = 15;
 
     private double leftPower, rightPower, rotation;
@@ -181,11 +181,15 @@ public class Drivetrain extends Subsystem1816{
         rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
+        leftVelocity += 15;
+
          rightMain.set(ControlMode.Velocity, rightVelocity);
          leftMain.set(ControlMode.Velocity, leftVelocity);
 
 //       rightMain.set(ControlMode.PercentOutput, rightVelocity);
 //       leftMain.set(ControlMode.PercentOutput, leftVelocity);
+
+        System.out.println("L V: " + getLeftTalonVelocity() + "\tR V: " + getRightTalonVelocity());
 
         // System.out.println("----------------------");
         // System.out.println("L Power: " + leftPower);

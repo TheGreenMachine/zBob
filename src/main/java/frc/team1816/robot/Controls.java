@@ -26,6 +26,10 @@ public class Controls {
         gamepad0 = new FilteredGamepad(0, driveGamepadFilterSet0);
         gamepad1 = new FilteredGamepad(1, driveGamepadFilterSet0);
 
+        //PID Tuning Controls
+        gamepad0.diamondLeft().whileHeld(new FullPowerDriveCommand(14,13));
+        gamepad0.diamondRight().whileHeld(new FullPowerDriveCommand(5,4));
+
         //Driver Controller Mapping
         gamepad0.leftBumper().whenPressed(new ToggleSlowModeCommand(true));
         gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
