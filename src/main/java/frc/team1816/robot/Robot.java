@@ -2,13 +2,13 @@ package frc.team1816.robot;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
@@ -33,11 +33,13 @@ public class Robot extends IterativeRobot {
     //public static NetworkTableInstance offSeasonNetworkTable;
 
     private NetworkTable table;
+    private NetworkTable velocityGraph;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
-        table = NetworkTable.getTable("Shuffleboard_PID");
+        table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
+        velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -60,17 +62,22 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
-         table.putNumber("Left P", drivetrain.p_L);
-         table.putNumber("Left I", drivetrain.i_L);
-         table.putNumber("Left D", drivetrain.d_L);
-         table.putNumber("Left F", drivetrain.f_L);
-         table.putNumber("Left izone", drivetrain.izone_L);
+        table.getEntry("Left P").setDouble(drivetrain.p_L);
+        table.getEntry("Left I").setDouble(drivetrain.i_L);
+        table.getEntry("Left D").setDouble(drivetrain.d_L);
+        table.getEntry("Left F").setDouble(drivetrain.f_L);
+        table.getEntry("Left izone").setDouble(drivetrain.izone_L);
 
-         table.putNumber("Right P", drivetrain.p_R);
-         table.putNumber("Right I", drivetrain.i_R);
-         table.putNumber("Right D", drivetrain.d_R);
-         table.putNumber("Right F", drivetrain.f_R);
-         table.putNumber("Right izone", drivetrain.izone_R);
+        table.getEntry("Right P").setDouble(drivetrain.p_R);
+        table.getEntry("Right I").setDouble(drivetrain.i_R);
+        table.getEntry("Right D").setDouble(drivetrain.d_R);
+        table.getEntry("Right F").setDouble(drivetrain.f_R);
+        table.getEntry("Right izone").setDouble(drivetrain.izone_R);
+
+        velocityGraph.getEntry("Left Velocity").setDouble(0);
+        velocityGraph.getEntry("Left Set V").setDouble(0);
+        velocityGraph.getEntry("Right Velocity").setDouble(0);
+        velocityGraph.getEntry("Right Set V").setDouble(0);
     }
 
     @Override
@@ -136,17 +143,17 @@ public class Robot extends IterativeRobot {
         climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));
         collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
-        double pValueL = table.getDouble("Left P", drivetrain.p_L);
-        double iValueL = table.getDouble("Left I", drivetrain.i_L);
-        double dValueL = table.getDouble("Left D", drivetrain.d_L);
-        double fValueL = table.getDouble("Left F", drivetrain.f_L);
-        double izoneL = table.getDouble("Left izone", drivetrain.izone_L);
+        double pValueL = table.getEntry("Left P").getDouble(drivetrain.p_L);
+        double iValueL = table.getEntry("Left I").getDouble(drivetrain.i_L);
+        double dValueL = table.getEntry("Left D").getDouble(drivetrain.d_L);
+        double fValueL = table.getEntry("Left F").getDouble(drivetrain.f_L);
+        double izoneL = table.getEntry("Left izone").getDouble(drivetrain.izone_L);
 
-        double pValueR = table.getDouble("Right P", drivetrain.p_R);
-        double iValueR = table.getDouble("Right I", drivetrain.i_R);
-        double dValueR = table.getDouble("Right D", drivetrain.d_R);
-        double fValueR = table.getDouble("Right F", drivetrain.f_R);
-        double izoneR = table.getDouble("Right izone", drivetrain.izone_R);
+        double pValueR = table.getEntry("Right P").getDouble(drivetrain.p_R);
+        double iValueR = table.getEntry("Right I").getDouble(drivetrain.i_R);
+        double dValueR = table.getEntry("Right D").getDouble(drivetrain.d_R);
+        double fValueR = table.getEntry("Right F").getDouble(drivetrain.f_R);
+        double izoneR = table.getEntry("Right izone").getDouble(drivetrain.izone_R);
 
         drivetrain.updatePIDValuesL(pValueL, iValueL, dValueL, fValueL, (int) izoneL);
         drivetrain.updatePIDValuesR(pValueR, iValueR, dValueR, fValueR, (int) izoneR);
@@ -171,6 +178,11 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         logger.log(drivetrain.getPIDTuningString());
+
+        velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
+        velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
+        velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
+        velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
 
         //        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
 //        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());

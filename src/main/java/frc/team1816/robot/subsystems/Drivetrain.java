@@ -181,6 +181,16 @@ public class Drivetrain extends Subsystem1816{
         leftSlaveOne.getSensorCollection().setQuadraturePosition(0,10); //cimcoder
     }
 
+    public static double leftSetV, rightSetV;
+
+    public double getLeftSetV() {
+        return leftSetV;
+    }
+
+    public double getRightSetV() {
+        return rightSetV;
+    }
+
     @Override
     public void update() {
 
@@ -196,6 +206,9 @@ public class Drivetrain extends Subsystem1816{
         leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
 //        leftVelocity += 15; //TODO may need to re-implement
+
+        leftSetV = leftVelocity;
+        rightSetV = rightVelocity;
 
          rightMain.set(ControlMode.Velocity, rightVelocity);
          leftMain.set(ControlMode.Velocity, leftVelocity);
