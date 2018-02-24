@@ -3,6 +3,7 @@ package frc.team1816.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import com.kauailabs.navx.frc.AHRS;
@@ -125,6 +126,16 @@ public class Drivetrain extends Subsystem1816{
 
         this.leftMain.selectProfileSlot(0,0);
         this.rightMain.selectProfileSlot(0,0);
+
+        //for practice bot
+        this.leftMain.setSensorPhase(true);
+        this.rightMain.setSensorPhase(true);
+
+        this.rightMain.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms,0);
+        this.leftMain.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms,0);
+
+        this.rightMain.configVelocityMeasurementWindow(8,0);
+        this.leftMain.configVelocityMeasurementWindow(8,0);
     }
 
     public TalonSRX getRightMain() {
@@ -207,20 +218,19 @@ public class Drivetrain extends Subsystem1816{
 
 //        leftVelocity += 15; //TODO may need to re-implement
 
-        leftSetV = leftVelocity;
-        rightSetV = rightVelocity;
-
-         rightMain.set(ControlMode.Velocity, rightVelocity);
-         leftMain.set(ControlMode.Velocity, leftVelocity);
-
 //         double rightVelocity = rightPower;
 //         double leftVelocity = leftPower;
 //         rightVelocity -= rotation * .55;
 //         leftVelocity -= rotation * .55;
-//
-//       rightMain.set(ControlMode.PercentOutput, rightVelocity);
-//       leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
+        rightMain.set(ControlMode.Velocity, rightVelocity);
+        leftMain.set(ControlMode.Velocity, leftVelocity);
+//
+//        rightMain.set(ControlMode.PercentOutput, rightVelocity);
+//        leftMain.set(ControlMode.PercentOutput, leftVelocity);
+
+        leftSetV = leftVelocity;
+        rightSetV = rightVelocity;
 
         // System.out.println("----------------------");
         // System.out.println("L Power: " + leftPower);
