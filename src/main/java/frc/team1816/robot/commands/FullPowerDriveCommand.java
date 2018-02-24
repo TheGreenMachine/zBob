@@ -10,37 +10,38 @@ import frc.team1816.robot.subsystems.Elevator;
 
 public class FullPowerDriveCommand extends Command {
 
-    private TalonSRX testTalon, testTalon2;
-    private int talonid1, talonid2;
+    private Drivetrain drivetrain;
     private double power = 1;
 
-    public FullPowerDriveCommand(int talonid1, int talonid2) {
-        super("talontestcommand");
-        this.talonid1 = talonid1;
-        this.talonid2 = talonid2;
+    public FullPowerDriveCommand() {
+        super("fullpowerdrivecommand");
+        drivetrain = Components.getInstance().drivetrain;
+    }
+
+    public FullPowerDriveCommand(double power) {
+        super("fullpowerdrivecommand");
+        drivetrain = Components.getInstance().drivetrain;
+        this.power = power;
     }
 
     protected void initialize() {
-        testTalon = new TalonSRX(talonid1);
-        testTalon2 = new TalonSRX(talonid2);
+
     }
 
     protected void execute() {
-        testTalon.set(ControlMode.PercentOutput, power);
-        testTalon2.set(ControlMode.PercentOutput, power);
-        System.out.println("ID: " + talonid1 + "\tSet Pow: " + power + "\tOut Pow: " + testTalon.getSelectedSensorVelocity(0));
-        System.out.println("ID: " + talonid2 + "\tSet Pow: " + power + "\tOut Pow: " + testTalon2.getSelectedSensorVelocity(0));
+        drivetrain.setDrivetrain(power, power);
+        System.out.println("L Set Pow: " + power + "\tL Out Pow: " + drivetrain.getLeftTalonVelocity());
+        System.out.println("R Set Pow: " + power + "\tR Out Pow: " + drivetrain.getRightTalonVelocity());
 
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {
-        testTalon.set(ControlMode.PercentOutput, 0);
-        testTalon2.set(ControlMode.PercentOutput,0);
+        drivetrain.setDrivetrain(0,0);
     }
 
     protected void interrupted() {

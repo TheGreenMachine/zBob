@@ -87,8 +87,6 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
 
-        logger.log(DriverStation.getInstance().getGameSpecificMessage());
-
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
                 .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Set Power L").append(",")
@@ -96,6 +94,14 @@ public class Robot extends IterativeRobot {
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();
+
+        double timeout = System.currentTimeMillis();
+        while((DriverStation.getInstance().getGameSpecificMessage() == null || DriverStation.getInstance().getGameSpecificMessage().equals(""))
+                && System.currentTimeMillis() - timeout > 1000) {
+            System.out.println("Waiting For FMS Data");
+        }
+
+        logger.log(DriverStation.getInstance().getGameSpecificMessage());
 
         try {
             leftAuto.selectAuto();
@@ -164,7 +170,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-//        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
+        logger.log(drivetrain.getPIDTuningString());
+
+        //        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
 //        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());

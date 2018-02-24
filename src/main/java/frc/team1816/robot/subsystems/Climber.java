@@ -32,7 +32,7 @@ public class Climber extends Subsystem {
         this.climberSlaveTwo.setNeutralMode(NeutralMode.Brake);
         this.climberSlaveThree.setNeutralMode(NeutralMode.Brake);
 
-        shifterSolenoid.set(false); //TODO check tubing so false is disengaged
+        shifterSolenoid.set(false); //TODO (double and triple) check tubing so false = disengaged
     }
 
     public void setClimberSpeed(double speed) {
@@ -54,7 +54,6 @@ public class Climber extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        // TODO: Set the default command, if any, for a subsystem here. Example:
     }
 }
 

@@ -24,16 +24,18 @@ public class Drivetrain extends Subsystem1816{
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
-    public static double p_L = 0.1;
+    public static double p_L = 0; //TODO tune PID values via shuffleboard after F is determined
     public static double i_L = 0;
     public static double d_L = 0;
-    public static double f_L = 1.232;
+//    public static double f_L = 1.232;
+    public static double f_L = 12.296; //TODO in testing
     public static int izone_L = 15;
 
-    public static double p_R = 0.1;
+    public static double p_R = 0; //TODO tune PID values via shuffleboard after F is determined
     public static double i_R = 0;
     public static double d_R = 0;
-    public static double f_R = 1.239;
+//    public static double f_R = 1.239;
+    public static double f_R = 12.370; //TODO in testing
     public static int izone_R = 15;
 
     private double leftPower, rightPower, rotation;
@@ -58,6 +60,18 @@ public class Drivetrain extends Subsystem1816{
         DRIVETRAIN_WIDTH = Double.valueOf(properties.getProperty("DRIVETRAIN_WIDTH"));
         MAX_VELOCITY_TICKS_PER_100MS = Double.valueOf(properties.getProperty("MAX_VELOCITY_TICKS_PER_100MS"));
         INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
+
+        p_L = Double.valueOf(properties.getProperty("p_L"));
+        i_L = Double.valueOf(properties.getProperty("i_L"));
+        d_L = Double.valueOf(properties.getProperty("d_L"));
+        f_L = Double.valueOf(properties.getProperty("f_L"));
+        izone_L = Integer.valueOf(properties.getProperty("izone_L"));
+
+        p_R = Double.valueOf(properties.getProperty("p_R"));
+        i_R = Double.valueOf(properties.getProperty("i_R"));
+        d_R = Double.valueOf(properties.getProperty("d_R"));
+        f_R = Double.valueOf(properties.getProperty("f_R"));
+        izone_R = Integer.valueOf(properties.getProperty("izone_R"));
 
         System.out.println("Ticks per inch:" + TICKS_PER_INCH +
                 "\nTicks per rev " + TICKS_PER_REV +
@@ -181,23 +195,27 @@ public class Drivetrain extends Subsystem1816{
         rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
-        leftVelocity += 15;
+//        leftVelocity += 15; //TODO may need to re-implement
 
          rightMain.set(ControlMode.Velocity, rightVelocity);
          leftMain.set(ControlMode.Velocity, leftVelocity);
 
+//         double rightVelocity = rightPower;
+//         double leftVelocity = leftPower;
+//         rightVelocity -= rotation * .55;
+//         leftVelocity -= rotation * .55;
+//
 //       rightMain.set(ControlMode.PercentOutput, rightVelocity);
 //       leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
-        System.out.println("L V: " + getLeftTalonVelocity() + "\tR V: " + getRightTalonVelocity());
 
         // System.out.println("----------------------");
         // System.out.println("L Power: " + leftPower);
         // System.out.println("R Power: " + rightPower);
-        // System.out.println("L Velocity In: " + leftVelocity);
-        // System.out.println("R Velocity In: " + rightVelocity);
-        // System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
-        // System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+//         System.out.print("L Velocity In: " + leftVelocity);
+//         System.out.println("\tR Velocity In: " + rightVelocity);
+         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
+         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
         // System.out.println("----------------------");
     }
 
@@ -262,6 +280,10 @@ public class Drivetrain extends Subsystem1816{
         return ""  + System.currentTimeMillis() + "," + getLeftTalonInches() + "," + getRightTalonInches()
                 + "," +getLeftTalonVelocity() + "," +getRightTalonVelocity() + "," + leftPower + "," + rightPower
                 + "," + rotation + "," + getGyroAngle();
+    }
+
+    public String getPIDTuningString() {
+        return "" + getLeftTalonVelocity() + "," + getRightTalonVelocity();
     }
 }
 

@@ -21,10 +21,8 @@ public class Logging {
 			if (file.exists()) file.delete();
 			writer = new PrintWriter(new FileWriter("/home/lvuser/" + filename + ".csv", false), true);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -37,7 +35,6 @@ public class Logging {
 		try {
 			writer.println(whatToWrite);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

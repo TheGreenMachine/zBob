@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Ramp extends Subsystem {
     private Solenoid rampSolenoid;
-    private boolean deployState = true; //TODO test this value
+    private boolean deployState = true; //TODO double check these values
 
     public Ramp(int pcmNodeRamp, int rampID){
         super();
         rampSolenoid = new Solenoid(pcmNodeRamp, rampID);
-        rampSolenoid.set(false); //TODO test this value
+        rampSolenoid.set(false);
     }
 
     public void deployRamps(){
@@ -22,6 +22,5 @@ public class Ramp extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        // TODO: Set the default command, if any, for a subsystem here. Example:
     }
 }
