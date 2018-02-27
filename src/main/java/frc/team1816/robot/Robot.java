@@ -23,6 +23,8 @@ public class Robot extends IterativeRobot {
     private Climber climber;
     private Ramp ramp;
 
+    private Gamepad gamepad0, gamepad1;
+
     private SendableChooser<Command> autoChooser;
 
     private LeftAutoStartCommand leftAuto;
@@ -46,6 +48,9 @@ public class Robot extends IterativeRobot {
         collector = Components.getInstance().collector;
         climber = Components.getInstance().climber;
         ramp = Components.getInstance().ramp;
+
+        gamepad0 = Controls.getInstance().gamepad0;
+        gamepad1 = Controls.getInstance().gamepad1;
 
         leftAuto = new LeftAutoStartCommand();
         rightAuto = new RightAutoStartCommand();
@@ -134,9 +139,6 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
 
-        Gamepad gamepad0 = Controls.getInstance().gamepad0;
-        Gamepad gamepad1 = Controls.getInstance().gamepad1;
-
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
@@ -177,6 +179,11 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
+        if(gamepad0.middleLeft().get() && gamepad0.middleRight().get()) {
+            ramp.deployRamps();
+            System.out.println("Deploying Ramps");
+        }
+
         logger.log(drivetrain.getPIDTuningString());
 
         velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());

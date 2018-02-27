@@ -171,7 +171,7 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected void end() {
         drivetrain.setDrivetrain(0, 0);
-        drivetrain.resetEncoders();
+//        drivetrain.resetEncoders();
     }
 
     @Override

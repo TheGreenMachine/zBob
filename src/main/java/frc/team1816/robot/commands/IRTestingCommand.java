@@ -31,7 +31,7 @@ public class IRTestingCommand extends Command{
     @Override
     protected void initialize() {
         System.out.println("Init");
-        drivetrain.resetEncoders();
+//        drivetrain.resetEncoders();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class IRTestingCommand extends Command{
     @Override
     protected void end() {
         drivetrain.setDrivetrain(0, 0);
-        drivetrain.resetEncoders();
+//        drivetrain.resetEncoders();
     }
 
     @Override

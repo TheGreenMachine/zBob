@@ -25,19 +25,18 @@ public class Drivetrain extends Subsystem1816{
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
-    public static double p_L = 0; //TODO tune PID values via shuffleboard after F is determined
+    //PID values set in properties file;
+    public static double p_L = 0;
     public static double i_L = 0;
     public static double d_L = 0;
-//    public static double f_L = 1.232;
-    public static double f_L = 12.296; //TODO in testing
-    public static int izone_L = 15;
+    public static double f_L = 0;
+    public static int izone_L = 0;
 
-    public static double p_R = 0; //TODO tune PID values via shuffleboard after F is determined
+    public static double p_R = 0;
     public static double i_R = 0;
     public static double d_R = 0;
-//    public static double f_R = 1.239;
-    public static double f_R = 12.370; //TODO in testing
-    public static int izone_R = 15;
+    public static double f_R = 0;
+    public static int izone_R = 0;
 
     private double leftPower, rightPower, rotation;
 
@@ -237,8 +236,8 @@ public class Drivetrain extends Subsystem1816{
         // System.out.println("R Power: " + rightPower);
 //         System.out.print("L Velocity In: " + leftVelocity);
 //         System.out.println("\tR Velocity In: " + rightVelocity);
-         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
-         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+//         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
+//         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
         // System.out.println("----------------------");
     }
 

@@ -75,6 +75,13 @@ public class Elevator extends Subsystem {
     }
 
     public void periodic() {
+
+        if(getHeightPercent() < 10 ) {
+            //elevator ramp down
+            double rampSpeed = 0.5 * speed;
+            elevatorMaster.set(ControlMode.PercentOutput, rampSpeed);
+        }
+
         if (getUpperLimit() && speed > 0) {
             System.out.println("periodic: stopped elevator up");
             speed = 0;
@@ -88,8 +95,6 @@ public class Elevator extends Subsystem {
                 elevatorMaster.set(ControlMode.PercentOutput, speed);
             }
         }
-
-
     }
 
     @Override
