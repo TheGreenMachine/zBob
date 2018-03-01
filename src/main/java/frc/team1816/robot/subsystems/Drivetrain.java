@@ -207,6 +207,7 @@ public class Drivetrain extends Subsystem1816{
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
+            rotation *= 0.8;
         }
 
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
@@ -214,8 +215,6 @@ public class Drivetrain extends Subsystem1816{
 
         rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
-
-//        leftVelocity += 15; //TODO may need to re-implement
 
 //         double rightVelocity = rightPower;
 //         double leftVelocity = leftPower;
