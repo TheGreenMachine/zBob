@@ -126,9 +126,9 @@ public class Drivetrain extends Subsystem1816{
         this.leftMain.selectProfileSlot(0,0);
         this.rightMain.selectProfileSlot(0,0);
 
-        //for practice bot
-        this.leftMain.setSensorPhase(true);
-        this.rightMain.setSensorPhase(true);
+        //TODO for practice bot
+//        this.leftMain.setSensorPhase(true);
+//        this.rightMain.setSensorPhase(true);
 
         this.rightMain.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms,0);
         this.leftMain.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms,0);
