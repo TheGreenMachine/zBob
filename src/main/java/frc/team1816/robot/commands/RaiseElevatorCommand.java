@@ -7,18 +7,37 @@ import frc.team1816.robot.subsystems.Elevator;
 public class RaiseElevatorCommand extends Command {
     private Elevator elevator;
     private double secondsToWait, msToWait;
+    private double velocity;
 
     public RaiseElevatorCommand() {
         super ("raiseelevatorcommand");
         this.elevator = Components.getInstance().elevator;
         this.secondsToWait = 0;
+        this.velocity = 1;
         requires(elevator);
     }
 
-    public RaiseElevatorCommand(double secondsToWait) {
+    public RaiseElevatorCommand(int secondsToWait) {
         super("raiseelevatorcommand");
         this.elevator = Components.getInstance().elevator;
         this.secondsToWait = secondsToWait;
+        this.velocity = 1;
+        requires(elevator);
+    }
+
+    public RaiseElevatorCommand(double velocity) {
+        super ("raiseelevatorcommand");
+        this.elevator = Components.getInstance().elevator;
+        this.secondsToWait = 0;
+        this.velocity = velocity;
+        requires(elevator);
+    }
+
+    public RaiseElevatorCommand(double velocity, int secondsToWait) {
+        super ("raiseelevatorcommand");
+        this.elevator = Components.getInstance().elevator;
+        this.secondsToWait = secondsToWait;
+        this.velocity = velocity;
         requires(elevator);
     }
 
@@ -29,7 +48,7 @@ public class RaiseElevatorCommand extends Command {
 
     public void execute() {
         if(System.currentTimeMillis() > msToWait) {
-            elevator.setElevatorSpeed(1);
+            elevator.setElevatorSpeed(velocity);
         } else {
             elevator.setElevatorSpeed(0);
         }

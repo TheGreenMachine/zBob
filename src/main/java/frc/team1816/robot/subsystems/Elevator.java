@@ -87,7 +87,7 @@ public class Elevator extends Subsystem {
     }
 
     public void periodic() {
-        System.out.println("periodic | Height Percent: " + getHeightPercent() + "\tspeed: " + speed);
+//        System.out.println("periodic | Height Percent: " + getHeightPercent() + "\tspeed: " + speed);
 
 //        ENCODER BROKEN
 //
@@ -102,7 +102,7 @@ public class Elevator extends Subsystem {
             speed = 0;
             elevatorMaster.set(ControlMode.PercentOutput, speed);
         } else if (getLowerLimit()) {
-            System.out.println("Resetting elevator enc");
+//            System.out.println("Resetting elevator enc");
             resetEncoders();
 
             if (speed < 0) {

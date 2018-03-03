@@ -174,12 +174,12 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
-//        logger.log(drivetrain.getLogString());
-//
-//        velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
-//        velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
-//        velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
-//        velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
+        logger.log(drivetrain.getLogString());
+
+        velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
+        velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
+        velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
+        velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
 
         Scheduler.getInstance().run();
     }
