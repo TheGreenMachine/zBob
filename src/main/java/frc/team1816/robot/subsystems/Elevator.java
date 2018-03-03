@@ -27,7 +27,9 @@ public class Elevator extends Subsystem {
 
         this.elevatorSlave.set(ControlMode.Follower, elevatorMaster);
         this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
+        
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);
+        this.elevatorSlave.setNeutralMode(NeutralMode.Brake);
 
         elevatorEncoder.setReverseDirection(true);
     }
@@ -72,6 +74,16 @@ public class Elevator extends Subsystem {
     public void resetEncoders() {
 //        System.out.println("Resetting Encoder");
         elevatorEncoder.reset();
+    }
+
+    public void setCoastMode() {
+        elevatorMaster.setNeutralMode(NeutralMode.Coast);
+        elevatorSlave.setNeutralMode(NeutralMode.Coast);
+    }
+
+    public void setBrakeMode() {
+        elevatorMaster.setNeutralMode(NeutralMode.Brake);
+        elevatorSlave.setNeutralMode(NeutralMode.Brake);
     }
 
     public void periodic() {

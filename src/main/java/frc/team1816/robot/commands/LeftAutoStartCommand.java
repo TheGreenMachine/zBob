@@ -32,7 +32,6 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new DriveXInchesCommand(4, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new ToggleCollectorCommand(true));
             addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5),3);
@@ -57,7 +56,6 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new DriveXInchesCommand(9, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new ToggleCollectorCommand(true));
             addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5),3);

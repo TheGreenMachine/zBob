@@ -220,10 +220,10 @@ public class Drivetrain extends Subsystem1816{
 //         double leftVelocity = leftPower;
 //         rightVelocity -= rotation * .55;
 //         leftVelocity -= rotation * .55;
-
+//
         rightMain.set(ControlMode.Velocity, rightVelocity);
         leftMain.set(ControlMode.Velocity, leftVelocity);
-//
+
 //        rightMain.set(ControlMode.PercentOutput, rightVelocity);
 //        leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
@@ -235,8 +235,8 @@ public class Drivetrain extends Subsystem1816{
         // System.out.println("R Power: " + rightPower);
 //         System.out.print("L Velocity In: " + leftVelocity);
 //         System.out.println("\tR Velocity In: " + rightVelocity);
-//         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
-//         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
+         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
         // System.out.println("----------------------");
     }
 

@@ -4,20 +4,18 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Collector;
 
-public class ToggleCollectorCommand extends Command {
+public class RaiseCollectorClawCommand extends Command {
 
     private Collector collector;
-    private boolean collectorToggle;
 
-    public ToggleCollectorCommand(boolean collectorToggle) {
-        super("toggleslowmodecommand");
+    public RaiseCollectorClawCommand() {
+        super("raisecollectorclawcommand");
         collector = Components.getInstance().collector;
-        this.collectorToggle = collectorToggle;
         requires(collector);
     }
 
     protected void initialize() {
-        collector.toggleCollector(collectorToggle);
+        collector.clawLiftUp();
     }
 
     protected void execute() {}
