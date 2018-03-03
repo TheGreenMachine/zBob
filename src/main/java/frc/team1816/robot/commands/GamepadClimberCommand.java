@@ -31,8 +31,12 @@ public class GamepadClimberCommand extends Command {
     protected void execute() {
         climberSpeed = - gamepad.getLeftY();
 
-        if(climberSpeed <= 0) {
+        if(climberSpeed < 0) {
+            System.out.println("Elevator coast mode set");
             elevator.setCoastMode();
+        } else {
+            System.out.println("Elevator brake mode set");
+            elevator.setBrakeMode();
         }
 
         climber.setClimberSpeed(climberSpeed);

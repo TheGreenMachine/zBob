@@ -34,9 +34,9 @@ public class Elevator extends Subsystem {
         elevatorEncoder.setReverseDirection(true);
     }
 
-    public void setElevatorSpeed(double speed) {
-        if (this.speed != speed) {
-            this.speed = speed;
+    public void setElevatorSpeed(double inspeed) {
+        if (this.speed != inspeed) {
+            this.speed = inspeed;
 
             if (getUpperLimit() && speed > 0) {
                 System.out.println("set speed: stopped elevator up");
@@ -87,18 +87,22 @@ public class Elevator extends Subsystem {
     }
 
     public void periodic() {
+        System.out.println("periodic | Height Percent: " + getHeightPercent() + "\tspeed: " + speed);
 
-        if(getHeightPercent() < 10 ) {
-            //elevator ramp down
-            double rampSpeed = 0.5 * speed;
-            elevatorMaster.set(ControlMode.PercentOutput, rampSpeed);
-        }
+//        ENCODER BROKEN
+//
+//        if(getHeightPercent() < 10 ) {
+//            //elevator ramp down
+//            speed *= 0.5;
+//            elevatorMaster.set(ControlMode.PercentOutput, speed);
+//        }
 
         if (getUpperLimit() && speed > 0) {
             System.out.println("periodic: stopped elevator up");
             speed = 0;
             elevatorMaster.set(ControlMode.PercentOutput, speed);
         } else if (getLowerLimit()) {
+            System.out.println("Resetting elevator enc");
             resetEncoders();
 
             if (speed < 0) {

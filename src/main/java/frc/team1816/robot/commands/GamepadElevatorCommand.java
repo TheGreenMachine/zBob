@@ -44,6 +44,7 @@ public class GamepadElevatorCommand extends Command {
 
 //        System.out.println("elevator enc ticks: " + elevator.getTicks());
 //        System.out.println("elevator height percent: " + elevator.getHeightPercent() + "%");
+
         elevator.setElevatorSpeed(power);
 
         if(elevator.getHeightPercent() > 50) {
@@ -56,19 +57,7 @@ public class GamepadElevatorCommand extends Command {
                 slowModeCheck = false;
             }
         }
-//            drivetrain.setSlowMode(true);
-//            slowModeSetCheck = true;
-//        }
-//
-//        if(slowModeSetCheck) {
-//            slowModeSetCheck = false;
-//            slowModeCheck = true;
-//        }
-//
-//        if(slowModeCheck) {
-//            drivetrain.setSlowMode(false);
-//            slowModeCheck = false;
-//        }
+
     }
 
 
