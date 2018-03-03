@@ -18,7 +18,9 @@ public class StopCollectorClawCommand extends Command {
         collector.clawLiftStop();
     }
 
-    protected void execute() {}
+    protected void execute() {
+        System.out.println("Stopping Collector Claw");
+    }
 
     @Override
     protected boolean isFinished() {

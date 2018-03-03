@@ -48,7 +48,7 @@ public class Controls {
         gamepad1.leftBumper().whenPressed(new RaiseCollectorClawCommand());
         gamepad1.leftBumper().whenReleased(new StopCollectorClawCommand());
         gamepad1.rightBumper().whenPressed(new LowerCollectorClawCommand());
-        gamepad1.rightBumper().whenPressed(new StopCollectorClawCommand());
+        gamepad1.rightBumper().whenReleased(new StopCollectorClawCommand());
 
 //        gamepad0.middleRight().whenPressed(new DeployRampCommand());
 //        gamepad0.middleRight().whenReleased(new ResetRampsCommand());

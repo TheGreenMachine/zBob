@@ -16,12 +16,12 @@ public class Collector extends Subsystem {
 
     private Relay clawLift;
 
-    public Collector(int leftTalon, int rightTalon, int clawLiftDIO) {
+    public Collector(int leftTalon, int rightTalon, int clawLiftPort) {
         super();
 
         this.left = new TalonSRX(leftTalon);
         this.right = new TalonSRX(rightTalon);
-        this.clawLift = new Relay(clawLiftDIO);
+        this.clawLift = new Relay(clawLiftPort, Relay.Direction.kBoth);
 
         this.right.setInverted(true);
 
@@ -48,6 +48,10 @@ public class Collector extends Subsystem {
 
     public void clawLiftStop() {
         clawLift.set(Relay.Value.kOff);
+    }
+
+    public void clawLiftOn() {
+        clawLift.set(Relay.Value.kOn);
     }
 
     public void initDefaultCommand() {

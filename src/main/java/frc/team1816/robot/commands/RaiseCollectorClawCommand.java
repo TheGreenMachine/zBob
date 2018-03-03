@@ -18,7 +18,9 @@ public class RaiseCollectorClawCommand extends Command {
         collector.clawLiftUp();
     }
 
-    protected void execute() {}
+    protected void execute() {
+        System.out.println("Raising Collector Claw");
+    }
 
     @Override
     protected boolean isFinished() {

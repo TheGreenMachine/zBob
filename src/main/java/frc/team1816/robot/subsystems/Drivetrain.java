@@ -235,8 +235,8 @@ public class Drivetrain extends Subsystem1816{
         // System.out.println("R Power: " + rightPower);
 //         System.out.print("L Velocity In: " + leftVelocity);
 //         System.out.println("\tR Velocity In: " + rightVelocity);
-         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
-         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+//         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
+//         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
         // System.out.println("----------------------");
     }
 

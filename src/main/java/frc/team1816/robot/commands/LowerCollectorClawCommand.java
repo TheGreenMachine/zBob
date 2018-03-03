@@ -18,7 +18,9 @@ public class LowerCollectorClawCommand extends Command {
         collector.clawLiftDown();
     }
 
-    protected void execute() {}
+    protected void execute() {
+        System.out.println("Lowering Collector Claw");
+    }
 
     @Override
     protected boolean isFinished() {
