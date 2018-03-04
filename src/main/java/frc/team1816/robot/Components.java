@@ -34,7 +34,7 @@ public class Components {
 
     private static final int UPPER_LIMIT = 3;
     private static final int LOWER_LIMIT = 2;
-    
+
     //Climber Constants
     private static final int CLIMBER_ONE = 12;
     private static final int CLIMBER_TWO = 11;
