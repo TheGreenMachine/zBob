@@ -19,6 +19,7 @@ public class Elevator extends Subsystem {
 
     public Elevator(int elevatorMaster, int elevatorSlave, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit) {
         super();
+
         this.elevatorMaster = new TalonSRX(elevatorMaster);
         this.elevatorSlave = new TalonSRX(elevatorSlave);
         this.elevatorEncoder = new Encoder(encoderPort1, encoderPort2, false, Encoder.EncodingType.k4X);

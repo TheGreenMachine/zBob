@@ -42,7 +42,7 @@ public class GamepadElevatorCommand extends Command {
 
 //        System.out.println("Upper opto: " + elevator.upperLimit.get() + "\t Lower opto: " + elevator.lowerLimit.get());
 
-//        System.out.println("elevator enc ticks: " + elevator.getTicks());
+        System.out.println("elevator enc ticks: " + elevator.getTicks());
 //        System.out.println("elevator height percent: " + elevator.getHeightPercent() + "%");
 
         elevator.setElevatorSpeed(power);
