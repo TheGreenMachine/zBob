@@ -1,6 +1,5 @@
 package frc.team1816.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Robot;
@@ -30,6 +29,8 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
             if(dsString.charAt(0) == 'L') {
 
                 System.out.println("2 Cube Scale/Switch ---- Target: L");
+
+                addParallel(new RaiseCollectorClawCommand(),1);
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
@@ -66,6 +67,8 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
             } else {
                 System.out.println("2 Cube Scale ---- Target: L");
 
+                addParallel(new RaiseCollectorClawCommand(),1);
+
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
                 addSequential(new DriveXInchesCommand(285, 1));
@@ -97,6 +100,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
         } else if (target == 'R') {
             System.out.println("Scale ---- Target: R");
 
+            addParallel(new RaiseCollectorClawCommand(),1);
             addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(225, 0.7));

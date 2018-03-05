@@ -1,6 +1,5 @@
 package frc.team1816.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Robot;
@@ -28,6 +27,8 @@ public class RightAutoStartScaleCommand extends CommandGroup {
             if(dsString.charAt(0) == 'R') {
 
                 System.out.println("2 Cube Scale/Switch ---- Target: R");
+
+                addParallel(new RaiseCollectorClawCommand(),1);
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
@@ -64,6 +65,8 @@ public class RightAutoStartScaleCommand extends CommandGroup {
             } else {
                 System.out.println("2 Cube Scale ---- Target: L");
 
+                addParallel(new RaiseCollectorClawCommand(),1);
+
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
                 addSequential(new DriveXInchesCommand(285, 1));
@@ -95,14 +98,15 @@ public class RightAutoStartScaleCommand extends CommandGroup {
         } else if (target == 'L') {
             System.out.println("Scale ---- Target: R");
 
+            addParallel(new RaiseCollectorClawCommand(),1);
             addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(225, 0.7));
-            addSequential(new RotateXDegreesCommand(-90,true,.5));
-            addSequential(new DriveXInchesCommand(138, 0.7,0.4,0.2));
-            addSequential(new RotateXDegreesCommand(90,true,0.8),3);
+            addSequential(new RotateXDegreesCommand(-90,true,.4));
+            addSequential(new DriveXInchesCommand(240, 0.7,0.4,0.2));
+            addSequential(new RotateXDegreesCommand(90,true,.4),3);
             addParallel(new RaiseElevatorCommand());
-            addSequential(new DriveXInchesCommand(44,0.8),5);
+            addSequential(new DriveXInchesCommand(56,0.8),5);
 
             addSequential(new WaitCommand(1));
             addSequential(new SetCollectorSpeedCommand(-1));
