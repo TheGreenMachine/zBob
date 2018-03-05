@@ -19,7 +19,6 @@ public class Elevator extends Subsystem {
 
     public Elevator(int elevatorMaster, int elevatorSlave, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit) {
         super();
-
         this.elevatorMaster = new TalonSRX(elevatorMaster);
         this.elevatorSlave = new TalonSRX(elevatorSlave);
         this.elevatorEncoder = new Encoder(encoderPort1, encoderPort2, false, Encoder.EncodingType.k4X);
@@ -28,16 +27,14 @@ public class Elevator extends Subsystem {
 
         this.elevatorSlave.set(ControlMode.Follower, elevatorMaster);
         this.elevatorMaster.set(ControlMode.PercentOutput, 0.0);
-        
         this.elevatorMaster.setNeutralMode(NeutralMode.Brake);
-        this.elevatorSlave.setNeutralMode(NeutralMode.Brake);
 
         elevatorEncoder.setReverseDirection(true);
     }
 
-    public void setElevatorSpeed(double inspeed) {
-        if (this.speed != inspeed) {
-            this.speed = inspeed;
+    public void setElevatorSpeed(double speed) {
+        if (this.speed != speed) {
+            this.speed = speed;
 
             if (getUpperLimit() && speed > 0) {
                 System.out.println("set speed: stopped elevator up");
@@ -77,33 +74,19 @@ public class Elevator extends Subsystem {
         elevatorEncoder.reset();
     }
 
-    public void setCoastMode() {
-        elevatorMaster.setNeutralMode(NeutralMode.Coast);
-        elevatorSlave.setNeutralMode(NeutralMode.Coast);
-    }
-
-    public void setBrakeMode() {
-        elevatorMaster.setNeutralMode(NeutralMode.Brake);
-        elevatorSlave.setNeutralMode(NeutralMode.Brake);
-    }
-
     public void periodic() {
-//        System.out.println("periodic | Height Percent: " + getHeightPercent() + "\tspeed: " + speed);
 
-//        ENCODER BROKEN
-//
-//        if(getHeightPercent() < 10 ) {
-//            //elevator ramp down
-//            speed *= 0.5;
-//            elevatorMaster.set(ControlMode.PercentOutput, speed);
-//        }
+        if(getHeightPercent() < 10 ) {
+            //elevator ramp down
+            double rampSpeed = 0.5 * speed;
+            elevatorMaster.set(ControlMode.PercentOutput, rampSpeed);
+        }
 
         if (getUpperLimit() && speed > 0) {
             System.out.println("periodic: stopped elevator up");
             speed = 0;
             elevatorMaster.set(ControlMode.PercentOutput, speed);
         } else if (getLowerLimit()) {
-//            System.out.println("Resetting elevator enc");
             resetEncoders();
 
             if (speed < 0) {

@@ -1,5 +1,6 @@
 package frc.team1816.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Robot;
@@ -30,8 +31,6 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
 
                 System.out.println("2 Cube Scale/Switch ---- Target: L");
 
-                addParallel(new RaiseCollectorClawCommand(),1);
-
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
                 addSequential(new DriveXInchesCommand(285, 1)); //prev v 0.8
@@ -40,6 +39,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
                 addSequential(new RotateXDegreesCommand(45, true, 0.5), 3); //prev v 0.6
                 addSequential(new WaitCommand(.5)); //messing with
 
+                addSequential(new ToggleCollectorCommand(true));
                 addSequential(new SetCollectorSpeedCommand(-1));
                 addSequential(new WaitCommand(0.3));
                 addSequential(new DriveXInchesCommand(13, -0.8), 5); //prev v -0.6
@@ -67,8 +67,6 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
             } else {
                 System.out.println("2 Cube Scale ---- Target: L");
 
-                addParallel(new RaiseCollectorClawCommand(),1);
-
                 //Cube One
                 addParallel(new RaiseElevatorCommand(2));
                 addSequential(new DriveXInchesCommand(285, 1));
@@ -76,6 +74,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
                 addSequential(new RotateXDegreesCommand(45, true, 0.6), 3);
                 addSequential(new WaitCommand(0.1));
 
+                addSequential(new ToggleCollectorCommand(true));
                 addSequential(new SetCollectorSpeedCommand(-1));
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(13, -0.6), 5);
@@ -91,7 +90,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
 
                 //Turn and place cube on scale
                 addSequential(new DriveXInchesCommand(70, -1, 0.6, 0.2));
-                addParallel(new SetElevatorHeightPercentCommand(100),2);
+                addParallel(new SetElevatorHeightPercentCommand(100));
                 addSequential(new SetCollectorSpeedCommand(0));
                 addSequential(new RotateXDegreesCommand(-115, true, 0.6), 3); // why cant we turn left
                 addSequential(new DriveXInchesCommand(12, 0.8));
@@ -100,8 +99,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
         } else if (target == 'R') {
             System.out.println("Scale ---- Target: R");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
-            addParallel(new SetElevatorHeightPercentCommand(20),2);
+            addParallel(new SetElevatorHeightPercentCommand(20));
 
             addSequential(new DriveXInchesCommand(225, 0.7));
 //            addSequential(new RotateXDegreesCommand(90,true),3);
@@ -115,6 +113,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
             addSequential(new DriveXInchesCommand(44,0.8),5);
 
             addSequential(new WaitCommand(1));
+            addSequential(new ToggleCollectorCommand(true));
             addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
             addSequential(new LowerElevatorCommand());

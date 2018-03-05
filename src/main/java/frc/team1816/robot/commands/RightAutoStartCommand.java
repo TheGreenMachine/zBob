@@ -1,5 +1,6 @@
 package frc.team1816.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Robot;
@@ -24,14 +25,14 @@ public class RightAutoStartCommand extends CommandGroup{
         if(target == 'R') {
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
-            addParallel(new SetElevatorHeightPercentCommand(40),2);
+            addParallel(new SetElevatorHeightPercentCommand(40));
 
             addSequential(new DriveXInchesCommand(128, 0.8));
-            addSequential(new RotateXDegreesCommand(-90, true,.4),3);
+            addSequential(new RotateXDegreesCommand(-90, true),3);
             addSequential(new DriveXInchesCommand(4, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
+            addSequential(new ToggleCollectorCommand(true));
             addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5),3);
@@ -46,17 +47,17 @@ public class RightAutoStartCommand extends CommandGroup{
         } else if (target == 'L'){
             System.out.println("Switch ---- Target: L");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
-            addParallel(new SetElevatorHeightPercentCommand(20),2);
+            addParallel(new SetElevatorHeightPercentCommand(20));
 
             addSequential(new DriveXInchesCommand(210, 0.8));
             addSequential(new RotateXDegreesCommand(-90,true,.5),3);
             addSequential(new DriveXInchesCommand(138, 0.7,0.4,0.2));
-            addParallel(new SetElevatorHeightPercentCommand(40),2);
+            addParallel(new SetElevatorHeightPercentCommand(40));
             addSequential(new RotateXDegreesCommand(-90,true,.5),3);
             addSequential(new DriveXInchesCommand(9, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
+            addSequential(new ToggleCollectorCommand(true));
             addSequential(new SetCollectorSpeedCommand(-1));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5),3);

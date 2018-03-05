@@ -46,6 +46,7 @@ public class GamepadCollectorCommand extends Command {
         collector.setCollectorSpeed(lpower, rpower);
 
         if(elevator.getHeightPercent() > 5 && belowCloseThreshold) {
+            collector.toggleCollector(false); //close collector if above 5% height
             belowCloseThreshold = false;
         } else if(elevator.getHeightPercent() < 5) {
             belowCloseThreshold = true;

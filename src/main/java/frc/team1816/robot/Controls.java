@@ -35,7 +35,8 @@ public class Controls {
         gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
 
         //Operator Controller Mapping
-        gamepad1.diamondUp().whileHeld(new RotateCubeCommand());
+        gamepad1.leftBumper().whenPressed(new ToggleCollectorCommand(true));
+        gamepad1.rightBumper().whenReleased(new ToggleCollectorCommand(false));
 
         gamepad1.diamondLeft().whenPressed(new ToggleClimberShifterCommand(true));
         gamepad1.diamondRight().whenPressed(new ToggleClimberShifterCommand(false));
@@ -45,13 +46,18 @@ public class Controls {
         gamepad1.dPadLeft().whenPressed(new SetElevatorHeightPercentCommand(30));
         gamepad1.dPadRight().whenPressed(new SetElevatorHeightPercentCommand(60));
 
-        gamepad1.leftBumper().whenPressed(new RaiseCollectorClawCommand());
-        gamepad1.leftBumper().whenReleased(new StopCollectorClawCommand());
-        gamepad1.rightBumper().whenPressed(new LowerCollectorClawCommand());
-        gamepad1.rightBumper().whenReleased(new StopCollectorClawCommand());
+//        Ramp Deployal (Operator Gamepad)
+//        Double button failsafe not working
+//
+//        if(gamepad0.middleLeft().get() && gamepad0.middleRight().get()){
+//            System.out.println("Ramps triggered");
+//            new DeployRampCommand();
+//        }
 
-//        gamepad0.middleRight().whenPressed(new DeployRampCommand());
-//        gamepad0.middleRight().whenReleased(new ResetRampsCommand());
+//        gamepad0.diamondUp().whenPressed(new DeployRampCommand());
+
+        gamepad0.middleRight().whenPressed(new DeployRampCommand());
+        gamepad0.middleRight().whenReleased(new ResetRampsCommand());
 
     }
 

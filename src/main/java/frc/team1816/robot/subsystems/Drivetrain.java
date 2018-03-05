@@ -126,9 +126,9 @@ public class Drivetrain extends Subsystem1816{
         this.leftMain.selectProfileSlot(0,0);
         this.rightMain.selectProfileSlot(0,0);
 
-        //TODO for practice bot
-//        this.leftMain.setSensorPhase(true);
-//        this.rightMain.setSensorPhase(true);
+        //for practice bot
+        this.leftMain.setSensorPhase(true);
+        this.rightMain.setSensorPhase(true);
 
         this.rightMain.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms,0);
         this.leftMain.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms,0);
@@ -207,7 +207,6 @@ public class Drivetrain extends Subsystem1816{
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
-            rotation *= 0.8;
         }
 
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
@@ -216,14 +215,16 @@ public class Drivetrain extends Subsystem1816{
         rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
+//        leftVelocity += 15; //TODO may need to re-implement
+
 //         double rightVelocity = rightPower;
 //         double leftVelocity = leftPower;
 //         rightVelocity -= rotation * .55;
 //         leftVelocity -= rotation * .55;
-//
+
         rightMain.set(ControlMode.Velocity, rightVelocity);
         leftMain.set(ControlMode.Velocity, leftVelocity);
-
+//
 //        rightMain.set(ControlMode.PercentOutput, rightVelocity);
 //        leftMain.set(ControlMode.PercentOutput, leftVelocity);
 
