@@ -88,7 +88,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
 
                 //Turn and place cube on scale
                 addSequential(new DriveXInchesCommand(70, -1, 0.6, 0.2));
-                addParallel(new SetElevatorHeightPercentCommand(100));
+                addParallel(new SetElevatorHeightPercentCommand(100),2);
                 addSequential(new SetCollectorSpeedCommand(0));
                 addSequential(new RotateXDegreesCommand(-115, true, 0.6), 3); // why cant we turn left
                 addSequential(new DriveXInchesCommand(12, 0.8));
@@ -97,7 +97,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
         } else if (target == 'R') {
             System.out.println("Scale ---- Target: R");
 
-            addParallel(new SetElevatorHeightPercentCommand(20));
+            addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(225, 0.7));
 //            addSequential(new RotateXDegreesCommand(90,true),3);
