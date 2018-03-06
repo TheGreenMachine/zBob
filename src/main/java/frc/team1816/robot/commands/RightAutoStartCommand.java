@@ -2,7 +2,6 @@ package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.team1816.robot.Robot;
 
 public class RightAutoStartCommand extends CommandGroup{
     char target;
@@ -24,7 +23,7 @@ public class RightAutoStartCommand extends CommandGroup{
         if(target == 'R') {
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
+            addParallel(new LowerCollectorClawCommand(),1);
             addParallel(new SetElevatorHeightPercentCommand(40),2);
 
             addSequential(new DriveXInchesCommand(128, 0.8));
@@ -46,7 +45,7 @@ public class RightAutoStartCommand extends CommandGroup{
         } else if (target == 'L'){
             System.out.println("Switch ---- Target: L");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
+            addParallel(new LowerCollectorClawCommand(),1);
             addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(210, 0.8));

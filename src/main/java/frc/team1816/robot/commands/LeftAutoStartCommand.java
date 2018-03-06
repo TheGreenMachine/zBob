@@ -2,7 +2,6 @@ package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.team1816.robot.Robot;
 
 public class LeftAutoStartCommand extends CommandGroup {
     char target;
@@ -24,7 +23,7 @@ public class LeftAutoStartCommand extends CommandGroup {
         if(target == 'L') {
             System.out.println("Switch ---- Target: L");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
+            addParallel(new LowerCollectorClawCommand(),1);
             addParallel(new SetElevatorHeightPercentCommand(40),16);
 
             addSequential(new DriveXInchesCommand(128, 0.8));
@@ -46,7 +45,7 @@ public class LeftAutoStartCommand extends CommandGroup {
         } else if (target == 'R'){
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new RaiseCollectorClawCommand(),1);
+            addParallel(new LowerCollectorClawCommand(),1);
             addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(210, 0.7));
@@ -66,10 +65,6 @@ public class LeftAutoStartCommand extends CommandGroup {
 
             addSequential(new DriveXInchesCommand(20, -.5));
 
-//            System.out.println("Experimental Gyro-Based Arc Auto");
-//            addSequential(new DriveXInchesCommand(24,0.6,0.4,0.4));
-//            addSequential(new ArcDriveCommand(48,0.4,90));
-//            addSequential(new DriveXInchesCommand(24,0.6,0.4,0.4));
         } else {
             System.out.println("Switch ---- Auto-Run");
             addSequential(new DriveXInchesCommand(140,0.5));
