@@ -24,7 +24,7 @@ public class LeftAutoStartCommand extends CommandGroup {
             System.out.println("Switch ---- Target: L");
 
             addParallel(new LowerCollectorClawCommand(false,1.5));
-            addParallel(new SetElevatorHeightPercentCommand(40),16);
+            addParallel(new SetElevatorHeightPercentCommand(40),2);
 
             addSequential(new DriveXInchesCommand(128, 0.8));
             addSequential(new RotateXDegreesCommand(90, true,.4),3);
