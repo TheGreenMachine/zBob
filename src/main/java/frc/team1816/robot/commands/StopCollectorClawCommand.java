@@ -4,23 +4,23 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Collector;
 
-public class ToggleCollectorCommand extends Command {
+public class StopCollectorClawCommand extends Command {
 
     private Collector collector;
-    private boolean collectorToggle;
 
-    public ToggleCollectorCommand(boolean collectorToggle) {
-        super("toggleslowmodecommand");
+    public StopCollectorClawCommand() {
+        super("lowercollectorclawcommand");
         collector = Components.getInstance().collector;
-        this.collectorToggle = collectorToggle;
         requires(collector);
     }
 
     protected void initialize() {
-        collector.toggleCollector(collectorToggle);
+        collector.clawLiftStop();
     }
 
-    protected void execute() {}
+    protected void execute() {
+        System.out.println("Stopping Collector Claw");
+    }
 
     @Override
     protected boolean isFinished() {

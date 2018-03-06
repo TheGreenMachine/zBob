@@ -4,23 +4,21 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Collector extends Subsystem {
     private TalonSRX right;
     private TalonSRX left;
 
-    private Solenoid frontSolenoid;
+    private Relay clawLift;
 
-    public Collector(int leftTalon, int rightTalon, int frontSolenoidID, int pcmNode) {
+    public Collector(int leftTalon, int rightTalon, int clawLiftPort) {
         super();
 
         this.left = new TalonSRX(leftTalon);
         this.right = new TalonSRX(rightTalon);
-
-        this.frontSolenoid = new Solenoid(pcmNode, frontSolenoidID);
+        this.clawLift = new Relay(clawLiftPort, Relay.Direction.kBoth);
 
         this.right.setInverted(true);
 
@@ -30,7 +28,6 @@ public class Collector extends Subsystem {
         this.left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
-        this.frontSolenoid.set(false); //false = closed
     }
 
     public void setCollectorSpeed(double lpower, double rpower) {
@@ -38,8 +35,20 @@ public class Collector extends Subsystem {
         right.set(ControlMode.PercentOutput, rpower);
     }
 
-    public void toggleCollector(boolean collectorToggle) {
-        frontSolenoid.set(collectorToggle);
+    public void clawLiftUp() {
+        clawLift.set(Relay.Value.kForward);
+    }
+
+    public void clawLiftDown() {
+        clawLift.set(Relay.Value.kReverse);
+    }
+
+    public void clawLiftStop() {
+        clawLift.set(Relay.Value.kOff);
+    }
+
+    public void clawLiftOn() {
+        clawLift.set(Relay.Value.kOn);
     }
 
     public void initDefaultCommand() {

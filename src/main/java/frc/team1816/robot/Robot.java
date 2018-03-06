@@ -190,7 +190,7 @@ public class Robot extends IterativeRobot {
             System.out.println("Deploying Ramps");
         }
 
-        logger.log(drivetrain.getPIDTuningString());
+//        logger.log(drivetrain.getPIDTuningString());
 
         velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
         velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
