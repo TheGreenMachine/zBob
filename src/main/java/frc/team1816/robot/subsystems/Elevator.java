@@ -47,6 +47,7 @@ public class Elevator extends Subsystem {
                 speed = 0;
             }
 
+            System.out.println("Elevator Set Speed: " + speed);
             elevatorMaster.set(ControlMode.PercentOutput, speed);
         }
     }

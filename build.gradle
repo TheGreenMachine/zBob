@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.02.17"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
 }
 
 def TEAM = 1816
@@ -48,7 +48,7 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.4'
 }
 
-wpi {
-    wpilibVersion = '2018.3.3'
-    ctreVersion = '5.2.2.0'
-}
+//wpi {
+//    wpilibVersion = '2018.3.3'
+//    ctreVersion = '5.2.2.0'
+//}

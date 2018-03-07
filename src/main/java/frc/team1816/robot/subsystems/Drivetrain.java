@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem1816{
     public static double f_R = 0;
     public static int izone_R = 0;
 
-    private double leftPower, rightPower, rotation;
+    private double leftPower, rightPower, rotation, prevLeftPower;
 
     private String prevHeadingTarget;
 
@@ -90,10 +90,11 @@ public class Drivetrain extends Subsystem1816{
         this.rightMain.setInverted(true);
         this.rightSlaveOne.setInverted(true);
 
-        this.rightMain.setNeutralMode(NeutralMode.Brake);
-        this.rightSlaveOne.setNeutralMode(NeutralMode.Brake);
-        this.leftMain.setNeutralMode(NeutralMode.Brake);
-        this.leftSlaveOne.setNeutralMode(NeutralMode.Brake);
+        //todo is this the right thing to do? drive wants coast in teleop, we want brake in auto ideally
+        this.rightMain.setNeutralMode(NeutralMode.Coast);
+        this.rightSlaveOne.setNeutralMode(NeutralMode.Coast);
+        this.leftMain.setNeutralMode(NeutralMode.Coast);
+        this.leftSlaveOne.setNeutralMode(NeutralMode.Coast);
 
         this.rightSlaveOne.set(ControlMode.Follower, rightMain);
         this.leftSlaveOne.set(ControlMode.Follower, leftMain);
@@ -201,6 +202,20 @@ public class Drivetrain extends Subsystem1816{
         return rightSetV;
     }
 
+    public void setDrivetrainCoastMode() {
+        this.rightMain.setNeutralMode(NeutralMode.Coast);
+        this.rightSlaveOne.setNeutralMode(NeutralMode.Coast);
+        this.leftMain.setNeutralMode(NeutralMode.Coast);
+        this.leftSlaveOne.setNeutralMode(NeutralMode.Coast);
+    }
+
+    public void setDrivetrainBrakeMode() {
+        this.rightMain.setNeutralMode(NeutralMode.Brake);
+        this.rightSlaveOne.setNeutralMode(NeutralMode.Brake);
+        this.leftMain.setNeutralMode(NeutralMode.Brake);
+        this.leftSlaveOne.setNeutralMode(NeutralMode.Brake);
+    }
+
     @Override
     public void update() {
 
@@ -220,9 +235,14 @@ public class Drivetrain extends Subsystem1816{
 //         double leftVelocity = leftPower;
 //         rightVelocity -= rotation * .55;
 //         leftVelocity -= rotation * .55;
-//
-        rightMain.set(ControlMode.Velocity, rightVelocity);
-        leftMain.set(ControlMode.Velocity, leftVelocity);
+
+        if(Math.abs(leftPower) < 0.03) {
+            rightMain.set(ControlMode.PercentOutput, leftPower);
+            leftMain.set(ControlMode.PercentOutput, rightPower);
+        } else {
+            rightMain.set(ControlMode.Velocity, rightVelocity);
+            leftMain.set(ControlMode.Velocity, leftVelocity);
+        }
 
 //        rightMain.set(ControlMode.PercentOutput, rightVelocity);
 //        leftMain.set(ControlMode.PercentOutput, leftVelocity);

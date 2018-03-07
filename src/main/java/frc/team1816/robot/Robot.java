@@ -99,6 +99,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
 
+        drivetrain.setDrivetrainBrakeMode();
+
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
                 .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Set Power L").append(",")
@@ -139,6 +141,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
 
+        drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
