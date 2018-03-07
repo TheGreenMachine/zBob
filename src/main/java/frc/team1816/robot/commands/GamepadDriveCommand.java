@@ -50,7 +50,6 @@ public class GamepadDriveCommand extends Command {
     @Override
     protected boolean isFinished() {
 //        System.out.println("GamePadDrive Command Terminated");
-        Robot.logger.close();
         return false;
     }
 }

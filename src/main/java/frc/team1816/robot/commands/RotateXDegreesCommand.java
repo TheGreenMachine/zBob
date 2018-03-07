@@ -17,6 +17,8 @@ public class RotateXDegreesCommand extends Command {
         super("rotatexdegreescommand");
         this.degreesToTurn = degreesToTurn;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     public RotateXDegreesCommand(double degreesToTurn, boolean dimeTurn) {
@@ -24,6 +26,8 @@ public class RotateXDegreesCommand extends Command {
         this.degreesToTurn = degreesToTurn;
         this.dimeTurn = dimeTurn;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     public RotateXDegreesCommand(double degreesToTurn, boolean dimeTurn, double speed) {
@@ -32,6 +36,8 @@ public class RotateXDegreesCommand extends Command {
         this.dimeTurn = dimeTurn;
         this.velocity = speed;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     @Override

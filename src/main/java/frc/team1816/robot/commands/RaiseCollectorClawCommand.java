@@ -27,7 +27,9 @@ public class RaiseCollectorClawCommand extends Command {
         return true;
     }
 
-    protected void end() {}
+    protected void end() {
+        collector.clawLiftStop();
+    }
 
     protected void interrupted() { super.interrupted(); }
 }

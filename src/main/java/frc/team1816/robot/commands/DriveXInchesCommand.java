@@ -38,6 +38,8 @@ public class DriveXInchesCommand extends Command {
         }
 
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     public DriveXInchesCommand(double inches, double speed, double startSpeed, double endSpeed) {
@@ -47,6 +49,8 @@ public class DriveXInchesCommand extends Command {
         this.startSpeed = startSpeed;
         this.endSpeed = endSpeed;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     @Override

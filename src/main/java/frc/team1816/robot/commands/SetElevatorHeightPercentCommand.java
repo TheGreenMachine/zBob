@@ -39,11 +39,15 @@ public class SetElevatorHeightPercentCommand extends Command {
     protected boolean isFinished() {
         if(elevator.getUpperLimit() || (Math.abs(targetHeightPercent-elevator.getHeightPercent()) < 1)) {
 
-            elevator.setElevatorSpeed(0);
-            System.out.println("stopped raising");
+//            elevator.setElevatorSpeed(0);
+            System.out.println("stopped setting");
             return true;
         } else {
             return false;
         }
+    }
+
+    protected void end() {
+        elevator.setElevatorSpeed(0);
     }
 }

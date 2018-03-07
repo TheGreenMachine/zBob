@@ -44,7 +44,9 @@ public class LowerCollectorClawCommand extends Command {
         return isTeleOp;
     }
 
-    protected void end() {}
+    protected void end() {
+        collector.clawLiftStop();
+    }
 
     protected void interrupted() { super.interrupted(); }
 }
