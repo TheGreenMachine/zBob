@@ -21,7 +21,7 @@ public class Drivetrain extends Subsystem1816{
     public static double MAX_VELOCITY_TICKS_PER_100MS;
 
     public static final double SLOW_MOD = 0.5;
-    private boolean slowMode;
+    private boolean slowMode, isPercentOut;
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
@@ -158,6 +158,7 @@ public class Drivetrain extends Subsystem1816{
         this.leftPower = leftPower;
         this.rightPower = rightPower;
         this.rotation = rotation;
+        isPercentOut = false;
 
         update();
     }
@@ -166,6 +167,16 @@ public class Drivetrain extends Subsystem1816{
         this.leftPower = leftPower;
         this.rightPower = rightPower;
         this.rotation = 0;
+        isPercentOut = false;
+
+        update();
+    }
+
+    public void setDrivetrainPercent(double percentOutLeft, double percentOutRight, double rotation) {
+        this.leftPower = percentOutLeft;
+        this.rightPower = percentOutRight;
+        this.rotation = rotation;
+        isPercentOut = true;
 
         update();
     }
@@ -236,7 +247,7 @@ public class Drivetrain extends Subsystem1816{
 //         rightVelocity -= rotation * .55;
 //         leftVelocity -= rotation * .55;
 
-        if(Math.abs(leftPower) < 0.03) {
+        if(isPercentOut) {
             rightMain.set(ControlMode.PercentOutput, leftPower);
             leftMain.set(ControlMode.PercentOutput, rightPower);
         } else {

@@ -3,14 +3,14 @@ TICKS_PER_INCH = 46.72
 DRIVETRAIN_WIDTH = 24
 MAX_VELOCITY_TICKS_PER_100MS = 820
 
-p_L = 0.1;
-i_L = 0;
-d_L = 0;
-f_L = 1.232;
-izone_L = 15;
+p_L = 0.1
+i_L = 0
+d_L = 0
+f_L = 1.232
+izone_L = 0
 
-p_R = 0.1;
-i_R = 0;
-d_R = 0;
-f_R = 1.239;
-izone_R = 15;
+p_R = 0.1
+i_R = 0
+d_R = 0
+f_R = 1.239
+izone_R = 0
