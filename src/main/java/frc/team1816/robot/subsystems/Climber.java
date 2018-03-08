@@ -10,11 +10,11 @@ import frc.team1816.robot.Components;
 
 public class Climber extends Subsystem {
 
-    private TalonSRX climberMain, climberSlaveOne, climberSlaveTwo, climberSlaveThree;
+    private TalonSRX climberMain, climberSlaveOne, climberSlaveTwo;
     private double climberSpeed;
     private Solenoid shifterSolenoid;
 
-    public Climber(int climberMain, int climberSlaveOne, int climberSlaveTwo, int climberSlaveThree, int shifterSolenoidID, int pcmNode) {
+    public Climber(int climberMain, int climberSlaveOne, int climberSlaveTwo, int shifterSolenoidID, int pcmNode) {
         super();
 
         this.shifterSolenoid = new Solenoid(pcmNode, shifterSolenoidID);
@@ -22,16 +22,13 @@ public class Climber extends Subsystem {
         this.climberMain = new TalonSRX(climberMain);
         this.climberSlaveOne = new TalonSRX(climberSlaveOne);
         this.climberSlaveTwo = new TalonSRX(climberSlaveTwo);
-        this.climberSlaveThree = new TalonSRX(climberSlaveThree);
 
         this.climberSlaveOne.set(ControlMode.Follower, climberMain);
         this.climberSlaveTwo.set(ControlMode.Follower, climberMain);
-        this.climberSlaveThree.set(ControlMode.Follower, climberMain);
 
         this.climberMain.setNeutralMode(NeutralMode.Brake);
         this.climberSlaveOne.setNeutralMode(NeutralMode.Brake);
         this.climberSlaveTwo.setNeutralMode(NeutralMode.Brake);
-        this.climberSlaveThree.setNeutralMode(NeutralMode.Brake);
 
         shifterSolenoid.set(false); //TODO (double and triple) check tubing so false = disengaged
     }

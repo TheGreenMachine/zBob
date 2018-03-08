@@ -11,14 +11,15 @@ public class Collector extends Subsystem {
     private TalonSRX right;
     private TalonSRX left;
 
-    private Relay clawLift;
+//    private Relay clawLift;
+    private TalonSRX clawLift;
 
-    public Collector(int leftTalon, int rightTalon, int clawLiftPort) {
+    public Collector(int leftTalon, int rightTalon, int clawLift) {
         super();
 
         this.left = new TalonSRX(leftTalon);
         this.right = new TalonSRX(rightTalon);
-        this.clawLift = new Relay(clawLiftPort, Relay.Direction.kBoth);
+        this.clawLift = new TalonSRX(clawLift);
 
         this.right.setInverted(true);
 
@@ -36,19 +37,15 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-        clawLift.set(Relay.Value.kForward);
+        clawLift.set(ControlMode.PercentOutput, 1);
     }
 
     public void clawLiftDown() {
-        clawLift.set(Relay.Value.kReverse);
+        clawLift.set(ControlMode.PercentOutput, -1);
     }
 
     public void clawLiftStop() {
-        clawLift.set(Relay.Value.kOff);
-    }
-
-    public void clawLiftOn() {
-        clawLift.set(Relay.Value.kOn);
+        clawLift.set(ControlMode.PercentOutput, 0);
     }
 
     public void initDefaultCommand() {
