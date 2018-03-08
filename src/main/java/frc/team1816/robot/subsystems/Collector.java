@@ -37,15 +37,19 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-        clawLift.set(ControlMode.PercentOutput, 1);
+        clawLift.set(ControlMode.PercentOutput, 0.4);
     }
 
     public void clawLiftDown() {
-        clawLift.set(ControlMode.PercentOutput, -1);
+        clawLift.set(ControlMode.PercentOutput, -0.4);
     }
 
     public void clawLiftStop() {
         clawLift.set(ControlMode.PercentOutput, 0);
+    }
+
+    public void setClawSpeed(double clawSpeed) {
+        clawLift.set(ControlMode.PercentOutput, clawSpeed);
     }
 
     public void initDefaultCommand() {

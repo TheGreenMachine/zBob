@@ -241,8 +241,8 @@ public class Drivetrain extends Subsystem1816{
 
         leftVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         rightVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
-        leftPower += rotation * .55;
-        rightPower -= rotation * .55;
+        leftPower -= rotation * .55;
+        rightPower += rotation * .55;
 
 //         double rightVelocity = rightPower;
 //         double leftVelocity = leftPower;

@@ -14,6 +14,7 @@ public class GamepadCollectorCommand extends Command {
 
     private double lpower;
     private double rpower;
+    private double clawSpeed;
     private boolean belowCloseThreshold = true;
 
     public GamepadCollectorCommand(Gamepad gamepad) {
@@ -33,16 +34,25 @@ public class GamepadCollectorCommand extends Command {
     @Override
     protected void execute() {
         if(gamepad.leftTrigger().get()) {
-            lpower = 1;
-            rpower = 1;
+            lpower = 0.4;
+            rpower = 0.4;
         } else if (gamepad.rightTrigger().get()) {
-            lpower = -1;
-            rpower = -1;
+            lpower = -0.4;
+            rpower = -0.4;
         } else {
             lpower = 0;
             rpower = 0;
         }
 
+        if(gamepad.leftBumper().get()) {
+            clawSpeed = 1;
+        } else if (gamepad.rightBumper().get()) {
+            clawSpeed = -1;
+        } else {
+            clawSpeed = 0;
+        }
+
+        collector.setClawSpeed(clawSpeed);
         collector.setCollectorSpeed(lpower, rpower);
 
         if(elevator.getHeightPercent() > 5 && belowCloseThreshold) {

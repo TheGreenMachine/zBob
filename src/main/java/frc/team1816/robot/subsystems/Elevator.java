@@ -15,7 +15,7 @@ public class Elevator extends Subsystem {
     private double speed;
     private Encoder elevatorEncoder;
 
-    private static int MAX_ENCODER_TICKS = 3100;
+    private static int MAX_ENCODER_TICKS = 3300;
 
     public Elevator(int elevatorMaster, int elevatorSlave, int encoderPort1, int encoderPort2, int upperLimit, int lowerLimit) {
         super();
