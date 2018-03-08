@@ -44,7 +44,7 @@ public class GamepadDriveCommand extends Command {
 
 //        System.out.println("inches traveled: " + drivetrain.getLeftTalonInches());
 
-        if(Math.abs(left) < 0.03) {
+        if(Math.abs(gamepad.getLeftY()) < 0.03) {
             drivetrain.setDrivetrainPercent(left, right, rotation);
         }
         else {
