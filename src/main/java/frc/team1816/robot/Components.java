@@ -12,7 +12,7 @@ public class Components {
     public AnalogInput ai;
     public Elevator elevator;
     public Climber climber;
-    public Compressor compressor;
+//    public Compressor compressor;
     public Ramp ramp;
 
     //Drivetrain Constants
@@ -55,8 +55,8 @@ public class Components {
         climber = new Climber(CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_SOLENOID, PCM_NODE_ID);
         ramp = new Ramp(PCM_NODE_ID, RAMP_SOLENOID);
 
-        compressor = new Compressor(PCM_NODE_ID);
-        compressor.start();
+//        compressor = new Compressor(PCM_NODE_ID);
+//        compressor.start();
     }
 
     public static Components getInstance(){
