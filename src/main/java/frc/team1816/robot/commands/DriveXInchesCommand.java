@@ -56,7 +56,6 @@ public class DriveXInchesCommand extends Command {
     @Override
     protected void initialize() {
         System.out.println("DriveX Init");
-//        initPosition = drivetrain.talonPositionLeft();
         initPosition = drivetrain.getLeftTalonInches();
 
         if (drivetrain.getPrevTargetHeading() != null) {
@@ -74,8 +73,8 @@ public class DriveXInchesCommand extends Command {
         double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double leftVelocity;
         double rightVelocity;
-//        double currentPosition = drivetrain.talonPositionLeft() - initPosition;
         double currentInches = drivetrain.getLeftTalonInches() - initPosition;
+
         StringBuilder sb = new StringBuilder();
 
         remainingInches = inches - Math.abs(currentInches);

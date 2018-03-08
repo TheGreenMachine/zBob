@@ -34,20 +34,20 @@ public class GamepadCollectorCommand extends Command {
     @Override
     protected void execute() {
         if(gamepad.leftTrigger().get()) {
-            lpower = 0.4;
-            rpower = 0.4;
+            lpower = 1;
+            rpower = 1;
         } else if (gamepad.rightTrigger().get()) {
-            lpower = -0.4;
-            rpower = -0.4;
+            lpower = -1;
+            rpower = -1;
         } else {
             lpower = 0;
             rpower = 0;
         }
 
         if(gamepad.leftBumper().get()) {
-            clawSpeed = 1;
+            clawSpeed = 0.4;
         } else if (gamepad.rightBumper().get()) {
-            clawSpeed = -1;
+            clawSpeed = -0.4;
         } else {
             clawSpeed = 0;
         }

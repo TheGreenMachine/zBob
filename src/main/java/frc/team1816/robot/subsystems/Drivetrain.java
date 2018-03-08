@@ -241,8 +241,8 @@ public class Drivetrain extends Subsystem1816{
 
         leftVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         rightVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
-        leftPower -= rotation * .55;
-        rightPower += rotation * .55;
+        leftPower += rotation * .55;
+        rightPower -= rotation * .55;
 
 //         double rightVelocity = rightPower;
 //         double leftVelocity = leftPower;
@@ -250,8 +250,8 @@ public class Drivetrain extends Subsystem1816{
 //         leftVelocity -= rotation * .55;
 
         if(isPercentOut) {
-            rightMain.set(ControlMode.PercentOutput, leftPower);
-            leftMain.set(ControlMode.PercentOutput, rightPower);
+            leftMain.set(ControlMode.PercentOutput, leftPower);
+            rightMain.set(ControlMode.PercentOutput, rightPower);
         } else {
             rightMain.set(ControlMode.Velocity, rightVelocity);
             leftMain.set(ControlMode.Velocity, leftVelocity);
