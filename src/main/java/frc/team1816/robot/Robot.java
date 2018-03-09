@@ -27,12 +27,12 @@ public class Robot extends IterativeRobot {
 
     private SendableChooser<Command> autoChooser;
 
-    private LeftAutoStartCommand leftAuto;
-    private RightAutoStartCommand rightAuto;
+    private LeftAutoStartSwitchCommand leftSwitchAuto;
+    private RightAutoStartSwitchCommand rightSwitchAuto;
     private LeftAutoStartScaleCommand leftScaleAuto;
     private RightAutoStartScaleCommand rightScaleAuto;
-
-    //public static NetworkTableInstance offSeasonNetworkTable;
+    private LeftAutoStartCommand leftAuto;
+    private RightAutoStartCommand rightAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -52,17 +52,20 @@ public class Robot extends IterativeRobot {
         gamepad0 = Controls.getInstance().gamepad0;
         gamepad1 = Controls.getInstance().gamepad1;
 
-        leftAuto = new LeftAutoStartCommand();
-        rightAuto = new RightAutoStartCommand();
+        leftSwitchAuto = new LeftAutoStartSwitchCommand();
+        rightSwitchAuto = new RightAutoStartSwitchCommand();
         leftScaleAuto = new LeftAutoStartScaleCommand();
         rightScaleAuto = new RightAutoStartScaleCommand();
+        rightAuto = new RightAutoStartCommand();
+        leftAuto = new LeftAutoStartCommand();
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Auto", leftAuto);
-        autoChooser.addObject("Right Start Auto", rightAuto);
+        autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
+        autoChooser.addObject("Right Start Switch Auto", rightSwitchAuto);
         autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
         autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
-//        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
+        autoChooser.addObject("Left Start Auto-Priority", leftAuto);
+        autoChooser.addObject("Right Start Auto-Priority", rightAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait", new WaitCommand(1));
 
@@ -119,10 +122,12 @@ public class Robot extends IterativeRobot {
         logger.log(DriverStation.getInstance().getGameSpecificMessage());
 
         try {
-            leftAuto.selectAuto();
-            rightAuto.selectAuto();
+            leftSwitchAuto.selectAuto();
+            rightSwitchAuto.selectAuto();
             leftScaleAuto.selectAuto();
             rightScaleAuto.selectAuto();
+            leftAuto.selectAuto();
+            rightAuto.selectAuto();
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
