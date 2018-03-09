@@ -24,10 +24,10 @@ public class LeftAutoStartCommand extends CommandGroup {
             System.out.println("Switch ---- Target: L");
 
             addParallel(new LowerCollectorClawCommand(false,3));
-            addParallel(new SetElevatorHeightPercentCommand(40),2);
+            addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(128, 0.8));
-            addSequential(new RotateXDegreesCommand(90, true,.4),3);
+            addSequential(new RotateXDegreesCommand(90, true,.3),3);
             addSequential(new DriveXInchesCommand(4, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
@@ -46,13 +46,13 @@ public class LeftAutoStartCommand extends CommandGroup {
             System.out.println("Switch ---- Target: R");
 
             addParallel(new LowerCollectorClawCommand(false,3));
-            addParallel(new SetElevatorHeightPercentCommand(20),2);
+            addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
             addSequential(new DriveXInchesCommand(210, 0.7));
-            addSequential(new RotateXDegreesCommand(90,true,.5),3);
+            addSequential(new RotateXDegreesCommand(90,true,.3),3);
             addSequential(new DriveXInchesCommand(138, 0.7,0.4,0.2));
-            addParallel(new SetElevatorHeightPercentCommand(40),2);
-            addSequential(new RotateXDegreesCommand(90,true,.5),3);
+            addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
+            addSequential(new RotateXDegreesCommand(90,true,.3),3);
             addSequential(new DriveXInchesCommand(9, 0.5),3);
 
             addSequential(new WaitCommand(0.2));

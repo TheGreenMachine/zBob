@@ -19,7 +19,7 @@ public class RotateCubeCommand extends Command {
 
     @Override
     protected void initialize() {
-        collector.setCollectorSpeed(1,-1);
+        collector.setCollectorSpeed(0.33,-0.66);
     }
 
     @Override
