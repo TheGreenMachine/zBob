@@ -79,8 +79,6 @@ public class Drivetrain extends Subsystem1816{
                 "\nMax velocity " + MAX_VELOCITY_TICKS_PER_100MS);
         System.out.println("properties loaded");
 
-        System.out.println("NavX Active: " + gyroActiveCheck());
-
 
         this.rightMain = new TalonSRX(rightMain);
         this.rightSlaveOne = new TalonSRX(rightSlaveOne);
@@ -138,6 +136,8 @@ public class Drivetrain extends Subsystem1816{
 
         this.rightMain.configVelocityMeasurementWindow(8,0);
         this.leftMain.configVelocityMeasurementWindow(8,0);
+
+        System.out.println("NavX Active: " + gyroActiveCheck());
     }
 
     public TalonSRX getRightMain() {
@@ -251,6 +251,7 @@ public class Drivetrain extends Subsystem1816{
 //         leftVelocity -= rotation * .55;
 
         if(isPercentOut) {
+            System.out.println("setting percent output");
             leftMain.set(ControlMode.PercentOutput, leftPower);
             rightMain.set(ControlMode.PercentOutput, rightPower);
         } else {
@@ -271,6 +272,8 @@ public class Drivetrain extends Subsystem1816{
 //         System.out.println("\tR Velocity In: " + rightVelocity);
 //         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
 //         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
+//         System.out.println("L Ticks: " + talonPositionLeft());
+//         System.out.println("R Ticks: " + talonPositionRight());
         // System.out.println("----------------------");
     }
 
