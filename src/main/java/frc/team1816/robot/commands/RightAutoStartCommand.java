@@ -30,7 +30,7 @@ public class RightAutoStartCommand extends CommandGroup {
             addParallel(new RaiseElevatorCommand(2));
             addSequential(new DriveXInchesCommand(285, 1));
             addSequential(new WaitCommand(0.1));
-            addSequential(new RotateXDegreesCommand(-45, true, 0.6), 3);
+            addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
             addSequential(new WaitCommand(0.1));
 
             addSequential(new SetCollectorSpeedCommand(1));
@@ -41,16 +41,16 @@ public class RightAutoStartCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
 
             //Turn and collect second cube
-            addSequential(new RotateXDegreesCommand(-110, true, 0.8), 3);
+            addSequential(new RotateXDegreesCommand(-110, true, 0.3), 3);
             addParallel(new SetCollectorSpeedCommand(-1));
-            addSequential(new DriveXInchesCommand(72, 0.8, 0.4, 0.2), 4);
+            addSequential(new DriveXInchesCommand(72, 0.7, 0.4, 0.2), 4);
             addSequential(new WaitCommand(0.5));
 
             //Turn and place cube on scale
-            addSequential(new DriveXInchesCommand(70, -1, 0.6, 0.2));
+            addSequential(new DriveXInchesCommand(70, -0.7, 0.6, 0.2));
             addParallel(new SetElevatorHeightPercentCommand(100),2);
             addSequential(new SetCollectorSpeedCommand(0));
-            addSequential(new RotateXDegreesCommand(115, true, 0.6), 3); // why cant we turn left
+            addSequential(new RotateXDegreesCommand(115, true, 0.3), 3); // why cant we turn left
             addSequential(new DriveXInchesCommand(12, 0.8));
             addSequential(new SetCollectorSpeedCommand(1));
 
