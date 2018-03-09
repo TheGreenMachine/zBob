@@ -28,8 +28,9 @@ public class RightAutoStartCommand extends CommandGroup {
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(134, 0.8));
-            addSequential(new RotateXDegreesCommand(-90, true,.3),3);
-            addSequential(new DriveXInchesCommand(4, 0.5),3);
+            addSequential(new RotateXDegreesCommand(-90, true,.3),2);
+            addSequential(new WaitCommand(0.5));
+            addSequential(new DriveXInchesCommand(8, 0.5),2);
 
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(1));
