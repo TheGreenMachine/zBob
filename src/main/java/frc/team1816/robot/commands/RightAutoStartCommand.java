@@ -13,7 +13,7 @@ public class RightAutoStartCommand extends CommandGroup {
     public void selectAuto() {
         try {
             switchPos = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
-            scalePos = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+            scalePos = DriverStation.getInstance().getGameSpecificMessage().charAt(1);
 
         } catch (Exception e) {
             System.out.println("NO TARGET!");
@@ -90,6 +90,7 @@ public class RightAutoStartCommand extends CommandGroup {
             addSequential(new DriveXInchesCommand(9, 0.5),3);
 
             addSequential(new WaitCommand(0.2));
+            addSequential(new RaiseElevatorCommand());
             addSequential(new SetCollectorSpeedCommand(1));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5),3);
