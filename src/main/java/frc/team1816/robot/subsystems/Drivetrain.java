@@ -79,6 +79,8 @@ public class Drivetrain extends Subsystem1816{
                 "\nMax velocity " + MAX_VELOCITY_TICKS_PER_100MS);
         System.out.println("properties loaded");
 
+        System.out.println("NavX Active: " + gyroActiveCheck());
+
 
         this.rightMain = new TalonSRX(rightMain);
         this.rightSlaveOne = new TalonSRX(rightSlaveOne);
@@ -200,7 +202,6 @@ public class Drivetrain extends Subsystem1816{
     public void resetEncoders() {
         rightMain.getSensorCollection().setQuadraturePosition(0, 10); //grayhill encoder
         leftMain.getSensorCollection().setQuadraturePosition(0, 10); // grayhill encoder
-        leftSlaveOne.getSensorCollection().setQuadraturePosition(0,10); //cimcoder
     }
 
     public static double leftSetV, rightSetV;

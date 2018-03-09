@@ -45,9 +45,9 @@ public class GamepadCollectorCommand extends Command {
         }
 
         if(gamepad.leftBumper().get()) {
-            clawSpeed = 0.4;
+            clawSpeed = 1;
         } else if (gamepad.rightBumper().get()) {
-            clawSpeed = -0.4;
+            clawSpeed = -1;
         } else {
             clawSpeed = 0;
         }
