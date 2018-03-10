@@ -34,8 +34,8 @@ public class GamepadCollectorCommand extends Command {
     @Override
     protected void execute() {
         if(gamepad.leftTrigger().get()) {
-            lpower = 1;
-            rpower = 1;
+            lpower = 0.5;
+            rpower = 0.5;
         } else if (gamepad.rightTrigger().get()) {
             lpower = -1;
             rpower = -1;
