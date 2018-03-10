@@ -51,11 +51,11 @@ public class RightAutoStartSwitchCommand extends CommandGroup{
 
             addSequential(new DriveXInchesCommand(226, 0.7));
             addSequential(new RotateXDegreesCommand(-90,true,.2),3);
-            addSequential(new DriveXInchesCommand(160, 0.7,0.4,0.2));
+            addSequential(new DriveXInchesCommand(192, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
             addSequential(new RotateXDegreesCommand(-90,true,.2),3);
-            addSequential(new DriveXInchesCommand(18, 0.3),3);
-            addSequential(new SetElevatorHeightPercentCommand(80,1),3);
+            addSequential(new DriveXInchesCommand(18, 0.3),1.5);
+            addSequential(new SetElevatorHeightPercentCommand(40,1),3);
 
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(1));

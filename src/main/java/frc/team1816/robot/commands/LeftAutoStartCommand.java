@@ -76,18 +76,18 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new DriveXInchesCommand(12, 0.8));
             addSequential(new SetCollectorSpeedCommand(1));
         } else if(switchPos == 'R') {
-            System.out.println("LStart Auto-Priority ---- Target: RScale");
+            System.out.println("Switch ---- Target: R");
 
             addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
-            addSequential(new DriveXInchesCommand(210, 0.7));
+            addSequential(new DriveXInchesCommand(226, 0.7));
             addSequential(new RotateXDegreesCommand(90,true,.2),3);
-            addSequential(new DriveXInchesCommand(138, 0.7,0.4,0.2));
+            addSequential(new DriveXInchesCommand(192, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
             addSequential(new RotateXDegreesCommand(90,true,.2),3);
-            addSequential(new DriveXInchesCommand(18, 0.3),3);
-            addSequential(new SetElevatorHeightPercentCommand(80,1),3);
+            addSequential(new DriveXInchesCommand(18, 0.3),1.5);
+            addSequential(new SetElevatorHeightPercentCommand(40,1),3);
 
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(1));
@@ -98,6 +98,7 @@ public class LeftAutoStartCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(20, -.5));
+
         } else if(scalePos == 'R') {
             System.out.println("LStart Auto-Priority ---- Target: RScale");
 
