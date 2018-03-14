@@ -108,19 +108,19 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
 
         double timeout = System.currentTimeMillis();
-        String FMSmessage = "";
-        while((DriverStation.getInstance().getGameSpecificMessage() == null || DriverStation.getInstance().getGameSpecificMessage().equals(""))
-                && System.currentTimeMillis() - timeout > 1000) {
-            System.out.println("Waiting For FMS Data");
-        }
+        String FMSmessage = null;
 
-        try {
-            FMSmessage = DriverStation.getInstance().getGameSpecificMessage();
-            System.out.println("FMS Data: " + FMSmessage);
-        } catch (Exception e) {
-            System.out.println("NO TARGET!");
-        }
+        do {
+            try {
+                FMSmessage = DriverStation.getInstance().getGameSpecificMessage();
+                System.out.println("Waiting For FMS Data");
 
+            } catch (Exception e) {
+                System.out.println("target not found");
+            }
+        } while ((FMSmessage == null || FMSmessage.equals("")) && System.currentTimeMillis() - timeout > 1000);
+
+        System.out.println("FMS Data: " + FMSmessage);
         logger.log(FMSmessage);
 
         try {

@@ -23,7 +23,7 @@ public class RightAutoStartCommand extends CommandGroup {
         if(switchPos == 'R') {
             System.out.println("RStart Auto-Priority ---- Target: RSwitch");
 
-//            addParallel(new LowerCollectorClawCommand(false,3));
+            addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(134, 0.8));

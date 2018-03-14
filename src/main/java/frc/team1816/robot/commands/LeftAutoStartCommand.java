@@ -22,8 +22,8 @@ public class LeftAutoStartCommand extends CommandGroup {
 
         if(switchPos == 'L') {
             System.out.println("LStart Auto-Priority ---- Target: LSwitch");
-            
-//            addParallel(new LowerCollectorClawCommand(false,3));
+
+            addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(134, 0.8));
