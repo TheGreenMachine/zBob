@@ -108,20 +108,28 @@ public class Robot extends IterativeRobot {
         drivetrain.resetEncoders();
 
         double timeout = System.currentTimeMillis();
+        String FMSmessage = "";
         while((DriverStation.getInstance().getGameSpecificMessage() == null || DriverStation.getInstance().getGameSpecificMessage().equals(""))
                 && System.currentTimeMillis() - timeout > 1000) {
             System.out.println("Waiting For FMS Data");
         }
 
-        logger.log(DriverStation.getInstance().getGameSpecificMessage());
+        try {
+            FMSmessage = DriverStation.getInstance().getGameSpecificMessage();
+            System.out.println("FMS Data: " + FMSmessage);
+        } catch (Exception e) {
+            System.out.println("NO TARGET!");
+        }
+
+        logger.log(FMSmessage);
 
         try {
-            leftSwitchAuto.selectAuto();
-            rightSwitchAuto.selectAuto();
-            leftScaleAuto.selectAuto();
-            rightScaleAuto.selectAuto();
-            leftAuto.selectAuto();
-            rightAuto.selectAuto();
+            leftSwitchAuto.selectAuto(FMSmessage);
+            rightSwitchAuto.selectAuto(FMSmessage);
+            leftScaleAuto.selectAuto(FMSmessage);
+            rightScaleAuto.selectAuto(FMSmessage);
+            leftAuto.selectAuto(FMSmessage);
+            rightAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }

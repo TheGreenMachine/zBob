@@ -1,20 +1,17 @@
 package frc.team1816.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RightAutoStartScaleCommand extends CommandGroup {
     char target;
-    String dsString;
 
     public RightAutoStartScaleCommand() {
 
     }
 
-    public void selectAuto() {
+    public void selectAuto(String data) {
         try {
-            target = DriverStation.getInstance().getGameSpecificMessage().charAt(1);
-            dsString = DriverStation.getInstance().getGameSpecificMessage();
+            target = data.charAt(1);
 
             System.out.println("Scale Auto Selection: " + target);
         } catch (Exception e) {

@@ -1,6 +1,5 @@
 package frc.team1816.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RightAutoStartCommand extends CommandGroup {
@@ -10,10 +9,10 @@ public class RightAutoStartCommand extends CommandGroup {
 
     }
 
-    public void selectAuto() {
+    public void selectAuto(String data) {
         try {
-            switchPos = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
-            scalePos = DriverStation.getInstance().getGameSpecificMessage().charAt(1);
+            switchPos = data.charAt(0);
+            scalePos = data.charAt(1);
 
         } catch (Exception e) {
             System.out.println("NO TARGET!");

@@ -1,6 +1,5 @@
 package frc.team1816.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RightAutoStartSwitchCommand extends CommandGroup{
@@ -10,9 +9,9 @@ public class RightAutoStartSwitchCommand extends CommandGroup{
 
     }
 
-    public void selectAuto() {
+    public void selectAuto(String data) {
         try {
-            target = DriverStation.getInstance().getGameSpecificMessage().charAt(0);
+            target = data.charAt(0);
 
             System.out.println("Switch Auto Selection: " + target);
         } catch (Exception e) {
