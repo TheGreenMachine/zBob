@@ -71,17 +71,11 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
-        table.getEntry("Left P").setDouble(drivetrain.p_L);
-        table.getEntry("Left I").setDouble(drivetrain.i_L);
-        table.getEntry("Left D").setDouble(drivetrain.d_L);
-        table.getEntry("Left F").setDouble(drivetrain.f_L);
-        table.getEntry("Left izone").setDouble(drivetrain.izone_L);
-
-        table.getEntry("Right P").setDouble(drivetrain.p_R);
-        table.getEntry("Right I").setDouble(drivetrain.i_R);
-        table.getEntry("Right D").setDouble(drivetrain.d_R);
-        table.getEntry("Right F").setDouble(drivetrain.f_R);
-        table.getEntry("Right izone").setDouble(drivetrain.izone_R);
+        table.getEntry("kP").setDouble(drivetrain.kP);
+        table.getEntry("kI").setDouble(drivetrain.kI);
+        table.getEntry("kD").setDouble(drivetrain.kD);
+        table.getEntry("kF").setDouble(drivetrain.kF);
+        table.getEntry("izone").setDouble(drivetrain.izone);
 
         velocityGraph.getEntry("Left Velocity").setDouble(0);
         velocityGraph.getEntry("Left Set V").setDouble(0);
@@ -154,21 +148,13 @@ public class Robot extends IterativeRobot {
         climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));
         collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
-        double pValueL = table.getEntry("Left P").getDouble(drivetrain.p_L);
-        double iValueL = table.getEntry("Left I").getDouble(drivetrain.i_L);
-        double dValueL = table.getEntry("Left D").getDouble(drivetrain.d_L);
-        double fValueL = table.getEntry("Left F").getDouble(drivetrain.f_L);
-        double izoneL = table.getEntry("Left izone").getDouble(drivetrain.izone_L);
+        double pValue = table.getEntry("kP").getDouble(drivetrain.kP);
+        double iValue = table.getEntry("kI").getDouble(drivetrain.kI);
+        double dValue = table.getEntry("kD").getDouble(drivetrain.kD);
+        double fValue = table.getEntry("kF").getDouble(drivetrain.kF);
+        double izone = table.getEntry("izone").getDouble(drivetrain.izone);
 
-        double pValueR = table.getEntry("Right P").getDouble(drivetrain.p_R);
-        double iValueR = table.getEntry("Right I").getDouble(drivetrain.i_R);
-        double dValueR = table.getEntry("Right D").getDouble(drivetrain.d_R);
-        double fValueR = table.getEntry("Right F").getDouble(drivetrain.f_R);
-        double izoneR = table.getEntry("Right izone").getDouble(drivetrain.izone_R);
-
-        drivetrain.updatePIDValuesL(pValueL, iValueL, dValueL, fValueL, (int) izoneL);
-        drivetrain.updatePIDValuesR(pValueR, iValueR, dValueR, fValueR, (int) izoneR);
-
+        drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
     }
 
     @Override
@@ -206,7 +192,7 @@ public class Robot extends IterativeRobot {
         velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
         velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
 
-        //        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
+//        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
 //        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());

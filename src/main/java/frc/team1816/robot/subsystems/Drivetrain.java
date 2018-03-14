@@ -26,19 +26,13 @@ public class Drivetrain extends Subsystem1816{
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
     //PID values set in properties file;
-    public static double p_L = 0;
-    public static double i_L = 0;
-    public static double d_L = 0;
-    public static double f_L = 0;
-    public static int izone_L = 0;
+    public static double kP = 0;
+    public static double kI = 0;
+    public static double kD = 0;
+    public static double kF = 0;
+    public static int izone = 0;
 
-    public static double p_R = 0;
-    public static double i_R = 0;
-    public static double d_R = 0;
-    public static double f_R = 0;
-    public static int izone_R = 0;
-
-    private double leftPower, rightPower, rotation, prevLeftPower;
+    private double leftPower, rightPower, rotation;
 
     private String prevHeadingTarget;
 
@@ -61,17 +55,11 @@ public class Drivetrain extends Subsystem1816{
         MAX_VELOCITY_TICKS_PER_100MS = Double.valueOf(properties.getProperty("MAX_VELOCITY_TICKS_PER_100MS"));
         INCHES_PER_REV = TICKS_PER_REV/TICKS_PER_INCH;
 
-        p_L = Double.valueOf(properties.getProperty("p_L"));
-        i_L = Double.valueOf(properties.getProperty("i_L"));
-        d_L = Double.valueOf(properties.getProperty("d_L"));
-        f_L = Double.valueOf(properties.getProperty("f_L"));
-        izone_L = Integer.valueOf(properties.getProperty("izone_L"));
-
-        p_R = Double.valueOf(properties.getProperty("p_R"));
-        i_R = Double.valueOf(properties.getProperty("i_R"));
-        d_R = Double.valueOf(properties.getProperty("d_R"));
-        f_R = Double.valueOf(properties.getProperty("f_R"));
-        izone_R = Integer.valueOf(properties.getProperty("izone_R"));
+        kP = Double.valueOf(properties.getProperty("kP"));
+        kI = Double.valueOf(properties.getProperty("kI"));
+        kD = Double.valueOf(properties.getProperty("kD"));
+        kF = Double.valueOf(properties.getProperty("kF"));
+        izone = Integer.valueOf(properties.getProperty("izone"));
 
         System.out.println("Ticks per inch:" + TICKS_PER_INCH +
                 "\nTicks per rev " + TICKS_PER_REV +
@@ -90,7 +78,6 @@ public class Drivetrain extends Subsystem1816{
         this.rightMain.setInverted(true);
         this.rightSlaveOne.setInverted(true);
 
-        //todo is this the right thing to do? drive wants coast in teleop, we want brake in auto ideally
         this.rightMain.setNeutralMode(NeutralMode.Coast);
         this.rightSlaveOne.setNeutralMode(NeutralMode.Coast);
         this.leftMain.setNeutralMode(NeutralMode.Coast);
@@ -112,22 +99,22 @@ public class Drivetrain extends Subsystem1816{
         this.leftMain.configPeakOutputForward(1, 10);
         this.leftMain.configPeakOutputReverse(-1, 10);
 
-        this.leftMain.config_kP(0, p_L, 20);
-        this.leftMain.config_kI(0, i_L, 20);
-        this.leftMain.config_kD(0, d_L, 20);
-        this.leftMain.config_kF(0, f_L, 20);
-        this.leftMain.config_IntegralZone(0, izone_L, 20);
+        this.leftMain.config_kP(0, kP, 20);
+        this.leftMain.config_kI(0, kI, 20);
+        this.leftMain.config_kD(0, kD, 20);
+        this.leftMain.config_kF(0, kF, 20);
+        this.leftMain.config_IntegralZone(0, izone, 20);
 
-        this.rightMain.config_kP(0, p_R, 20);
-        this.rightMain.config_kI(0, i_R, 20);
-        this.rightMain.config_kD(0, d_R, 20);
-        this.rightMain.config_kF(0, f_R, 20);
-        this.rightMain.config_IntegralZone(0, izone_R, 20);
+        this.rightMain.config_kP(0, kP, 20);
+        this.rightMain.config_kI(0, kI, 20);
+        this.rightMain.config_kD(0, kD, 20);
+        this.rightMain.config_kF(0, kF, 20);
+        this.rightMain.config_IntegralZone(0, izone, 20);
 
         this.leftMain.selectProfileSlot(0,0);
         this.rightMain.selectProfileSlot(0,0);
 
-        //TODO for practice bot
+        //TODO || code is to config practice bot
 //        this.leftMain.setSensorPhase(true);
 //        this.rightMain.setSensorPhase(true);
 
@@ -306,26 +293,18 @@ public class Drivetrain extends Subsystem1816{
         return ticks * (1 / TICKS_PER_REV) * INCHES_PER_REV;
     }
 
-    public void updatePIDValuesL(double p, double i, double d, double f, int izone) {
-        this.p_L = p;
-        this.i_L = i;
-        this.d_L = d;
-        this.f_L = f;
-        this.izone_L = izone;
+    public void updatePIDValues(double p, double i, double d, double f, int izone) {
+        this.kP = p;
+        this.kI = i;
+        this.kD = d;
+        this.kF = f;
+        this.izone = izone;
 
         this.leftMain.config_kP(0, p, 20);
         this.leftMain.config_kI(0, i, 20);
         this.leftMain.config_kD(0, d, 20);
         this.leftMain.config_kF(0, f, 20);
         this.leftMain.config_IntegralZone(0, izone, 20);
-    }
-
-    public void updatePIDValuesR(double p, double i, double d, double f, int izone) {
-        this.p_R = p;
-        this.i_R = i;
-        this.d_R = d;
-        this.f_R = f;
-        this.izone_R = izone;
 
         this.rightMain.config_kP(0, p, 20);
         this.rightMain.config_kI(0, i, 20);
