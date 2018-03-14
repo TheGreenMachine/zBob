@@ -57,11 +57,15 @@ public class RaiseElevatorCommand extends Command {
     @Override
     protected boolean isFinished() {
         if(elevator.getUpperLimit()) {
-            elevator.setElevatorSpeed(0);
+//            elevator.setElevatorSpeed(0);
             System.out.println("stopped raising");
             return true;
         } else {
             return false;
         }
+    }
+
+    protected void end() {
+        elevator.setElevatorSpeed(0);
     }
 }

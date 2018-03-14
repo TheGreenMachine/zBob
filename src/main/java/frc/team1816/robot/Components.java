@@ -24,7 +24,7 @@ public class Components {
     //Collector Constants
     private static final int COLLECTOR_LEFT = 2;
     private static final int COLLECTOR_RIGHT = 1;
-    private static final int CLAW_LIFT_RELAY = 0;
+    private static final int CLAW_LIFT_TALON = 3;
 
     //Elevator Constants
     private static final int ELEVATOR_MAIN = 6;
@@ -39,7 +39,6 @@ public class Components {
     private static final int CLIMBER_ONE = 12;
     private static final int CLIMBER_TWO = 11;
     private static final int CLIMBER_THREE = 10;
-    private static final int CLIMBER_FOUR = 3; // motor may be removed
     private static final int CLIMBER_SOLENOID = 1;
 
     //Ramp Constants
@@ -50,10 +49,10 @@ public class Components {
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, LEFT_MAIN, LEFT_SLAVE_ONE);
-        collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, CLAW_LIFT_RELAY);
+        collector = new Collector(COLLECTOR_LEFT, COLLECTOR_RIGHT, CLAW_LIFT_TALON);
         ai = new AnalogInput(3);
         elevator = new Elevator(ELEVATOR_MAIN, ELEVATOR_SLAVE, ELEVATOR_ENC_1, ELEVATOR_ENC_2, UPPER_LIMIT, LOWER_LIMIT);
-        climber = new Climber(CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_FOUR, CLIMBER_SOLENOID, PCM_NODE_ID);
+        climber = new Climber(CLIMBER_ONE, CLIMBER_TWO, CLIMBER_THREE, CLIMBER_SOLENOID, PCM_NODE_ID);
         ramp = new Ramp(PCM_NODE_ID, RAMP_SOLENOID);
 
         compressor = new Compressor(PCM_NODE_ID);

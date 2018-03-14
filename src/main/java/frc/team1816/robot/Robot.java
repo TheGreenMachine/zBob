@@ -27,12 +27,12 @@ public class Robot extends IterativeRobot {
 
     private SendableChooser<Command> autoChooser;
 
-    private LeftAutoStartCommand leftAuto;
-    private RightAutoStartCommand rightAuto;
+    private LeftAutoStartSwitchCommand leftSwitchAuto;
+    private RightAutoStartSwitchCommand rightSwitchAuto;
     private LeftAutoStartScaleCommand leftScaleAuto;
     private RightAutoStartScaleCommand rightScaleAuto;
-
-    //public static NetworkTableInstance offSeasonNetworkTable;
+    private LeftAutoStartCommand leftAuto;
+    private RightAutoStartCommand rightAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -52,32 +52,30 @@ public class Robot extends IterativeRobot {
         gamepad0 = Controls.getInstance().gamepad0;
         gamepad1 = Controls.getInstance().gamepad1;
 
-        leftAuto = new LeftAutoStartCommand();
-        rightAuto = new RightAutoStartCommand();
+        leftSwitchAuto = new LeftAutoStartSwitchCommand();
+        rightSwitchAuto = new RightAutoStartSwitchCommand();
         leftScaleAuto = new LeftAutoStartScaleCommand();
         rightScaleAuto = new RightAutoStartScaleCommand();
+        rightAuto = new RightAutoStartCommand();
+        leftAuto = new LeftAutoStartCommand();
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Auto", leftAuto);
-        autoChooser.addObject("Right Start Auto", rightAuto);
+        autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
+        autoChooser.addObject("Right Start Switch Auto", rightSwitchAuto);
         autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
         autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
-//        autoChooser.addObject("Center Start Auto", new CenterAutoStartCommand());
+        autoChooser.addObject("Left Start Auto-Priority", leftAuto);
+        autoChooser.addObject("Right Start Auto-Priority", rightAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
+        autoChooser.addObject("Wait", new WaitCommand(1));
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
-        table.getEntry("Left P").setDouble(drivetrain.p_L);
-        table.getEntry("Left I").setDouble(drivetrain.i_L);
-        table.getEntry("Left D").setDouble(drivetrain.d_L);
-        table.getEntry("Left F").setDouble(drivetrain.f_L);
-        table.getEntry("Left izone").setDouble(drivetrain.izone_L);
-
-        table.getEntry("Right P").setDouble(drivetrain.p_R);
-        table.getEntry("Right I").setDouble(drivetrain.i_R);
-        table.getEntry("Right D").setDouble(drivetrain.d_R);
-        table.getEntry("Right F").setDouble(drivetrain.f_R);
-        table.getEntry("Right izone").setDouble(drivetrain.izone_R);
+        table.getEntry("kP").setDouble(drivetrain.kP);
+        table.getEntry("kI").setDouble(drivetrain.kI);
+        table.getEntry("kD").setDouble(drivetrain.kD);
+        table.getEntry("kF").setDouble(drivetrain.kF);
+        table.getEntry("izone").setDouble(drivetrain.izone);
 
         velocityGraph.getEntry("Left Velocity").setDouble(0);
         velocityGraph.getEntry("Left Set V").setDouble(0);
@@ -99,6 +97,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
 
+        drivetrain.setDrivetrainBrakeMode();
+
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
                 .append("Left Velocity").append(",").append("Right Velocity").append(",").append("Set Power L").append(",")
@@ -107,19 +107,29 @@ public class Robot extends IterativeRobot {
 
         drivetrain.resetEncoders();
 
-        double timeout = System.currentTimeMillis();
-        while((DriverStation.getInstance().getGameSpecificMessage() == null || DriverStation.getInstance().getGameSpecificMessage().equals(""))
-                && System.currentTimeMillis() - timeout > 1000) {
-            System.out.println("Waiting For FMS Data");
-        }
+        double initTime = System.currentTimeMillis();
+        String FMSmessage = null;
 
-        logger.log(DriverStation.getInstance().getGameSpecificMessage());
+        do {
+            try {
+                FMSmessage = DriverStation.getInstance().getGameSpecificMessage();
+                System.out.println("Waiting For FMS Data");
+
+            } catch (Exception e) {
+                System.out.println("target not found");
+            }
+        } while ((FMSmessage == null || FMSmessage.equals("")) && System.currentTimeMillis() - initTime < 1000);
+
+        System.out.println("FMS Data: " + FMSmessage);
+        logger.log(FMSmessage);
 
         try {
-            leftAuto.selectAuto();
-            rightAuto.selectAuto();
-            leftScaleAuto.selectAuto();
-            rightScaleAuto.selectAuto();
+            leftSwitchAuto.selectAuto(FMSmessage);
+            rightSwitchAuto.selectAuto(FMSmessage);
+            leftScaleAuto.selectAuto(FMSmessage);
+            rightScaleAuto.selectAuto(FMSmessage);
+            leftAuto.selectAuto(FMSmessage);
+            rightAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
@@ -139,27 +149,20 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
 
+        drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
         climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));
         collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
 
-        double pValueL = table.getEntry("Left P").getDouble(drivetrain.p_L);
-        double iValueL = table.getEntry("Left I").getDouble(drivetrain.i_L);
-        double dValueL = table.getEntry("Left D").getDouble(drivetrain.d_L);
-        double fValueL = table.getEntry("Left F").getDouble(drivetrain.f_L);
-        double izoneL = table.getEntry("Left izone").getDouble(drivetrain.izone_L);
+        double pValue = table.getEntry("kP").getDouble(drivetrain.kP);
+        double iValue = table.getEntry("kI").getDouble(drivetrain.kI);
+        double dValue = table.getEntry("kD").getDouble(drivetrain.kD);
+        double fValue = table.getEntry("kF").getDouble(drivetrain.kF);
+        double izone = table.getEntry("izone").getDouble(drivetrain.izone);
 
-        double pValueR = table.getEntry("Right P").getDouble(drivetrain.p_R);
-        double iValueR = table.getEntry("Right I").getDouble(drivetrain.i_R);
-        double dValueR = table.getEntry("Right D").getDouble(drivetrain.d_R);
-        double fValueR = table.getEntry("Right F").getDouble(drivetrain.f_R);
-        double izoneR = table.getEntry("Right izone").getDouble(drivetrain.izone_R);
-
-        drivetrain.updatePIDValuesL(pValueL, iValueL, dValueL, fValueL, (int) izoneL);
-        drivetrain.updatePIDValuesR(pValueR, iValueR, dValueR, fValueR, (int) izoneR);
-
+        drivetrain.updatePIDValues(pValue, iValue, dValue, fValue, (int) izone);
     }
 
     @Override
@@ -197,7 +200,7 @@ public class Robot extends IterativeRobot {
         velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
         velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
 
-        //        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
+//        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
 //        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
 //        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
 //        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());

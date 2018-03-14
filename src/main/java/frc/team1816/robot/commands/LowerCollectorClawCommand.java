@@ -7,14 +7,27 @@ import frc.team1816.robot.subsystems.Collector;
 public class LowerCollectorClawCommand extends Command {
 
     private Collector collector;
+    private boolean isTeleOp;
+    private double msToWait, secondsToWait;
 
-    public LowerCollectorClawCommand() {
+    public LowerCollectorClawCommand(boolean isTeleOp) {
         super("lowercollectorclawcommand");
         collector = Components.getInstance().collector;
+        this.isTeleOp = isTeleOp;
+        this.secondsToWait = 0;
+        requires(collector);
+    }
+
+    public LowerCollectorClawCommand(boolean isTeleOp, double secondsToWait) {
+        super("lowercollectorclawcommand");
+        collector = Components.getInstance().collector;
+        this.isTeleOp = isTeleOp;
+        this.secondsToWait = secondsToWait;
         requires(collector);
     }
 
     protected void initialize() {
+        msToWait = secondsToWait * 1000 + System.currentTimeMillis();
         collector.clawLiftDown();
     }
 
@@ -24,10 +37,16 @@ public class LowerCollectorClawCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return true;
+        if(System.currentTimeMillis() > msToWait) {
+            isTeleOp = true;
+        }
+
+        return isTeleOp;
     }
 
-    protected void end() {}
+    protected void end() {
+        collector.clawLiftStop();
+    }
 
     protected void interrupted() { super.interrupted(); }
 }

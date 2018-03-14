@@ -38,6 +38,8 @@ public class DriveXInchesCommand extends Command {
         }
 
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     public DriveXInchesCommand(double inches, double speed, double startSpeed, double endSpeed) {
@@ -47,12 +49,13 @@ public class DriveXInchesCommand extends Command {
         this.startSpeed = startSpeed;
         this.endSpeed = endSpeed;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     @Override
     protected void initialize() {
         System.out.println("DriveX Init");
-//        initPosition = drivetrain.talonPositionLeft();
         initPosition = drivetrain.getLeftTalonInches();
 
         if (drivetrain.getPrevTargetHeading() != null) {
@@ -70,8 +73,8 @@ public class DriveXInchesCommand extends Command {
         double deltaAngle = drivetrain.getGyroAngle() - initAngle;
         double leftVelocity;
         double rightVelocity;
-//        double currentPosition = drivetrain.talonPositionLeft() - initPosition;
         double currentInches = drivetrain.getLeftTalonInches() - initPosition;
+
         StringBuilder sb = new StringBuilder();
 
         remainingInches = inches - Math.abs(currentInches);

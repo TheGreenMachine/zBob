@@ -17,6 +17,8 @@ public class RotateXDegreesCommand extends Command {
         super("rotatexdegreescommand");
         this.degreesToTurn = degreesToTurn;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     public RotateXDegreesCommand(double degreesToTurn, boolean dimeTurn) {
@@ -24,6 +26,8 @@ public class RotateXDegreesCommand extends Command {
         this.degreesToTurn = degreesToTurn;
         this.dimeTurn = dimeTurn;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     public RotateXDegreesCommand(double degreesToTurn, boolean dimeTurn, double speed) {
@@ -32,6 +36,8 @@ public class RotateXDegreesCommand extends Command {
         this.dimeTurn = dimeTurn;
         this.velocity = speed;
         drivetrain = Components.getInstance().drivetrain;
+
+        requires(drivetrain);
     }
 
     @Override
@@ -62,7 +68,7 @@ public class RotateXDegreesCommand extends Command {
         }
 
         double currentDelta = Math.abs(target - drivetrain.getGyroAngle());
-        if(currentDelta < 20 && velocity >= 0.35)
+        if(currentDelta < 20 && velocity >= 0.1)
             velocity *= currentDelta / 20;
 
     }

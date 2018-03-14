@@ -21,11 +21,15 @@ public class LowerElevatorCommand extends Command {
     @Override
     protected boolean isFinished() {
         if(elevator.getLowerLimit()) {
-            elevator.setElevatorSpeed(0);
+//            elevator.setElevatorSpeed(0);
             System.out.println("stopped lowering");
             return true;
         } else {
             return false;
         }
+    }
+
+    protected void end() {
+        elevator.setElevatorSpeed(0);
     }
 }
