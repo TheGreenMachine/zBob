@@ -142,7 +142,7 @@ public class Robot extends IterativeRobot {
 //        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
 //        Command autoCommand = new RotateXDegreesCommand(-90,true);
 //        Command autoCommand = new DriveXInchesCommand(240,0.75);
-
+//        Command autoCommand = new setElevatorHeightPercentCommand(75);
         System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
     }
