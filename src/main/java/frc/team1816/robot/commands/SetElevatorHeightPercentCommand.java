@@ -28,17 +28,19 @@ public class SetElevatorHeightPercentCommand extends Command {
 
     public void initialize() {
         System.out.println("Raising Elevator");
+        double heightDifferential = Math.abs(targetHeightPercent-elevator.getHeightPercent());
+
         if(elevator.getHeightPercent() > targetHeightPercent) {
             elevator.setElevatorSpeed(-velocity);
 
-            if ((targetHeightPercent-elevator.getHeightPercent())>-5.0){
-                elevator.setElevatorSpeed(-velocity*(Math.abs(targetHeightPercent-elevator.getHeightPercent())*.1));
+            if (heightDifferential<5.0){
+                elevator.setElevatorSpeed(-velocity*(heightDifferential*.1));
             }
         } else if (elevator.getHeightPercent() < targetHeightPercent) {
             elevator.setElevatorSpeed(velocity);
 
-            if (Math.abs(targetHeightPercent-elevator.getHeightPercent())<5.0){
-                elevator.setElevatorSpeed(velocity*(Math.abs(targetHeightPercent-elevator.getHeightPercent())*.1));
+            if (heightDifferential<5.0){
+                elevator.setElevatorSpeed(velocity*(heightDifferential*.1));
             }
         }
     }
