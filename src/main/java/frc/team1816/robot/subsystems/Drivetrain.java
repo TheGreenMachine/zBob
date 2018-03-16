@@ -220,8 +220,8 @@ public class Drivetrain extends Subsystem1816{
     @Override
     public void update() {
 
-        rightPower += rotation * .55;
         leftPower += rotation * .55;
+        rightPower -= rotation * .55;
 
         if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
             if(leftPower > prevPowerL) {
@@ -337,4 +337,3 @@ public class Drivetrain extends Subsystem1816{
         return "" + getLeftTalonVelocity() + "," + getRightTalonVelocity();
     }
 }
-
