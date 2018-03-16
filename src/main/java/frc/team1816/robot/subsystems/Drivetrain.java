@@ -34,7 +34,7 @@ public class Drivetrain extends Subsystem1816{
     public static int izone = 0;
 
     private double leftPower, rightPower, rotation;
-    private double prevPower = 0;
+    private double prevPowerL = 0, prevPowerR;
 
     private String prevHeadingTarget;
 
@@ -220,17 +220,27 @@ public class Drivetrain extends Subsystem1816{
     @Override
     public void update() {
 
-        if(Math.abs(leftPower - prevPower) > SET_SPEED_DIFF_MAX) {
-            if(leftPower > prevPower) {
+        rightPower += rotation * .55;
+        leftPower += rotation * .55;
+
+        if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
+            if(leftPower > prevPowerL) {
                 leftPower += SET_SPEED_DIFF_MAX;
-                rightPower += SET_SPEED_DIFF_MAX;
-            } else if (leftPower < prevPower) {
+            } else if (leftPower < prevPowerL) {
                 leftPower -= SET_SPEED_DIFF_MAX;
+            }
+        }
+
+        if(Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
+            if(rightPower > prevPowerR) {
+                rightPower += SET_SPEED_DIFF_MAX;
+            } else if (rightPower < prevPowerR) {
                 rightPower -= SET_SPEED_DIFF_MAX;
             }
         }
 
-        prevPower = leftPower;
+        prevPowerL = leftPower;
+        prevPowerR = rightPower;
 
         if(slowMode) {
             leftPower *= SLOW_MOD;
@@ -241,8 +251,8 @@ public class Drivetrain extends Subsystem1816{
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         double leftVelocity = leftPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
-        leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
-        rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
+//        leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
+//        rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
         if(isPercentOut) {
             System.out.println("setting percent output");
