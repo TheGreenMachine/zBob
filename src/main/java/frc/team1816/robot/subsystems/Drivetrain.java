@@ -19,6 +19,7 @@ public class Drivetrain extends Subsystem1816{
     public static double DRIVETRAIN_WIDTH;
     public static double INCHES_PER_REV;
     public static double MAX_VELOCITY_TICKS_PER_100MS;
+    private static final double SET_SPEED_DIFF_MAX = 0.01; //limit acceleration to 50% per second, 0-->max in 2s
 
     public static final double SLOW_MOD = 0.5;
     private boolean slowMode, isPercentOut;
@@ -33,6 +34,7 @@ public class Drivetrain extends Subsystem1816{
     public static int izone = 0;
 
     private double leftPower, rightPower, rotation;
+    private double prevPower = 0;
 
     private String prevHeadingTarget;
 
@@ -218,6 +220,18 @@ public class Drivetrain extends Subsystem1816{
     @Override
     public void update() {
 
+        if(Math.abs(leftPower - prevPower) > SET_SPEED_DIFF_MAX) {
+            if(leftPower > prevPower) {
+                leftPower += SET_SPEED_DIFF_MAX;
+                rightPower += SET_SPEED_DIFF_MAX;
+            } else if (leftPower < prevPower) {
+                leftPower -= SET_SPEED_DIFF_MAX;
+                rightPower -= SET_SPEED_DIFF_MAX;
+            }
+        }
+
+        prevPower = leftPower;
+
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
@@ -229,13 +243,6 @@ public class Drivetrain extends Subsystem1816{
 
         leftVelocity += rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
-        leftPower += rotation * .55;
-        rightPower -= rotation * .55;
-
-//         double rightVelocity = rightPower;
-//         double leftVelocity = leftPower;
-//         rightVelocity += rotation * .55;
-//         leftVelocity -= rotation * .55;
 
         if(isPercentOut) {
             System.out.println("setting percent output");
@@ -246,22 +253,19 @@ public class Drivetrain extends Subsystem1816{
             leftMain.set(ControlMode.Velocity, leftVelocity);
         }
 
-//        rightMain.set(ControlMode.PercentOutput, rightVelocity);
-//        leftMain.set(ControlMode.PercentOutput, leftVelocity);
-
         leftSetV = leftVelocity;
         rightSetV = rightVelocity;
 
-        // System.out.println("----------------------");
-        // System.out.println("L Power: " + leftPower);
-        // System.out.println("R Power: " + rightPower);
+//         System.out.println("----------------------");
+//         System.out.println("L Power: " + leftPower);
+//         System.out.println("R Power: " + rightPower);
 //         System.out.print("L Velocity In: " + leftVelocity);
 //         System.out.println("\tR Velocity In: " + rightVelocity);
 //         System.out.println("L Velocity Out: " + leftMain.getSelectedSensorVelocity(0));
 //         System.out.println("R Velocity Out: " + rightMain.getSelectedSensorVelocity(0));
 //         System.out.println("L Ticks: " + talonPositionLeft());
 //         System.out.println("R Ticks: " + talonPositionRight());
-        // System.out.println("----------------------");
+//         System.out.println("----------------------");
     }
 
     public void setSlowMode(boolean slowModeToggle) {
