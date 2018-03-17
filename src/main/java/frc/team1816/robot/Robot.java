@@ -41,6 +41,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
+        CameraServer.getInstance().startAutomaticCapture();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
 

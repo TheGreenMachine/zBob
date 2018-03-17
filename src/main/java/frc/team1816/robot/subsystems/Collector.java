@@ -25,6 +25,7 @@ public class Collector extends Subsystem {
 
         this.left.setNeutralMode(NeutralMode.Brake);
         this.right.setNeutralMode(NeutralMode.Brake);
+        this.clawLift.setNeutralMode(NeutralMode.Brake);
 
         this.left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);

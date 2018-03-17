@@ -220,33 +220,33 @@ public class Drivetrain extends Subsystem1816{
     @Override
     public void update() {
 
-        leftPower += rotation * .55;
-        rightPower -= rotation * .55;
-
-        if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
-            if(leftPower > prevPowerL) {
-                leftPower += SET_SPEED_DIFF_MAX;
-            } else if (leftPower < prevPowerL) {
-                leftPower -= SET_SPEED_DIFF_MAX;
-            }
-        }
-
-        if(Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
-            if(rightPower > prevPowerR) {
-                rightPower += SET_SPEED_DIFF_MAX;
-            } else if (rightPower < prevPowerR) {
-                rightPower -= SET_SPEED_DIFF_MAX;
-            }
-        }
-
-        prevPowerL = leftPower;
-        prevPowerR = rightPower;
-
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
             rotation *= 0.8;
         }
+            
+        leftPower += rotation * .55;
+        rightPower -= rotation * .55;
+
+        if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
+            if(leftPower > prevPowerL) {
+                leftPower = prevPowerL + SET_SPEED_DIFF_MAX;
+            } else if (leftPower < prevPowerL) {
+                leftPower = prevPowerL - SET_SPEED_DIFF_MAX;
+            }
+        }
+
+        if(Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
+            if(rightPower > prevPowerR) {
+                rightPower = prevPowerR + SET_SPEED_DIFF_MAX;
+            } else if (rightPower < prevPowerR) {
+                rightPower = prevPowerR - SET_SPEED_DIFF_MAX;
+            }
+        }
+
+        prevPowerL = leftPower;
+        prevPowerR = rightPower;
 
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         double leftVelocity = leftPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
