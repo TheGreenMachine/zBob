@@ -38,20 +38,22 @@ public class GamepadDriveCommand extends Command {
         double leftPower = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
 
-        //Acceleration curve in teleop
-        if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
-            if(leftPower > prevPowerL) {
-                leftPower = prevPowerL + SET_SPEED_DIFF_MAX;
-            } else if (leftPower < prevPowerL) {
-                leftPower = prevPowerL - SET_SPEED_DIFF_MAX;
+        if(rotation == 0 || leftPower != 0) {
+            //Acceleration curve in teleop
+            if (Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
+                if (leftPower > prevPowerL) {
+                    leftPower = prevPowerL + SET_SPEED_DIFF_MAX;
+                } else if (leftPower < prevPowerL) {
+                    leftPower = prevPowerL - SET_SPEED_DIFF_MAX;
+                }
             }
-        }
 
-        if(Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
-            if(rightPower > prevPowerR) {
-                rightPower = prevPowerR + SET_SPEED_DIFF_MAX;
-            } else if (rightPower < prevPowerR) {
-                rightPower = prevPowerR - SET_SPEED_DIFF_MAX;
+            if (Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
+                if (rightPower > prevPowerR) {
+                    rightPower = prevPowerR + SET_SPEED_DIFF_MAX;
+                } else if (rightPower < prevPowerR) {
+                    rightPower = prevPowerR - SET_SPEED_DIFF_MAX;
+                }
             }
         }
 
