@@ -10,18 +10,19 @@ import frc.team1816.robot.subsystems.Elevator;
 public class GamepadCollectorCommand extends Command {
     private Collector collector;
     private Elevator elevator;
-    private Gamepad gamepad;
+    private Gamepad operator, driver;
 
     private double lpower;
     private double rpower;
     private double clawSpeed;
     private boolean belowCloseThreshold = true;
 
-    public GamepadCollectorCommand(Gamepad gamepad) {
+    public GamepadCollectorCommand(Gamepad op, Gamepad driver) {
         super("gamepadcollectorcommand");
         this.collector = Components.getInstance().collector;
         this.elevator = Components.getInstance().elevator;
-        this.gamepad = gamepad;
+        this.operator = op;
+        this.driver = driver;
 
         requires(collector);
     }
@@ -33,10 +34,10 @@ public class GamepadCollectorCommand extends Command {
 
     @Override
     protected void execute() {
-        if(gamepad.leftTrigger().get()) {
+        if(operator.leftTrigger().get() || driver.rightTrigger().get()) {
             lpower = 0.5;
             rpower = 0.5;
-        } else if (gamepad.rightTrigger().get()) {
+        } else if (operator.rightTrigger().get()) {
             lpower = -1;
             rpower = -1;
         } else {
@@ -44,9 +45,9 @@ public class GamepadCollectorCommand extends Command {
             rpower = 0;
         }
 
-        if(gamepad.leftBumper().get()) {
+        if(operator.leftBumper().get()) {
             clawSpeed = 1;
-        } else if (gamepad.rightBumper().get()) {
+        } else if (operator.rightBumper().get()) {
             clawSpeed = -1;
         } else {
             clawSpeed = 0;

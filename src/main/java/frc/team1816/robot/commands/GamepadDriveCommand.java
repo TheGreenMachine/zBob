@@ -66,10 +66,6 @@ public class GamepadDriveCommand extends Command {
         else {
             drivetrain.setDrivetrain(leftPower, rightPower, rotation);
         }
-
-        if(gamepad.rightTrigger().get()) {
-            collector.setCollectorSpeed(0.5,0.5);
-        }
     }
 
     @Override

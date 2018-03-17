@@ -157,7 +157,7 @@ public class Robot extends IterativeRobot {
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
         climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));
-        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1));
+        collector.setDefaultCommand(new GamepadCollectorCommand(gamepad1, gamepad0));
 
         double pValue = table.getEntry("kP").getDouble(drivetrain.kP);
         double iValue = table.getEntry("kI").getDouble(drivetrain.kI);
