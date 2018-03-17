@@ -62,7 +62,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
 //            } else {
                 System.out.println("2 Cube Scale ---- Target: L");
 
-                addParallel(new LowerCollectorClawCommand(false,3));
+//                addParallel(new LowerCollectorClawCommand(false,3));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));

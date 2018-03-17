@@ -22,7 +22,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup{
         if(target == 'R') {
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new LowerCollectorClawCommand(false,3));
+//            addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(134, 0.8));

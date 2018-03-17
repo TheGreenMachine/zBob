@@ -22,11 +22,11 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
         if(target == 'L') {
             System.out.println("Switch ---- Target: L");
 
-            addParallel(new LowerCollectorClawCommand(false,3));
+//            addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(134, 0.8));
-            addSequential(new RotateXDegreesCommand(90, true,.2),2);
+            addSequential(new RotateXDegreesCommand(90, true,.3),2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3),2);
 
