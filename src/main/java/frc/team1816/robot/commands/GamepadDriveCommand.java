@@ -16,6 +16,8 @@ public class GamepadDriveCommand extends Command {
     private Collector collector;
     private Gamepad gamepad;
     public StringBuilder sb;
+    public double prevPowerL = 0, prevPowerR = 0;
+    public static final double SET_SPEED_DIFF_MAX = 0.04;
 
     public GamepadDriveCommand(Gamepad gamepad) {
         super("gamepaddrivecommand");
@@ -32,23 +34,35 @@ public class GamepadDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        double right = gamepad.getLeftY();
-        double left = gamepad.getLeftY();
+        double rightPower = gamepad.getLeftY();
+        double leftPower = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
 
-//        System.out.println("left enc: " + drivetrain.talonPositionLeft() + " right enc: " + drivetrain.talonPositionRight());
-//        System.out.println("left spd: " + drivetrain.getLeftTalonVelocity() + "right spd: " + drivetrain.getRightTalonVelocity());
-//
-//        System.out.println("gyro angle: " + drivetrain.getGyroAngle());
-//        System.out.println("gyro connected: " + drivetrain.gyroActiveCheck());
+        //Acceleration curve in teleop
+        if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
+            if(leftPower > prevPowerL) {
+                leftPower = prevPowerL + SET_SPEED_DIFF_MAX;
+            } else if (leftPower < prevPowerL) {
+                leftPower = prevPowerL - SET_SPEED_DIFF_MAX;
+            }
+        }
 
-//        System.out.println("inches traveled: " + drivetrain.getLeftTalonInches());
+        if(Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
+            if(rightPower > prevPowerR) {
+                rightPower = prevPowerR + SET_SPEED_DIFF_MAX;
+            } else if (rightPower < prevPowerR) {
+                rightPower = prevPowerR - SET_SPEED_DIFF_MAX;
+            }
+        }
+
+        prevPowerL = leftPower;
+        prevPowerR = rightPower;
 
         if(Math.abs(gamepad.getLeftY()) < 0.03) {
-            drivetrain.setDrivetrainPercent(left, right, rotation);
+            drivetrain.setDrivetrainPercent(leftPower, rightPower, rotation);
         }
         else {
-            drivetrain.setDrivetrain(left, right, rotation);
+            drivetrain.setDrivetrain(leftPower, rightPower, rotation);
         }
 
         if(gamepad.rightTrigger().get()) {

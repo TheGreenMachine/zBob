@@ -19,7 +19,6 @@ public class Drivetrain extends Subsystem1816{
     public static double DRIVETRAIN_WIDTH;
     public static double INCHES_PER_REV;
     public static double MAX_VELOCITY_TICKS_PER_100MS;
-    private static final double SET_SPEED_DIFF_MAX = 0.01; //limit acceleration to 50% per second, 0-->max in 2s
 
     public static final double SLOW_MOD = 0.5;
     private boolean slowMode, isPercentOut;
@@ -34,7 +33,6 @@ public class Drivetrain extends Subsystem1816{
     public static int izone = 0;
 
     private double leftPower, rightPower, rotation;
-    private double prevPowerL = 0, prevPowerR;
 
     private String prevHeadingTarget;
 
@@ -225,28 +223,9 @@ public class Drivetrain extends Subsystem1816{
             rightPower *= SLOW_MOD;
             rotation *= 0.8;
         }
-            
+
         leftPower += rotation * .55;
         rightPower -= rotation * .55;
-
-        if(Math.abs(leftPower - prevPowerL) > SET_SPEED_DIFF_MAX && leftPower != prevPowerL) {
-            if(leftPower > prevPowerL) {
-                leftPower = prevPowerL + SET_SPEED_DIFF_MAX;
-            } else if (leftPower < prevPowerL) {
-                leftPower = prevPowerL - SET_SPEED_DIFF_MAX;
-            }
-        }
-
-        if(Math.abs(rightPower - prevPowerR) > SET_SPEED_DIFF_MAX && rightPower != prevPowerR) {
-            if(rightPower > prevPowerR) {
-                rightPower = prevPowerR + SET_SPEED_DIFF_MAX;
-            } else if (rightPower < prevPowerR) {
-                rightPower = prevPowerR - SET_SPEED_DIFF_MAX;
-            }
-        }
-
-        prevPowerL = leftPower;
-        prevPowerR = rightPower;
 
         double rightVelocity = rightPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
         double leftVelocity = leftPower /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
