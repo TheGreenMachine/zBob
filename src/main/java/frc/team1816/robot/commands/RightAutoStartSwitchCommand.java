@@ -31,16 +31,15 @@ public class RightAutoStartSwitchCommand extends CommandGroup{
             addSequential(new DriveXInchesCommand(18, 0.3),2);
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new SetCollectorSpeedCommand(1));
+            addSequential(new SetCollectorSpeedCommand(.5));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5),3);
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(30, -0.5));
-            addSequential(new RotateXDegreesCommand(-90,true,.2),3);
-            addSequential(new DriveXInchesCommand(24, 0.5));
+            addSequential(new DriveXInchesCommand(12, -0.5));
+            addSequential(new RotateXDegreesCommand(90,true,.2),3);
 
         } else if (target == 'L'){
             System.out.println("Switch ---- Target: L");

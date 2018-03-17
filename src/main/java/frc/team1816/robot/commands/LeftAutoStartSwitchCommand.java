@@ -38,9 +38,8 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(30, -0.5));
-            addSequential(new RotateXDegreesCommand(90,true,.2),3);
-//            addSequential(new DriveXInchesCommand(24, 0.5));
+            addSequential(new DriveXInchesCommand(12, -0.5));
+            addSequential(new RotateXDegreesCommand(-90,true,.2),3);
 
         } else if (target == 'R'){
             System.out.println("Switch ---- Target: R");
