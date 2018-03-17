@@ -25,7 +25,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
 //            addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
-            addSequential(new DriveXInchesCommand(134, 0.8));
+            addSequential(new DriveXInchesCommand(144, 0.8));
             addSequential(new RotateXDegreesCommand(90, true,.3),2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3),2);
@@ -47,7 +47,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addParallel(new LowerCollectorClawCommand(false,3));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
-            addSequential(new DriveXInchesCommand(226, 0.7));
+            addSequential(new DriveXInchesCommand(204, 0.7));
             addSequential(new RotateXDegreesCommand(90,true,.2),3);
             addSequential(new DriveXInchesCommand(192, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
