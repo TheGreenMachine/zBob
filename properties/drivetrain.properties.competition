@@ -1,3 +1,5 @@
+#competiton bot
+
 TICKS_PER_REV = 1025
 TICKS_PER_INCH = 47.73
 DRIVETRAIN_WIDTH = 24

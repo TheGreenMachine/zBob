@@ -48,7 +48,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
             addSequential(new DriveXInchesCommand(210, 0.7));
-            addSequential(new RotateXDegreesCommand(90,true,.2),3);
+            addSequential(new RotateXDegreesCommand(90,true,.3),3);
             addSequential(new DriveXInchesCommand(192, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
             addSequential(new RotateXDegreesCommand(90,true,.2),3);
