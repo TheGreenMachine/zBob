@@ -66,7 +66,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(270, 0.7));
+                addSequential(new DriveXInchesCommand(290, 0.7));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.3), 3);
                 addSequential(new WaitCommand(0.1));
