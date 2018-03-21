@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import frc.team1816.robot.commands.*;
 import frc.team1816.robot.subsystems.*;
 
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
     public static Logging logger;
     private Drivetrain drivetrain;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
     private RightAutoStartScaleCommand rightScaleAuto;
     private LeftAutoStartCommand leftAuto;
     private RightAutoStartCommand rightAuto;
+    private CenterAutoStartSwitchCommand centerSwitchAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -60,6 +62,7 @@ public class Robot extends IterativeRobot {
         rightScaleAuto = new RightAutoStartScaleCommand();
         rightAuto = new RightAutoStartCommand();
         leftAuto = new LeftAutoStartCommand();
+        centerSwitchAuto = new CenterAutoStartSwitchCommand();
 
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
@@ -68,6 +71,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
         autoChooser.addObject("Left Start Auto-Priority", leftAuto);
         autoChooser.addObject("Right Start Auto-Priority", rightAuto);
+        autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait", new WaitCommand(1));
 
@@ -133,6 +137,7 @@ public class Robot extends IterativeRobot {
             rightScaleAuto.selectAuto(FMSmessage);
             leftAuto.selectAuto(FMSmessage);
             rightAuto.selectAuto(FMSmessage);
+            centerSwitchAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }

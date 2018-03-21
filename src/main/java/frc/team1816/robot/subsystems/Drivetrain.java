@@ -234,7 +234,6 @@ public class Drivetrain extends Subsystem1816{
 //        rightVelocity -= rotation * .55 /*FOR PID:*/ * MAX_VELOCITY_TICKS_PER_100MS;
 
         if(isPercentOut) {
-            System.out.println("setting percent output");
             leftMain.set(ControlMode.PercentOutput, leftPower);
             rightMain.set(ControlMode.PercentOutput, rightPower);
         } else {
