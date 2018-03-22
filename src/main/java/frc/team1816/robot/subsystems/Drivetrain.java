@@ -78,10 +78,10 @@ public class Drivetrain extends Subsystem1816{
         this.rightMain.setInverted(true);
         this.rightSlaveOne.setInverted(true);
 
-        this.rightMain.setNeutralMode(NeutralMode.Coast);
-        this.rightSlaveOne.setNeutralMode(NeutralMode.Coast);
-        this.leftMain.setNeutralMode(NeutralMode.Coast);
-        this.leftSlaveOne.setNeutralMode(NeutralMode.Coast);
+        this.rightMain.setNeutralMode(NeutralMode.Brake);
+        this.rightSlaveOne.setNeutralMode(NeutralMode.Brake);
+        this.leftMain.setNeutralMode(NeutralMode.Brake);
+        this.leftSlaveOne.setNeutralMode(NeutralMode.Brake);
 
         this.rightSlaveOne.set(ControlMode.Follower, rightMain);
         this.leftSlaveOne.set(ControlMode.Follower, leftMain);
