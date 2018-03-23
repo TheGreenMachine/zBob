@@ -23,7 +23,7 @@ public class LeftAutoStartCommand extends CommandGroup {
         if(switchPos == 'L') {
             System.out.println("LStart Auto-Priority ---- Target: LSwitch");
 
-            addParallel(new LowerCollectorClawCommand(false,3));
+            addParallel(new LowerCollectorClawCommand(false,1.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
@@ -45,7 +45,7 @@ public class LeftAutoStartCommand extends CommandGroup {
         } else if(scalePos == 'L') {
             System.out.println("LStart Auto-Priority ---- Target: LScale");
 
-            addParallel(new LowerCollectorClawCommand(false,3));
+            addParallel(new LowerCollectorClawCommand(false,1.5));
 
             //Cube One
             addParallel(new RaiseElevatorCommand(1));
@@ -77,7 +77,7 @@ public class LeftAutoStartCommand extends CommandGroup {
         } else if(switchPos == 'R') {
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new LowerCollectorClawCommand(false,3));
+            addParallel(new LowerCollectorClawCommand(false,1.5));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
             addSequential(new DriveXInchesCommand(210, 0.7));

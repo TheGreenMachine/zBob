@@ -62,7 +62,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
 //            } else {
                 System.out.println("2 Cube Scale ---- Target: L");
 
-//                addParallel(new LowerCollectorClawCommand(false,3));
+                addParallel(new LowerCollectorClawCommand(false,1.5));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
@@ -95,7 +95,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
         } else if (target == 'R') {
             System.out.println("Scale ---- Target: R");
 
-            addParallel(new LowerCollectorClawCommand(false,3));
+            addParallel(new LowerCollectorClawCommand(false,1.5));
             addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(213, 0.7));
