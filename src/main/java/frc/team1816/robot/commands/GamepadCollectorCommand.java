@@ -35,8 +35,8 @@ public class GamepadCollectorCommand extends Command {
     @Override
     protected void execute() {
         if(operator.leftTrigger().get() || driver.rightTrigger().get()) {
-            lpower = 0.5;
-            rpower = 0.5;
+            lpower = 1;
+            rpower = 1;
         } else if (operator.rightTrigger().get()) {
             lpower = -1;
             rpower = -1;
