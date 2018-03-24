@@ -60,13 +60,13 @@ public class RightAutoStartScaleCommand extends CommandGroup {
 //                addSequential(new LowerElevatorCommand());
 //
 //            } else {
-                System.out.println("2 Cube Scale ---- Target: L");
+                System.out.println("2 Cube Scale ---- Target: R");
 
-                addParallel(new LowerCollectorClawCommand(false,1.5));
+                addParallel(new LowerCollectorClawCommand(false,3.4));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(248, 0.7));
+                addSequential(new DriveXInchesCommand(256, 0.7));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
                 addSequential(new WaitCommand(0.1));
@@ -81,7 +81,7 @@ public class RightAutoStartScaleCommand extends CommandGroup {
                 //Turn and collect second cube
                 addSequential(new RotateXDegreesCommand(-90, true, 0.3), 3);
                 addParallel(new SetCollectorSpeedCommand(-1));
-                addSequential(new DriveXInchesCommand(72, 0.7, 0.4, 0.2), 4);
+                addSequential(new DriveXInchesCommand(73, 0.7, 0.4, 0.2), 4);
                 addSequential(new WaitCommand(0.5));
 
                 //Turn and place cube on scale

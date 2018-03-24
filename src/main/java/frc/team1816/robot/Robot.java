@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.CameraServer;
 import frc.team1816.robot.commands.*;
 import frc.team1816.robot.subsystems.*;
 
@@ -43,7 +42,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
-        CameraServer.getInstance().startAutomaticCapture();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
 
@@ -87,7 +85,6 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Left Set V").setDouble(0);
         velocityGraph.getEntry("Right Velocity").setDouble(0);
         velocityGraph.getEntry("Right Set V").setDouble(0);
-//        CameraServer.getInstance().startAutomaticCapture();
     }
 
     @Override
