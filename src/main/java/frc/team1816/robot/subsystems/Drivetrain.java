@@ -333,7 +333,7 @@ public class Drivetrain extends Subsystem1816{
         builder.addDoubleProperty("LeftSetVel", this::getLeftSetV, null);
         builder.addDoubleProperty("RightSetVel", this::getRightSetV, null);
         builder.addDoubleProperty("LeftTalonVel", this::getLeftTalonVelocity, null);
-        builder.addDoubleProperty("RightTalonVel", this::getLeftTalonInches, null);
+        builder.addDoubleProperty("RightTalonVel", this::getRightTalonInches, null);
         builder.addDoubleProperty("LeftTalonPos", this::getLeftTalonInches, null);
         builder.addDoubleProperty("RightTalonPos", this::getRightTalonInches, null);
         builder.addDoubleProperty("GyroAngle", this::getGyroAngle, null);
