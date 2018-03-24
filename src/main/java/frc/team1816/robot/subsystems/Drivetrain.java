@@ -8,8 +8,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
 public class Drivetrain extends Subsystem1816{
@@ -33,6 +34,8 @@ public class Drivetrain extends Subsystem1816{
     public static int izone = 0;
 
     private double leftPower, rightPower, rotation;
+
+    private double gyroAngle, leftTalonVelocity, rightTalonVelocity, talonPositionLeft, talonPositionRight;
 
     private String prevHeadingTarget;
 
@@ -136,7 +139,7 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public double getGyroAngle() {
-        return navx.getAngle();
+        return gyroAngle;
     }
 
     public boolean gyroActiveCheck() {
@@ -171,19 +174,19 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public double talonPositionRight() {
-        return rightMain.getSelectedSensorPosition(0);
+        return talonPositionRight;
     }
 
     public double talonPositionLeft() {
-        return leftMain.getSelectedSensorPosition(0);
+        return talonPositionLeft;
     }
 
     public double getLeftTalonInches() {
-        return ticksToInches(leftMain.getSelectedSensorPosition(0));
+        return ticksToInches(talonPositionLeft);
     }
 
     public double getRightTalonInches() {
-        return ticksToInches(rightMain.getSelectedSensorPosition(0));
+        return ticksToInches(talonPositionRight);
     }
 
     public void resetEncoders() {
@@ -270,11 +273,11 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public double getLeftTalonVelocity() {
-        return leftMain.getSelectedSensorVelocity(0);
+        return leftTalonVelocity;
     }
 
     public double getRightTalonVelocity() {
-        return rightMain.getSelectedSensorVelocity(0);
+        return rightTalonVelocity;
     }
 
     public double inchesToTicks(double inches) {
@@ -313,5 +316,26 @@ public class Drivetrain extends Subsystem1816{
 
     public String getPIDTuningString() {
         return "" + getLeftTalonVelocity() + "," + getRightTalonVelocity();
+    }
+
+    @Override
+    public void periodic() {
+     gyroAngle = navx.getAngle();
+     leftTalonVelocity = leftMain.getSelectedSensorVelocity(0);
+     rightTalonVelocity = rightMain.getSelectedSensorVelocity(0);
+     talonPositionLeft = leftMain.getSelectedSensorPosition(0);
+     talonPositionRight = rightMain.getSelectedSensorPosition(0);
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+        builder.addDoubleProperty("LeftSetVel", this::getLeftSetV, null);
+        builder.addDoubleProperty("RightSetVel", this::getRightSetV, null);
+        builder.addDoubleProperty("LeftTalonVel", this::getLeftTalonVelocity, null);
+        builder.addDoubleProperty("RightTalonVel", this::getLeftTalonInches, null);
+        builder.addDoubleProperty("LeftTalonPos", this::getLeftTalonInches, null);
+        builder.addDoubleProperty("RightTalonPos", this::getRightTalonInches, null);
+        builder.addDoubleProperty("GyroAngle", this::getGyroAngle, null);
     }
 }
