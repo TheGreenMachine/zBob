@@ -1,6 +1,7 @@
 package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import javafx.scene.transform.Rotate;
 
 public class CenterAutoStartSwitchCommand extends CommandGroup {
      char target;
@@ -35,6 +36,19 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
                addSequential(new SetCollectorSpeedCommand(0));
                addSequential(new DriveXInchesCommand(12, -0.5),3);
 
+//               addSequential(new RotateXDegreesCommand(90, true, .3));
+//               addParallel(new SetCollectorSpeedCommand(-1));
+//               addSequential(new DriveXInchesCommand(75,.5 ));
+//               addSequential(new WaitCommand(.5));
+//               addSequential(new SetCollectorSpeedCommand(0));
+//               addSequential(new DriveXInchesCommand(75, -5));
+//               addSequential(new RotateXDegreesCommand(-90, true, .3));
+//               addSequential(new DriveXInchesCommand(12, .5));
+//               addSequential(new SetCollectorSpeedCommand(1));
+//               addSequential(new WaitCommand(.4));
+//               addSequential(new SetCollectorSpeedCommand(0));
+
+
           } else if (target == 'R'){
                System.out.println("Center Switch ---- Target: R");
 
@@ -52,6 +66,18 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
                addSequential(new WaitCommand(1));
                addSequential(new SetCollectorSpeedCommand(0));
                addSequential(new DriveXInchesCommand(12, -0.5),3);
+
+//               addSequential(new RotateXDegreesCommand(-90, true, .3));
+//               addParallel(new SetCollectorSpeedCommand(-1));
+//               addSequential(new DriveXInchesCommand(75,.5 ));
+//               addSequential(new WaitCommand(.5));
+//               addSequential(new SetCollectorSpeedCommand(0));
+//               addSequential(new DriveXInchesCommand(75, -5));
+//               addSequential(new RotateXDegreesCommand(90, true, .3));
+//               addSequential(new DriveXInchesCommand(12, .5));
+//               addSequential(new SetCollectorSpeedCommand(1));
+//               addSequential(new WaitCommand(.4));
+//               addSequential(new SetCollectorSpeedCommand(0));
 
 
           } else {
