@@ -63,7 +63,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(20, -.5));
+            addSequential(new DriveXInchesCommand(20, -.5),2);
 
         } else {
             System.out.println("Switch ---- Auto-Run");

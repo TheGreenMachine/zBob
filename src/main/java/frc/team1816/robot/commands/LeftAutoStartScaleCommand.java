@@ -100,7 +100,7 @@ public class LeftAutoStartScaleCommand extends CommandGroup {
             addParallel(new SetElevatorHeightPercentCommand(20),2);
 
             addSequential(new DriveXInchesCommand(213, 0.7));
-            addSequential(new RotateXDegreesCommand(90,true,.4));
+            addSequential(new RotateXDegreesCommand(90,true,.4),3);
             addSequential(new DriveXInchesCommand(208, 0.7,0.4,0.2));
             addSequential(new RotateXDegreesCommand(-90,true,.4),3);
             addParallel(new RaiseElevatorCommand());
