@@ -6,10 +6,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+
 
 public class Collector extends Subsystem {
     private TalonSRX right;
     private TalonSRX left;
+    private double outputCurrent;
 
 //    private Relay clawLift;
     private TalonSRX clawLift;
@@ -25,6 +28,7 @@ public class Collector extends Subsystem {
 
         this.left.setNeutralMode(NeutralMode.Brake);
         this.right.setNeutralMode(NeutralMode.Brake);
+        this.clawLift.setNeutralMode(NeutralMode.Brake);
 
         this.left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
@@ -37,11 +41,11 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-        clawLift.set(ControlMode.PercentOutput, 1);
+        clawLift.set(ControlMode.PercentOutput, .3);
     }
 
     public void clawLiftDown() {
-        clawLift.set(ControlMode.PercentOutput, -1);
+        clawLift.set(ControlMode.PercentOutput, -.3);
     }
 
     public void clawLiftStop() {
@@ -54,4 +58,16 @@ public class Collector extends Subsystem {
 
     public void initDefaultCommand() {
     }
+    public double getOutputCurrent(){
+        return outputCurrent;
+    }
+    public void periodic(){
+       outputCurrent =  clawLift.getOutputCurrent();
+    }
+
+    public void initSendable(SendableBuilder builder){
+        super.initSendable(builder);
+        builder.addDoubleProperty("Output Current", this::getOutputCurrent, null);
+    }
+
 }
