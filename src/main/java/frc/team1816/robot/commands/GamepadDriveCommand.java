@@ -60,7 +60,7 @@ public class GamepadDriveCommand extends Command {
         prevPowerL = leftPower;
         prevPowerR = rightPower;
 
-        if(Math.abs(gamepad.getLeftY()) < 0.03) {
+        if(Math.abs(gamepad.getLeftY()) < 0.03 || drivetrain.isVbusEnabled()) {
             drivetrain.setDrivetrainPercent(leftPower, rightPower, rotation);
         }
         else {

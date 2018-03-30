@@ -22,7 +22,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
         if(target == 'L') {
             System.out.println("Switch ---- Target: L");
 
-            addParallel(new LowerCollectorClawCommand(false,1.5));
+            addParallel(new LowerCollectorClawCommand(false,1.8));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
@@ -44,7 +44,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
         } else if (target == 'R'){
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new LowerCollectorClawCommand(false,1.5));
+            addParallel(new LowerCollectorClawCommand(false,1.8));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
             addSequential(new DriveXInchesCommand(210, 0.7));

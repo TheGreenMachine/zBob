@@ -22,7 +22,7 @@ public class Drivetrain extends Subsystem1816{
     public static double MAX_VELOCITY_TICKS_PER_100MS;
 
     public static final double SLOW_MOD = 0.5;
-    private boolean slowMode, isPercentOut;
+    private boolean slowMode, isPercentOut, vBusModeEnabled;
 
     private TalonSRX rightMain, rightSlaveOne, leftMain, leftSlaveOne;
 
@@ -144,6 +144,15 @@ public class Drivetrain extends Subsystem1816{
 
     public boolean gyroActiveCheck() {
         return navx.isConnected();
+    }
+
+    public void setVbusMode(boolean mode) {
+        vBusModeEnabled = mode;
+        System.out.println("VBus Mode Set: " + mode);
+    }
+
+    public boolean isVbusEnabled() {
+        return vBusModeEnabled;
     }
 
     public void setDrivetrain(double leftPower, double rightPower, double rotation) {

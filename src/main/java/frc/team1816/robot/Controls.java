@@ -29,6 +29,8 @@ public class Controls {
         //Driver Controller Mapping
         gamepad0.leftBumper().whenPressed(new ToggleSlowModeCommand(true));
         gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
+        gamepad0.diamondUp().whenPressed(new ToggleDrivetrainVbusMode(true));
+        gamepad0.diamondDown().whenPressed(new ToggleDrivetrainVbusMode(false));
 
         //Operator Controller Mapping
         gamepad1.diamondUp().whileHeld(new RotateCubeCommand());
