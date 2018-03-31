@@ -26,12 +26,12 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
             addParallel(new SetElevatorHeightPercentCommand(40, .5), 2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
-            addSequential(new RotateXDegreesCommand(-90, true, .3), 2);
+            addSequential(new RotateXDegreesCommand(-90, true, .32), 2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3), 2);
 
             addSequential(new WaitCommand(0.2));
-            addSequential(new SetCollectorSpeedCommand(.75));
+            addSequential(new SetCollectorSpeedCommand(.5));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(4, -0.5), 3);
             addSequential(new SetCollectorSpeedCommand(0));
@@ -39,7 +39,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(12, -0.5));
-            addSequential(new RotateXDegreesCommand(90, true, .2), 3);
+            addSequential(new RotateXDegreesCommand(90, true, .32), 3);
 
         } else if (target == 'L') {
             System.out.println("Switch ---- Target: L");
@@ -63,7 +63,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(20, -.5));
+            addSequential(new DriveXInchesCommand(20, -.5),2);
 
         } else {
             System.out.println("Switch ---- Auto-Run");

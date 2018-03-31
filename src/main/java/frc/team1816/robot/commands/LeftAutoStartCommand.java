@@ -63,9 +63,9 @@ public class LeftAutoStartCommand extends CommandGroup {
 
             //Turn and collect second cube
             addSequential(new RotateXDegreesCommand(90, true, 0.32), 3);
-            addParallel(new SetCollectorSpeedCommand(-1));
-            addSequential(new DriveXInchesCommand(68, 0.7, 0.4, 0.2), 4);
-            addSequential(new SetCollectorSpeedCommand(0));
+//            addParallel(new SetCollectorSpeedCommand(-1));
+//            addSequential(new DriveXInchesCommand(68, 0.7, 0.4, 0.2), 4);
+//            addSequential(new SetCollectorSpeedCommand(0));
 //                addSequential(new WaitCommand(0.5));
 //
 //                //Turn and place cube on scale
