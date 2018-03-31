@@ -22,11 +22,11 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
         if(target == 'L') {
             System.out.println("Switch ---- Target: L");
 
-            addParallel(new LowerCollectorClawCommand(false,1.8));
+//            addParallel(new LowerCollectorClawCommand(false,1.8));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
-            addSequential(new RotateXDegreesCommand(90, true,.3),2);
+            addSequential(new RotateXDegreesCommand(90, true,.32),2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3),2);
 
@@ -39,20 +39,20 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(12, -0.5));
-            addSequential(new RotateXDegreesCommand(-90,true,.2),3);
+            addSequential(new RotateXDegreesCommand(-90,true,.32),3);
 
         } else if (target == 'R'){
             System.out.println("Switch ---- Target: R");
 
-            addParallel(new LowerCollectorClawCommand(false,1.8));
+//            addParallel(new LowerCollectorClawCommand(false,1.8));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
-            addSequential(new DriveXInchesCommand(210, 0.7));
+            addSequential(new DriveXInchesCommand(213, 0.7));
             addSequential(new RotateXDegreesCommand(90,true,.3),3);
-            addSequential(new DriveXInchesCommand(192, 0.7,0.4,0.2));
+            addSequential(new DriveXInchesCommand(189, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
             addSequential(new RotateXDegreesCommand(90,true,.2),3);
-            addSequential(new DriveXInchesCommand(18, 0.3),1.5);
+            addSequential(new DriveXInchesCommand(21, 0.3),1.5);
             addSequential(new SetElevatorHeightPercentCommand(40,1),2);
 
             addSequential(new WaitCommand(0.2));

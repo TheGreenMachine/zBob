@@ -34,7 +34,10 @@ public class GamepadClimberCommand extends Command {
         if(climberSpeed < 0) {
 //            System.out.println("Elevator coast mode set");
             elevator.setCoastMode();
-        } else {
+        } else if (elevator.getLowerLimit()){
+            climberSpeed = 0;
+        }
+        else {
 //            System.out.println("Elevator brake mode set");
             elevator.setBrakeMode();
         }

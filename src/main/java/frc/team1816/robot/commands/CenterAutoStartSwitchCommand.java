@@ -21,14 +21,14 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           if (target == 'L'){
                System.out.println("Center Switch ---- Target: L");
 
-               addParallel(new LowerCollectorClawCommand(false,1.8));
+//               addParallel(new LowerCollectorClawCommand(false,1.8));
                addSequential(new DriveXInchesCommand(33, 0.7));
                addSequential(new RotateXDegreesCommand(-90, true, 0.35), 3);
                addSequential(new DriveXInchesCommand(75, 0.7));
 
                addParallel(new SetElevatorHeightPercentCommand(40, 0.5), 2);
 
-               addSequential(new RotateXDegreesCommand(90, true, 0.3), 3);
+               addSequential(new RotateXDegreesCommand(90, true, 0.35), 3);
                addSequential(new DriveXInchesCommand(63, 0.7));
 
                addSequential(new SetCollectorSpeedCommand(1));
@@ -52,14 +52,14 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           } else if (target == 'R'){
                System.out.println("Center Switch ---- Target: R");
 
-               addParallel(new LowerCollectorClawCommand(false,3));
+//               addParallel(new LowerCollectorClawCommand(false,3));
                addSequential(new DriveXInchesCommand(33, 0.7));
-               addSequential(new RotateXDegreesCommand(90, true, 0.35), 3);
+               addSequential(new RotateXDegreesCommand(90, true, 0.4), 3);
                addSequential(new DriveXInchesCommand(60, 0.7));
 
                addParallel(new SetElevatorHeightPercentCommand(40, 0.5), 2);
 
-               addSequential(new RotateXDegreesCommand(-90, true, 0.3), 3);
+               addSequential(new RotateXDegreesCommand(-90, true, 0.4), 3);
                addSequential(new DriveXInchesCommand(63, 0.7));
 
                addSequential(new SetCollectorSpeedCommand(1));

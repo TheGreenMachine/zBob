@@ -23,7 +23,7 @@ public class RightAutoStartNearCommand extends CommandGroup {
         if(switchPos == 'R') {
             System.out.println("RStart Auto-Priority Near Only ---- Target: RSwitch");
 
-            addParallel(new LowerCollectorClawCommand(false,1.5));
+//            addParallel(new LowerCollectorClawCommand(false,1.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
@@ -45,7 +45,7 @@ public class RightAutoStartNearCommand extends CommandGroup {
         } else if(scalePos == 'R') {
             System.out.println("RStart Auto-Priority Near Only ---- Target: RScale");
 
-            addParallel(new LowerCollectorClawCommand(false,1.5));
+//            addParallel(new LowerCollectorClawCommand(false,1.5));
 
             //Cube One
             addParallel(new RaiseElevatorCommand(1));
