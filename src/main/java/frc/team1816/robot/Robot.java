@@ -13,13 +13,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
-<<<<<<< HEAD
-import frc.team1816.robot.subsystems.Drivetrain;
-import frc.team1816.robot.subsystems.Elevator;
-import jaci.pathfinder.Waypoint;
-=======
 import frc.team1816.robot.subsystems.*;
->>>>>>> master
+
 
 public class Robot extends TimedRobot {
 
