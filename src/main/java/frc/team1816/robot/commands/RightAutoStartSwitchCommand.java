@@ -22,7 +22,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
         if (target == 'R') {
             System.out.println("Switch ---- Target: R");
 
-//            addParallel(new LowerCollectorClawCommand(false, 1.8));
+            addParallel(new LowerCollectorClawCommand(false, .5));
             addParallel(new SetElevatorHeightPercentCommand(40, .5), 2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
@@ -33,7 +33,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(.5));
             addSequential(new WaitCommand(1));
-            addSequential(new DriveXInchesCommand(4, -0.5), 3);
+            addSequential(new DriveXInchesCommand(8, -0.5), 3);
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
@@ -44,7 +44,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
         } else if (target == 'L') {
             System.out.println("Switch ---- Target: L");
 
-//            addParallel(new LowerCollectorClawCommand(false, 1.8));
+            addParallel(new LowerCollectorClawCommand(false, .5));
             addParallel(new SetElevatorHeightPercentCommand(20, .5), 2);
 
             addSequential(new DriveXInchesCommand(213, 0.7));
@@ -58,7 +58,7 @@ public class RightAutoStartSwitchCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(1));
             addSequential(new WaitCommand(1));
-            addSequential(new DriveXInchesCommand(4, -0.5), 3);
+            addSequential(new DriveXInchesCommand(8, -0.5), 3);
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));

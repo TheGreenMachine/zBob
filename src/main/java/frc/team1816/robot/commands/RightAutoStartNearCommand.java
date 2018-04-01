@@ -23,7 +23,7 @@ public class RightAutoStartNearCommand extends CommandGroup {
         if(switchPos == 'R') {
             System.out.println("RStart Auto-Priority Near Only ---- Target: RSwitch");
 
-//            addParallel(new LowerCollectorClawCommand(false,1.5));
+            addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
             addSequential(new DriveXInchesCommand(144, 0.8));
@@ -34,7 +34,7 @@ public class RightAutoStartNearCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(.5));
             addSequential(new WaitCommand(1));
-            addSequential(new DriveXInchesCommand(4, -0.5),3);
+            addSequential(new DriveXInchesCommand(8, -0.5),3);
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
@@ -45,7 +45,7 @@ public class RightAutoStartNearCommand extends CommandGroup {
         } else if(scalePos == 'R') {
             System.out.println("RStart Auto-Priority Near Only ---- Target: RScale");
 
-//            addParallel(new LowerCollectorClawCommand(false,1.5));
+            addParallel(new LowerCollectorClawCommand(false,.5));
 
             //Cube One
             addParallel(new RaiseElevatorCommand(1));
@@ -57,15 +57,15 @@ public class RightAutoStartNearCommand extends CommandGroup {
             addSequential(new SetCollectorSpeedCommand(1));
             addSequential(new WaitCommand(1));
             addSequential(new DriveXInchesCommand(13, -0.6), 5);
-            addParallel(new LowerElevatorCommand());
+//            addParallel(new LowerElevatorCommand());
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new WaitCommand(0.2));
 
             //Turn and collect second cube
-            addSequential(new RotateXDegreesCommand(-90, true, 0.32), 3);
-            addParallel(new SetCollectorSpeedCommand(-1));
-            addSequential(new DriveXInchesCommand(68, 0.7, 0.4, 0.2), 4);
-            addSequential(new SetCollectorSpeedCommand(0));
+//            addSequential(new RotateXDegreesCommand(-90, true, 0.32), 3);
+//            addParallel(new SetCollectorSpeedCommand(-1));
+//            addSequential(new DriveXInchesCommand(68, 0.7, 0.4, 0.2), 4);
+//            addSequential(new SetCollectorSpeedCommand(0));
 //                addSequential(new WaitCommand(0.5));
 //
 //                //Turn and place cube on scale

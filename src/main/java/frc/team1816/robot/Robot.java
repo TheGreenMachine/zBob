@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     private RightAutoStartNearCommand rightAutoNearOnly;
     private CenterAutoStartSwitchCommand centerSwitchAuto;
 
+
     private NetworkTable table;
     private NetworkTable velocityGraph;
 
@@ -66,6 +67,7 @@ public class Robot extends TimedRobot {
         rightAutoNearOnly = new RightAutoStartNearCommand();
         centerSwitchAuto = new CenterAutoStartSwitchCommand();
 
+
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
         autoChooser.addObject("Right Start Switch Auto", rightSwitchAuto);
@@ -78,6 +80,7 @@ public class Robot extends TimedRobot {
         autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
+
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
