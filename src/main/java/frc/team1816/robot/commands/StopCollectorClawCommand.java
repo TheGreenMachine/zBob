@@ -4,20 +4,22 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Collector;
 
-public class SetCollectorSpeedCommand extends Command {
-    private double power;
+public class StopCollectorClawCommand extends Command {
+
     private Collector collector;
 
-    public SetCollectorSpeedCommand(double power) {
-        super("setcollectorspeedcommand");
-        this.power = power;
+    public StopCollectorClawCommand() {
+        super("lowercollectorclawcommand");
         collector = Components.getInstance().collector;
         requires(collector);
     }
 
-    @Override
     protected void initialize() {
-        collector.setCollectorSpeed(power, power * .8);
+        collector.clawLiftStop();
+    }
+
+    protected void execute() {
+        System.out.println("Stopping Collector Claw");
     }
 
     @Override
@@ -25,9 +27,7 @@ public class SetCollectorSpeedCommand extends Command {
         return true;
     }
 
-    @Override
-    protected void interrupted() {
-        collector.setCollectorSpeed(0,0);
-        System.out.println("INTERRUPTED!!!");
-    }
+    protected void end() {}
+
+    protected void interrupted() { super.interrupted(); }
 }

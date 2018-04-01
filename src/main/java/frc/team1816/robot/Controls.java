@@ -6,8 +6,7 @@ import com.edinarobotics.utils.gamepad.gamepadfilters.DeadzoneFilter;
 import com.edinarobotics.utils.gamepad.gamepadfilters.GamepadFilter;
 import com.edinarobotics.utils.gamepad.gamepadfilters.GamepadFilterSet;
 import com.edinarobotics.utils.gamepad.gamepadfilters.PowerFilter;
-import frc.team1816.robot.commands.SetCollectorSpeedCommand;
-import frc.team1816.robot.commands.ToggleSlowModeCommand;
+import frc.team1816.robot.commands.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +26,20 @@ public class Controls {
         gamepad0 = new FilteredGamepad(0, driveGamepadFilterSet0);
         gamepad1 = new FilteredGamepad(1, driveGamepadFilterSet0);
 
-        gamepad0.leftTrigger().whenPressed(new ToggleSlowModeCommand(true));
-        gamepad0.leftTrigger().whenReleased(new ToggleSlowModeCommand(false));
+        //Driver Controller Mapping
+        gamepad0.leftBumper().whenPressed(new ToggleSlowModeCommand(true));
+        gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
 
-//        gamepad0.rightBumper().whenPressed(new SetCollectorSpeedCommand(.75));
-//        gamepad0.rightBumper().whenReleased(new SetCollectorSpeedCommand(0));
-//
-//        gamepad0.leftBumper().whenPressed(new SetCollectorSpeedCommand(-.75));
-//        gamepad0.leftBumper().whenReleased(new SetCollectorSpeedCommand(0));
+        //Operator Controller Mapping
+        gamepad1.diamondUp().whileHeld(new RotateCubeCommand());
+
+        gamepad1.diamondLeft().whenPressed(new ToggleClimberShifterCommand(true));
+        gamepad1.diamondRight().whenPressed(new ToggleClimberShifterCommand(false));
+
+        gamepad1.dPadUp().whenPressed(new RaiseElevatorCommand());
+        gamepad1.dPadDown().whenPressed(new LowerElevatorCommand());
+        gamepad1.dPadLeft().whenPressed(new SetElevatorHeightPercentCommand(30));
+        gamepad1.dPadRight().whenPressed(new SetElevatorHeightPercentCommand(60));
     }
 
     public static Controls getInstance(){

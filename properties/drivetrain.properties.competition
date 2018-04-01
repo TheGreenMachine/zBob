@@ -1,0 +1,12 @@
+#competiton bot
+
+TICKS_PER_REV = 1025
+TICKS_PER_INCH = 47.73
+DRIVETRAIN_WIDTH = 24
+MAX_VELOCITY_TICKS_PER_100MS = 750
+
+kP = 2
+kI = 0
+kD = 0
+kF = 1.55
+izone = 0

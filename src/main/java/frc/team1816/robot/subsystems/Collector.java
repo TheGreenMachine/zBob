@@ -4,65 +4,70 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.edinarobotics.utils.subsystems.Subsystem1816;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-public class Collector extends Subsystem1816 {
+
+public class Collector extends Subsystem {
     private TalonSRX right;
     private TalonSRX left;
-    private double p = 0.2;
-    private double i = 0;
-    private double d = 0;
-    private double f = 0.34;
-    private int izone = 100;
-    private double power;
+    private double outputCurrent;
 
-    public Collector(int right, int left) {
+//    private Relay clawLift;
+    private TalonSRX clawLift;
+
+    public Collector(int leftTalon, int rightTalon, int clawLift) {
         super();
 
-        this.right = new TalonSRX(right);
-        this.left = new TalonSRX(left);
+        this.left = new TalonSRX(leftTalon);
+        this.right = new TalonSRX(rightTalon);
+        this.clawLift = new TalonSRX(clawLift);
 
         this.right.setInverted(true);
 
-        this.right.setNeutralMode(NeutralMode.Brake);
         this.left.setNeutralMode(NeutralMode.Brake);
+        this.right.setNeutralMode(NeutralMode.Brake);
+        this.clawLift.setNeutralMode(NeutralMode.Brake);
 
-        this.right.set(ControlMode.Velocity, right);
-        this.left.set(ControlMode.Velocity, left);
-
-        this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+        this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 
-        this.right.configNominalOutputForward(0, 10);
-        this.right.configNominalOutputReverse(0, 10);
-        this.right.configPeakOutputForward(1, 10);
-        this.right.configPeakOutputReverse(-1, 10);
-
-        this.left.configNominalOutputForward(0, 10);
-        this.left.configNominalOutputReverse(0, 10);
-        this.left.configPeakOutputForward(1, 10);
-        this.left.configPeakOutputReverse(-1, 10);
-
-        this.right.config_kP(0, p, 20);
-        this.right.config_kI(0, i, 20);
-        this.right.config_kD(0, d, 20);
-        this.right.config_kF(0, f, 20);
-        this.right.config_IntegralZone(0, izone, 20);
-        this.left.config_kP(0, p, 20);
-        this.left.config_kI(0, i, 20);
-        this.left.config_kD(0, d, 20);
-        this.left.config_kF(0, f, 20);
-        this.left.config_IntegralZone(0, izone, 20);
     }
 
-    public void setCollectorSpeed(double power) {
-        this.power = power;
-        update();
+    public void setCollectorSpeed(double lpower, double rpower) {
+        left.set(ControlMode.PercentOutput, lpower);
+        right.set(ControlMode.PercentOutput, rpower);
     }
 
-    @Override
-    public void update() {
-        right.set(ControlMode.PercentOutput, power);
-        left.set(ControlMode.PercentOutput, power);
+    public void clawLiftUp() {
+        clawLift.set(ControlMode.PercentOutput, .3);
     }
+
+    public void clawLiftDown() {
+        clawLift.set(ControlMode.PercentOutput, -.3);
+    }
+
+    public void clawLiftStop() {
+        clawLift.set(ControlMode.PercentOutput, 0);
+    }
+
+    public void setClawSpeed(double clawSpeed) {
+        clawLift.set(ControlMode.PercentOutput, clawSpeed);
+    }
+
+    public void initDefaultCommand() {
+    }
+    public double getOutputCurrent(){
+        return outputCurrent;
+    }
+    public void periodic(){
+       outputCurrent =  clawLift.getOutputCurrent();
+    }
+
+    public void initSendable(SendableBuilder builder){
+        super.initSendable(builder);
+        builder.addDoubleProperty("Output Current", this::getOutputCurrent, null);
+    }
+
 }
