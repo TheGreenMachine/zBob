@@ -26,8 +26,8 @@ public class LeftAutoStartNearCommand extends CommandGroup {
             addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
-            addSequential(new DriveXInchesCommand(144, 0.6));
-            addSequential(new RotateXDegreesCommand(90, true,.3),2);
+            addSequential(new DriveXInchesCommand(154, 0.5));
+            addSequential(new RotateXDegreesCommand(90, true,.29),2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3),2);
 

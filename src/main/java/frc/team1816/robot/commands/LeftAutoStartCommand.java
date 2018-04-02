@@ -77,7 +77,7 @@ public class LeftAutoStartCommand extends CommandGroup {
 //                addSequential(new SetCollectorSpeedCommand(1));
 //            }
         } else if(switchPos == 'R') {
-            System.out.println("Switch ---- Target: R");
+            System.out.println("LStart Auto-Priority ---- Target: Rswitch");
 
             addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);

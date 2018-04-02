@@ -26,8 +26,8 @@ public class RightAutoStartNearCommand extends CommandGroup {
             addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
-            addSequential(new DriveXInchesCommand(144, 0.8));
-            addSequential(new RotateXDegreesCommand(-90, true,.3),2);
+            addSequential(new DriveXInchesCommand(154, 0.5));
+            addSequential(new RotateXDegreesCommand(-90, true,.29),2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3),2);
 
@@ -51,7 +51,7 @@ public class RightAutoStartNearCommand extends CommandGroup {
             addParallel(new RaiseElevatorCommand(1));
             addSequential(new DriveXInchesCommand(248, 0.6));
             addSequential(new WaitCommand(0.1));
-            addSequential(new RotateXDegreesCommand(-45, true, 0.32), 3);
+            addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
             addSequential(new WaitCommand(0.1));
 
             addSequential(new SetCollectorSpeedCommand(1));

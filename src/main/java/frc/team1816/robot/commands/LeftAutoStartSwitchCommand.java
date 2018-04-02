@@ -25,8 +25,8 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
-            addSequential(new DriveXInchesCommand(144, 0.6));
-            addSequential(new RotateXDegreesCommand(90, true,.3),2);
+            addSequential(new DriveXInchesCommand(154, 0.5));
+            addSequential(new RotateXDegreesCommand(90, true,.29),2);
             addSequential(new WaitCommand(0.5));
             addSequential(new DriveXInchesCommand(18, 0.3),2);
 
@@ -39,7 +39,7 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addSequential(new WaitCommand(0.2));
 
             addSequential(new DriveXInchesCommand(12, -0.5));
-            addSequential(new RotateXDegreesCommand(-90,true,.32),3);
+            addSequential(new RotateXDegreesCommand(-90,true,.2),3);
 
         } else if (target == 'R'){
             System.out.println("Switch ---- Target: R");
@@ -47,23 +47,23 @@ public class LeftAutoStartSwitchCommand extends CommandGroup {
             addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
-            addSequential(new DriveXInchesCommand(213, 0.6));
-            addSequential(new RotateXDegreesCommand(90,true,.3),3);
+            addSequential(new DriveXInchesCommand(213, 0.7));
+            addSequential(new RotateXDegreesCommand(90,true,.32),3);
             addSequential(new DriveXInchesCommand(189, 0.7,0.4,0.2));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
-            addSequential(new RotateXDegreesCommand(90,true,.2),3);
+            addSequential(new RotateXDegreesCommand(90,true,.32),3);
             addSequential(new DriveXInchesCommand(21, 0.3),1.5);
             addSequential(new SetElevatorHeightPercentCommand(40,1),2);
 
             addSequential(new WaitCommand(0.2));
             addSequential(new SetCollectorSpeedCommand(1));
             addSequential(new WaitCommand(1));
-            addSequential(new DriveXInchesCommand(4, -0.5),3);
+            addSequential(new DriveXInchesCommand(8, -0.5),3);
             addSequential(new SetCollectorSpeedCommand(0));
             addSequential(new LowerElevatorCommand());
             addSequential(new WaitCommand(0.2));
 
-            addSequential(new DriveXInchesCommand(20, -.5),2);
+            addSequential(new DriveXInchesCommand(20, -.5));
 
         } else {
             System.out.println("Switch ---- Auto-Run");
