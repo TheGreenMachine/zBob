@@ -32,7 +32,7 @@ public class LowerCollectorClawCommand extends Command {
     }
 
     protected void execute() {
-        System.out.println("Claw current: "+ collector.getOutputCurrent());
+//        System.out.println("Claw current: "+ collector.getOutputCurrent());
     }
 
     @Override
