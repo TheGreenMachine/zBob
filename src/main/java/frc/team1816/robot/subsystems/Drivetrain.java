@@ -37,6 +37,8 @@ public class Drivetrain extends Subsystem1816{
 
     private double gyroAngle, leftTalonVelocity, rightTalonVelocity, talonPositionLeft, talonPositionRight;
 
+    private double initX, initY, initT, xPos, yPos, deltaT;
+
     private String prevHeadingTarget;
 
     private AHRS navx;
@@ -227,6 +229,12 @@ public class Drivetrain extends Subsystem1816{
         this.leftSlaveOne.setNeutralMode(NeutralMode.Brake);
     }
 
+    public void initCoordinateTracking() {
+        initX = 0;
+        initY = 0;
+        initT = System.currentTimeMillis();
+    }
+
     @Override
     public void update() {
 
@@ -327,6 +335,10 @@ public class Drivetrain extends Subsystem1816{
         return "" + getLeftTalonVelocity() + "," + getRightTalonVelocity();
     }
 
+    public String getCoordinates() {
+        return "" + xPos + "," + yPos;
+    }
+
     @Override
     public void periodic() {
      gyroAngle = navx.getAngle();
@@ -334,6 +346,17 @@ public class Drivetrain extends Subsystem1816{
      rightTalonVelocity = rightMain.getSelectedSensorVelocity(0);
      talonPositionLeft = leftMain.getSelectedSensorPosition(0);
      talonPositionRight = rightMain.getSelectedSensorPosition(0);
+
+//     Prototype Diff. Steering Coordinate Navigation
+        double vsum = (leftTalonVelocity + rightTalonVelocity);
+        double vdiff = (leftTalonVelocity - rightTalonVelocity);
+        deltaT = System.currentTimeMillis() - initT;
+
+        double deltaX = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.sin( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.sin(gyroAngle) );
+        double deltaY = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.cos( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.cos(gyroAngle) );
+
+        xPos = initX + deltaX;
+        yPos = initY + deltaY;
     }
 
     @Override

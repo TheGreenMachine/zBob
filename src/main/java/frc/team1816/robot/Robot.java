@@ -18,6 +18,7 @@ import frc.team1816.robot.subsystems.*;
 public class Robot extends TimedRobot {
 
     public static Logging logger;
+    public static Logging posLog;
     private Drivetrain drivetrain;
     private Elevator elevator;
     private Collector collector;
@@ -100,6 +101,7 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
         try {
             logger.close();
+            posLog.close();
             System.out.println("Logger closed");
         } catch (Exception e) {
             System.out.println("Logger not instantiated yet...");
@@ -109,8 +111,10 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
+        posLog = Logging.getInstance("PositionLog");
 
         drivetrain.setDrivetrainBrakeMode();
+        drivetrain.initCoordinateTracking();
 
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
@@ -192,6 +196,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         logger.log(drivetrain.getLogString());
+        posLog.log(drivetrain.getCoordinates());
 
         velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
         velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
