@@ -2,10 +2,10 @@ package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class RightAutoStartCommand extends CommandGroup {
+public class RightAutoStartNearCommand extends CommandGroup {
     char switchPos, scalePos;
 
-    public RightAutoStartCommand() {
+    public RightAutoStartNearCommand() {
 
     }
 
@@ -21,7 +21,7 @@ public class RightAutoStartCommand extends CommandGroup {
         }
 
         if(switchPos == 'R') {
-            System.out.println("RStart Auto-Priority ---- Target: RSwitch");
+            System.out.println("RStart Auto-Priority Near Only ---- Target: RSwitch");
 
             addParallel(new LowerCollectorClawCommand(false,.5));
             addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
@@ -43,7 +43,7 @@ public class RightAutoStartCommand extends CommandGroup {
             addSequential(new RotateXDegreesCommand(-90,true,.2),3);
 
         } else if(scalePos == 'R') {
-            System.out.println("RStart Auto-Priority ---- Target: RScale");
+            System.out.println("RStart Auto-Priority Near Only ---- Target: RScale");
 
             addParallel(new LowerCollectorClawCommand(false,.5));
 
@@ -76,30 +76,6 @@ public class RightAutoStartCommand extends CommandGroup {
 //                addSequential(new DriveXInchesCommand(12, 0.8));
 //                addSequential(new SetCollectorSpeedCommand(1));
 //            }
-        } else if(switchPos == 'L') {
-            System.out.println("RStart Auto-Priority ---- Target: LSwitch");
-
-            addParallel(new LowerCollectorClawCommand(false,.5));
-            addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
-
-            addSequential(new DriveXInchesCommand(213, 0.7));
-            addSequential(new RotateXDegreesCommand(-90,true,.32),3);
-            addSequential(new DriveXInchesCommand(189, 0.7,0.4,0.2));
-            addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
-            addSequential(new RotateXDegreesCommand(-90,true,.32),3);
-            addSequential(new DriveXInchesCommand(21, 0.3),1.5);
-            addSequential(new SetElevatorHeightPercentCommand(40,1),2);
-
-            addSequential(new WaitCommand(0.2));
-            addSequential(new SetCollectorSpeedCommand(1));
-            addSequential(new WaitCommand(1));
-            addSequential(new DriveXInchesCommand(8, -0.5),3);
-            addSequential(new SetCollectorSpeedCommand(0));
-            addSequential(new LowerElevatorCommand());
-            addSequential(new WaitCommand(0.2));
-
-            addSequential(new DriveXInchesCommand(20, -.5));
-
         } else {
             System.out.println("Switch ---- Auto-Run");
             addSequential(new DriveXInchesCommand(140,0.5));

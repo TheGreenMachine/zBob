@@ -41,11 +41,11 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-        clawLift.set(ControlMode.PercentOutput, .3);
+        clawLift.set(ControlMode.PercentOutput,-.3);
     }
 
     public void clawLiftDown() {
-        clawLift.set(ControlMode.PercentOutput, -.3);
+        clawLift.set(ControlMode.PercentOutput, .4);
     }
 
     public void clawLiftStop() {

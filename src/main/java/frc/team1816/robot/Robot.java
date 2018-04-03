@@ -34,7 +34,10 @@ public class Robot extends TimedRobot {
     private RightAutoStartScaleCommand rightScaleAuto;
     private LeftAutoStartCommand leftAuto;
     private RightAutoStartCommand rightAuto;
+    private LeftAutoStartNearCommand leftAutoNearOnly;
+    private RightAutoStartNearCommand rightAutoNearOnly;
     private CenterAutoStartSwitchCommand centerSwitchAuto;
+
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -58,20 +61,26 @@ public class Robot extends TimedRobot {
         rightSwitchAuto = new RightAutoStartSwitchCommand();
         leftScaleAuto = new LeftAutoStartScaleCommand();
         rightScaleAuto = new RightAutoStartScaleCommand();
-        rightAuto = new RightAutoStartCommand();
         leftAuto = new LeftAutoStartCommand();
+        rightAuto = new RightAutoStartCommand();
+        leftAutoNearOnly = new LeftAutoStartNearCommand();
+        rightAutoNearOnly = new RightAutoStartNearCommand();
         centerSwitchAuto = new CenterAutoStartSwitchCommand();
+
 
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
         autoChooser.addObject("Right Start Switch Auto", rightSwitchAuto);
         autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
         autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
-        autoChooser.addObject("Left Start Auto-Priority", leftAuto);
-        autoChooser.addObject("Right Start Auto-Priority", rightAuto);
+        autoChooser.addObject("Left Start NearSw-NearSc-FarSw", leftAuto);
+        autoChooser.addObject("Right Start NearSw-NearSc-FarSw", rightAuto);
+        autoChooser.addObject("Left Start Near-Side Only", leftAutoNearOnly);
+        autoChooser.addObject("Right Start Near-Side Only", rightAutoNearOnly);
         autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
-        autoChooser.addObject("Wait", new WaitCommand(1));
+        autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
+
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
