@@ -37,7 +37,7 @@ public class Drivetrain extends Subsystem1816{
 
     private double gyroAngle, leftTalonVelocity, rightTalonVelocity, talonPositionLeft, talonPositionRight;
 
-    private double initX, initY, initT, xPos, yPos, deltaT;
+    private double initX, initY, initT, xPos, yPos, prevIn, prevX, prevY, initAngle;
 
     private String prevHeadingTarget;
 
@@ -233,6 +233,10 @@ public class Drivetrain extends Subsystem1816{
         initX = 0;
         initY = 0;
         initT = System.currentTimeMillis();
+        prevIn = 0;
+        prevX = 0;
+        prevY = 0;
+        initAngle = gyroAngle;
     }
 
     @Override
@@ -348,15 +352,30 @@ public class Drivetrain extends Subsystem1816{
      talonPositionRight = rightMain.getSelectedSensorPosition(0);
 
 //     Prototype Diff. Steering Coordinate Navigation
-        double vsum = (leftTalonVelocity + rightTalonVelocity);
-        double vdiff = (leftTalonVelocity - rightTalonVelocity);
-        deltaT = System.currentTimeMillis() - initT;
 
-        double deltaX = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.sin( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.sin(gyroAngle) );
-        double deltaY = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.cos( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.cos(gyroAngle) );
+//        "Complicated" Position Tracking
 
-        xPos = initX + deltaX;
-        yPos = initY + deltaY;
+//        double vsum = (leftTalonVelocity + rightTalonVelocity);
+//        double vdiff = (leftTalonVelocity - rightTalonVelocity);
+//        double deltaT = System.currentTimeMillis() - initT;
+//
+//        double deltaX = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.sin( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.sin(theta) );
+//        double deltaY = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.cos( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.cos(theta) );
+//
+//        xPos = prevX + deltaX;
+//        yPos = prevY + deltaY;
+
+
+//        "Simple" Position Tracking
+
+        double avgDistance = ((getLeftTalonInches() - prevIn) + (getRightTalonInches() - prevIn)) / 2;
+        double theta = gyroAngle - initAngle + 90;
+
+        xPos = avgDistance * Math.cos(theta) + prevX;
+        yPos = avgDistance * Math.sin(theta) + prevY;
+
+        prevX = xPos;
+        prevY = yPos;
     }
 
     @Override

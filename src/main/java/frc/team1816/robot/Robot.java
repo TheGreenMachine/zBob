@@ -81,7 +81,8 @@ public class Robot extends TimedRobot {
         autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
-
+        autoChooser.addObject("ArcDrive Enc", new ArcDriveCommand(50,.3,90));
+        autoChooser.addObject("ArcDrive Gyro", new ArcDriveGyroCommand(50,.3,90));
 
         SmartDashboard.putData("Autonomous", autoChooser);
 
@@ -111,7 +112,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
-        posLog = Logging.getInstance("PositionLog");
+        posLog = Logging.getInstance("PosLog");
 
         drivetrain.setDrivetrainBrakeMode();
         drivetrain.initCoordinateTracking();
@@ -166,6 +167,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
+        posLog = Logging.getInstance("PosLog");
 
         drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();
@@ -212,7 +214,7 @@ public class Robot extends TimedRobot {
             System.out.println("Deploying Ramps");
         }
 
-//        logger.log(drivetrain.getPIDTuningString());
+        posLog.log(drivetrain.getCoordinates());
 
         velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
         velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
