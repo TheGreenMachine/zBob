@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1816.robot.commands.*;
 import frc.team1816.robot.subsystems.*;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Waypoint;
 
 
 public class Robot extends TimedRobot {
@@ -140,7 +142,14 @@ public class Robot extends TimedRobot {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
-        Command autoCommand = autoChooser.getSelected();
+//        Command autoCommand = autoChooser.getSelected();
+
+        Waypoint[] waypoints = new Waypoint[] {
+                new Waypoint(14, 23, 0),
+                new Waypoint(24, 10, Pathfinder.d2r(-30))
+        };
+
+        Command autoCommand = new DrivePathFindCommand(waypoints);
 
 //        Command autoCommand = new ArcDriveCommand(48,0.4,90);
 //        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);

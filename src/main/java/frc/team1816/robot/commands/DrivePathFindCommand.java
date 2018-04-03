@@ -15,9 +15,7 @@ import java.io.File;
 
 public class DrivePathFindCommand extends Command {
     private Drivetrain drivetrain;
-    private Waypoint startPoints;
-    private Waypoint midPoint;
-    private Waypoint endPoints;
+    private Waypoint[] points;
     private Trajectory trajectory;
     private Trajectory rightTrajectory;
     private Trajectory leftTrajectory;
@@ -26,42 +24,34 @@ public class DrivePathFindCommand extends Command {
     private double initAngle;
     private int iteration = 0;
 
-    public DrivePathFindCommand(Waypoint startPoints, Waypoint midPoint, Waypoint endPoints) {
+    public DrivePathFindCommand(Waypoint[] points) {
         super("drivepathfindcommand");
         drivetrain = Components.getInstance().drivetrain;
-        this.startPoints = startPoints;
-        this.midPoint = midPoint;
-        this.endPoints = endPoints;
+        this.points = points;
     }
 
     @Override
     protected void initialize() {
         System.out.println("Init started");
 
-        Waypoint[] waypoints = new Waypoint[]{
-                startPoints,
-                midPoint,
-                endPoints
-        };
-
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60);
         System.out.println("Trajectory configured");
-//        trajectory = Pathfinder.generate(waypoints, config);
+        trajectory = Pathfinder.generate(points, config);
 
-        System.out.println("Reading file");
-        File rightCsv = new File("/home/lvuser/pathFinder/right_detailed.csv");
-        File leftCsv = new File("/home/lvuser/pathFinder/left_detailed.csv");
+//        System.out.println("Reading file");
+//        File rightCsv = new File("/home/lvuser/pathFinder/right_detailed.csv");
+//        File leftCsv = new File("/home/lvuser/pathFinder/left_detailed.csv");
 
-        rightTrajectory = Pathfinder.readFromCSV(rightCsv);
-        leftTrajectory = Pathfinder.readFromCSV(leftCsv);
-        System.out.println("Read CSV");
+//        rightTrajectory = Pathfinder.readFromCSV(rightCsv);
+//        leftTrajectory = Pathfinder.readFromCSV(leftCsv);
+//        System.out.println("Read CSV");
 
-//        TankModifier modifier = new TankModifier(trajectory).modify(Drivetrain.DRIVETRAIN_WIDTH_METERS);
+        TankModifier modifier = new TankModifier(trajectory).modify(Drivetrain.DRIVETRAIN_WIDTH);
 
 //        System.out.println(trajectory.length() + " Trajectories calculated");
 
-        left = new EncoderFollower(leftTrajectory);
-        right = new EncoderFollower(rightTrajectory);
+        left = new EncoderFollower(modifier.getLeftTrajectory());
+        right = new EncoderFollower(modifier.getRightTrajectory());
 
         left.configureEncoder((int) drivetrain.talonPositionLeft(), (int) Drivetrain.TICKS_PER_REV, .3333);
         left.configurePIDVA(.05, 0.005, 0.0, 1 / 4, 0);
@@ -107,15 +97,7 @@ public class DrivePathFindCommand extends Command {
         System.out.println("Gyro Heading: " + gyroHeading + "\t Desired Heading: " + desiredHeading);
 
         double angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
-        double turn = 0.03 * angleDifference;
-
-        if (turn > 0) {
-            turn = Math.min(turn, 0.4);
-        } else if (turn < 0) {
-            turn = Math.max(turn, -0.4);
-        } else {
-            turn = 0;
-        }
+        double turn = 0.8 * (-1.0 / 80.0) * angleDifference;
 
         System.out.println("Angle Difference: " + angleDifference);
 
@@ -133,7 +115,7 @@ public class DrivePathFindCommand extends Command {
 //        Trajectory.Segment testSegmentRight = rightTrajectory.get(iteration);
 //        double testRight = testSegmentRight.velocity;
 
-        drivetrain.setDrivetrain(l, r);
+        drivetrain.setDrivetrain(l + turn, r - turn);
     }
 
     @Override
