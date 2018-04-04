@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
 
     public static Logging logger;
     public static Logging posLog;
+
     private Drivetrain drivetrain;
     private Elevator elevator;
     private Collector collector;
@@ -113,6 +114,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
         posLog = Logging.getInstance("PosLog");
+        posLog.log("auto init");
 
         drivetrain.setDrivetrainBrakeMode();
         drivetrain.initCoordinateTracking();
@@ -168,6 +170,7 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
         posLog = Logging.getInstance("PosLog");
+        posLog.log("teleop init");
 
         drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();

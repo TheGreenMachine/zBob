@@ -37,7 +37,8 @@ public class Drivetrain extends Subsystem1816{
 
     private double gyroAngle, leftTalonVelocity, rightTalonVelocity, talonPositionLeft, talonPositionRight;
 
-    private double initX, initY, initT, xPos, yPos, prevIn, prevX, prevY, initAngle;
+    private double initX, initY, initT;
+    private double xPos, yPos, prevInches, prevX, prevY, initAngle;
 
     private String prevHeadingTarget;
 
@@ -233,7 +234,7 @@ public class Drivetrain extends Subsystem1816{
         initX = 0;
         initY = 0;
         initT = System.currentTimeMillis();
-        prevIn = 0;
+        prevInches = 0;
         prevX = 0;
         prevY = 0;
         initAngle = gyroAngle;
@@ -340,7 +341,7 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public String getCoordinates() {
-        return "" + xPos + "," + yPos;
+        return "" + xPos + "," + yPos + getLeftTalonInches() + "," + getRightTalonInches() + "," + getGyroAngle();
     }
 
     @Override
@@ -353,7 +354,7 @@ public class Drivetrain extends Subsystem1816{
 
 //     Prototype Diff. Steering Coordinate Navigation
 
-//        "Complicated" Position Tracking
+//////        "Complicated" Position Tracking
 
 //        double vsum = (leftTalonVelocity + rightTalonVelocity);
 //        double vdiff = (leftTalonVelocity - rightTalonVelocity);
@@ -366,9 +367,9 @@ public class Drivetrain extends Subsystem1816{
 //        yPos = prevY + deltaY;
 
 
-//        "Simple" Position Tracking
+//////        "Simple" Position Tracking
 
-        double avgDistance = ((getLeftTalonInches() - prevIn) + (getRightTalonInches() - prevIn)) / 2;
+        double avgDistance = ((getLeftTalonInches() - prevInches) + (getRightTalonInches() - prevInches)) / 2;
         double theta = gyroAngle - initAngle + 90;
 
         xPos = avgDistance * Math.cos(theta) + prevX;
@@ -376,6 +377,7 @@ public class Drivetrain extends Subsystem1816{
 
         prevX = xPos;
         prevY = yPos;
+        prevInches = avgDistance;
     }
 
     @Override
