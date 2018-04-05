@@ -38,6 +38,8 @@ public class Robot extends TimedRobot {
     private RightAutoStartCommand rightAuto;
     private LeftAutoStartNearCommand leftAutoNearOnly;
     private RightAutoStartNearCommand rightAutoNearOnly;
+    private LeftAutoStartAvoidanceCommand leftAvoidAuto;
+    private RightAutoStartAvoidanceCommand rightAvoidAuto;
     private CenterAutoStartSwitchCommand centerSwitchAuto;
 
 
@@ -67,6 +69,8 @@ public class Robot extends TimedRobot {
         rightAuto = new RightAutoStartCommand();
         leftAutoNearOnly = new LeftAutoStartNearCommand();
         rightAutoNearOnly = new RightAutoStartNearCommand();
+        leftAvoidAuto = new LeftAutoStartAvoidanceCommand();
+        rightAvoidAuto = new RightAutoStartAvoidanceCommand();
         centerSwitchAuto = new CenterAutoStartSwitchCommand();
 
 
@@ -80,6 +84,8 @@ public class Robot extends TimedRobot {
         autoChooser.addObject("Left Start Near-Side Only", leftAutoNearOnly);
         autoChooser.addObject("Right Start Near-Side Only", rightAutoNearOnly);
         autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
+        autoChooser.addObject("Left Start Scale Avoidance Auto", leftAvoidAuto);
+        autoChooser.addObject("Right Start Scale Avoidance Auto", rightAvoidAuto);
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
         autoChooser.addObject("ArcDrive Enc", new ArcDriveCommand(50,.3,90));
@@ -150,6 +156,8 @@ public class Robot extends TimedRobot {
             rightScaleAuto.selectAuto(FMSmessage);
             leftAuto.selectAuto(FMSmessage);
             rightAuto.selectAuto(FMSmessage);
+            leftAvoidAuto.selectAuto(FMSmessage);
+            rightAvoidAuto.selectAuto(FMSmessage);
             centerSwitchAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
