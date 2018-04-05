@@ -29,18 +29,14 @@ public class Robot extends TimedRobot {
     private Gamepad gamepad0, gamepad1;
 
     private SendableChooser<Command> autoChooser;
+    private SendableChooser<String> startPosition;
 
-    private LeftAutoStartSwitchCommand leftSwitchAuto;
-    private RightAutoStartSwitchCommand rightSwitchAuto;
-    private LeftAutoStartScaleCommand leftScaleAuto;
-    private RightAutoStartScaleCommand rightScaleAuto;
-    private LeftAutoStartCommand leftAuto;
-    private RightAutoStartCommand rightAuto;
-    private LeftAutoStartNearCommand leftAutoNearOnly;
-    private RightAutoStartNearCommand rightAutoNearOnly;
-    private LeftAutoStartAvoidanceCommand leftAvoidAuto;
-    private RightAutoStartAvoidanceCommand rightAvoidAuto;
-    private CenterAutoStartSwitchCommand centerSwitchAuto;
+    private SwitchAutoCommand switchAuto;
+    private ScaleAutoCommand scaleAuto;
+    private PriorityAutoCommand priorityAuto;
+    private NearSideAutoCommand nearAuto;
+    private AvoidanceScaleAutoCommand avoidanceScaleAuto;
+    private CenterAutoStartSwitchCommand centerAuto;
 
 
     private NetworkTable table;
@@ -61,31 +57,26 @@ public class Robot extends TimedRobot {
         gamepad0 = Controls.getInstance().gamepad0;
         gamepad1 = Controls.getInstance().gamepad1;
 
-        leftSwitchAuto = new LeftAutoStartSwitchCommand();
-        rightSwitchAuto = new RightAutoStartSwitchCommand();
-        leftScaleAuto = new LeftAutoStartScaleCommand();
-        rightScaleAuto = new RightAutoStartScaleCommand();
-        leftAuto = new LeftAutoStartCommand();
-        rightAuto = new RightAutoStartCommand();
-        leftAutoNearOnly = new LeftAutoStartNearCommand();
-        rightAutoNearOnly = new RightAutoStartNearCommand();
-        leftAvoidAuto = new LeftAutoStartAvoidanceCommand();
-        rightAvoidAuto = new RightAutoStartAvoidanceCommand();
-        centerSwitchAuto = new CenterAutoStartSwitchCommand();
+        switchAuto = new SwitchAutoCommand();
+        scaleAuto = new ScaleAutoCommand();
+        priorityAuto = new PriorityAutoCommand();
+        nearAuto = new NearSideAutoCommand();
+        avoidanceScaleAuto = new AvoidanceScaleAutoCommand();
+        centerAuto = new CenterAutoStartSwitchCommand();
 
+        startPosition = new SendableChooser<>();
+        startPosition.addObject("Left Start", "Left Start");
+        startPosition.addObject("Right Start", "Right Start");
+        SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
-        autoChooser.addObject("Right Start Switch Auto", rightSwitchAuto);
-        autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
-        autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
-        autoChooser.addObject("Left Start NearSw-NearSc-FarSw", leftAuto);
-        autoChooser.addObject("Right Start NearSw-NearSc-FarSw", rightAuto);
-        autoChooser.addObject("Left Start Near-Side Only", leftAutoNearOnly);
-        autoChooser.addObject("Right Start Near-Side Only", rightAutoNearOnly);
-        autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
-        autoChooser.addObject("Left Start Scale Avoidance Auto", leftAvoidAuto);
-        autoChooser.addObject("Right Start Scale Avoidance Auto", rightAvoidAuto);
+        autoChooser.addObject("Switch Auto", switchAuto);
+        autoChooser.addObject("Scale Auto", scaleAuto);
+        autoChooser.addObject("Priority NearSw-NearSc-FarSw Auto", priorityAuto);
+        autoChooser.addObject("Near Side Only Auto", nearAuto);
+        autoChooser.addObject("Avoidance Scale Auto", avoidanceScaleAuto);
+        autoChooser.addObject("Center Switch Auto", centerAuto);
+
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
         autoChooser.addObject("ArcDrive Enc", new ArcDriveCommand(50,.3,90));
@@ -149,27 +140,21 @@ public class Robot extends TimedRobot {
         System.out.println("FMS Data: " + FMSmessage);
         logger.log(FMSmessage);
 
+        String startPos = startPosition.getSelected();
+
         try {
-            leftSwitchAuto.selectAuto(FMSmessage);
-            rightSwitchAuto.selectAuto(FMSmessage);
-            leftScaleAuto.selectAuto(FMSmessage);
-            rightScaleAuto.selectAuto(FMSmessage);
-            leftAuto.selectAuto(FMSmessage);
-            rightAuto.selectAuto(FMSmessage);
-            leftAvoidAuto.selectAuto(FMSmessage);
-            rightAvoidAuto.selectAuto(FMSmessage);
-            centerSwitchAuto.selectAuto(FMSmessage);
+            switchAuto.selectAuto(FMSmessage, startPos);
+            scaleAuto.selectAuto(FMSmessage, startPos);
+            priorityAuto.selectAuto(FMSmessage, startPos);
+            nearAuto.selectAuto(FMSmessage, startPos);
+            avoidanceScaleAuto.selectAuto(FMSmessage, startPos);
+            centerAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
         Command autoCommand = autoChooser.getSelected();
 
-//        Command autoCommand = new ArcDriveCommand(48,0.4,90);
-//        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
-//        Command autoCommand = new RotateXDegreesCommand(-90,true);
-//        Command autoCommand = new DriveXInchesCommand(240,0.75);
-//        Command autoCommand = new setElevatorHeightPercentCommand(75);
         System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
     }
