@@ -14,6 +14,7 @@ public class PriorityAutoCommand extends CommandGroup {
         try {
             switchPos = data.charAt(0);
             scalePos = data.charAt(1);
+            startPos = pos.charAt(0);
 
         } catch (Exception e) {
             System.out.println("NO TARGET!");
@@ -188,7 +189,7 @@ public class PriorityAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(20, -.5));
 
             } else {
-                System.out.println("Switch ---- Auto-Run");
+                System.out.println("Priority ---- Auto-Run");
                 addSequential(new DriveXInchesCommand(140,0.5));
             }
         } else {

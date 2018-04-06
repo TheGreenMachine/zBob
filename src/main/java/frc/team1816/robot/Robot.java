@@ -38,15 +38,16 @@ public class Robot extends TimedRobot {
     private AvoidanceScaleAutoCommand avoidanceScaleAuto;
     private CenterAutoStartSwitchCommand centerAuto;
 
-
     private NetworkTable table;
     private NetworkTable velocityGraph;
+    private NetworkTable avoidanceWaitTime;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
+        avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance Scale Auto Time To Wait (seconds)");
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -94,6 +95,8 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Left Set V").setDouble(0);
         velocityGraph.getEntry("Right Velocity").setDouble(0);
         velocityGraph.getEntry("Right Set V").setDouble(0);
+
+        avoidanceWaitTime.getEntry("Wait Time (s)").setDouble(0);
     }
 
     @Override
@@ -123,6 +126,8 @@ public class Robot extends TimedRobot {
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();
+
+        double secondsToWait = avoidanceWaitTime.getEntry("Wait Time (s)").getDouble(0);
 
         double initTime = System.currentTimeMillis();
         String FMSmessage = null;

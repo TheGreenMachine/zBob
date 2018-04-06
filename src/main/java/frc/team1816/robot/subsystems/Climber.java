@@ -30,7 +30,7 @@ public class Climber extends Subsystem {
         this.climberSlaveOne.setNeutralMode(NeutralMode.Brake);
         this.climberSlaveTwo.setNeutralMode(NeutralMode.Brake);
 
-        shifterSolenoid.set(false); //TODO (double and triple) check tubing so false = disengaged
+        shifterSolenoid.set(false);
     }
 
     public void setClimberSpeed(double speed) {

@@ -23,7 +23,7 @@ public class ScaleAutoCommand extends CommandGroup {
 
         if(startPos == 'L') {
             if (target == 'L') {
-                System.out.println("2 Cube Scale ---- Target: L");
+                System.out.println("LStart Scale ---- Target: L");
 
                 addParallel(new LowerCollectorClawCommand(false,.5));
 
@@ -57,7 +57,7 @@ public class ScaleAutoCommand extends CommandGroup {
 //                addSequential(new SetCollectorSpeedCommand(1));
 //            }
             } else if (target == 'R') {
-                System.out.println("Scale ---- Target: R");
+                System.out.println("LStart Scale ---- Target: R");
 
                 addParallel(new LowerCollectorClawCommand(false,.5));
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
@@ -83,7 +83,7 @@ public class ScaleAutoCommand extends CommandGroup {
             }
         } else if (startPos == 'R') {
             if (target == 'R') {
-                System.out.println("2 Cube Scale ---- Target: R");
+                System.out.println("RScale ---- Target: R");
 
                 addParallel(new LowerCollectorClawCommand(false,.5));
 
@@ -117,7 +117,7 @@ public class ScaleAutoCommand extends CommandGroup {
 //                addSequential(new SetCollectorSpeedCommand(1));
 //            }
             } else if (target == 'L') {
-                System.out.println("Scale ---- Target: R");
+                System.out.println("RScale ---- Target: R");
 
                 addParallel(new LowerCollectorClawCommand(false,.5));
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
