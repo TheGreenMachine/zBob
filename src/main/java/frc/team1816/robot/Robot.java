@@ -4,8 +4,8 @@ import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
         avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance Scale Auto Time To Wait (seconds)");
+        CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -152,7 +153,7 @@ public class Robot extends TimedRobot {
             scaleAuto.selectAuto(FMSmessage, startPos);
             priorityAuto.selectAuto(FMSmessage, startPos);
             nearAuto.selectAuto(FMSmessage, startPos);
-            avoidanceScaleAuto.selectAuto(FMSmessage, startPos);
+            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWait);
             centerAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
