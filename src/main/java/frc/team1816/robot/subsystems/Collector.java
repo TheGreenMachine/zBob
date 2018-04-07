@@ -13,7 +13,7 @@ public class Collector extends Subsystem {
     private TalonSRX left;
     private TalonSRX clawLift;
 
-    private double outputCurrent;
+    private double outputCurrent, clawEncPos;
     private static final double MAX_ENC_TICKS = 1000;
 
     public Collector(int leftTalon, int rightTalon, int clawLift) {
@@ -41,19 +41,19 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-        if(clawPosition() > MAX_ENC_TICKS) {
-            setClawSpeed(0);
-        } else {
+//        if(clawPosition() > MAX_ENC_TICKS) {
+//            setClawSpeed(0);
+//        } else {
             setClawSpeed(-.2);
-        }
+//        }
     }
 
     public void clawLiftDown() {
-        if(clawPosition() < 10) {
-            setClawSpeed(0);
-        } else {
+//        if(clawPosition() < 10) {
+//            setClawSpeed(0);
+//        } else {
             setClawSpeed(.2);
-        }
+//        }
     }
 
     public void clawLiftStop() {
@@ -65,7 +65,7 @@ public class Collector extends Subsystem {
     }
 
     public double clawPosition() {
-        return clawLift.getSelectedSensorPosition(0);
+        return clawEncPos;
     }
 
     public void setClawSpeed(double clawSpeed) {
@@ -80,11 +80,13 @@ public class Collector extends Subsystem {
 
     public void periodic(){
        outputCurrent =  clawLift.getOutputCurrent();
+       clawEncPos = clawLift.getSelectedSensorPosition(0);
     }
 
     public void initSendable(SendableBuilder builder){
         super.initSendable(builder);
         builder.addDoubleProperty("Output Current", this::getOutputCurrent, null);
+        builder.addDoubleProperty("Claw Encoder Pos", this::clawPosition, null);
     }
 
 }
