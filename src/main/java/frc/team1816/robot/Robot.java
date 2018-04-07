@@ -127,6 +127,7 @@ public class Robot extends TimedRobot {
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();
+        collector.resetClawEnc();
 
         double secondsToWait = avoidanceWaitTime.getEntry("Wait Time (s)").getDouble(0);
 

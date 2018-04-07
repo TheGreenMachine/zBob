@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
@@ -12,10 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 public class Collector extends Subsystem {
     private TalonSRX right;
     private TalonSRX left;
-    private double outputCurrent;
-
-//    private Relay clawLift;
     private TalonSRX clawLift;
+
+    private double outputCurrent;
+    private static final double MAX_ENC_TICKS = 1000;
 
     public Collector(int leftTalon, int rightTalon, int clawLift) {
         super();
@@ -32,6 +31,7 @@ public class Collector extends Subsystem {
 
         this.left.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+        this.clawLift.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,0,10);
 
     }
 
@@ -41,15 +41,31 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-        clawLift.set(ControlMode.PercentOutput,-.3);
+        if(clawPosition() > MAX_ENC_TICKS) {
+            setClawSpeed(0);
+        } else {
+            setClawSpeed(-.2);
+        }
     }
 
     public void clawLiftDown() {
-        clawLift.set(ControlMode.PercentOutput, .4);
+        if(clawPosition() < 10) {
+            setClawSpeed(0);
+        } else {
+            setClawSpeed(.2);
+        }
     }
 
     public void clawLiftStop() {
-        clawLift.set(ControlMode.PercentOutput, 0);
+        setClawSpeed(0);
+    }
+
+    public void resetClawEnc() {
+        clawLift.getSensorCollection().setQuadraturePosition(0,10);
+    }
+
+    public double clawPosition() {
+        return clawLift.getSelectedSensorPosition(0);
     }
 
     public void setClawSpeed(double clawSpeed) {
@@ -61,6 +77,7 @@ public class Collector extends Subsystem {
     public double getOutputCurrent(){
         return outputCurrent;
     }
+
     public void periodic(){
        outputCurrent =  clawLift.getOutputCurrent();
     }
