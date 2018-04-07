@@ -25,7 +25,7 @@ public class NearSideAutoCommand extends CommandGroup {
             if(switchPos == 'L') {
                 System.out.println("LStart Auto-Priority Near Only ---- Target: LSwitch");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
                 addSequential(new DriveXInchesCommand(154, 0.5));
@@ -47,7 +47,7 @@ public class NearSideAutoCommand extends CommandGroup {
             } else if(scalePos == 'L') {
                 System.out.println("LStart Auto-Priority Near Only ---- Target: LScale");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
@@ -86,7 +86,7 @@ public class NearSideAutoCommand extends CommandGroup {
             if(switchPos == 'R') {
                 System.out.println("RStart Auto-Priority Near Only ---- Target: RSwitch");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
                 addSequential(new DriveXInchesCommand(154, 0.5));
@@ -108,7 +108,7 @@ public class NearSideAutoCommand extends CommandGroup {
             } else if(scalePos == 'R') {
                 System.out.println("RStart Auto-Priority Near Only ---- Target: RScale");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));

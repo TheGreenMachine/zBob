@@ -17,10 +17,10 @@ public class Collector extends Subsystem {
     private static final double LOW_LIMIT = 1920;
     private static final double HIGH_LIMIT = 10;
 
-    private static final int kP = 6;
-    private static final int kI = 0;
-    private static final int kD = 60;
-    private static final int kF = 0;
+    private static final double kP = 5.5;
+    private static final double kI = 0;
+    private static final double kD = 60;
+    private static final double kF = 0;
 
     private static final int MAX_CLAW_VEL_TICKS_PER_100MS = 600;
 

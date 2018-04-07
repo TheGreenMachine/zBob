@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
 
         avoidanceWaitTime.getEntry("Wait Time (s)").setDouble(0);
 
-        collector.resetClawEnc();
+        collector.resetClawEnc(); //todo consider removing as redundancy
     }
 
     @Override
@@ -116,9 +116,10 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
-        posLog = Logging.getInstance("PosLog");
-        posLog.log("auto init");
+        posLog = Logging.getInstance("AutoPosLog");
+        posLog.log("x,y,leftInches,rightInches,gyro");
 
+        collector.resetClawEnc();
         drivetrain.setDrivetrainBrakeMode();
         drivetrain.initCoordinateTracking();
 
@@ -170,8 +171,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
-        posLog = Logging.getInstance("PosLog");
-        posLog.log("teleop init");
+        posLog = Logging.getInstance("TelePosLog");
+        posLog.log("x,y,leftInches,rightInches,gyro");
 
         drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();

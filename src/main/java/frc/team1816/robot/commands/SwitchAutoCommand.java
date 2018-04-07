@@ -25,7 +25,7 @@ public class SwitchAutoCommand extends CommandGroup {
             if(target == 'L') {
                 System.out.println("LStart Switch ---- Target: L");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
                 addSequential(new DriveXInchesCommand(154, 0.5));
@@ -47,7 +47,7 @@ public class SwitchAutoCommand extends CommandGroup {
             } else if (target == 'R'){
                 System.out.println("LStart witch ---- Target: R");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
                 addSequential(new DriveXInchesCommand(213, 0.7));
@@ -76,7 +76,7 @@ public class SwitchAutoCommand extends CommandGroup {
             if (target == 'R') {
                 System.out.println("RStart Switch ---- Target: R");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
                 addSequential(new DriveXInchesCommand(154, 0.5));
@@ -98,7 +98,7 @@ public class SwitchAutoCommand extends CommandGroup {
             } else if (target == 'L') {
                 System.out.println("RStart Switch ---- Target: L");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
                 addSequential(new DriveXInchesCommand(213, 0.7));

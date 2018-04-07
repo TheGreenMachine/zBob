@@ -76,6 +76,10 @@ public class Elevator extends Subsystem {
         return elevatorOutputV;
     }
 
+    public double getSetSpeed() {
+        return speed;
+    }
+
     public void resetEncoders() {
 //        System.out.println("Resetting Encoder");
         elevatorEncoder.reset();
@@ -119,6 +123,7 @@ public class Elevator extends Subsystem {
         builder.addDoubleProperty("Output Voltage", this::getElevatorOutputVoltage, null);
         builder.addDoubleProperty("Elevator Ticks", this::getTicks, null);
         builder.addDoubleProperty("Height %", this::getHeightPercent, null);
+        builder.addDoubleProperty("Set Power %", this ::getSetSpeed, null);
         builder.addBooleanProperty("Upper Lim", this::getUpperLimit,null);
         builder.addBooleanProperty("Lower Lim", this::getLowerLimit,null);
     }

@@ -21,7 +21,7 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           if (target == 'L'){
                System.out.println("Center Switch ---- Target: L");
 
-               addParallel(new LowerCollectorClawCommand(false,.5));
+               addParallel(new LowerCollectorClawCommand(false,2));
                addSequential(new DriveXInchesCommand(33, 0.7));
                addSequential(new RotateXDegreesCommand(-90, true, 0.35), 3);
                addSequential(new DriveXInchesCommand(73, 0.7));
@@ -52,7 +52,7 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           } else if (target == 'R'){
                System.out.println("Center Switch ---- Target: R");
 
-               addParallel(new LowerCollectorClawCommand(false,.5));
+               addParallel(new LowerCollectorClawCommand(false,2));
                addSequential(new DriveXInchesCommand(33, 0.5));
                addSequential(new RotateXDegreesCommand(90, true, 0.3), 3);
                addSequential(new DriveXInchesCommand(60, 0.5));

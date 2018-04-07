@@ -26,7 +26,7 @@ public class PriorityAutoCommand extends CommandGroup {
             if(switchPos == 'L') {
                 System.out.println("LStart Auto-Priority ---- Target: LSwitch");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
                 addSequential(new DriveXInchesCommand(154, 0.5));
@@ -48,13 +48,14 @@ public class PriorityAutoCommand extends CommandGroup {
             } else if(scalePos == 'L') {
                 System.out.println("LStart Auto-Priority ---- Target: LScale");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
                 addSequential(new DriveXInchesCommand(248, 0.6));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.3), 3);
+                addSequential(new DriveXInchesCommand(8,0.4),2);
                 addSequential(new WaitCommand(0.1));
 
                 addSequential(new SetCollectorSpeedCommand(1));
@@ -82,7 +83,7 @@ public class PriorityAutoCommand extends CommandGroup {
             } else if(switchPos == 'R') {
                 System.out.println("LStart Auto-Priority ---- Target: Rswitch");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
                 addSequential(new DriveXInchesCommand(213, 0.7));
@@ -111,7 +112,7 @@ public class PriorityAutoCommand extends CommandGroup {
             if(switchPos == 'R') {
                 System.out.println("RStart Auto-Priority ---- Target: RSwitch");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(40,.5),2);
 
                 addSequential(new DriveXInchesCommand(154, 0.5));
@@ -133,13 +134,14 @@ public class PriorityAutoCommand extends CommandGroup {
             } else if(scalePos == 'R') {
                 System.out.println("RStart Auto-Priority ---- Target: RScale");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
                 addSequential(new DriveXInchesCommand(248, 0.6));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
+                addSequential(new DriveXInchesCommand(8,0.4),2);
                 addSequential(new WaitCommand(0.1));
 
                 addSequential(new SetCollectorSpeedCommand(1));
@@ -167,7 +169,7 @@ public class PriorityAutoCommand extends CommandGroup {
             } else if(switchPos == 'L') {
                 System.out.println("RStart Auto-Priority ---- Target: LSwitch");
 
-                addParallel(new LowerCollectorClawCommand(false,.5));
+                addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20,.5),2);
 
                 addSequential(new DriveXInchesCommand(213, 0.7));

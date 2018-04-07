@@ -29,6 +29,8 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
             if(target == 'L') {
                 System.out.println("LStart Scale Avoidance ---- Target: L");
 
+                addSequential(new LowerCollectorClawCommand(false, 2));
+
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(-45,true,0.2),2);
                 addSequential(new DriveXInchesCommand(24,0.5),2);
@@ -50,6 +52,8 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
             } else if (target == 'R'){
                 System.out.println("LStart Scale Avoidance ---- Target: R");
+
+                addSequential(new LowerCollectorClawCommand(false, 2));
 
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(90,true,0.2),2);
@@ -81,6 +85,8 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
             if(target == 'R') {
                 System.out.println("RStart Scale Avoidance ---- Target: R");
 
+                addSequential(new LowerCollectorClawCommand(false, 2));
+
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(45,true,0.2),2);
                 addSequential(new DriveXInchesCommand(24,0.5),2);
@@ -102,6 +108,8 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
             } else if (target == 'L'){
                 System.out.println("RStart Scale Avoidance ---- Target: L");
+
+                addSequential(new LowerCollectorClawCommand(false, 2));
 
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(-90,true,0.2),2);
