@@ -13,8 +13,16 @@ public class Collector extends Subsystem {
     private TalonSRX left;
     private TalonSRX clawLift;
 
-    private double outputCurrent, clawEncPos;
-    private static final double MAX_ENC_TICKS = 1000;
+    private double outputCurrent, clawEncPos, clawVel;
+    private static final double LOW_LIMIT = 1920;
+    private static final double HIGH_LIMIT = 10;
+
+    private static final int kP = 6;
+    private static final int kI = 0;
+    private static final int kD = 60;
+    private static final int kF = 0;
+
+    private static final int MAX_CLAW_VEL_TICKS_PER_100MS = 600;
 
     public Collector(int leftTalon, int rightTalon, int clawLift) {
         super();
@@ -33,6 +41,16 @@ public class Collector extends Subsystem {
         this.right.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
         this.clawLift.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,0,10);
 
+        this.clawLift.configNominalOutputForward(0,10);
+        this.clawLift.configNominalOutputReverse(0,10);
+        this.clawLift.configPeakOutputForward(.6,10);
+        this.clawLift.configPeakOutputReverse(-.6,10);
+
+        this.clawLift.config_kP(0, kP, 20);
+        this.clawLift.config_kI(0, kI,20);
+        this.clawLift.config_kD(0, kD,20);
+        this.clawLift.config_kF(0, kF, 20);
+        this.clawLift.config_IntegralZone(0, 0, 20);
     }
 
     public void setCollectorSpeed(double lpower, double rpower) {
@@ -41,19 +59,19 @@ public class Collector extends Subsystem {
     }
 
     public void clawLiftUp() {
-//        if(clawPosition() > MAX_ENC_TICKS) {
-//            setClawSpeed(0);
-//        } else {
-            setClawSpeed(-.2);
-//        }
+        if(getClawPosition() < HIGH_LIMIT) {
+            setClawSpeed(0);
+        } else {
+            setClawSpeed(-0.6);
+        }
     }
 
     public void clawLiftDown() {
-//        if(clawPosition() < 10) {
-//            setClawSpeed(0);
-//        } else {
-            setClawSpeed(.2);
-//        }
+        if(getClawPosition() > LOW_LIMIT) {
+            setClawSpeed(0);
+        } else {
+            setClawSpeed(0.6);
+        }
     }
 
     public void clawLiftStop() {
@@ -64,12 +82,19 @@ public class Collector extends Subsystem {
         clawLift.getSensorCollection().setQuadraturePosition(0,10);
     }
 
-    public double clawPosition() {
+    public double getClawPosition() {
         return clawEncPos;
     }
 
-    public void setClawSpeed(double clawSpeed) {
-        clawLift.set(ControlMode.PercentOutput, clawSpeed);
+    public double getClawVel() {
+        return clawVel;
+    }
+
+    public void setClawSpeed(double clawPow) {
+        double clawVelocity = clawPow * MAX_CLAW_VEL_TICKS_PER_100MS;
+        clawLift.set(ControlMode.Velocity, clawVelocity);
+
+//        clawLift.set(ControlMode.PercentOutput, clawPow);
     }
 
     public void initDefaultCommand() {
@@ -81,12 +106,14 @@ public class Collector extends Subsystem {
     public void periodic(){
        outputCurrent =  clawLift.getOutputCurrent();
        clawEncPos = clawLift.getSelectedSensorPosition(0);
+       clawVel = clawLift.getSelectedSensorVelocity(0);
     }
 
     public void initSendable(SendableBuilder builder){
         super.initSendable(builder);
         builder.addDoubleProperty("Output Current", this::getOutputCurrent, null);
-        builder.addDoubleProperty("Claw Encoder Pos", this::clawPosition, null);
+        builder.addDoubleProperty("Claw Position", this::getClawPosition, null);
+        builder.addDoubleProperty("Claw Velocity", this::getClawVel, null);
     }
 
 }

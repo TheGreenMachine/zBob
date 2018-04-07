@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.edinarobotics.utils.subsystems.Subsystem1816;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 public class Elevator extends Subsystem {
 
@@ -14,6 +15,9 @@ public class Elevator extends Subsystem {
     private DigitalInput upperLimit, lowerLimit;
     private double speed;
     private Encoder elevatorEncoder;
+
+    private double elevatorEncPos, elevatorOutputV, elevatorHeightPercent;
+    private boolean upperLim, lowerLim;
 
     private static int MAX_ENCODER_TICKS = 3100;
 
@@ -53,23 +57,23 @@ public class Elevator extends Subsystem {
 
     //    Limit Switches are true when open
     public boolean getUpperLimit() {
-        return !upperLimit.get();
+        return upperLim;
     }
 
     public boolean getLowerLimit() {
-        return !lowerLimit.get();
+        return lowerLim;
     }
 
     public double getTicks() {
-        return elevatorEncoder.get();
+        return elevatorEncPos;
     }
 
     public double getHeightPercent() {
-        return (( getTicks() / MAX_ENCODER_TICKS ) * 100);
+        return elevatorHeightPercent;
     }
 
     public double getElevatorOutputVoltage() {
-        return elevatorMaster.getMotorOutputPercent();
+        return elevatorOutputV;
     }
 
     public void resetEncoders() {
@@ -88,15 +92,11 @@ public class Elevator extends Subsystem {
     }
 
     public void periodic() {
-//        System.out.println("periodic | Height Percent: " + getHeightPercent() + "\tspeed: " + speed);
-
-//        ENCODER BROKEN
-//
-//        if(getHeightPercent() < 10 ) {
-//            //elevator ramp down
-//            speed *= 0.5;
-//            elevatorMaster.set(ControlMode.PercentOutput, speed);
-//        }
+        elevatorEncPos = elevatorEncoder.get();
+        elevatorHeightPercent = ( getTicks() / MAX_ENCODER_TICKS ) * 100;
+        elevatorOutputV = elevatorMaster.getMotorOutputPercent();
+        upperLim = !upperLimit.get();
+        lowerLim = !lowerLimit.get();
 
         if (getUpperLimit() && speed > 0) {
             System.out.println("periodic: stopped elevator up");
@@ -114,7 +114,15 @@ public class Elevator extends Subsystem {
         }
     }
 
-    @Override
+    public void initSendable(SendableBuilder builder){
+        super.initSendable(builder);
+        builder.addDoubleProperty("Output Voltage", this::getElevatorOutputVoltage, null);
+        builder.addDoubleProperty("Elevator Ticks", this::getTicks, null);
+        builder.addDoubleProperty("Height %", this::getHeightPercent, null);
+        builder.addBooleanProperty("Upper Lim", this::getUpperLimit,null);
+        builder.addBooleanProperty("Lower Lim", this::getLowerLimit,null);
+    }
+
     protected void initDefaultCommand() {
 
     }

@@ -54,4 +54,3 @@ public class Climber extends Subsystem {
     public void initDefaultCommand() {
     }
 }
-

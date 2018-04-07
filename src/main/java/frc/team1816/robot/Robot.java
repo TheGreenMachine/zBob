@@ -98,6 +98,8 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Right Set V").setDouble(0);
 
         avoidanceWaitTime.getEntry("Wait Time (s)").setDouble(0);
+
+        collector.resetClawEnc();
     }
 
     @Override
@@ -127,7 +129,6 @@ public class Robot extends TimedRobot {
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();
-        collector.resetClawEnc();
 
         double secondsToWait = avoidanceWaitTime.getEntry("Wait Time (s)").getDouble(0);
 
