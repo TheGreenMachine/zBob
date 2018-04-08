@@ -36,17 +36,19 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
                addSequential(new SetCollectorSpeedCommand(0));
                addSequential(new DriveXInchesCommand(12, -0.5),3);
 
-//               addSequential(new RotateXDegreesCommand(90, true, .3));
-//               addParallel(new SetCollectorSpeedCommand(-1));
-//               addSequential(new DriveXInchesCommand(75,.5 ));
-//               addSequential(new WaitCommand(.5));
-//               addSequential(new SetCollectorSpeedCommand(0));
-//               addSequential(new DriveXInchesCommand(75, -5));
-//               addSequential(new RotateXDegreesCommand(-90, true, .3));
-//               addSequential(new DriveXInchesCommand(12, .5));
-//               addSequential(new SetCollectorSpeedCommand(1));
-//               addSequential(new WaitCommand(.4));
-//               addSequential(new SetCollectorSpeedCommand(0));
+               addParallel(new LowerElevatorCommand());
+               addSequential(new RotateXDegreesCommand(85, true, .3));
+               addParallel(new SetCollectorSpeedCommand(-1));
+               addSequential(new DriveXInchesCommand(75,.5 ));
+               addSequential(new WaitCommand(.5));
+               addSequential(new SetCollectorSpeedCommand(0));
+               addSequential(new DriveXInchesCommand(75, -.5));
+               addSequential(new RotateXDegreesCommand(-85, true, .3));
+               addSequential(new DriveXInchesCommand(12, .5),2);
+               addSequential(new SetElevatorHeightPercentCommand(40));
+               addSequential(new SetCollectorSpeedCommand(1));
+               addSequential(new WaitCommand(.4));
+               addSequential(new SetCollectorSpeedCommand(0));
 
 
           } else if (target == 'R'){
@@ -57,7 +59,7 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
                addSequential(new RotateXDegreesCommand(90, true, 0.3), 3);
                addSequential(new DriveXInchesCommand(60, 0.5));
 
-               addParallel(new SetElevatorHeightPercentCommand(40, 0.5), 2);
+               addParallel(new SetElevatorHeightPercentCommand(40, 0.7), 2);
 
                addSequential(new RotateXDegreesCommand(-90, true, 0.3), 3);
                addSequential(new DriveXInchesCommand(63, 0.5));
@@ -67,17 +69,19 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
                addSequential(new SetCollectorSpeedCommand(0));
                addSequential(new DriveXInchesCommand(12, -0.5),3);
 
-//               addSequential(new RotateXDegreesCommand(-90, true, .3));
-//               addParallel(new SetCollectorSpeedCommand(-1));
-//               addSequential(new DriveXInchesCommand(75,.5 ));
-//               addSequential(new WaitCommand(.5));
-//               addSequential(new SetCollectorSpeedCommand(0));
-//               addSequential(new DriveXInchesCommand(75, -5));
-//               addSequential(new RotateXDegreesCommand(90, true, .3));
-//               addSequential(new DriveXInchesCommand(12, .5));
-//               addSequential(new SetCollectorSpeedCommand(1));
-//               addSequential(new WaitCommand(.4));
-//               addSequential(new SetCollectorSpeedCommand(0));
+               addParallel(new LowerElevatorCommand());
+               addSequential(new RotateXDegreesCommand(-85, true, .3));
+               addParallel(new SetCollectorSpeedCommand(-1));
+               addSequential(new DriveXInchesCommand(75,.5 ));
+               addSequential(new WaitCommand(.5));
+               addSequential(new SetCollectorSpeedCommand(0));
+               addSequential(new DriveXInchesCommand(75, -.5));
+               addSequential(new RotateXDegreesCommand(85, true, .3));
+               addSequential(new DriveXInchesCommand(12, .5));
+               addSequential(new SetElevatorHeightPercentCommand(40));
+               addSequential(new SetCollectorSpeedCommand(1));
+               addSequential(new WaitCommand(.4));
+               addSequential(new SetCollectorSpeedCommand(0));
 
 
           } else {
