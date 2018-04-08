@@ -33,7 +33,6 @@ public class ScaleAutoCommand extends CommandGroup {
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.35), 5);
                 addSequential(new DriveXInchesCommand(12,0.6),2);
-                addSequential(new WaitCommand(0.1));
 
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
@@ -63,14 +62,13 @@ public class ScaleAutoCommand extends CommandGroup {
                 addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
 
-                addSequential(new DriveXInchesCommand(213, 0.7));
-                addSequential(new RotateXDegreesCommand(90,true,.32),3);
-                addSequential(new DriveXInchesCommand(208, 0.7,0.4,0.2));
+                addSequential(new DriveXInchesCommand(220, 0.8));
+                addSequential(new RotateXDegreesCommand(90,true,.3),3);
+                addSequential(new DriveXInchesCommand(200, 0.7,0.4,0.2));
                 addSequential(new RotateXDegreesCommand(-90,true,.32),3);
-                addParallel(new RaiseElevatorCommand());
-                addSequential(new DriveXInchesCommand(52,0.8),5);
+                addSequential(new RaiseElevatorCommand());
+                addSequential(new DriveXInchesCommand(48,0.8),3);
 
-                addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
@@ -94,7 +92,6 @@ public class ScaleAutoCommand extends CommandGroup {
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(-45, true, 0.35), 5);
                 addSequential(new DriveXInchesCommand(12,0.6),2);
-                addSequential(new WaitCommand(0.1));
 
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
@@ -124,14 +121,13 @@ public class ScaleAutoCommand extends CommandGroup {
                 addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
 
-                addSequential(new DriveXInchesCommand(213, 0.7));
+                addSequential(new DriveXInchesCommand(220, 0.8));
                 addSequential(new RotateXDegreesCommand(-90,true,.32),3);
-                addSequential(new DriveXInchesCommand(208, 0.7,0.4,0.2));
+                addSequential(new DriveXInchesCommand(200, 0.7,0.4,0.2));
                 addSequential(new RotateXDegreesCommand(90,true,.32),3);
-                addParallel(new RaiseElevatorCommand());
-                addSequential(new DriveXInchesCommand(52,0.8),5);
+                addSequential(new RaiseElevatorCommand());
+                addSequential(new DriveXInchesCommand(48,0.8),3);
 
-                addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
