@@ -120,7 +120,7 @@ public class Drivetrain extends Subsystem1816{
         this.leftMain.selectProfileSlot(0,0);
         this.rightMain.selectProfileSlot(0,0);
 
-        //TODO || code is to config practice bot
+        //TODO | code is to config practice bot
 //        this.leftMain.setSensorPhase(true);
 //        this.rightMain.setSensorPhase(true);
 
@@ -238,6 +238,7 @@ public class Drivetrain extends Subsystem1816{
         prevX = 0;
         prevY = 0;
         initAngle = gyroAngle;
+        resetEncoders();
     }
 
     @Override
@@ -355,17 +356,17 @@ public class Drivetrain extends Subsystem1816{
 //     Prototype Diff. Steering Coordinate Navigation
 
 //////        "Complicated" Position Tracking
-
+//
 //        double vsum = (leftTalonVelocity + rightTalonVelocity);
 //        double vdiff = (leftTalonVelocity - rightTalonVelocity);
 //        double deltaT = System.currentTimeMillis() - initT;
 //
-//        double deltaX = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.sin( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.sin(theta) );
-//        double deltaY = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.cos( (vdiff * deltaT ) / DRIVETRAIN_WIDTH - Math.cos(theta) );
+//        double deltaX = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.sin( (vdiff * deltaT / DRIVETRAIN_WIDTH ) - Math.sin(initAngle) );
+//        double deltaY = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.cos( (vdiff * deltaT / DRIVETRAIN_WIDTH ) - Math.cos(initAngle) );
 //
-//        xPos = prevX + deltaX;
-//        yPos = prevY + deltaY;
-
+//        xPos = initX + deltaX;
+//        yPos = initY + deltaY;
+//
 
 //////        "Simple" Position Tracking
 
