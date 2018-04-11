@@ -41,9 +41,6 @@ public class Controls {
 
         gamepad1.dPadUp().whenPressed(new RaiseElevatorCommand());
         gamepad1.dPadDown().whenPressed(new LowerElevatorCommand());
-
-        gamepad1.dPadLeft().whenPressed(new HoldElevatorPosCommand(true));
-        gamepad1.dPadLeft().whenReleased(new HoldElevatorPosCommand(false));
     }
 
     public static Controls getInstance(){
