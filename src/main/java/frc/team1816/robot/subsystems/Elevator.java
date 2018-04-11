@@ -39,19 +39,19 @@ public class Elevator extends Subsystem {
         elevatorEncoder.setReverseDirection(true);
     }
 
-    public void setElevatorSpeed(double inspeed) {
-        if (this.speed != inspeed) {
-            this.speed = inspeed;
+    public void setElevatorSpeed(double inputSpeed) {
+        if (this.speed != inputSpeed) {
+            this.speed = inputSpeed;
 
-            if (getUpperLimit() && speed > 0) {
+            if (getUpperLimit() && this.speed > 0) {
                 System.out.println("set speed: stopped elevator up");
-                speed = 0;
-            } else if (getLowerLimit() && speed < 0) {
+                this.speed = 0;
+            } else if (getLowerLimit() && this.speed < 0) {
                 System.out.println("set speed: stopped elevator down");
-                speed = 0;
+                this.speed = 0;
             }
 
-            elevatorMaster.set(ControlMode.PercentOutput, speed);
+            elevatorMaster.set(ControlMode.PercentOutput, this.speed);
         }
     }
 

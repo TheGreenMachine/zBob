@@ -29,6 +29,7 @@ public class Controls {
         //Driver Controller Mapping
         gamepad0.leftBumper().whenPressed(new ToggleSlowModeCommand(true));
         gamepad0.leftBumper().whenReleased(new ToggleSlowModeCommand(false));
+
         gamepad0.diamondUp().whenPressed(new ToggleDrivetrainVbusMode(true));
         gamepad0.diamondDown().whenPressed(new ToggleDrivetrainVbusMode(false));
 
@@ -40,8 +41,9 @@ public class Controls {
 
         gamepad1.dPadUp().whenPressed(new RaiseElevatorCommand());
         gamepad1.dPadDown().whenPressed(new LowerElevatorCommand());
-        gamepad1.dPadLeft().whenPressed(new SetElevatorHeightPercentCommand(30));
-        gamepad1.dPadRight().whenPressed(new SetElevatorHeightPercentCommand(60));
+
+        gamepad1.dPadLeft().whenPressed(new HoldElevatorPosCommand(true));
+        gamepad1.dPadLeft().whenReleased(new HoldElevatorPosCommand(false));
     }
 
     public static Controls getInstance(){
