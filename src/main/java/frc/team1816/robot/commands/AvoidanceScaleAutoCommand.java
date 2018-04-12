@@ -5,15 +5,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AvoidanceScaleAutoCommand extends CommandGroup {
     char target;
     char startPos;
-    double secondsToWait = 0;
+    double secondsToWaitNear = 0;
+    double secondsToWaitFar = 0;
 
     public AvoidanceScaleAutoCommand() {
 
     }
 
-    public void selectAuto(String data, String pos, double wait) {
+    public void selectAuto(String data, String pos, double nearWait, double farWait) {
 
-        this.secondsToWait = wait;
+        this.secondsToWaitNear = nearWait;
+        this.secondsToWaitFar = farWait;
 
         try {
             target = data.charAt(1);
@@ -38,7 +40,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
                 addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWait));
+                addSequential(new WaitCommand(secondsToWaitNear));
                 addSequential(new DriveXInchesCommand(40,0.7),3);
 
                 addSequential(new RaiseElevatorCommand(),3);
@@ -65,7 +67,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
                 addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWait));
+                addSequential(new WaitCommand(secondsToWaitFar));
                 addSequential(new DriveXInchesCommand(40,0.7),3);
 
                 addSequential(new RaiseElevatorCommand(),3);
@@ -94,7 +96,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
                 addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWait));
+                addSequential(new WaitCommand(secondsToWaitNear));
                 addSequential(new DriveXInchesCommand(40,0.7),3);
 
                 addSequential(new RaiseElevatorCommand(),3);
@@ -121,7 +123,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
                 addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWait));
+                addSequential(new WaitCommand(secondsToWaitFar));
                 addSequential(new DriveXInchesCommand(40,0.7),3);
 
                 addSequential(new RaiseElevatorCommand(),3);

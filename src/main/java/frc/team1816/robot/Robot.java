@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
         Controls.getInstance();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
-        avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance Scale Auto Time To Wait (seconds)");
+        avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance Scale Wait Time (s)");
         CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = Components.getInstance().drivetrain;
@@ -97,7 +97,8 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Right Velocity").setDouble(0);
         velocityGraph.getEntry("Right Set V").setDouble(0);
 
-        avoidanceWaitTime.getEntry("Wait Time (s)").setDouble(0);
+        avoidanceWaitTime.getEntry("Wait Time Near (s)").setDouble(0);
+        avoidanceWaitTime.getEntry("Wait Time Far (s)").setDouble(0);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
     }
@@ -131,7 +132,8 @@ public class Robot extends TimedRobot {
 
         drivetrain.resetEncoders();
 
-        double secondsToWait = avoidanceWaitTime.getEntry("Wait Time (s)").getDouble(0);
+        double secondsToWaitNear = avoidanceWaitTime.getEntry("Wait Time Near (s)").getDouble(0);
+        double secondsToWaitFar = avoidanceWaitTime.getEntry("Wait Time Far (s)").getDouble(0);
 
         double initTime = System.currentTimeMillis();
         String FMSmessage = null;
@@ -156,7 +158,7 @@ public class Robot extends TimedRobot {
             scaleAuto.selectAuto(FMSmessage, startPos);
             priorityAuto.selectAuto(FMSmessage, startPos);
             nearAuto.selectAuto(FMSmessage, startPos);
-            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWait);
+            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar);
             centerAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
@@ -171,7 +173,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
-        posLog = Logging.getInstance("TelePosLog");
+        posLog = Logging.getInstance("TeleopPosLog");
         posLog.log("x,y,leftInches,rightInches,gyro");
 
         drivetrain.setDrivetrainCoastMode();
