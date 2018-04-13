@@ -19,6 +19,6 @@ public class ResetClawEncoderCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 }
