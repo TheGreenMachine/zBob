@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
         Controls.getInstance();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
-        avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance Scale Wait Time (s)");
+        avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance auto Scale Wait Time (s)");
         CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = Components.getInstance().drivetrain;
@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
         avoidanceWaitTime.getEntry("Wait Time Far (s)").setDouble(0);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
-        SmartDashboard.putData("Manually Reset Collector Encoder", new ResetClawEncoderCommand());
+        SmartDashboard.putData("Manually Reset Collector Up/Down Encoder", new ResetClawEncoderCommand());
     }
 
     @Override

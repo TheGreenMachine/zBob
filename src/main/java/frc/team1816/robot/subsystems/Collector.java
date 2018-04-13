@@ -63,6 +63,7 @@ public class Collector extends Subsystem {
             setClawSpeed(0);
         } else {
             setClawSpeed(-0.6);
+            System.out.println("Claw up");
         }
     }
 
@@ -71,11 +72,13 @@ public class Collector extends Subsystem {
             setClawSpeed(0);
         } else {
             setClawSpeed(0.6);
+            System.out.println("Claw down");
         }
     }
 
     public void clawLiftStop() {
         setClawSpeed(0);
+        System.out.println("Claw list stopped");
     }
 
     public void resetClawEnc() {
