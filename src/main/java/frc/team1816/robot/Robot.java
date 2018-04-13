@@ -101,6 +101,7 @@ public class Robot extends TimedRobot {
         avoidanceWaitTime.getEntry("Wait Time Far (s)").setDouble(0);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
+        SmartDashboard.putData("Manually Reset Collector Encoder", new ResetClawEncoderCommand());
     }
 
     @Override
