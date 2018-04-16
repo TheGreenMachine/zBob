@@ -31,53 +31,61 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
             if(target == 'L') {
                 System.out.println("LStart Scale Avoidance ---- Target: L");
 
-                addSequential(new LowerCollectorClawCommand(false, 2));
-
                 addSequential(new DriveXInchesCommand(6,0.5),2);
-                addSequential(new RotateXDegreesCommand(-45,true,0.2),2);
+                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
                 addSequential(new DriveXInchesCommand(24,0.5),2);
-                addSequential(new RotateXDegreesCommand(45,true,0.2),2);
+                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
-                addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWaitNear));
-                addSequential(new DriveXInchesCommand(40,0.7),3);
 
-                addSequential(new RaiseElevatorCommand(),3);
+                if(secondsToWaitNear == 0) {
+                    addSequential(new DriveXInchesCommand(300,0.8),5);
+                } else {
+                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
+                    addSequential(new WaitCommand(secondsToWaitNear));
+                    addSequential(new DriveXInchesCommand(108, 0.8), 3);
+                }
+
+                addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(90,true,0.2),3);
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
+                addSequential(new LowerCollectorClawCommand(false,0.5));
                 addSequential(new SetCollectorSpeedCommand(1));
-                addSequential(new WaitCommand(1));
+                addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(-12,0.5),2);
+                addSequential(new DriveXInchesCommand(36,-0.7),2);
 
-            } else if (target == 'R'){
+            } else if (target == 'R') {
                 System.out.println("LStart Scale Avoidance ---- Target: R");
 
-                addSequential(new LowerCollectorClawCommand(false, 2));
+                addSequential(new DriveXInchesCommand(12, 0.5), 2);
+                addSequential(new RotateXDegreesCommand(90, true, 0.3), 3);
+                addSequential(new DriveXInchesCommand(220, 1), 5);
 
-                addSequential(new DriveXInchesCommand(6,0.5),2);
-                addSequential(new RotateXDegreesCommand(90,true,0.2),2);
-                addSequential(new DriveXInchesCommand(285,0.8),5);
+                addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
+                addSequential(new DriveXInchesCommand(24, 0.7), 2);
+                addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
 
-                addSequential(new RotateXDegreesCommand(-45,true,0.2),2);
-                addSequential(new DriveXInchesCommand(24,0.5),2);
-                addSequential(new RotateXDegreesCommand(-45,true,0.2),2);
+                addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
-                addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
+                if (secondsToWaitFar == 0) {
+                    addSequential(new DriveXInchesCommand(300, 1), 9);
+                } else {
+                addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
                 addSequential(new WaitCommand(secondsToWaitFar));
-                addSequential(new DriveXInchesCommand(40,0.7),3);
+                addSequential(new DriveXInchesCommand(108, 1), 3);
+                }
 
-                addSequential(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(90,true,0.2),3);
-                addSequential(new DriveXInchesCommand(10,0.6),3);
+                addParallel(new RaiseElevatorCommand(),3);
+                addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
+                addSequential(new DriveXInchesCommand(24,0.6),3);
 
+                addSequential(new LowerCollectorClawCommand(false,0.25));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(-12,0.5),2);
+                addSequential(new DriveXInchesCommand(24,-0.7),2);
 
             } else {
                 System.out.println("Avoidance ---- Auto-Run");
@@ -87,53 +95,62 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
             if(target == 'R') {
                 System.out.println("RStart Scale Avoidance ---- Target: R");
 
-                addSequential(new LowerCollectorClawCommand(false, 2));
-
                 addSequential(new DriveXInchesCommand(6,0.5),2);
-                addSequential(new RotateXDegreesCommand(45,true,0.2),2);
+                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
                 addSequential(new DriveXInchesCommand(24,0.5),2);
-                addSequential(new RotateXDegreesCommand(-45,true,0.2),2);
+                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
-                addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWaitNear));
-                addSequential(new DriveXInchesCommand(40,0.7),3);
 
-                addSequential(new RaiseElevatorCommand(),3);
+                if(secondsToWaitNear == 0) {
+                    addSequential(new DriveXInchesCommand(300,0.8),5);
+                } else {
+                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
+                    addSequential(new WaitCommand(secondsToWaitNear));
+                    addSequential(new DriveXInchesCommand(108, 0.8), 3);
+                }
+
+                addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(-90,true,0.2),3);
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
+                addSequential(new LowerCollectorClawCommand(false,0.5));
                 addSequential(new SetCollectorSpeedCommand(1));
-                addSequential(new WaitCommand(1));
+                addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(-12,0.5),2);
+                addSequential(new DriveXInchesCommand(36,-0.7),2);
 
-            } else if (target == 'L'){
+            } else if (target == 'L') {
                 System.out.println("RStart Scale Avoidance ---- Target: L");
 
-                addSequential(new LowerCollectorClawCommand(false, 2));
+                addSequential(new DriveXInchesCommand(12,0.5),2);
+                addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
+                addSequential(new DriveXInchesCommand(220,1),5);
 
-                addSequential(new DriveXInchesCommand(6,0.5),2);
-                addSequential(new RotateXDegreesCommand(-90,true,0.2),2);
-                addSequential(new DriveXInchesCommand(285,0.8),5);
+                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
+                addSequential(new DriveXInchesCommand(24,0.7),2);
+                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
 
-                addSequential(new RotateXDegreesCommand(45,true,0.2),2);
-                addSequential(new DriveXInchesCommand(24,0.5),2);
-                addSequential(new RotateXDegreesCommand(45,true,0.2),2);
+                addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
-                addSequential(new DriveXInchesCommand(240,0.8),5); //todo tune split distance, total = 280 in
-                addSequential(new WaitCommand(secondsToWaitFar));
-                addSequential(new DriveXInchesCommand(40,0.7),3);
+                if (secondsToWaitFar == 0) {
+                    addSequential(new DriveXInchesCommand(300, 1), 9);
+                } else {
+                    addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
+                    addSequential(new WaitCommand(secondsToWaitFar));
+                    addSequential(new DriveXInchesCommand(108, 1), 3);
+                }
 
-                addSequential(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(90,true,0.2),3);
-                addSequential(new DriveXInchesCommand(10,0.6),3);
+                addParallel(new RaiseElevatorCommand(),3);
+                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
+                addSequential(new DriveXInchesCommand(24,0.6),3);
 
+                addSequential(new LowerCollectorClawCommand(false,0.25));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(-12,0.5),2);
+                addSequential(new DriveXInchesCommand(24,-0.7),2);
+
             } else {
                 System.out.println("Avoidance ---- Auto-Run");
                 addSequential(new DriveXInchesCommand(140,0.5));

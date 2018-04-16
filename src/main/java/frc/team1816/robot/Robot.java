@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
         autoChooser.addObject("ArcDrive Enc", new ArcDriveCommand(50,.3,90));
         autoChooser.addObject("ArcDrive Gyro", new ArcDriveGyroCommand(50,.3,90));
-
+        autoChooser.addObject("Claw Down Test", new LowerCollectorClawCommand(false,1));
         SmartDashboard.putData("Autonomous", autoChooser);
 
         table.getEntry("kP").setDouble(drivetrain.kP);
