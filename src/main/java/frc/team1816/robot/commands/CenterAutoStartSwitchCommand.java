@@ -54,31 +54,29 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           } else if (target == 'R'){
                System.out.println("Center Switch ---- Target: R");
 
-               addSequential(new DriveXInchesCommand(33, 0.5));
-               addSequential(new RotateXDegreesCommand(90, true, 0.3), 3);
-               addSequential(new DriveXInchesCommand(54, 0.5));
+               addSequential(new DriveXInchesCommand(6, 0.6),4);
+               addSequential(new RotateXDegreesCommand(25, true, 0.3), 3);
 
                addParallel(new SetElevatorHeightPercentCommand(30, 0.7), 2);
-               addSequential(new LowerCollectorClawCommand(false,0.5));
-
-               addSequential(new RotateXDegreesCommand(-90, true, 0.3), 3);
-               addSequential(new DriveXInchesCommand(63, 0.5));
+               addSequential(new LowerCollectorClawCommand(false,0.73));
+               addSequential(new DriveXInchesCommand(70, 0.7),5);
 
                addSequential(new SetCollectorSpeedCommand(1));
                addSequential(new WaitCommand(1));
                addSequential(new SetCollectorSpeedCommand(0));
-               addSequential(new DriveXInchesCommand(12, -0.5),3);
 
-               addParallel(new LowerElevatorCommand(-0.8));
-               addSequential(new RotateXDegreesCommand(-85, true, .3));
+               addParallel(new LowerElevatorCommand(-0.7));
+               addSequential(new DriveXInchesCommand(24, -0.5),5);
+               addSequential(new RotateXDegreesCommand(-40, true, .3),3);
+
                addParallel(new SetCollectorSpeedCommand(-1));
-               addSequential(new DriveXInchesCommand(65,.5 ));
-               addSequential(new WaitCommand(.5));
+               addSequential(new DriveXInchesCommand(48,.7 ));
                addSequential(new SetCollectorSpeedCommand(0));
-               addSequential(new DriveXInchesCommand(70, -.5));
-               addSequential(new RotateXDegreesCommand(85, true, .3));
-               addSequential(new DriveXInchesCommand(12, .5));
-               addSequential(new SetElevatorHeightPercentCommand(40));
+               addSequential(new DriveXInchesCommand(48, -.7));
+               addSequential(new RotateXDegreesCommand(40, true, .3));
+
+               addParallel(new SetElevatorHeightPercentCommand(40));
+               addSequential(new DriveXInchesCommand(24, 0.7));
                addSequential(new SetCollectorSpeedCommand(1));
                addSequential(new WaitCommand(.4));
                addSequential(new SetCollectorSpeedCommand(0));
