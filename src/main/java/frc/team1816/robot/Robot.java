@@ -40,14 +40,14 @@ public class Robot extends TimedRobot {
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
-    private NetworkTable avoidanceParamemter;
+    private NetworkTable avoidanceParameter;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
-        avoidanceParamemter = NetworkTableInstance.getDefault().getTable("Avoidance Auto Parameters");
+        avoidanceParameter = NetworkTableInstance.getDefault().getTable("Avoidance Auto Parameters");
         CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = Components.getInstance().drivetrain;
@@ -97,9 +97,10 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Right Velocity").setDouble(0);
         velocityGraph.getEntry("Right Set V").setDouble(0);
 
-        avoidanceParamemter.getEntry("Wait Time Near (s)").setDouble(0);
-        avoidanceParamemter.getEntry("Wait Time Far (s)").setDouble(0);
-        avoidanceParamemter.getEntry("Far Side - Distance From Wall (in)").setDouble(0);
+        avoidanceParameter.getEntry("Wait Time Near (s)").setDouble(0);
+        avoidanceParameter.getEntry("Wait Time Far (s)").setDouble(0);
+        avoidanceParameter.getEntry("Far Side - Distance From Wall (in)").setDouble(0);
+        avoidanceParameter.getEntry("Long-Run Velocity").setDouble(1);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
         SmartDashboard.putData("Manually Reset Collector Up/Down Encoder", new ResetClawEncoderCommand());
@@ -134,9 +135,10 @@ public class Robot extends TimedRobot {
 
         drivetrain.resetEncoders();
 
-        double secondsToWaitNear = avoidanceParamemter.getEntry("Wait Time Near (s)").getDouble(0);
-        double secondsToWaitFar = avoidanceParamemter.getEntry("Wait Time Far (s)").getDouble(0);
-        double distanceFromWall = avoidanceParamemter.getEntry("Distance From Wall (in)").getDouble(0);
+        double secondsToWaitNear = avoidanceParameter.getEntry("Wait Time Near (s)").getDouble(0);
+        double secondsToWaitFar = avoidanceParameter.getEntry("Wait Time Far (s)").getDouble(0);
+        double distanceFromWall = avoidanceParameter.getEntry("Distance From Wall (in)").getDouble(0);
+        double runVelocity = avoidanceParameter.getEntry("Long-Run Velocity").getDouble(1);
 
         double initTime = System.currentTimeMillis();
         String FMSmessage = null;
