@@ -40,14 +40,14 @@ public class Robot extends TimedRobot {
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
-    private NetworkTable avoidanceWaitTime;
+    private NetworkTable avoidanceParamemter;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
-        avoidanceWaitTime = NetworkTableInstance.getDefault().getTable("Avoidance auto Scale Wait Time (s)");
+        avoidanceParamemter = NetworkTableInstance.getDefault().getTable("Avoidance Auto Parameters");
         CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = Components.getInstance().drivetrain;
@@ -97,8 +97,9 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Right Velocity").setDouble(0);
         velocityGraph.getEntry("Right Set V").setDouble(0);
 
-        avoidanceWaitTime.getEntry("Wait Time Near (s)").setDouble(0);
-        avoidanceWaitTime.getEntry("Wait Time Far (s)").setDouble(0);
+        avoidanceParamemter.getEntry("Wait Time Near (s)").setDouble(0);
+        avoidanceParamemter.getEntry("Wait Time Far (s)").setDouble(0);
+        avoidanceParamemter.getEntry("Distance From Wall (in)").setDouble(0);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
         SmartDashboard.putData("Manually Reset Collector Up/Down Encoder", new ResetClawEncoderCommand());
@@ -133,8 +134,9 @@ public class Robot extends TimedRobot {
 
         drivetrain.resetEncoders();
 
-        double secondsToWaitNear = avoidanceWaitTime.getEntry("Wait Time Near (s)").getDouble(0);
-        double secondsToWaitFar = avoidanceWaitTime.getEntry("Wait Time Far (s)").getDouble(0);
+        double secondsToWaitNear = avoidanceParamemter.getEntry("Wait Time Near (s)").getDouble(0);
+        double secondsToWaitFar = avoidanceParamemter.getEntry("Wait Time Far (s)").getDouble(0);
+        double distanceFromWall = avoidanceParamemter.getEntry("Distance From Wall (in)").getDouble(0);
 
         double initTime = System.currentTimeMillis();
         String FMSmessage = null;
@@ -159,7 +161,7 @@ public class Robot extends TimedRobot {
             scaleAuto.selectAuto(FMSmessage, startPos);
             priorityAuto.selectAuto(FMSmessage, startPos);
             nearAuto.selectAuto(FMSmessage, startPos);
-            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar);
+            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall);
             centerAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");

@@ -7,15 +7,21 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
     char startPos;
     double secondsToWaitNear = 0;
     double secondsToWaitFar = 0;
+    double distanceFromWall = 0;
 
     public AvoidanceScaleAutoCommand() {
 
     }
 
-    public void selectAuto(String data, String pos, double nearWait, double farWait) {
+    public void selectAuto(String data, String pos, double nearWait, double farWait, double distanceFromWall) {
 
         this.secondsToWaitNear = nearWait;
         this.secondsToWaitFar = farWait;
+
+        if(this.distanceFromWall > 12) {
+            this.distanceFromWall = 12;
+        }
+        this.distanceFromWall = distanceFromWall;
 
         try {
             target = data.charAt(1);
@@ -46,46 +52,46 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                     addSequential(new DriveXInchesCommand(108, 0.8), 3);
                 }
 
+                addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(90,true,0.2),3);
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
-                addSequential(new LowerCollectorClawCommand(false,0.5));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(36,-0.7),2);
+                addSequential(new DriveXInchesCommand(36 + distanceFromWall,-0.7),2);
 
             } else if (target == 'R') {
                 System.out.println("LStart Scale Avoidance ---- Target: R");
 
-                addSequential(new DriveXInchesCommand(12, 0.5), 2);
-                addSequential(new RotateXDegreesCommand(90, true, 0.3), 3);
-                addSequential(new DriveXInchesCommand(220, 1), 5);
+                addSequential(new DriveXInchesCommand(12,0.5),2);
+                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
+                addSequential(new DriveXInchesCommand(215 - distanceFromWall,1),5);
 
-                addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
-                addSequential(new DriveXInchesCommand(24, 0.7), 2);
-                addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
+                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
+                addSequential(new DriveXInchesCommand(24,0.7),2);
+                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
 
                 if (secondsToWaitFar == 0) {
-                    addSequential(new DriveXInchesCommand(300, 1), 9);
+                    addSequential(new DriveXInchesCommand(292, 1), 9);
                 } else {
-                addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
-                addSequential(new WaitCommand(secondsToWaitFar));
-                addSequential(new DriveXInchesCommand(108, 1), 3);
+                    addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
+                    addSequential(new WaitCommand(secondsToWaitFar));
+                    addSequential(new DriveXInchesCommand(116, 1), 3);
                 }
 
+                addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
                 addSequential(new DriveXInchesCommand(24,0.6),3);
 
-                addSequential(new LowerCollectorClawCommand(false,0.25));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(24,-0.7),2);
+                addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.7),2);
 
             } else {
                 System.out.println("Avoidance ---- Auto-Run");
@@ -110,22 +116,22 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                     addSequential(new DriveXInchesCommand(108, 0.8), 3);
                 }
 
+                addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(-90,true,0.2),3);
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
-                addSequential(new LowerCollectorClawCommand(false,0.5));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(36,-0.7),2);
+                addSequential(new DriveXInchesCommand(36 + distanceFromWall,-0.7),2);
 
             } else if (target == 'L') {
                 System.out.println("RStart Scale Avoidance ---- Target: L");
 
                 addSequential(new DriveXInchesCommand(12,0.5),2);
                 addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
-                addSequential(new DriveXInchesCommand(220,1),5);
+                addSequential(new DriveXInchesCommand(215 - distanceFromWall,1),5);
 
                 addSequential(new RotateXDegreesCommand(45,true,0.3),3);
                 addSequential(new DriveXInchesCommand(24,0.7),2);
@@ -134,22 +140,22 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
 
                 if (secondsToWaitFar == 0) {
-                    addSequential(new DriveXInchesCommand(300, 1), 9);
+                    addSequential(new DriveXInchesCommand(292, 1), 9);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitFar));
-                    addSequential(new DriveXInchesCommand(108, 1), 3);
+                    addSequential(new DriveXInchesCommand(116, 1), 3);
                 }
 
+                addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(90,true,0.3),3);
                 addSequential(new DriveXInchesCommand(24,0.6),3);
 
-                addSequential(new LowerCollectorClawCommand(false,0.25));
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(24,-0.7),2);
+                addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.7),2);
 
             } else {
                 System.out.println("Avoidance ---- Auto-Run");

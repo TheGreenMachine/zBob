@@ -6,15 +6,24 @@ import frc.team1816.robot.subsystems.Elevator;
 
 public class LowerElevatorCommand extends Command {
     private Elevator elevator;
+    private double velocity;
 
     public LowerElevatorCommand() {
         super ("lowerelevatorcommand");
         this.elevator = Components.getInstance().elevator;
+        this.velocity = -1;
+        requires(elevator);
+    }
+
+    public LowerElevatorCommand(double velocity) {
+        super ("lowerelevatorcommand");
+        this.elevator = Components.getInstance().elevator;
+        this.velocity = velocity;
         requires(elevator);
     }
 
     public void initialize() {
-        elevator.setElevatorSpeed(-1);
+        elevator.setElevatorSpeed(velocity);
         System.out.println("Lowering Elevator");
     }
 
