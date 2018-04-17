@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
 
         avoidanceParamemter.getEntry("Wait Time Near (s)").setDouble(0);
         avoidanceParamemter.getEntry("Wait Time Far (s)").setDouble(0);
-        avoidanceParamemter.getEntry("Distance From Wall (in)").setDouble(0);
+        avoidanceParamemter.getEntry("Far Side - Distance From Wall (in)").setDouble(0);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
         SmartDashboard.putData("Manually Reset Collector Up/Down Encoder", new ResetClawEncoderCommand());

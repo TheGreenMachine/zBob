@@ -8,6 +8,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
     double secondsToWaitNear = 0;
     double secondsToWaitFar = 0;
     double distanceFromWall = 0;
+    double runVelocity = 1;
 
     public AvoidanceScaleAutoCommand() {
 
@@ -45,7 +46,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(300,0.8),5);
+                    addSequential(new DriveXInchesCommand(300,runVelocity),5);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
@@ -76,7 +77,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
 
                 if (secondsToWaitFar == 0) {
-                    addSequential(new DriveXInchesCommand(292, 1), 9);
+                    addSequential(new DriveXInchesCommand(292, runVelocity), 9);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitFar));
@@ -109,7 +110,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(300,0.8),5);
+                    addSequential(new DriveXInchesCommand(300,runVelocity),5);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
@@ -140,7 +141,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
 
                 if (secondsToWaitFar == 0) {
-                    addSequential(new DriveXInchesCommand(292, 1), 9);
+                    addSequential(new DriveXInchesCommand(292, runVelocity), 9);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitFar));
