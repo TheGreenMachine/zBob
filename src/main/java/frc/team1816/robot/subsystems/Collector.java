@@ -78,7 +78,6 @@ public class Collector extends Subsystem {
 
     public void clawLiftStop() {
         setClawSpeed(0);
-        System.out.println("Claw stopped");
     }
 
     public void resetClawEnc() {
