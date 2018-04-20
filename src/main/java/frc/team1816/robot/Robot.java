@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
 
         avoidanceParameter.getEntry("Wait Time Near (s)").setDouble(0);
         avoidanceParameter.getEntry("Wait Time Far (s)").setDouble(0);
-        avoidanceParameter.getEntry("Far Side - Distance From Wall (in)").setDouble(0);
+        avoidanceParameter.getEntry("Far Side - Distance From Wall (in)").setDouble(12);
         avoidanceParameter.getEntry("Long-Run Velocity").setDouble(1);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
 
         double secondsToWaitNear = avoidanceParameter.getEntry("Wait Time Near (s)").getDouble(0);
         double secondsToWaitFar = avoidanceParameter.getEntry("Wait Time Far (s)").getDouble(0);
-        double distanceFromWall = avoidanceParameter.getEntry("Distance From Wall (in)").getDouble(0);
+        double distanceFromWall = avoidanceParameter.getEntry("Distance From Wall (in)").getDouble(12);
         double runVelocity = avoidanceParameter.getEntry("Long-Run Velocity").getDouble(1);
 
         double initTime = System.currentTimeMillis();
@@ -163,7 +163,7 @@ public class Robot extends TimedRobot {
             scaleAuto.selectAuto(FMSmessage, startPos);
             priorityAuto.selectAuto(FMSmessage, startPos);
             nearAuto.selectAuto(FMSmessage, startPos);
-            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall);
+            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             centerAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
