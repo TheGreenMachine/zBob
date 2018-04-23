@@ -32,3 +32,6 @@ ignored)
 
 # Why should I need to add this?
 .class
+
+# Log Files
+.csv
