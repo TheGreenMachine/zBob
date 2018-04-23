@@ -4,8 +4,8 @@ import com.edinarobotics.utils.gamepad.Gamepad;
 import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,6 +18,8 @@ import frc.team1816.robot.subsystems.*;
 public class Robot extends TimedRobot {
 
     public static Logging logger;
+    public static Logging posLog;
+
     private Drivetrain drivetrain;
     private Elevator elevator;
     private Collector collector;
@@ -27,26 +29,26 @@ public class Robot extends TimedRobot {
     private Gamepad gamepad0, gamepad1;
 
     private SendableChooser<Command> autoChooser;
+    private SendableChooser<String> startPosition;
 
-    private LeftAutoStartSwitchCommand leftSwitchAuto;
-    private RightAutoStartSwitchCommand rightSwitchAuto;
-    private LeftAutoStartScaleCommand leftScaleAuto;
-    private RightAutoStartScaleCommand rightScaleAuto;
-    private LeftAutoStartCommand leftAuto;
-    private RightAutoStartCommand rightAuto;
-    private LeftAutoStartNearCommand leftAutoNearOnly;
-    private RightAutoStartNearCommand rightAutoNearOnly;
-    private CenterAutoStartSwitchCommand centerSwitchAuto;
-
+    private SwitchAutoCommand switchAuto;
+    private ScaleAutoCommand scaleAuto;
+    private PriorityAutoCommand priorityAuto;
+    private NearSideAutoCommand nearAuto;
+    private AvoidanceScaleAutoCommand avoidanceScaleAuto;
+    private CenterAutoStartSwitchCommand centerAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
+    private NetworkTable avoidanceParameter;
 
     public void robotInit() {
         Components.getInstance();
         Controls.getInstance();
         table = NetworkTableInstance.getDefault().getTable("Shuffleboard_PID");
         velocityGraph = NetworkTableInstance.getDefault().getTable("Velocity Graph");
+        avoidanceParameter = NetworkTableInstance.getDefault().getTable("Avoidance Auto Parameters");
+        CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = Components.getInstance().drivetrain;
         elevator = Components.getInstance().elevator;
@@ -57,31 +59,31 @@ public class Robot extends TimedRobot {
         gamepad0 = Controls.getInstance().gamepad0;
         gamepad1 = Controls.getInstance().gamepad1;
 
-        leftSwitchAuto = new LeftAutoStartSwitchCommand();
-        rightSwitchAuto = new RightAutoStartSwitchCommand();
-        leftScaleAuto = new LeftAutoStartScaleCommand();
-        rightScaleAuto = new RightAutoStartScaleCommand();
-        leftAuto = new LeftAutoStartCommand();
-        rightAuto = new RightAutoStartCommand();
-        leftAutoNearOnly = new LeftAutoStartNearCommand();
-        rightAutoNearOnly = new RightAutoStartNearCommand();
-        centerSwitchAuto = new CenterAutoStartSwitchCommand();
+        switchAuto = new SwitchAutoCommand();
+        scaleAuto = new ScaleAutoCommand();
+        priorityAuto = new PriorityAutoCommand();
+        nearAuto = new NearSideAutoCommand();
+        avoidanceScaleAuto = new AvoidanceScaleAutoCommand();
+        centerAuto = new CenterAutoStartSwitchCommand();
 
+        startPosition = new SendableChooser<>();
+        startPosition.addObject("Left Start", "Left Start");
+        startPosition.addObject("Right Start", "Right Start");
+        SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
-        autoChooser.addObject("Left Start Switch Auto", leftSwitchAuto);
-        autoChooser.addObject("Right Start Switch Auto", rightSwitchAuto);
-        autoChooser.addObject("Left Start Scale Auto", leftScaleAuto);
-        autoChooser.addObject("Right Start Scale Auto", rightScaleAuto);
-        autoChooser.addObject("Left Start NearSw-NearSc-FarSw", leftAuto);
-        autoChooser.addObject("Right Start NearSw-NearSc-FarSw", rightAuto);
-        autoChooser.addObject("Left Start Near-Side Only", leftAutoNearOnly);
-        autoChooser.addObject("Right Start Near-Side Only", rightAutoNearOnly);
-        autoChooser.addObject("Center Start Switch Auto", centerSwitchAuto);
+        autoChooser.addObject("Switch Auto", switchAuto);
+        autoChooser.addObject("Scale Auto", scaleAuto);
+        autoChooser.addObject("Priority NearSw-NearSc-FarSw Auto", priorityAuto);
+        autoChooser.addObject("Near Side Only Auto", nearAuto);
+        autoChooser.addObject("Avoidance Scale Auto", avoidanceScaleAuto);
+        autoChooser.addObject("Center Switch Auto", centerAuto);
+
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
-
-
+        autoChooser.addObject("ArcDrive Enc", new ArcDriveCommand(50,.3,90));
+        autoChooser.addObject("ArcDrive Gyro", new ArcDriveGyroCommand(50,.3,90));
+        autoChooser.addObject("Claw Down Test", new LowerCollectorClawCommand(false,1));
         SmartDashboard.putData("Autonomous", autoChooser);
 
         table.getEntry("kP").setDouble(drivetrain.kP);
@@ -94,12 +96,21 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Left Set V").setDouble(0);
         velocityGraph.getEntry("Right Velocity").setDouble(0);
         velocityGraph.getEntry("Right Set V").setDouble(0);
+
+        avoidanceParameter.getEntry("Wait Time Near (s)").setDouble(0);
+        avoidanceParameter.getEntry("Wait Time Far (s)").setDouble(0);
+        avoidanceParameter.getEntry("Far Side - Distance From Wall (in)").setDouble(12);
+        avoidanceParameter.getEntry("Long-Run Velocity").setDouble(1);
+
+        collector.resetClawEnc(); //todo consider removing as redundancy
+        SmartDashboard.putData("Manually Reset Collector Up/Down Encoder", new ResetClawEncoderCommand());
     }
 
     @Override
     public void disabledInit() {
         try {
             logger.close();
+            posLog.close();
             System.out.println("Logger closed");
         } catch (Exception e) {
             System.out.println("Logger not instantiated yet...");
@@ -109,8 +120,12 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
+        posLog = Logging.getInstance("AutoPosLog");
+        posLog.log("x,y,leftInches,rightInches,gyro");
 
+        collector.resetClawEnc();
         drivetrain.setDrivetrainBrakeMode();
+        drivetrain.initCoordinateTracking();
 
         StringBuilder builder = new StringBuilder();
         builder.append("Current Time").append(",").append("Left Inches").append(",").append("Right Inches").append(",")
@@ -119,6 +134,11 @@ public class Robot extends TimedRobot {
         logger.log(builder.toString());
 
         drivetrain.resetEncoders();
+
+        double secondsToWaitNear = avoidanceParameter.getEntry("Wait Time Near (s)").getDouble(0);
+        double secondsToWaitFar = avoidanceParameter.getEntry("Wait Time Far (s)").getDouble(0);
+        double distanceFromWall = avoidanceParameter.getEntry("Distance From Wall (in)").getDouble(12);
+        double runVelocity = avoidanceParameter.getEntry("Long-Run Velocity").getDouble(1);
 
         double initTime = System.currentTimeMillis();
         String FMSmessage = null;
@@ -136,25 +156,21 @@ public class Robot extends TimedRobot {
         System.out.println("FMS Data: " + FMSmessage);
         logger.log(FMSmessage);
 
+        String startPos = startPosition.getSelected();
+
         try {
-            leftSwitchAuto.selectAuto(FMSmessage);
-            rightSwitchAuto.selectAuto(FMSmessage);
-            leftScaleAuto.selectAuto(FMSmessage);
-            rightScaleAuto.selectAuto(FMSmessage);
-            leftAuto.selectAuto(FMSmessage);
-            rightAuto.selectAuto(FMSmessage);
-            centerSwitchAuto.selectAuto(FMSmessage);
+            switchAuto.selectAuto(FMSmessage, startPos);
+            scaleAuto.selectAuto(FMSmessage, startPos);
+            priorityAuto.selectAuto(FMSmessage, startPos);
+            nearAuto.selectAuto(FMSmessage, startPos);
+            avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
+            centerAuto.selectAuto(FMSmessage);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
         Command autoCommand = autoChooser.getSelected();
 
-//        Command autoCommand = new ArcDriveCommand(48,0.4,90);
-//        Command autoCommand = new ArcDriveGyroCommand(48, 0.4, 90);
-//        Command autoCommand = new RotateXDegreesCommand(-90,true);
-//        Command autoCommand = new DriveXInchesCommand(240,0.75);
-//        Command autoCommand = new setElevatorHeightPercentCommand(75);
         System.out.println("Auto Running: " + autoCommand.getName());
         autoCommand.start();
     }
@@ -162,6 +178,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         logger = Logging.getInstance("TeleopLog");
+        posLog = Logging.getInstance("TeleopPosLog");
+        posLog.log("x,y,leftInches,rightInches,gyro");
 
         drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();
@@ -192,6 +210,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         logger.log(drivetrain.getLogString());
+        posLog.log(drivetrain.getCoordinates());
 
         velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
         velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
@@ -207,7 +226,7 @@ public class Robot extends TimedRobot {
             System.out.println("Deploying Ramps");
         }
 
-//        logger.log(drivetrain.getPIDTuningString());
+        posLog.log(drivetrain.getCoordinates());
 
         velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
         velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());

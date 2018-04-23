@@ -36,6 +36,8 @@ public class GamepadElevatorCommand extends Command {
             power = 0.5 * power + 0.5;
         } else if (power < - 0.05) {
             power = 0.5 * power - 0.5;
+        } else if (gamepad.dPadLeft().get()) {
+            power = 0.15; //hold position
         } else {
             power = 0;
         }

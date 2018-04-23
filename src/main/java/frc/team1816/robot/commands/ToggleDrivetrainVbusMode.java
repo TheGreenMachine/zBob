@@ -17,7 +17,6 @@ public class ToggleDrivetrainVbusMode extends Command {
     }
 
     protected void initialize() {
-//        System.out.printf("Vbus Mode: " + vBusEnabled);
         drivetrain.setVbusMode(vBusEnabled);
     }
 

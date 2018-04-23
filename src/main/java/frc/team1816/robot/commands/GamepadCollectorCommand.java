@@ -51,14 +51,13 @@ public class GamepadCollectorCommand extends Command {
         }
 
         if(operator.leftBumper().get()) {
-            clawSpeed = -1;
+            collector.clawLiftUp();
         } else if (operator.rightBumper().get()) {
-            clawSpeed = 1;
+            collector.clawLiftDown();
         } else {
-            clawSpeed = 0;
+            collector.clawLiftStop();
         }
 
-        collector.setClawSpeed(clawSpeed);
         collector.setCollectorSpeed(lpower, rpower);
 
         if(elevator.getHeightPercent() > 5 && belowCloseThreshold) {

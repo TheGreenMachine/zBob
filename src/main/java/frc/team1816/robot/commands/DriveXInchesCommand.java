@@ -125,6 +125,10 @@ public class DriveXInchesCommand extends Command {
             }
         }
 
+        if(speed < 0) {
+            leftVelocity = speed;
+        }
+
         rightVelocity = leftVelocity;
 
         if (deltaAngle < 0) {

@@ -32,11 +32,11 @@ public class LowerCollectorClawCommand extends Command {
     }
 
     protected void execute() {
-//        System.out.println("Claw current: "+ collector.getOutputCurrent());
     }
 
     @Override
     protected boolean isFinished() {
+        System.out.println("Lowering Claw");
         if(System.currentTimeMillis() > msToWait) {
             isTeleOp = true;
         }

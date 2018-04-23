@@ -18,6 +18,7 @@ public class ToggleSlowModeCommand extends Command {
 
     protected void initialize() {
         drivetrain.setSlowMode(slowMode);
+        System.out.println("Slow mode manually toggled");
     }
 
     protected void execute() {}

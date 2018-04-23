@@ -37,6 +37,9 @@ public class Drivetrain extends Subsystem1816{
 
     private double gyroAngle, leftTalonVelocity, rightTalonVelocity, talonPositionLeft, talonPositionRight;
 
+    private double initX, initY, initT;
+    private double xPos, yPos, prevInches, prevX, prevY, initAngle;
+
     private String prevHeadingTarget;
 
     private AHRS navx;
@@ -117,7 +120,7 @@ public class Drivetrain extends Subsystem1816{
         this.leftMain.selectProfileSlot(0,0);
         this.rightMain.selectProfileSlot(0,0);
 
-        //TODO || code is to config practice bot
+        //TODO | code is to config practice bot
 //        this.leftMain.setSensorPhase(true);
 //        this.rightMain.setSensorPhase(true);
 
@@ -227,6 +230,17 @@ public class Drivetrain extends Subsystem1816{
         this.leftSlaveOne.setNeutralMode(NeutralMode.Brake);
     }
 
+    public void initCoordinateTracking() {
+        initX = 0;
+        initY = 0;
+        initT = System.currentTimeMillis();
+        prevInches = 0;
+        prevX = 0;
+        prevY = 0;
+        initAngle = gyroAngle;
+        resetEncoders();
+    }
+
     @Override
     public void update() {
 
@@ -327,6 +341,10 @@ public class Drivetrain extends Subsystem1816{
         return "" + getLeftTalonVelocity() + "," + getRightTalonVelocity();
     }
 
+    public String getCoordinates() {
+        return "" + xPos + "," + yPos + getLeftTalonInches() + "," + getRightTalonInches() + "," + getGyroAngle();
+    }
+
     @Override
     public void periodic() {
      gyroAngle = navx.getAngle();
@@ -334,6 +352,33 @@ public class Drivetrain extends Subsystem1816{
      rightTalonVelocity = rightMain.getSelectedSensorVelocity(0);
      talonPositionLeft = leftMain.getSelectedSensorPosition(0);
      talonPositionRight = rightMain.getSelectedSensorPosition(0);
+
+//     Prototype Diff. Steering Coordinate Navigation
+
+//////        "Complicated" Position Tracking
+//
+//        double vsum = (leftTalonVelocity + rightTalonVelocity);
+//        double vdiff = (leftTalonVelocity - rightTalonVelocity);
+//        double deltaT = System.currentTimeMillis() - initT;
+//
+//        double deltaX = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.sin( (vdiff * deltaT / DRIVETRAIN_WIDTH ) - Math.sin(initAngle) );
+//        double deltaY = ( ( DRIVETRAIN_WIDTH * vsum ) / ( 2 * vdiff) ) * Math.cos( (vdiff * deltaT / DRIVETRAIN_WIDTH ) - Math.cos(initAngle) );
+//
+//        xPos = initX + deltaX;
+//        yPos = initY + deltaY;
+//
+
+//////        "Simple" Position Tracking
+
+        double avgDistance = ((getLeftTalonInches() - prevInches) + (getRightTalonInches() - prevInches)) / 2;
+        double theta = gyroAngle - initAngle + 90;
+
+        xPos = avgDistance * Math.cos(theta) + prevX;
+        yPos = avgDistance * Math.sin(theta) + prevY;
+
+        prevX = xPos;
+        prevY = yPos;
+        prevInches = avgDistance;
     }
 
     @Override
