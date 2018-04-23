@@ -29,3 +29,6 @@ ignored)
 .idea/**/tasks.xml
 .idea/dictionaries
 .idea/gradle.xml
+
+# Why should I need to add this?
+.class
