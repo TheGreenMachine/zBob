@@ -44,7 +44,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(24,0.5),2);
                 addSequential(new RotateXDegreesCommand(45,true,0.3),3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
+                addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
                     addSequential(new DriveXInchesCommand(300,runVelocity),5);
@@ -75,7 +75,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(24,0.7),2);
                 addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
+                addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if (secondsToWaitFar == 0) {
                     addSequential(new DriveXInchesCommand(292, runVelocity), 9);
@@ -109,7 +109,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(24,0.5),2);
                 addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.6,0.5),3);
+                addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
                     addSequential(new DriveXInchesCommand(300,runVelocity),5);
@@ -140,7 +140,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(24,0.7),2);
                 addSequential(new RotateXDegreesCommand(45,true,0.3),3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.6, 0.5), 3);
+                addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if (secondsToWaitFar == 0) {
                     addSequential(new DriveXInchesCommand(292, runVelocity), 9);
