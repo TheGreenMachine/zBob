@@ -40,7 +40,7 @@ public class Controls {
         gamepad1.diamondRight().whenPressed(new ToggleClimberShifterCommand(false));
 
         gamepad1.dPadUp().whenPressed(new RaiseElevatorCommand(0.7));
-        gamepad1.dPadDown().whenPressed(new LowerElevatorCommand(0.7));
+        gamepad1.dPadDown().whenPressed(new LowerElevatorCommand(-0.7));
     }
 
     public static Controls getInstance(){

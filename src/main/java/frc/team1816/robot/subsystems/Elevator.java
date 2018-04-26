@@ -88,13 +88,11 @@ public class Elevator extends Subsystem {
     public void setCoastMode() {
         elevatorMaster.setNeutralMode(NeutralMode.Coast);
         elevatorSlave.setNeutralMode(NeutralMode.Coast);
-        System.out.println("Elevator coast mode enabled");
     }
 
     public void setBrakeMode() {
         elevatorMaster.setNeutralMode(NeutralMode.Brake);
         elevatorSlave.setNeutralMode(NeutralMode.Brake);
-        System.out.println("Elevator brake mode enabled");
     }
 
     public void periodic() {
