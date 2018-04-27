@@ -47,11 +47,11 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(300,runVelocity),5);
+                    addSequential(new DriveXInchesCommand(282,runVelocity),5);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
-                    addSequential(new DriveXInchesCommand(108, 0.8), 3);
+                    addSequential(new DriveXInchesCommand(90, 0.8), 3);
                 }
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
@@ -77,12 +77,12 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
-                if (secondsToWaitFar == 0) {
-                    addSequential(new DriveXInchesCommand(292, runVelocity), 9);
+                if(secondsToWaitNear == 0) {
+                    addSequential(new DriveXInchesCommand(282,runVelocity),5);
                 } else {
-                    addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
-                    addSequential(new WaitCommand(secondsToWaitFar));
-                    addSequential(new DriveXInchesCommand(116, 1), 3);
+                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
+                    addSequential(new WaitCommand(secondsToWaitNear));
+                    addSequential(new DriveXInchesCommand(90, 0.8), 3);
                 }
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
@@ -112,11 +112,11 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(300,runVelocity),5);
+                    addSequential(new DriveXInchesCommand(282,runVelocity),5);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
-                    addSequential(new DriveXInchesCommand(108, 0.8), 3);
+                    addSequential(new DriveXInchesCommand(90, 0.8), 3);
                 }
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
@@ -142,12 +142,12 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
-                if (secondsToWaitFar == 0) {
-                    addSequential(new DriveXInchesCommand(292, runVelocity), 9);
+                if(secondsToWaitNear == 0) {
+                    addSequential(new DriveXInchesCommand(282,runVelocity),5);
                 } else {
-                    addSequential(new DriveXInchesCommand(192, 1), 5); //todo tune split distance
-                    addSequential(new WaitCommand(secondsToWaitFar));
-                    addSequential(new DriveXInchesCommand(116, 1), 3);
+                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
+                    addSequential(new WaitCommand(secondsToWaitNear));
+                    addSequential(new DriveXInchesCommand(90, 0.8), 3);
                 }
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));

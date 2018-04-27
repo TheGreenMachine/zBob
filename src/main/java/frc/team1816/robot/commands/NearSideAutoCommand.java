@@ -14,6 +14,7 @@ public class NearSideAutoCommand extends CommandGroup {
         try {
             switchPos = data.charAt(0);
             scalePos = data.charAt(1);
+            startPos = pos.charAt(0);
 
         } catch (Exception e) {
             System.out.println("NO TARGET!");
