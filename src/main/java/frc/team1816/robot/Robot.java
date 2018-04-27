@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     private AvoidanceScaleAutoCommand avoidanceScaleAuto;
     private CenterAutoStartSwitchCommand centerAuto;
     private AvoidanceScaleAutoNearCommand avoidanceNearOnly;
+    private ModdedScaleAutoCommand modScaleAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -67,6 +68,7 @@ public class Robot extends TimedRobot {
         avoidanceScaleAuto = new AvoidanceScaleAutoCommand();
         centerAuto = new CenterAutoStartSwitchCommand();
         avoidanceNearOnly = new AvoidanceScaleAutoNearCommand();
+        modScaleAuto = new ModdedScaleAutoCommand();
 
         startPosition = new SendableChooser<>();
         startPosition.addObject("Left Start", "Left Start");
@@ -74,6 +76,9 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
+
+        autoChooser.addObject("Qual 26 Auto", modScaleAuto);
+
         autoChooser.addObject("Switch Auto", switchAuto);
         autoChooser.addObject("Scale Auto", scaleAuto);
         autoChooser.addObject("Priority NearSw-NearSc-FarSw Auto", priorityAuto);
@@ -170,13 +175,14 @@ public class Robot extends TimedRobot {
             avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             centerAuto.selectAuto(FMSmessage);
             avoidanceNearOnly.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
+            modScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
         Command autoCommand = autoChooser.getSelected();
 
-        System.out.println("Auto Running: " + autoCommand.getName());
+        System.out.println("Auto Running ---- " + startPos + "Start " + autoCommand.getName());
         autoCommand.start();
     }
 
