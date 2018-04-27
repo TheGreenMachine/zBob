@@ -84,6 +84,7 @@ public class Robot extends TimedRobot {
         autoChooser.addObject("Switch Auto", switchAuto);
         autoChooser.addObject("Near Only Switch Auto", nearSwitchAuto);
         autoChooser.addObject("Center Switch Auto", centerAuto);
+
         autoChooser.addObject("Scale Auto", scaleAuto);
         autoChooser.addObject("Priority NearSw-NearSc-FarSw Auto", priorityAuto);
         autoChooser.addObject("Near Side Only Auto", nearAuto);

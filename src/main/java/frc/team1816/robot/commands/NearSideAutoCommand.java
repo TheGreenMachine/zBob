@@ -32,7 +32,7 @@ public class NearSideAutoCommand extends CommandGroup {
                 addParallel(new RaiseElevatorCommand(1));
                 addSequential(new DriveXInchesCommand(248, 0.8));
                 addSequential(new WaitCommand(0.1));
-                addSequential(new RotateXDegreesCommand(45, true, 0.35), 5);
+                addSequential(new RotateXDegreesCommand(45, true, 0.25), 5);
                 addSequential(new DriveXInchesCommand(12,0.6),2);
 
                 addSequential(new SetCollectorSpeedCommand(1));
@@ -43,7 +43,7 @@ public class NearSideAutoCommand extends CommandGroup {
                 addSequential(new WaitCommand(0.2));
 
                 //Turn and collect second cube
-                addSequential(new RotateXDegreesCommand(100, true, 0.35), 5);
+                addSequential(new RotateXDegreesCommand(100, true, 0.25), 5);
                 addParallel(new SetCollectorSpeedCommand(-1));
                 addSequential(new DriveXInchesCommand(68, 0.8, 0.4, 0.2), 2);
                 addSequential(new SetCollectorSpeedCommand(0));
@@ -52,7 +52,7 @@ public class NearSideAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(70, -0.7, 0.6, 0.2));
                 addParallel(new SetElevatorHeightPercentCommand(100),2);
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new RotateXDegreesCommand(-100, true, 0.35), 5);
+                addSequential(new RotateXDegreesCommand(-100, true, 0.25), 5);
                 addSequential(new DriveXInchesCommand(12, 0.8),1);
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
@@ -90,9 +90,9 @@ public class NearSideAutoCommand extends CommandGroup {
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(248, 1));
+                addSequential(new DriveXInchesCommand(248, 0.8));
                 addSequential(new WaitCommand(0.1));
-                addSequential(new RotateXDegreesCommand(-45, true, 0.35), 5);
+                addSequential(new RotateXDegreesCommand(-45, true, 0.25), 5);
                 addSequential(new DriveXInchesCommand(12,0.6),2);
 
                 addSequential(new SetCollectorSpeedCommand(1));
@@ -103,7 +103,7 @@ public class NearSideAutoCommand extends CommandGroup {
                 addSequential(new WaitCommand(0.2));
 
                 //Turn and collect second cube
-                addSequential(new RotateXDegreesCommand(-100, true, 0.35), 5);
+                addSequential(new RotateXDegreesCommand(-100, true, 0.25), 5);
                 addParallel(new SetCollectorSpeedCommand(-1));
                 addSequential(new DriveXInchesCommand(68, 0.8, 0.4, 0.2), 2);
                 addSequential(new SetCollectorSpeedCommand(0));
@@ -112,7 +112,7 @@ public class NearSideAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(70, -0.7, 0.6, 0.2));
                 addParallel(new SetElevatorHeightPercentCommand(100),2);
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new RotateXDegreesCommand(100, true, 0.35), 5);
+                addSequential(new RotateXDegreesCommand(100, true, 0.25), 5);
                 addSequential(new DriveXInchesCommand(12, 0.8),1);
                 addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
