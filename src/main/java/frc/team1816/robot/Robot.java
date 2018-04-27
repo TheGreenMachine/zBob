@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
     private SendableChooser<String> startPosition;
 
     private SwitchAutoCommand switchAuto;
+    private NearSwitchAutoCommand nearSwitchAuto;
     private ScaleAutoCommand scaleAuto;
     private PriorityAutoCommand priorityAuto;
     private NearSideAutoCommand nearAuto;
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
         gamepad1 = Controls.getInstance().gamepad1;
 
         switchAuto = new SwitchAutoCommand();
+        nearSwitchAuto = new NearSwitchAutoCommand();
         scaleAuto = new ScaleAutoCommand();
         priorityAuto = new PriorityAutoCommand();
         nearAuto = new NearSideAutoCommand();
@@ -77,14 +79,16 @@ public class Robot extends TimedRobot {
 
         autoChooser = new SendableChooser<>();
 
-        autoChooser.addObject("Qual 26 Auto", modScaleAuto);
+        autoChooser.addObject("Qual 26 Auto (modded scale)", modScaleAuto);
 
         autoChooser.addObject("Switch Auto", switchAuto);
+        autoChooser.addObject("Near Only Switch Auto", nearSwitchAuto);
+        autoChooser.addObject("Center Switch Auto", centerAuto);
         autoChooser.addObject("Scale Auto", scaleAuto);
         autoChooser.addObject("Priority NearSw-NearSc-FarSw Auto", priorityAuto);
         autoChooser.addObject("Near Side Only Auto", nearAuto);
         autoChooser.addObject("Avoidance Scale Auto", avoidanceScaleAuto);
-        autoChooser.addObject("Center Switch Auto", centerAuto);
+
         autoChooser.addObject("Avoidance Scale Near Only Auto", avoidanceNearOnly);
 
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
@@ -169,11 +173,12 @@ public class Robot extends TimedRobot {
 
         try {
             switchAuto.selectAuto(FMSmessage, startPos);
+            nearSwitchAuto.selectAuto(FMSmessage, startPos);
+            centerAuto.selectAuto(FMSmessage);
             scaleAuto.selectAuto(FMSmessage, startPos);
             priorityAuto.selectAuto(FMSmessage, startPos);
             nearAuto.selectAuto(FMSmessage, startPos);
             avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
-            centerAuto.selectAuto(FMSmessage);
             avoidanceNearOnly.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             modScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
         } catch (Exception e) {
