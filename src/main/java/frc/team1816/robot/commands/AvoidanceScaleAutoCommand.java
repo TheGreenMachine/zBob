@@ -57,9 +57,10 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(90,true,0.2),3);
+                addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
-                addSequential(new SetCollectorSpeedCommand(0.4));
+                addSequential(new SetCollectorSpeedCommand(0.3));
                 addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
                 addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
@@ -122,9 +123,10 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(-90,true,0.2),3);
+                addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
-                addSequential(new SetCollectorSpeedCommand(0.4));
+                addSequential(new SetCollectorSpeedCommand(0.3));
                 addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
                 addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);

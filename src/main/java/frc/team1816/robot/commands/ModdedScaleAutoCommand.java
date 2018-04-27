@@ -60,7 +60,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
-                addSequential(new SetCollectorSpeedCommand(0.4));
+                addSequential(new SetCollectorSpeedCommand(0.3));
                 addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
                 addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
@@ -114,7 +114,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
-                addSequential(new SetCollectorSpeedCommand(0.4));
+                addSequential(new SetCollectorSpeedCommand(0.3));
                 addSequential(new WaitCommand(0.5));
                 addSequential(new SetCollectorSpeedCommand(0));
                 addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
