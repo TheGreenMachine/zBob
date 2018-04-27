@@ -52,7 +52,7 @@ public class PriorityAutoCommand extends CommandGroup {
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(248, 0.6));
+                addSequential(new DriveXInchesCommand(266, 0.6));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.25), 3);
                 addSequential(new DriveXInchesCommand(8,0.4),2);
@@ -122,7 +122,7 @@ public class PriorityAutoCommand extends CommandGroup {
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(248, 0.6));
+                addSequential(new DriveXInchesCommand(266, 0.6));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(-45, true, 0.25), 3);
                 addSequential(new DriveXInchesCommand(8,0.4),2);

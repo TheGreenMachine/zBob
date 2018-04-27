@@ -30,7 +30,7 @@ public class NearSideAutoCommand extends CommandGroup {
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(248, 0.8));
+                addSequential(new DriveXInchesCommand(266, 0.8));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(45, true, 0.25), 5);
                 addSequential(new DriveXInchesCommand(12,0.6),2);
@@ -90,7 +90,7 @@ public class NearSideAutoCommand extends CommandGroup {
 
                 //Cube One
                 addParallel(new RaiseElevatorCommand(1));
-                addSequential(new DriveXInchesCommand(248, 0.8));
+                addSequential(new DriveXInchesCommand(266, 0.8));
                 addSequential(new WaitCommand(0.1));
                 addSequential(new RotateXDegreesCommand(-45, true, 0.25), 5);
                 addSequential(new DriveXInchesCommand(12,0.6),2);
