@@ -47,7 +47,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(282,runVelocity),5);
+                    addSequential(new DriveXInchesCommand(282, runVelocity),5);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
@@ -101,7 +101,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(282,runVelocity),5);
+                    addSequential(new DriveXInchesCommand(282, runVelocity),5);
                 } else {
                     addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
@@ -126,7 +126,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
 
                 addSequential(new DriveXInchesCommand(220, 0.8));
-                addSequential(new RotateXDegreesCommand(-90,true,.32),3);
+                addSequential(new RotateXDegreesCommand(-90,true,.3),3);
                 addSequential(new DriveXInchesCommand(200, 0.7,0.4,0.2));
                 addSequential(new RotateXDegreesCommand(90,true,.32),3);
                 addSequential(new RaiseElevatorCommand());
