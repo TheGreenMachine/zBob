@@ -56,7 +56,7 @@ public class AvoidanceScaleAutoNearCommand extends CommandGroup {
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(90,true,0.2),3);
+                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
@@ -90,7 +90,7 @@ public class AvoidanceScaleAutoNearCommand extends CommandGroup {
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(-90,true,0.2),3);
+                addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
