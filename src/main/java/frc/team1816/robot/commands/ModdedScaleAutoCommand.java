@@ -2,7 +2,7 @@ package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AvoidanceScaleAutoCommand extends CommandGroup {
+public class ModdedScaleAutoCommand extends CommandGroup {
     char target;
     char startPos;
     double secondsToWaitNear = 0;
@@ -10,7 +10,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
     double distanceFromWall = 12;
     double runVelocity = 1;
 
-    public AvoidanceScaleAutoCommand() {
+    public ModdedScaleAutoCommand() {
 
     }
 
@@ -56,7 +56,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(90,true,0.2),3);
+                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
@@ -66,36 +66,24 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
 
             } else if (target == 'R') {
-                System.out.println("LStart Scale Avoidance ---- Target: R");
+                System.out.println("LModScale ---- Target: R");
 
-                addSequential(new DriveXInchesCommand(12,0.5),2);
-                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
-                addSequential(new DriveXInchesCommand(215 - distanceFromWall,1),5);
+                addParallel(new LowerCollectorClawCommand(false,2));
+                addParallel(new SetElevatorHeightPercentCommand(20),2);
 
-                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
-                addSequential(new DriveXInchesCommand(24,0.7),2);
-                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
+                addSequential(new DriveXInchesCommand(220, 0.8));
+                addSequential(new RotateXDegreesCommand(90,true,.3),3);
+                addSequential(new DriveXInchesCommand(200, 0.7,0.4,0.2));
+                addSequential(new RotateXDegreesCommand(-90,true,.32),3);
+                addSequential(new RaiseElevatorCommand());
+                addSequential(new DriveXInchesCommand(48,0.8),3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
-
-                if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(282, runVelocity),5);
-                } else {
-                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
-                    addSequential(new WaitCommand(secondsToWaitNear));
-                    addSequential(new DriveXInchesCommand(90, 0.8), 3);
-                }
-
-                addParallel(new LowerCollectorClawCommand(false,0.5));
-                addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
-                addSequential(new DriveXInchesCommand(24,0.6),3);
-
-                addSequential(new SetCollectorSpeedCommand(0.4));
+                addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
+                addSequential(new WaitCommand(0.2));
 
-                addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),3);
+                addSequential(new DriveXInchesCommand(12, -0.7));
 
             } else {
                 System.out.println("Avoidance ---- Auto-Run");
@@ -122,7 +110,7 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(-90,true,0.2),3);
+                addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(10,0.6),3);
 
@@ -132,35 +120,24 @@ public class AvoidanceScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
 
             } else if (target == 'L') {
-                System.out.println("RStart Scale Avoidance ---- Target: L");
+                System.out.println("RModScale ---- Target: R");
 
-                addSequential(new DriveXInchesCommand(12,0.5),2);
-                addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
-                addSequential(new DriveXInchesCommand(215 - distanceFromWall,1),5);
+                addParallel(new LowerCollectorClawCommand(false,2));
+                addParallel(new SetElevatorHeightPercentCommand(20),2);
 
-                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
-                addSequential(new DriveXInchesCommand(24,0.7),2);
-                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
+                addSequential(new DriveXInchesCommand(220, 0.8));
+                addSequential(new RotateXDegreesCommand(-90,true,.3),3);
+                addSequential(new DriveXInchesCommand(200, 0.7,0.4,0.2));
+                addSequential(new RotateXDegreesCommand(90,true,.32),3);
+                addSequential(new RaiseElevatorCommand());
+                addSequential(new DriveXInchesCommand(48,0.8),3);
 
-                addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
-
-                if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(282, runVelocity),5);
-                } else {
-                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
-                    addSequential(new WaitCommand(secondsToWaitNear));
-                    addSequential(new DriveXInchesCommand(90, 0.8), 3);
-                }
-
-                addParallel(new LowerCollectorClawCommand(false,0.5));
-                addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
-                addSequential(new DriveXInchesCommand(24,0.6),3);
-
-                addSequential(new SetCollectorSpeedCommand(0.4));
+                addSequential(new SetCollectorSpeedCommand(1));
                 addSequential(new WaitCommand(1));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),3);
+                addSequential(new WaitCommand(0.2));
+
+                addSequential(new DriveXInchesCommand(12, -0.7));
 
             } else {
                 System.out.println("Avoidance ---- Auto-Run");

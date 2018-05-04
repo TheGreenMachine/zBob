@@ -32,11 +32,14 @@ public class Robot extends TimedRobot {
     private SendableChooser<String> startPosition;
 
     private SwitchAutoCommand switchAuto;
+    private NearSwitchAutoCommand nearSwitchAuto;
     private ScaleAutoCommand scaleAuto;
     private PriorityAutoCommand priorityAuto;
     private NearSideAutoCommand nearAuto;
     private AvoidanceScaleAutoCommand avoidanceScaleAuto;
     private CenterAutoStartSwitchCommand centerAuto;
+    private AvoidanceScaleAutoNearCommand avoidanceNearOnly;
+    private ModdedScaleAutoCommand modScaleAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -60,11 +63,14 @@ public class Robot extends TimedRobot {
         gamepad1 = Controls.getInstance().gamepad1;
 
         switchAuto = new SwitchAutoCommand();
+        nearSwitchAuto = new NearSwitchAutoCommand();
         scaleAuto = new ScaleAutoCommand();
         priorityAuto = new PriorityAutoCommand();
         nearAuto = new NearSideAutoCommand();
         avoidanceScaleAuto = new AvoidanceScaleAutoCommand();
         centerAuto = new CenterAutoStartSwitchCommand();
+        avoidanceNearOnly = new AvoidanceScaleAutoNearCommand();
+        modScaleAuto = new ModdedScaleAutoCommand();
 
         startPosition = new SendableChooser<>();
         startPosition.addObject("Left Start", "Left Start");
@@ -72,18 +78,26 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
+
+        autoChooser.addObject("Modded Scale(modded scale)", modScaleAuto);
+
         autoChooser.addObject("Switch Auto", switchAuto);
+        autoChooser.addObject("Near Only Switch Auto", nearSwitchAuto);
+        autoChooser.addObject("Center Switch Auto", centerAuto);
+
         autoChooser.addObject("Scale Auto", scaleAuto);
         autoChooser.addObject("Priority NearSw-NearSc-FarSw Auto", priorityAuto);
         autoChooser.addObject("Near Side Only Auto", nearAuto);
         autoChooser.addObject("Avoidance Scale Auto", avoidanceScaleAuto);
-        autoChooser.addObject("Center Switch Auto", centerAuto);
+
+        autoChooser.addObject("Avoidance Scale Near Only Auto", avoidanceNearOnly);
 
         autoChooser.addDefault("Auto-Run", new DriveXInchesCommand(100, 0.8));
         autoChooser.addObject("Wait (debugging only)", new WaitCommand(1));
         autoChooser.addObject("ArcDrive Enc", new ArcDriveCommand(50,.3,90));
         autoChooser.addObject("ArcDrive Gyro", new ArcDriveGyroCommand(50,.3,90));
         autoChooser.addObject("Claw Down Test", new LowerCollectorClawCommand(false,1));
+
         SmartDashboard.putData("Autonomous", autoChooser);
 
         table.getEntry("kP").setDouble(drivetrain.kP);
@@ -160,18 +174,21 @@ public class Robot extends TimedRobot {
 
         try {
             switchAuto.selectAuto(FMSmessage, startPos);
+            nearSwitchAuto.selectAuto(FMSmessage, startPos);
+            centerAuto.selectAuto(FMSmessage);
             scaleAuto.selectAuto(FMSmessage, startPos);
             priorityAuto.selectAuto(FMSmessage, startPos);
             nearAuto.selectAuto(FMSmessage, startPos);
             avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
-            centerAuto.selectAuto(FMSmessage);
+            avoidanceNearOnly.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
+            modScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
         Command autoCommand = autoChooser.getSelected();
 
-        System.out.println("Auto Running: " + autoCommand.getName());
+        System.out.println("Auto Running ---- " + startPos + "Start " + autoCommand.getName());
         autoCommand.start();
     }
 
