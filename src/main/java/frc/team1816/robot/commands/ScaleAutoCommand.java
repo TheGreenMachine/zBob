@@ -122,7 +122,7 @@ public class ScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
 
                 addSequential(new DriveXInchesCommand(220, 0.8));
-                addSequential(new RotateXDegreesCommand(-90,true,.32),3);
+                addSequential(new RotateXDegreesCommand(-90,true,.3),3);
                 addSequential(new DriveXInchesCommand(200, 0.7,0.4,0.2));
                 addSequential(new RotateXDegreesCommand(90,true,.32),3);
                 addSequential(new RaiseElevatorCommand());
