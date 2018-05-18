@@ -47,9 +47,9 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(282, runVelocity),5);
+                    addSequential(new DriveXInchesCommand(276, runVelocity),5);
                 } else {
-                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
+                    addSequential(new DriveXInchesCommand(186, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
                     addSequential(new DriveXInchesCommand(90, 0.8), 3);
                 }
@@ -58,12 +58,12 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(90,true,0.3),3);
                 addSequential(new WaitCommand(1));
-                addSequential(new DriveXInchesCommand(10,0.6),3);
+                addSequential(new DriveXInchesCommand(16,0.6),3);
 
-                addSequential(new SetCollectorSpeedCommand(0.3));
-                addSequential(new WaitCommand(0.5));
+                addSequential(new SetCollectorSpeedCommand(0.5));
+                addSequential(new WaitCommand(1.2));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
+                addSequential(new DriveXInchesCommand(20 + distanceFromWall,-0.3),2);
 
             } else if (target == 'R') {
                 System.out.println("LModScale ---- Target: R");
@@ -101,9 +101,9 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
                 if(secondsToWaitNear == 0) {
-                    addSequential(new DriveXInchesCommand(282, runVelocity),5);
+                    addSequential(new DriveXInchesCommand(276, runVelocity),5);
                 } else {
-                    addSequential(new DriveXInchesCommand(192, 0.8), 5); //todo tune split distance
+                    addSequential(new DriveXInchesCommand(186, 0.8), 5); //todo tune split distance
                     addSequential(new WaitCommand(secondsToWaitNear));
                     addSequential(new DriveXInchesCommand(90, 0.8), 3);
                 }
@@ -112,12 +112,12 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addParallel(new RaiseElevatorCommand(),3);
                 addSequential(new RotateXDegreesCommand(-90,true,0.3),3);
                 addSequential(new WaitCommand(1));
-                addSequential(new DriveXInchesCommand(10,0.6),3);
+                addSequential(new DriveXInchesCommand(16,0.6),3);
 
-                addSequential(new SetCollectorSpeedCommand(0.3));
-                addSequential(new WaitCommand(0.5));
+                addSequential(new SetCollectorSpeedCommand(0.5));
+                addSequential(new WaitCommand(1.2));
                 addSequential(new SetCollectorSpeedCommand(0));
-                addSequential(new DriveXInchesCommand(24 + distanceFromWall,-0.3),2);
+                addSequential(new DriveXInchesCommand(20 + distanceFromWall,-0.3),2);
 
             } else if (target == 'L') {
                 System.out.println("RModScale ---- Target: R");

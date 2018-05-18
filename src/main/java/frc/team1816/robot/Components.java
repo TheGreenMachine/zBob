@@ -46,7 +46,7 @@ public class Components {
 
     //Compressor
 //     private static final int PCM_NODE_ID = 0; /*competition borrowed PCM*/
-    private static final int PCM_NODE_ID = 10; /*practice bot PCM*/
+    private static final int PCM_NODE_ID = 0; /*practice bot PCM*/
 
     public Components(){
         drivetrain = new Drivetrain(RIGHT_MAIN, RIGHT_SLAVE_ONE, LEFT_MAIN, LEFT_SLAVE_ONE);
