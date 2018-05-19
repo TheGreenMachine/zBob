@@ -39,7 +39,7 @@ public class Components {
     private static final int CLIMBER_ONE = 12;
     private static final int CLIMBER_TWO = 11;
     private static final int CLIMBER_THREE = 10;
-    private static final int CLIMBER_SOLENOID = 1;
+    private static final int CLIMBER_SOLENOID = 0;
 
     //Ramp Constants
     private static final int RAMP_SOLENOID = 2;
