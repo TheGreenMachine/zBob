@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
 
         autoChooser = new SendableChooser<>();
 
-        autoChooser.addObject("Modded Scale(modded scale)", modScaleAuto);
+        autoChooser.addObject("Modded Scale(2-cube compatible)", modScaleAuto);
 
         autoChooser.addObject("Switch Auto", switchAuto);
         autoChooser.addObject("Near Only Switch Auto", nearSwitchAuto);
