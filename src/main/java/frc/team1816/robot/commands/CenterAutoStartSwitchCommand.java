@@ -21,6 +21,7 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           if (target == 'L'){
               System.out.println("Center Switch ---- Target: L");
 
+              //Cube One
               addSequential(new DriveXInchesCommand(6, 0.6),4);
               addSequential(new RotateXDegreesCommand(-45, true, 0.3), 3);
 
@@ -34,6 +35,7 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
               addSequential(new WaitCommand(0.5));
               addSequential(new SetCollectorSpeedCommand(0));
 
+              //Cube Two
               addParallel(new LowerElevatorCommand(-0.7));
               addSequential(new DriveXInchesCommand(54, -0.7),4);
               addSequential(new WaitCommand(0.5));
@@ -54,6 +56,7 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
           } else if (target == 'R'){
               System.out.println("Center Switch ---- Target: R");
 
+              //Cube One
               addSequential(new DriveXInchesCommand(6, 0.6),4);
               addSequential(new RotateXDegreesCommand(45, true, 0.3), 3);
 
@@ -67,15 +70,16 @@ public class CenterAutoStartSwitchCommand extends CommandGroup {
               addSequential(new WaitCommand(0.5));
               addSequential(new SetCollectorSpeedCommand(0));
 
+              //Cube Two
               addParallel(new LowerElevatorCommand(-0.7));
               addSequential(new DriveXInchesCommand(60, -0.6),4);
               addSequential(new WaitCommand(0.5));
-              addSequential(new RotateXDegreesCommand(-53, true, .3),3);
+              addSequential(new RotateXDegreesCommand(-55, true, .3),3);
 
               addParallel(new SetCollectorSpeedCommand(-0.7));
-              addSequential(new DriveXInchesCommand(70,0.7),3);
+              addSequential(new DriveXInchesCommand(64,0.7),3);
               addSequential(new SetCollectorSpeedCommand(0));
-              addSequential(new DriveXInchesCommand(54, -.76),3);
+              addSequential(new DriveXInchesCommand(48, -.76),3);
               addSequential(new RotateXDegreesCommand(55, true, .3),3);
 
               addParallel(new SetElevatorHeightPercentCommand(40),1);
