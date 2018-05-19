@@ -41,7 +41,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
 
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
-                addSequential(new DriveXInchesCommand(18,0.5),2);
+                addSequential(new DriveXInchesCommand(24,0.5),2);
                 addSequential(new RotateXDegreesCommand(45,true,0.35),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
@@ -95,7 +95,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
 
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(45,true,0.3),3);
-                addSequential(new DriveXInchesCommand(18,0.5),2);
+                addSequential(new DriveXInchesCommand(24,0.5),2);
                 addSequential(new RotateXDegreesCommand(-45,true,0.35),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
@@ -120,7 +120,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
                 addSequential(new DriveXInchesCommand(20 + distanceFromWall,-0.3),2);
 
             } else if (target == 'L') {
-                System.out.println("RModScale ---- Target: R");
+                System.out.println("RModScale ---- Target: L");
 
                 addParallel(new LowerCollectorClawCommand(false,2));
                 addParallel(new SetElevatorHeightPercentCommand(20),2);
