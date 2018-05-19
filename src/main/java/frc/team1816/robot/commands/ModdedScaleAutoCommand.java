@@ -41,8 +41,8 @@ public class ModdedScaleAutoCommand extends CommandGroup {
 
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
-                addSequential(new DriveXInchesCommand(24,0.5),2);
-                addSequential(new RotateXDegreesCommand(45,true,0.3),3);
+                addSequential(new DriveXInchesCommand(18,0.5),2);
+                addSequential(new RotateXDegreesCommand(45,true,0.35),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
@@ -56,7 +56,7 @@ public class ModdedScaleAutoCommand extends CommandGroup {
 
                 addParallel(new LowerCollectorClawCommand(false,0.5));
                 addParallel(new RaiseElevatorCommand(),3);
-                addSequential(new RotateXDegreesCommand(90,true,0.35),3);
+                addSequential(new RotateXDegreesCommand(90,true,0.3),3);
                 addSequential(new WaitCommand(1));
                 addSequential(new DriveXInchesCommand(16,0.6),3);
 
@@ -95,8 +95,8 @@ public class ModdedScaleAutoCommand extends CommandGroup {
 
                 addSequential(new DriveXInchesCommand(6,0.5),2);
                 addSequential(new RotateXDegreesCommand(45,true,0.3),3);
-                addSequential(new DriveXInchesCommand(24,0.5),2);
-                addSequential(new RotateXDegreesCommand(-45,true,0.3),3);
+                addSequential(new DriveXInchesCommand(18,0.5),2);
+                addSequential(new RotateXDegreesCommand(-45,true,0.35),3);
 
                 addParallel(new SetElevatorHeightPercentCommand(0.7,0.7),3);
 
