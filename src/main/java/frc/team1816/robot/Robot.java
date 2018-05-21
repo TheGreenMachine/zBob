@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
     private CenterAutoStartSwitchCommand centerAuto;
     private AvoidanceScaleAutoNearCommand avoidanceNearOnly;
     private ModdedScaleAutoCommand modScaleAuto;
+    private StateElimsAutoCommand stateElimsAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -73,6 +74,7 @@ public class Robot extends TimedRobot {
         centerAuto = new CenterAutoStartSwitchCommand();
         avoidanceNearOnly = new AvoidanceScaleAutoNearCommand();
         modScaleAuto = new ModdedScaleAutoCommand();
+        stateElimsAuto = new StateElimsAutoCommand();
 
         startPosition = new SendableChooser<>();
         startPosition.addObject("Left Start", "Left Start");
@@ -80,6 +82,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
+
+        autoChooser.addObject("State Eliminations Auto", stateElimsAuto);
 
         autoChooser.addObject("Modded Scale(2-cube compatible)", modScaleAuto);
 
@@ -184,6 +188,7 @@ public class Robot extends TimedRobot {
             avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             avoidanceNearOnly.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             modScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
+            stateElimsAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
