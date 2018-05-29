@@ -40,10 +40,13 @@ public class Robot extends TimedRobot {
     private CenterAutoStartSwitchCommand centerAuto;
     private AvoidanceScaleAutoNearCommand avoidanceNearOnly;
     private ModdedScaleAutoCommand modScaleAuto;
+    private StateElimsAutoCommand stateElimsAuto;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
     private NetworkTable avoidanceParameter;
+
+    private boolean rampsDeployed = false;
 
     public void robotInit() {
         Components.getInstance();
@@ -71,6 +74,7 @@ public class Robot extends TimedRobot {
         centerAuto = new CenterAutoStartSwitchCommand();
         avoidanceNearOnly = new AvoidanceScaleAutoNearCommand();
         modScaleAuto = new ModdedScaleAutoCommand();
+        stateElimsAuto = new StateElimsAutoCommand();
 
         startPosition = new SendableChooser<>();
         startPosition.addObject("Left Start", "Left Start");
@@ -79,7 +83,9 @@ public class Robot extends TimedRobot {
 
         autoChooser = new SendableChooser<>();
 
-        autoChooser.addObject("Modded Scale(modded scale)", modScaleAuto);
+        autoChooser.addObject("State Eliminations Auto", stateElimsAuto);
+
+        autoChooser.addObject("Modded Scale(2-cube compatible)", modScaleAuto);
 
         autoChooser.addObject("Switch Auto", switchAuto);
         autoChooser.addObject("Near Only Switch Auto", nearSwitchAuto);
@@ -182,6 +188,7 @@ public class Robot extends TimedRobot {
             avoidanceScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             avoidanceNearOnly.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
             modScaleAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
+            stateElimsAuto.selectAuto(FMSmessage, startPos, secondsToWaitNear, secondsToWaitFar, distanceFromWall, runVelocity);
         } catch (Exception e) {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
@@ -240,7 +247,12 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         if(gamepad0.middleLeft().get() && gamepad0.middleRight().get()) {
             ramp.deployRamps();
+            rampsDeployed = true;
             System.out.println("Deploying Ramps");
+        } else if(rampsDeployed) {
+            ramp.resetRamps();
+            rampsDeployed = false;
+            System.out.println("Solenoid Reset");
         }
 
         posLog.log(drivetrain.getCoordinates());
@@ -249,19 +261,6 @@ public class Robot extends TimedRobot {
         velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
         velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
         velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
-
-//        System.out.println("L Velocity (ticks/100ms): " + drivetrain.getLeftTalonVelocity());
-//        System.out.println("R Velocity (ticks/100ms): " + drivetrain.getRightTalonVelocity());
-//        System.out.println("Left Ticks (grayhill): " + drivetrain.talonPositionLeft());
-//        System.out.println("Right Ticks (grayhill): " + drivetrain.talonPositionRight());
-//        System.out.println("Gyro: " + drivetrain.getGyroAngle());
-//        System.out.println("Gyro Status: " + drivetrain.gyroActiveCheck());
-
-//        System.out.println("Elevator ticks: " + elevator.getTicks());
-
-//        System.out.println("left talon v " + drivetrain.getLeftTalonVelocity());
-//        System.out.println("right talon v" + drivetrain.getRightTalonVelocity());
-//        System.out.println("elevator out voltage" + elevator.getElevatorOutputVoltage());
 
         Scheduler.getInstance().run();
     }
