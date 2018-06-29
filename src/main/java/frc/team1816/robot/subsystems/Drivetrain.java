@@ -342,7 +342,7 @@ public class Drivetrain extends Subsystem1816{
     }
 
     public String getCoordinates() {
-        return "" + xPos + "," + yPos + getLeftTalonInches() + "," + getRightTalonInches() + "," + getGyroAngle();
+        return "" + xPos + "," + yPos + "," + getLeftTalonInches() + "," + getRightTalonInches() + "," + getGyroAngle();
     }
 
     @Override
