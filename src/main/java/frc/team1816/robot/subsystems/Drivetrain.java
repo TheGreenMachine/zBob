@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem1816{
     private double gyroAngle, leftTalonVelocity, rightTalonVelocity, talonPositionLeft, talonPositionRight;
 
     private double initX, initY, initT;
-    private double xPos, yPos, prevInches, prevX, prevY, initAngle;
+    private double xPos, yPos, prevInches, prevX, prevY, prevLeftInches, prevRightInches, initAngle;
 
     private String prevHeadingTarget;
 
@@ -234,10 +234,13 @@ public class Drivetrain extends Subsystem1816{
         initX = 0;
         initY = 0;
         initT = System.currentTimeMillis();
+        prevRightInches = 0.0;
+        prevLeftInches = 0.0;
         prevInches = 0;
         prevX = 0;
         prevY = 0;
-        initAngle = gyroAngle;
+        initAngle = navx.getAngle();
+        System.out.println(initAngle);
         resetEncoders();
     }
 
@@ -369,16 +372,18 @@ public class Drivetrain extends Subsystem1816{
 //
 
 //////        "Simple" Position Tracking
-
-        double avgDistance = ((getLeftTalonInches() - prevInches) + (getRightTalonInches() - prevInches)) / 2;
-        double theta = gyroAngle - initAngle + 90;
+        double currLeftInches = getLeftTalonInches();
+        double currRightInches = getRightTalonInches();
+        double avgDistance = ((currLeftInches - prevLeftInches) + (currRightInches - prevRightInches)) / 2;
+        double theta = Math.toRadians(gyroAngle - initAngle) + Math.PI/2;
 
         xPos = avgDistance * Math.cos(theta) + prevX;
         yPos = avgDistance * Math.sin(theta) + prevY;
 
         prevX = xPos;
         prevY = yPos;
-        prevInches = avgDistance;
+        prevLeftInches = currLeftInches;
+        prevRightInches = currRightInches;
     }
 
     @Override
