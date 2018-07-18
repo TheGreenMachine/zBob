@@ -207,6 +207,8 @@ public class Robot extends TimedRobot {
 
         drivetrain.setDrivetrainCoastMode();
         drivetrain.resetEncoders();
+        drivetrain.initCoordinateTracking();
+
         drivetrain.setDefaultCommand(new GamepadDriveCommand(gamepad0));
         elevator.setDefaultCommand(new GamepadElevatorCommand(gamepad1));
         climber.setDefaultCommand(new GamepadClimberCommand(gamepad1));

@@ -233,6 +233,8 @@ public class Drivetrain extends Subsystem1816{
     public void initCoordinateTracking() {
         initX = 0;
         initY = 0;
+        xPos = 0;
+        yPos = 0;
         initT = System.currentTimeMillis();
         prevRightInches = 0.0;
         prevLeftInches = 0.0;
@@ -241,7 +243,6 @@ public class Drivetrain extends Subsystem1816{
         prevY = 0;
         initAngle = navx.getAngle();
         System.out.println(initAngle);
-        resetEncoders();
     }
 
     @Override
@@ -375,7 +376,7 @@ public class Drivetrain extends Subsystem1816{
         double currLeftInches = getLeftTalonInches();
         double currRightInches = getRightTalonInches();
         double avgDistance = ((currLeftInches - prevLeftInches) + (currRightInches - prevRightInches)) / 2;
-        double theta = Math.toRadians(gyroAngle - initAngle) + Math.PI/2;
+        double theta = (Math.toRadians(initAngle - gyroAngle) + Math.PI/2);
 
         xPos = avgDistance * Math.cos(theta) + prevX;
         yPos = avgDistance * Math.sin(theta) + prevY;
