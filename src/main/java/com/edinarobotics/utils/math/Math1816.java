@@ -82,7 +82,7 @@ public final class Math1816 {
 
     /**
      * A function that returns an inverse tangent approximation for the given number.
-     * The domain of numbers include all real numbers.
+     * The domain of the function includes all real numbers.
      * The approximation function is in the form ax / (b + sqrt(c + x^2)), where
      * a, b and c are constants tuned to reduce the error.
      * Maximum error that occurs is approximately 0.00209
@@ -100,12 +100,18 @@ public final class Math1816 {
 
     /**
      * A function that returns an inverse sine approximation for the given number.
-     * The domain of the function include all real numbers in the interval [-1, 1];
+     * The domain of the function includes all real numbers in the interval [-1, 1];
      * The function uses the identity that arcsin(x) = arctan(x/sqrt(1-x^2))
      * @param num The number whose inverse sine approximation will be returned.
-     * @return An appoximation of the inverse sin of the number as described above.
+     * @return An approximation of the inverse sin of the number as described above.
      */
-    public static double asinApprox(double num){
-        return atanApprox(num / Math.sqrt(1 - Math.pow(num, 2)));
+    public static double asinApprox(double num) {
+        if (num == 1) {
+            return Math.PI / 2;
+        } else if (num == -1) {
+            return -1 * Math.PI / 2;
+        } else {
+            return atanApprox(num / Math.sqrt(1 - Math.pow(num, 2)));
+        }
     }
 }

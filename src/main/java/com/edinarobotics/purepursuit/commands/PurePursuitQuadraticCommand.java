@@ -29,8 +29,8 @@ public class PurePursuitQuadraticCommand extends Command {
 
     @Override
     protected void initialize() {
-        //this.robotX = drivetrain.getxPos();
-        //this.robotY = drivetrain.getyPos();
+        //this.robotX = drivetrain.getXPos();
+        //this.robotY = drivetrain.getYPos();
         this.robotX = 0;
         this.robotY = 0;
         this.prevX = this.robotX;
@@ -58,7 +58,7 @@ public class PurePursuitQuadraticCommand extends Command {
             y1 = a * x1 + b;
         }
 
-        double heading = Math1816.atanApprox((y1 - robotY)/(x1 - robotX));        
+        double heading = Math1816.atanApprox((y1 - robotY)/(x1 - robotX));
     }
 
     @Override

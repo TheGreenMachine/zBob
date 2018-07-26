@@ -349,11 +349,11 @@ public class Drivetrain extends Subsystem1816{
         return "" + xPos + "," + yPos + "," + getLeftTalonInches() + "," + getRightTalonInches() + "," + getGyroAngle();
     }
 
-    public double getxPos(){
+    public double getXPos(){
         return xPos;
     }
 
-    public double getyPos(){
+    public double getYPos(){
         return yPos;
     }
 
