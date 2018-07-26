@@ -1,5 +1,7 @@
 package com.edinarobotics.utils.math;
 
+import org.opencv.core.Mat;
+
 /**
  * This class provides common math functions that are not implemented
  * elsewhere in WPILib.
@@ -76,5 +78,34 @@ public final class Math1816 {
             return min;
         }
         return num;
+    }
+
+    /**
+     * A function that returns an inverse tangent approximation for the given number.
+     * The domain of numbers include all real numbers.
+     * The approximation function is in the form ax / (b + sqrt(c + x^2)), where
+     * a, b and c are constants tuned to reduce the error.
+     * Maximum error that occurs is approximately 0.00209
+     * @param num The number whose inverse tangent approximation will be returned.
+     * @return An approximation of the inverse tan of the number as described above.
+     */
+    public static double atanApprox(double num){
+        double a = Math.PI / 2;
+        double b = (12 - Math.pow(Math.PI, 2))/(4 * (4 - Math.PI));
+        double c = Math.pow(((6 - Math.PI) * (2 - Math.PI)/(4 * (4 - Math.PI))), 2);
+
+        double atan = (a * num) / (b + Math.sqrt(c + Math.pow(num, 2)));
+        return atan;
+    }
+
+    /**
+     * A function that returns an inverse sine approximation for the given number.
+     * The domain of the function include all real numbers in the interval [-1, 1];
+     * The function uses the identity that arcsin(x) = arctan(x/sqrt(1-x^2))
+     * @param num The number whose inverse sine approximation will be returned.
+     * @return An appoximation of the inverse sin of the number as described above.
+     */
+    public static double asinApprox(double num){
+        return atanApprox(num / Math.sqrt(1 - Math.pow(num, 2)));
     }
 }
