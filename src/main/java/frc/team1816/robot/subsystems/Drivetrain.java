@@ -349,6 +349,14 @@ public class Drivetrain extends Subsystem1816{
         return "" + xPos + "," + yPos + "," + getLeftTalonInches() + "," + getRightTalonInches() + "," + getGyroAngle();
     }
 
+    public double getxPos(){
+        return xPos;
+    }
+
+    public double getyPos(){
+        return yPos;
+    }
+
     @Override
     public void periodic() {
      gyroAngle = navx.getAngle();

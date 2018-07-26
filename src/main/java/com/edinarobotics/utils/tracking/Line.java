@@ -1,6 +1,6 @@
 package com.edinarobotics.utils.tracking;
 
-import static com.edinarobotics.utils.math.Math1816.atanApprox;
+import com.edinarobotics.utils.math.Math1816;
 
 public class Line {
     private Point p1, p2;
@@ -13,7 +13,7 @@ public class Line {
         this.p2 = p2;
         this.slope = (p2.getY() - p1.getY())/(p2.getX() - p1.getX());
         this.yIntercept = p1.getY() - this.slope * p1.getX();
-        this.angle = atanApprox(slope);
+        this.angle = Math1816.atanApprox(slope);
     }
 
     public double getAngle() {return this.angle; }
