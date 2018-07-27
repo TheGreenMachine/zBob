@@ -3,15 +3,21 @@ package com.edinarobotics.purepursuit.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.subsystems.Drivetrain;
 
-//todo: add PPDrive method, commandGroup. Rework structure
+//todo: add PPDrive, commandGroup. Rework structure
 
 public class PurePursuitCommand extends Command {
+    private static final double MIN_TURN_SPEED = 0.1;
+    private static final double kP_TURN = -0.02;
+
     private Drivetrain drivetrain;
 
     private double lookAheadDist;
     private Point startPoint;
     private Point endPoint;
     private Line line;
+
+    private double currXPos, currYPos;
+    private double velocity;
 
     static class Point {
         double x, y;
@@ -44,6 +50,8 @@ public class PurePursuitCommand extends Command {
             double yOffset = Math.sin(theta) * dist;
 
             return Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+
+            //todo: add case for when look-ahead cannot 'find' line -- travel in dir of y-offset line
         }
 
         boolean continueRun(double botX, double botY) {
@@ -57,23 +65,50 @@ public class PurePursuitCommand extends Command {
         }
     }
 
-    public PurePursuitCommand(Point pt1, Point pt2, double lookAheadDist) {
+    public PurePursuitCommand(Point pt1, Point pt2, double lookAheadDist, double velocity) {
+        super("purepursuitcommand");
         requires(drivetrain);
 
         this.lookAheadDist = lookAheadDist;
         startPoint = pt1;
         endPoint = pt2;
         line = new Line(startPoint, endPoint, lookAheadDist);
+
+        this.velocity = velocity;
     }
 
     @Override
     protected void initialize() {
-
+        System.out.println("Pure Pursuit Drive Init");
+        currXPos = drivetrain.getXPos();
+        currYPos = drivetrain.getYPos();
     }
 
     @Override
     protected void execute() {
-        //todo: loop PP algorithm
+        currXPos = drivetrain.getXPos();
+        currYPos = drivetrain.getYPos();
+
+        double desiredHeading = line.getDesiredHeading(currXPos, currYPos);
+        double angleError = desiredHeading - drivetrain.getGyroAngle(); //positive - ccw; negative - cw;
+        double powerDeduction;
+        if( kP_TURN * angleError > 45) {
+            powerDeduction = -0.9;
+        } else {
+            powerDeduction = kP_TURN * angleError;
+        }
+
+        if(velocity - powerDeduction < 0.1) {
+            powerDeduction = velocity - 0.1;
+        }
+
+        if(angleError < 0) {
+            drivetrain.setDrivetrain(velocity, velocity - powerDeduction);
+        } else if (angleError > 0) {
+            drivetrain.setDrivetrain(velocity - powerDeduction, velocity);
+        } else {
+            drivetrain.setDrivetrain(velocity, velocity);
+        }
     }
 
     @Override
