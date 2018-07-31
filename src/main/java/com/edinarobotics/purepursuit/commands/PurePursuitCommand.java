@@ -1,78 +1,34 @@
 package com.edinarobotics.purepursuit.commands;
 
+import com.edinarobotics.utils.math.PPLine;
+import com.edinarobotics.utils.math.PPPoint;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.subsystems.Drivetrain;
 
-//todo: add PPDrive, commandGroup. Rework structure
+//todo: this class goes in a commandGroup that strings together Lines
 
 public class PurePursuitCommand extends Command {
     private static final double MIN_TURN_SPEED = 0.1;
-    private static final double kP_TURN = -0.02;
+    private static final double kP_TURN = -0.02; //todo: tune value
 
     private Drivetrain drivetrain;
 
     private double lookAheadDist;
-    private Point startPoint;
-    private Point endPoint;
-    private Line line;
+    private PPPoint startPoint;
+    private PPPoint endPoint;
+    private PPLine path;
 
     private double currXPos, currYPos;
     private double velocity;
 
-    static class Point {
-        double x, y;
-
-        Point(double x, double y) { this.x = x; this.y = y; }
-
-        public String toString() { return String.format("[%.2f, %.2f]", x, y); }
-    }
-
-    static class Line {
-        Point pt1;
-        Point pt2;
-        private double angle;
-        private double lookAheadDist;
-
-        Line(Point pt1, Point pt2, double lookAheadDist) {
-            this.pt1 = pt1;
-            this.pt2 = pt2;
-            this.angle = Math.atan2(pt2.y - pt1.y, pt2.x - pt1.x);
-            this.lookAheadDist = lookAheadDist;
-        }
-
-        double getAngleRad() { return angle; }
-        double getAngleDeg() { return Math.toDegrees(angle); }
-
-        double getDesiredHeading(double botX, double botY) {
-            double theta = Math.atan2(botY - pt1.y, botX - pt1.x) - getAngleRad(); //i dont understand how atan2 works, clearly
-            double dist = Math.sqrt( ( Math.pow(botX - pt1.x, 2) ) + ( Math.pow(botY - pt1.y, 2) ) );
-
-            double yOffset = Math.sin(theta) * dist;
-
-            return Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
-
-            //todo: add case for when look-ahead cannot 'find' line -- travel in dir of y-offset line
-        }
-
-        boolean continueRun(double botX, double botY) {
-            double dist = ( Math.pow(botX - pt2.x, 2) ) + ( Math.pow(botY - pt2.y, 2) );
-
-            if(dist < Math.pow(lookAheadDist, 2)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public PurePursuitCommand(Point pt1, Point pt2, double lookAheadDist, double velocity) {
+    public PurePursuitCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double velocity) {
         super("purepursuitcommand");
         requires(drivetrain);
 
         this.lookAheadDist = lookAheadDist;
         startPoint = pt1;
         endPoint = pt2;
-        line = new Line(startPoint, endPoint, lookAheadDist);
+        path = new PPLine(startPoint, endPoint, lookAheadDist);
 
         this.velocity = velocity;
     }
@@ -89,7 +45,7 @@ public class PurePursuitCommand extends Command {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
 
-        double desiredHeading = line.getDesiredHeading(currXPos, currYPos);
+        double desiredHeading = path.getDesiredHeading(currXPos, currYPos);
         double angleError = desiredHeading - drivetrain.getGyroAngle(); //positive - ccw; negative - cw;
         double powerDeduction;
         if( kP_TURN * angleError > 45) {
@@ -98,8 +54,8 @@ public class PurePursuitCommand extends Command {
             powerDeduction = kP_TURN * angleError;
         }
 
-        if(velocity - powerDeduction < 0.1) {
-            powerDeduction = velocity - 0.1;
+        if(velocity - powerDeduction < MIN_TURN_SPEED) {
+            powerDeduction = velocity - MIN_TURN_SPEED;
         }
 
         if(angleError < 0) {
@@ -113,13 +69,12 @@ public class PurePursuitCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        //todo: check continueRun() method form Line class
-        return false;
+        return !(path.continueRun(currXPos, currYPos));
     }
 
     @Override
     protected void end() {
-        //todo: shutoff motors
+        drivetrain.setDrivetrain(0,0);
     }
 
     @Override
