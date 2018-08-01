@@ -13,24 +13,22 @@ public class PurePursuitCommand extends Command {
 
     private Drivetrain drivetrain;
 
-    private double lookAheadDist;
     private PPPoint startPoint;
     private PPPoint endPoint;
     private PPLine path;
 
     private double currXPos, currYPos;
-    private double velocity;
+    private double targetVelocity;
 
-    public PurePursuitCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double velocity) {
+    public PurePursuitCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
         super("purepursuitcommand");
         requires(drivetrain);
 
-        this.lookAheadDist = lookAheadDist;
         startPoint = pt1;
         endPoint = pt2;
         path = new PPLine(startPoint, endPoint, lookAheadDist);
 
-        this.velocity = velocity;
+        this.targetVelocity = targetVelocity;
     }
 
     @Override
@@ -46,7 +44,7 @@ public class PurePursuitCommand extends Command {
         currYPos = drivetrain.getYPos();
 
         double desiredHeading = path.getDesiredHeading(currXPos, currYPos);
-        double angleError = desiredHeading - drivetrain.getGyroAngle(); //positive - ccw; negative - cw;
+        double angleError = desiredHeading - drivetrain.getGyroAngle(); //positive - ccw; negative - cw
         double powerDeduction;
         if( kP_TURN * angleError > 45) {
             powerDeduction = -0.9;
@@ -54,16 +52,16 @@ public class PurePursuitCommand extends Command {
             powerDeduction = kP_TURN * angleError;
         }
 
-        if(velocity - powerDeduction < MIN_TURN_SPEED) {
-            powerDeduction = velocity - MIN_TURN_SPEED;
+        if(targetVelocity - powerDeduction < MIN_TURN_SPEED) {
+            powerDeduction = targetVelocity - MIN_TURN_SPEED;
         }
 
         if(angleError < 0) {
-            drivetrain.setDrivetrain(velocity, velocity - powerDeduction);
+            drivetrain.setDrivetrain(targetVelocity, targetVelocity - powerDeduction);
         } else if (angleError > 0) {
-            drivetrain.setDrivetrain(velocity - powerDeduction, velocity);
+            drivetrain.setDrivetrain(targetVelocity - powerDeduction, targetVelocity);
         } else {
-            drivetrain.setDrivetrain(velocity, velocity);
+            drivetrain.setDrivetrain(targetVelocity, targetVelocity);
         }
     }
 
@@ -80,5 +78,10 @@ public class PurePursuitCommand extends Command {
     @Override
     protected void interrupted() {
         super.interrupted();
+    }
+
+    //-------UNIT TEST CODE-------//
+    public static void main(String [] args) {
+        //todo: code for unit testing
     }
 }
