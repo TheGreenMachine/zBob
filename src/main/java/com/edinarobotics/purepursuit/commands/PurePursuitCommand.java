@@ -3,6 +3,7 @@ package com.edinarobotics.purepursuit.commands;
 import com.edinarobotics.utils.math.PPLine;
 import com.edinarobotics.utils.math.PPPoint;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 //todo: this class goes in a commandGroup that strings together Lines
@@ -22,13 +23,15 @@ public class PurePursuitCommand extends Command {
 
     public PurePursuitCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
         super("purepursuitcommand");
-        requires(drivetrain);
+        drivetrain = Components.getInstance().drivetrain;
 
         startPoint = pt1;
         endPoint = pt2;
         path = new PPLine(startPoint, endPoint, lookAheadDist);
 
         this.targetVelocity = targetVelocity;
+
+        requires(drivetrain);
     }
 
     @Override
