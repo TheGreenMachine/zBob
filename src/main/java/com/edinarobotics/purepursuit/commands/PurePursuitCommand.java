@@ -52,9 +52,7 @@ public class PurePursuitCommand extends Command {
             powerDeduction = kP_TURN * angleError;
         }
 
-        if(targetVelocity - powerDeduction < MIN_TURN_SPEED) {
-            powerDeduction = targetVelocity - MIN_TURN_SPEED;
-        }
+        powerDeduction = Math.max(powerDeduction, targetVelocity - MIN_TURN_SPEED); //cap powerDeduction so that robot never drops below MIN_TURN_SPEED
 
         if(angleError < 0) {
             drivetrain.setDrivetrain(targetVelocity, targetVelocity - powerDeduction);
