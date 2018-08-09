@@ -7,6 +7,7 @@ import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 //todo: this class goes in a commandGroup that strings together Lines
+//todo: write PP-endpoint command class
 
 public class PurePursuitCommand extends Command {
     private static final double MIN_TURN_SPEED = 0.1;
@@ -59,11 +60,16 @@ public class PurePursuitCommand extends Command {
 
         if(angleError < 0) {
             drivetrain.setDrivetrain(targetVelocity, targetVelocity - powerDeduction);
+            System.out.println("LV: " + targetVelocity + " RV: " + (targetVelocity - powerDeduction));
         } else if (angleError > 0) {
             drivetrain.setDrivetrain(targetVelocity - powerDeduction, targetVelocity);
+            System.out.println("LV: " + (targetVelocity - powerDeduction) + "RV: " + targetVelocity);
         } else {
             drivetrain.setDrivetrain(targetVelocity, targetVelocity);
+            System.out.println("LV + RV: " + targetVelocity);
         }
+
+        System.out.println("Target heading: " + desiredHeading);
     }
 
     @Override
@@ -73,6 +79,7 @@ public class PurePursuitCommand extends Command {
 
     @Override
     protected void end() {
+        System.out.println("PP Command End");
         drivetrain.setDrivetrain(0,0);
     }
 

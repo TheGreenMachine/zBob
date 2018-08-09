@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     private AvoidanceScaleAutoNearCommand avoidanceNearOnly;
     private ModdedScaleAutoCommand modScaleAuto;
     private StateElimsAutoCommand stateElimsAuto;
+    private PurePursuitAutoTestCommand PPTestCommand;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -75,6 +76,7 @@ public class Robot extends TimedRobot {
         avoidanceNearOnly = new AvoidanceScaleAutoNearCommand();
         modScaleAuto = new ModdedScaleAutoCommand();
         stateElimsAuto = new StateElimsAutoCommand();
+        PPTestCommand = new PurePursuitAutoTestCommand();
 
         startPosition = new SendableChooser<>();
         startPosition.addObject("Left Start", "Left Start");
@@ -82,6 +84,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
+
+        autoChooser.addObject("PP Test Auto", PPTestCommand);
 
         autoChooser.addObject("State Eliminations Auto", stateElimsAuto);
 
@@ -238,10 +242,13 @@ public class Robot extends TimedRobot {
         logger.log(drivetrain.getLogString());
         posLog.log(drivetrain.getCoordinates());
 
-        velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
-        velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
-        velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
-        velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
+//        velocityGraph.getEntry("Left Velocity").setDouble(drivetrain.getLeftTalonVelocity());
+//        velocityGraph.getEntry("Left Set V").setDouble(drivetrain.getLeftSetV());
+//        velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
+//        velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
+
+        System.out.println("Left Velocity: " + drivetrain.getLeftTalonVelocity());
+        System.out.println("Right Velocity: " + drivetrain.getRightTalonVelocity());
 
         Scheduler.getInstance().run();
     }
