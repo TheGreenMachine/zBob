@@ -17,7 +17,7 @@ public class PurePursuitQuadraticCommand extends Command {
 
     private double robotX, robotY, prevX, prevY;
 
-    public PurePursuitQuadraticCommand(Point pt1, Point pt2, double lookAheadDist) {
+    public PurePursuitQuadraticCommand(Point pt1, Point pt2, double lookAheadDist, double velocity) {
         drivetrain = Components.getInstance().drivetrain;
         requires(drivetrain);
 
@@ -29,10 +29,8 @@ public class PurePursuitQuadraticCommand extends Command {
 
     @Override
     protected void initialize() {
-        //this.robotX = drivetrain.getXPos();
-        //this.robotY = drivetrain.getYPos();
-        this.robotX = 0;
-        this.robotY = 0;
+        this.robotX = drivetrain.getXPos();
+        this.robotY = drivetrain.getYPos();
         this.prevX = this.robotX;
         this.prevY = this.robotY;
     }
@@ -58,7 +56,7 @@ public class PurePursuitQuadraticCommand extends Command {
             y1 = a * x1 + b;
         }
 
-        double heading = Math1816.atanApprox((y1 - robotY)/(x1 - robotX));
+        double heading = Math1816.atanApprox((y1 - robotY), (x1 - robotX));
     }
 
     @Override
