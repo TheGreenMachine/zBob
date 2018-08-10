@@ -24,7 +24,7 @@ public class PPLine {
 
         double desiredHeading;
 
-        if (yOffset < lookAheadDist) {
+        if (Math.abs(yOffset) < lookAheadDist) {
             desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
             return desiredHeading;
         } else {
