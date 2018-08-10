@@ -48,7 +48,7 @@ public class PurePursuitCommand extends Command {
         currYPos = drivetrain.getYPos();
 
         double desiredHeading = path.getDesiredHeading(currXPos, currYPos);
-        double angleError = desiredHeading - drivetrain.getGyroAngle(); //positive - ccw; negative - cw
+        double angleError = desiredHeading - drivetrain.getGyroAngle(); //todo: check pos/neg cw/ccw
         double powerDeduction;
 
         if( kP_TURN * angleError > 45) {
@@ -72,7 +72,7 @@ public class PurePursuitCommand extends Command {
             System.out.println("LV + RV: " + targetVelocity);
         }
 
-        System.out.println("Target heading: " + desiredHeading);
+        System.out.println("Target heading: " + desiredHeading + " Current heading: " +  drivetrain.getGyroAngle());
     }
 
     @Override

@@ -22,13 +22,13 @@ public class PPLine {
 
         double yOffset = Math.sin(theta) * dist;
 
-        double desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+        double desiredHeading;
 
-        if(yOffset < lookAheadDist) {
-                return desiredHeading;
+        if (yOffset < lookAheadDist) {
+            desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+            return desiredHeading;
         } else {
-            //todo: check case validity
-            return 90 + getAngleDeg(); //travel in dir of y-offset when bot cannot 'find' line
+            return 90 + getAngleDeg();
         }
 
     }
