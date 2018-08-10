@@ -247,9 +247,6 @@ public class Robot extends TimedRobot {
 //        velocityGraph.getEntry("Right Velocity").setDouble(drivetrain.getRightTalonVelocity());
 //        velocityGraph.getEntry("Right Set V").setDouble(drivetrain.getRightSetV());
 
-        System.out.println("Left Velocity: " + drivetrain.getLeftTalonVelocity());
-        System.out.println("Right Velocity: " + drivetrain.getRightTalonVelocity());
-
         Scheduler.getInstance().run();
     }
 

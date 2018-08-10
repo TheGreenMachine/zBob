@@ -18,12 +18,14 @@ public class PPLine {
 
     public double getDesiredHeading(double botX, double botY) {
         double theta = Math.atan2(botY - pt1.y, botX - pt1.x) - getAngleRad();
-        double dist = Math.sqrt( ( Math.pow(botX - pt1.x, 2) ) + ( Math.pow(botY - pt1.y, 2) ) );
+        double dist = Math.sqrt( ( Math.pow(botX - pt1.x, 2) ) + ( Math.pow(botY - pt1.y, 2) ) ); //todo: swap Math.pow with multiplication
 
         double yOffset = Math.sin(theta) * dist;
 
+        double desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+
         if(yOffset < lookAheadDist) {
-            return Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+                return desiredHeading;
         } else {
             //todo: check case validity
             return 90 + getAngleDeg(); //travel in dir of y-offset when bot cannot 'find' line
@@ -35,9 +37,9 @@ public class PPLine {
         double dist = ( Math.pow(botX - pt2.x, 2) ) + ( Math.pow(botY - pt2.y, 2) );
 
         if(dist < Math.pow(lookAheadDist, 2)) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 }

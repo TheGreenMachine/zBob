@@ -50,6 +50,7 @@ public class PurePursuitCommand extends Command {
         double desiredHeading = path.getDesiredHeading(currXPos, currYPos);
         double angleError = desiredHeading - drivetrain.getGyroAngle(); //positive - ccw; negative - cw
         double powerDeduction;
+
         if( kP_TURN * angleError > 45) {
             powerDeduction = -0.9;
         } else {
@@ -58,10 +59,12 @@ public class PurePursuitCommand extends Command {
 
         powerDeduction = Math.max(powerDeduction, targetVelocity - MIN_TURN_SPEED); //cap powerDeduction so that robot never drops below MIN_TURN_SPEED
 
-        if(angleError < 0) {
+        System.out.println("Angle Error: " + angleError);
+
+        if(angleError > 0) {
             drivetrain.setDrivetrain(targetVelocity, targetVelocity - powerDeduction);
             System.out.println("LV: " + targetVelocity + " RV: " + (targetVelocity - powerDeduction));
-        } else if (angleError > 0) {
+        } else if (angleError < 0) {
             drivetrain.setDrivetrain(targetVelocity - powerDeduction, targetVelocity);
             System.out.println("LV: " + (targetVelocity - powerDeduction) + "RV: " + targetVelocity);
         } else {
@@ -74,7 +77,9 @@ public class PurePursuitCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return !(path.continueRun(currXPos, currYPos));
+        boolean finished = !path.continueRun(currXPos, currYPos);
+        System.out.println("isFinished = " + finished);
+        return finished;
     }
 
     @Override

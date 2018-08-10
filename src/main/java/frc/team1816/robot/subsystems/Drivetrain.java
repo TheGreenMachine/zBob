@@ -248,6 +248,9 @@ public class Drivetrain extends Subsystem1816{
     @Override
     public void update() {
 
+        System.out.println("Left Power Set: " + leftPower);
+        System.out.println("Right Power Set: " + rightPower);
+
         if(slowMode) {
             leftPower *= SLOW_MOD;
             rightPower *= SLOW_MOD;
