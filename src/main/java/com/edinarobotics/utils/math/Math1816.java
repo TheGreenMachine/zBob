@@ -81,15 +81,23 @@ public final class Math1816 {
     }
 
     /**
-     * A function that returns an inverse tangent approximation for the given number.
-     * The domain of the function includes all real numbers.
+     * A function that returns an inverse tangent approximation for the slope of the
+     * line that goes through the origin and (x, y) coordinate pair
      * The approximation function is in the form ax / (b + sqrt(c + x^2)), where
      * a, b and c are constants tuned to reduce the error.
      * Maximum error that occurs is approximately 0.00209
-     * @param num The number whose inverse tangent approximation will be returned.
+     * @param y The y coordinate of the coordinate pair
+     * @param x The x coordinate of the coordinate pair
      * @return An approximation of the inverse tan of the number as described above.
      */
-    public static double atanApprox(double num){
+    public static double atanApprox(double y, double x){
+        if ((x == 0) && (y > 0)){
+            return Math.PI/2;
+        } else if ((x == 0) && (y < 0)) {
+            return -1 * Math.PI/2;
+        }
+
+        double num = y/x;
         double a = Math.PI / 2;
         double b = (12 - Math.pow(Math.PI, 2))/(4 * (4 - Math.PI));
         double c = Math.pow(((6 - Math.PI) * (2 - Math.PI)/(4 * (4 - Math.PI))), 2);
@@ -100,7 +108,6 @@ public final class Math1816 {
 
     /**
      * A function that returns an inverse sine approximation for the given number.
-     * The domain of the function includes all real numbers in the interval [-1, 1];
      * The function uses the identity that arcsin(x) = arctan(x/sqrt(1-x^2))
      * @param num The number whose inverse sine approximation will be returned.
      * @return An approximation of the inverse sin of the number as described above.
@@ -111,7 +118,7 @@ public final class Math1816 {
         } else if (num == -1) {
             return -1 * Math.PI / 2;
         } else {
-            return atanApprox(num / Math.sqrt(1 - Math.pow(num, 2)));
+            return atanApprox(num , Math.sqrt(1 - num * num));
         }
     }
 }
