@@ -51,8 +51,8 @@ public class PurePursuitCommand extends Command {
         double angleError = desiredHeading - drivetrain.getGyroAngle(); //todo: check pos/neg cw/ccw
         double powerDeduction;
 
-        if( kP_TURN * angleError > 45) {
-            powerDeduction = -0.9;
+        if( Math.abs(kP_TURN * angleError) > 45) {
+            powerDeduction = 0.9;
         } else {
             powerDeduction = kP_TURN * angleError;
         }

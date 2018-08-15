@@ -28,7 +28,7 @@ public class PPLine {
             desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
             return desiredHeading;
         } else {
-            return 90 + getAngleDeg();
+            return 90 + getAngleDeg(); //todo: code is falling here when given target point (0,60), something is up with the logic
         }
 
     }
