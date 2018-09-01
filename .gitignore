@@ -10,6 +10,9 @@
 
 ./.gradle
 
+# ???
+.bat
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
