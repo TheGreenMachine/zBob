@@ -1,7 +1,6 @@
 package frc.team1816.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import javafx.scene.transform.Rotate;
 
 public class CenterAutoStartSwitchCommand extends CommandGroup {
      char target;
