@@ -18,16 +18,18 @@ public class PPLine {
 
     public double getDesiredHeading(double botX, double botY) {
         double theta = Math.atan2(botY - pt1.y, botX - pt1.x) - getAngleRad();
-        double dist = Math.sqrt( ( Math.pow(botX - pt1.x, 2) ) + ( Math.pow(botY - pt1.y, 2) ) ); //todo: swap Math.pow with multiplication
+        double dist = Math.sqrt((botX - pt1.x) * (botX - pt1.x) + (botY - pt1.y) * (botY - pt1.y)); 
 
         double yOffset = Math.sin(theta) * dist;
 
         double desiredHeading;
 
         if (Math.abs(yOffset) < lookAheadDist) {
+            //calculate desired heading
             desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
             return desiredHeading;
         } else {
+            //if out of range, attempt to 'find' line again
             return 90 + getAngleDeg(); //todo: code is falling here when given target point (0,60), something is up with the logic
         }
 
