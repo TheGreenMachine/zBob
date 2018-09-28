@@ -4,6 +4,7 @@ import com.edinarobotics.utils.math.PPLine;
 import com.edinarobotics.utils.math.PPPoint;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
+import frc.team1816.robot.Robot;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 //todo: this class goes in a commandGroup that strings together Lines
@@ -11,7 +12,7 @@ import frc.team1816.robot.subsystems.Drivetrain;
 
 public class PurePursuitCommand extends Command {
     private static final double MIN_TURN_SPEED = 0.1;
-    private static final double kP_TURN = -0.02; //todo: tune value
+    private static final double kP_TURN = -0.01; //todo: tune value
 
     private Drivetrain drivetrain;
 
@@ -19,7 +20,7 @@ public class PurePursuitCommand extends Command {
     private PPPoint endPoint;
     private PPLine path;
 
-    private double currXPos, currYPos;
+    private double currXPos, currYPos, currHeading;
     private double targetVelocity;
 
     public PurePursuitCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
@@ -38,14 +39,19 @@ public class PurePursuitCommand extends Command {
     @Override
     protected void initialize() {
         System.out.println("Pure Pursuit Drive Init");
+
+        Robot.PPLog.log("X Pos, Y Pos, Curr Heading, Desired Heading, L Vel, R Vel");
+
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
+        currHeading = drivetrain.getGyroAngle();
     }
 
     @Override
     protected void execute() {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
+        currHeading = drivetrain.getGyroAngle();
 
         double desiredHeading = path.getDesiredHeading(currXPos, currYPos);
         double angleError = desiredHeading - drivetrain.getGyroAngle(); //todo: check pos/neg cw/ccw
@@ -64,16 +70,16 @@ public class PurePursuitCommand extends Command {
 
         if(angleError > 0) {
             drivetrain.setDrivetrain(targetVelocity, targetVelocity - powerDeduction);
-            System.out.println("LV: " + targetVelocity + " RV: " + (targetVelocity - powerDeduction));
         } else if (angleError < 0) {
             drivetrain.setDrivetrain(targetVelocity - powerDeduction, targetVelocity);
-            System.out.println("LV: " + (targetVelocity - powerDeduction) + "RV: " + targetVelocity);
         } else {
             drivetrain.setDrivetrain(targetVelocity, targetVelocity);
-            System.out.println("LV + RV: " + targetVelocity);
         }
 
-        System.out.println("Target heading: " + desiredHeading + " Current heading: " +  drivetrain.getGyroAngle());
+        System.out.println("Target heading: " + desiredHeading + " Current heading: " +  currHeading);
+
+        Robot.PPLog.log(currXPos + "," + currYPos + "," + currHeading + "," + desiredHeading + ","
+            + drivetrain.getLeftTalonVelocity() + "," + drivetrain.getRightTalonVelocity());
     }
 
     @Override
