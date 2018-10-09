@@ -53,8 +53,8 @@ public class PurePursuitCommand extends Command {
         currYPos = drivetrain.getYPos();
         currHeading = drivetrain.getGyroAngle();
 
-        double desiredHeading = path.getDesiredHeading(currXPos, currYPos);
-        double angleError = desiredHeading - drivetrain.getGyroAngle(); //todo: check pos/neg cw/ccw
+        double desiredHeading = path.getDesiredHeading(currXPos, currYPos) - 90;
+        double angleError = desiredHeading - currHeading; //todo: check pos/neg cw/ccw
         double powerDeduction;
 
         if( Math.abs(kP_TURN * angleError) > 45) {
