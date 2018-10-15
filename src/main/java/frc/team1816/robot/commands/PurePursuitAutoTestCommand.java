@@ -1,6 +1,6 @@
 package frc.team1816.robot.commands;
 
-import com.edinarobotics.purepursuit.commands.PurePursuitCommand;
+import com.edinarobotics.purepursuit.PurePursuitCommand;
 import com.edinarobotics.utils.math.PPPoint;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
