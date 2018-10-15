@@ -1,19 +1,13 @@
 package frc.team1816.robot.commands;
 
 import com.edinarobotics.utils.gamepad.Gamepad;
-import com.edinarobotics.utils.log.Logger;
-import com.edinarobotics.utils.log.Logging;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
-import frc.team1816.robot.Robot;
-import frc.team1816.robot.subsystems.Collector;
 import frc.team1816.robot.subsystems.Drivetrain;
-import frc.team1816.robot.subsystems.Elevator;
 
 public class GamepadDriveCommand extends Command {
 
     private Drivetrain drivetrain;
-    private Collector collector;
     private Gamepad gamepad;
     public StringBuilder sb;
     public double prevPowerL = 0, prevPowerR = 0;
@@ -22,7 +16,6 @@ public class GamepadDriveCommand extends Command {
     public GamepadDriveCommand(Gamepad gamepad) {
         super("gamepaddrivecommand");
         this.drivetrain = Components.getInstance().drivetrain;
-        this.collector = Components.getInstance().collector;
         this.gamepad = gamepad;
         requires(drivetrain);
     }
