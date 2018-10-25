@@ -1,22 +1,21 @@
-package com.edinarobotics.purepursuit;
+package frc.team1816.robot.commands;
 
-import com.edinarobotics.utils.math.PPLine;
-import com.edinarobotics.utils.math.PPPoint;
+import com.edinarobotics.purepursuit.*;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Drivetrain;
 
 //todo: write PP-endpoint command class
 
-public class PurePursuitCommand extends Command {
+public class PurePursuitLineCommand extends Command {
     private Drivetrain drivetrain;
 
     private PurePursuitCalc calc;
 
     private double currXPos, currYPos, currHeading;
 
-    public PurePursuitCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
-        super("purepursuitcommand");
+    public PurePursuitLineCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
+        super("purepursuitlinecommand");
         drivetrain = Components.getInstance().drivetrain;
 
         calc = new PurePursuitCalc(pt1, pt2, lookAheadDist, targetVelocity);
