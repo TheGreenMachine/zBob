@@ -2,7 +2,7 @@ package com.edinarobotics.purepursuit;
 
 public class PurePursuitCalc {
     private static final double MIN_TURN_SPEED = 0.1;
-    private static final double kP_TURN = -0.03; //todo: tune value
+    private static final double kP_TURN = 0.05; //todo: tune value
 
     private PPPoint startPoint;
     private PPPoint endPoint;
