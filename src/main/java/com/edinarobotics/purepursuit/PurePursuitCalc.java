@@ -2,13 +2,22 @@ package com.edinarobotics.purepursuit;
 
 public class PurePursuitCalc {
     private static final double MIN_TURN_SPEED = 0.1;
-    private static final double kP_TURN = 0.05; //todo: tune value
+
+    //todo: tune PID values
+    private static final double kP_TURN = 0.02;
+    private static final double kI_TURN = 0;
+    private static final double kD_TURN = 0;
+    private static final double DELTA_T = 0.02;
+
+    private double kOut, iOut, dOut;
+    private double angleErr, prevErr;
+    private double control;
 
     private PPPoint startPoint;
     private PPPoint endPoint;
     private PPLine path;
 
-    private double currX, currY, currHeading, desiredHeading;
+    private double currX, currY, desiredHeading, currHeading;
     private double leftSetV, rightSetV;
     private double maxVel;
 
@@ -17,6 +26,9 @@ public class PurePursuitCalc {
         endPoint = pt2;
         path = new PPLine(startPoint, endPoint, lookAheadDist);
         this.maxVel = targetVelocity;
+
+        prevErr = 0;
+        iOut = 0;
     }
 
     public double[] calcVelocities(double x, double y, double heading) {
@@ -26,21 +38,24 @@ public class PurePursuitCalc {
         currHeading = heading;
 
         desiredHeading = path.getDesiredHeading(currX, currY) - 90;
-        double angleError = desiredHeading - currHeading;
-        double powerDeduction;
 
-        powerDeduction = Math.abs(kP_TURN * angleError);
+        angleErr = desiredHeading - currHeading;
 
-        //cap powerDeduction so robot speed never drops below MIN_TURN_SPEED
-        powerDeduction = Math.max(powerDeduction, maxVel - MIN_TURN_SPEED);
+        kOut = kP_TURN * angleErr;
+        iOut += ((angleErr + prevErr) * DELTA_T ) / 2; //trapezoidal approximation
+        dOut = (prevErr - angleErr) / DELTA_T; 
 
-        System.out.println("Angle Error: " + angleError);
+        control = kOut + iOut + dOut;
 
-        if(angleError > 0) {
+        control = Math.max(control, maxVel - MIN_TURN_SPEED); //cap control so robot speed never drops below MIN_TURN_SPEED
+
+        System.out.println("Angle Error: " + angleErr);
+
+        if(angleErr > 0) {
             leftSetV = maxVel;
-            rightSetV = maxVel - powerDeduction;
-        } else if (angleError < 0) {
-            leftSetV = maxVel - powerDeduction;;
+            rightSetV = maxVel - control;
+        } else if (angleErr < 0) {
+            leftSetV = maxVel - control;;
             rightSetV = maxVel;
         } else {
             leftSetV = maxVel;
