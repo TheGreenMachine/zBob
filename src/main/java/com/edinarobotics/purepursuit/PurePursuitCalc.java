@@ -42,15 +42,14 @@ public class PurePursuitCalc {
         angleErr = desiredHeading - currHeading;
 
         pOut = kP_TURN * angleErr;
-//        iOut += ((angleErr + prevErr) * DELTA_T ) / 2; //trapezoidal approximation
-//        dOut = (prevErr - angleErr) / DELTA_T;
+        iOut += kI_TURN * (((angleErr + prevErr) * DELTA_T ) / 2); //trapezoidal integral/area approximation
+        dOut = kD_TURN * ((prevErr - angleErr) / DELTA_T);
 
         control = pOut + iOut + dOut;
 
-        control = Math.min(Math.abs(control), maxVel - MIN_TURN_SPEED); //cap control so robot speed never drops below MIN_TURN_SPEED
-        //Linear mapping of angle error to control gives the kP value. 
+        control = Math.min(Math.abs(control), maxVel - MIN_TURN_SPEED); //max control (deduction) is MIN_TURN_SPEED
 
-        System.out.println("Angle Error: " + angleErr);
+        System.out.println("Angle Error: " + angleErr + "\tControl: " + control);
 
         if(angleErr > 0) {
             leftSetV = maxVel;
@@ -75,5 +74,10 @@ public class PurePursuitCalc {
     public double[] getData() {
         double [] data = new double[] {currX, currY, currHeading, desiredHeading, leftSetV, rightSetV};
         return data;
+    }
+
+    public double[] getPIDData() {
+        double [] piddata = new double[] {pOut, iOut, dOut};
+        return piddata;
     }
 }
