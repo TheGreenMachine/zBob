@@ -9,7 +9,7 @@ public class PurePursuitCalc {
     private static final double kD_TURN = 0;
     private static final double DELTA_T = 0.02;
 
-    private double kOut, iOut, dOut;
+    private double pOut, iOut, dOut;
     private double angleErr, prevErr;
     private double control;
 
@@ -41,11 +41,11 @@ public class PurePursuitCalc {
 
         angleErr = desiredHeading - currHeading;
 
-        kOut = kP_TURN * angleErr;
+        pOut = kP_TURN * angleErr;
         iOut += ((angleErr + prevErr) * DELTA_T ) / 2; //trapezoidal approximation
         dOut = (prevErr - angleErr) / DELTA_T; 
 
-        control = kOut + iOut + dOut;
+        control = pOut + iOut + dOut;
 
         control = Math.max(control, maxVel - MIN_TURN_SPEED); //cap control so robot speed never drops below MIN_TURN_SPEED
 
