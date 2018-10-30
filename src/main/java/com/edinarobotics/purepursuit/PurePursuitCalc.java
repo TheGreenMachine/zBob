@@ -4,7 +4,7 @@ public class PurePursuitCalc {
     private static final double MIN_TURN_SPEED = 0.1;
 
     //todo: tune PID values
-    private static final double kP_TURN = 0.01;
+    private static final double kP_TURN = 0.0089;
     private static final double kI_TURN = 0;
     private static final double kD_TURN = 0;
     private static final double DELTA_T = 0.02;
@@ -42,12 +42,13 @@ public class PurePursuitCalc {
         angleErr = desiredHeading - currHeading;
 
         pOut = kP_TURN * angleErr;
-        iOut += ((angleErr + prevErr) * DELTA_T ) / 2; //trapezoidal approximation
-        dOut = (prevErr - angleErr) / DELTA_T; 
+//        iOut += ((angleErr + prevErr) * DELTA_T ) / 2; //trapezoidal approximation
+//        dOut = (prevErr - angleErr) / DELTA_T;
 
         control = pOut + iOut + dOut;
 
-        control = Math.max(control, maxVel - MIN_TURN_SPEED); //cap control so robot speed never drops below MIN_TURN_SPEED
+        control = Math.min(Math.abs(control), maxVel - MIN_TURN_SPEED); //cap control so robot speed never drops below MIN_TURN_SPEED
+        //Linear mapping of angle error to control gives the kP value. 
 
         System.out.println("Angle Error: " + angleErr);
 
