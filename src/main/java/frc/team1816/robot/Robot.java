@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
 
     public static Logging logger;
     public static Logging posLog;
+    public static Logging PPLog;
 
     private Drivetrain drivetrain;
     private Elevator elevator;
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
     private AvoidanceScaleAutoNearCommand avoidanceNearOnly;
     private ModdedScaleAutoCommand modScaleAuto;
     private StateElimsAutoCommand stateElimsAuto;
+    private PurePursuitAutoCommand PPTestCommand;
 
     private NetworkTable table;
     private NetworkTable velocityGraph;
@@ -75,6 +77,7 @@ public class Robot extends TimedRobot {
         avoidanceNearOnly = new AvoidanceScaleAutoNearCommand();
         modScaleAuto = new ModdedScaleAutoCommand();
         stateElimsAuto = new StateElimsAutoCommand();
+        PPTestCommand = new PurePursuitAutoCommand();
 
         startPosition = new SendableChooser<>();
         startPosition.addObject("Left Start", "Left Start");
@@ -82,6 +85,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Start Position", startPosition);
 
         autoChooser = new SendableChooser<>();
+
+        autoChooser.addObject("Pure Pursuit Test Auto", PPTestCommand);
 
         autoChooser.addObject("State Eliminations Auto", stateElimsAuto);
 
@@ -142,6 +147,7 @@ public class Robot extends TimedRobot {
         logger = Logging.getInstance("Autolog");
         posLog = Logging.getInstance("AutoPosLog");
         posLog.log("x,y,leftInches,rightInches,gyro");
+        PPLog = Logging.getInstance("PPLog");
 
         collector.resetClawEnc();
         drivetrain.setDrivetrainBrakeMode();
