@@ -4,13 +4,14 @@ import com.edinarobotics.purepursuit.*;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Drivetrain;
+import com.edinarobotics.utils.log.Logging;
 
 //todo: write PP-endpoint command class
 
 public class PurePursuitLineCommand extends Command {
     private Drivetrain drivetrain;
-
     private PurePursuitCalc calc;
+    public static Logging PPLog;
 
     private double currXPos, currYPos, currHeading;
 
@@ -19,6 +20,8 @@ public class PurePursuitLineCommand extends Command {
         drivetrain = Components.getInstance().drivetrain;
 
         calc = new PurePursuitCalc(pt1, pt2, lookAheadDist, targetVelocity);
+
+        PPLog = Logging.getInstance("PPLog");
 
         requires(drivetrain);
     }
@@ -40,6 +43,7 @@ public class PurePursuitLineCommand extends Command {
 
         double[] velocities = calc.calcVelocities(currXPos, currYPos, currHeading);
 
+        logData();
         drivetrain.setDrivetrain(velocities[0], velocities[1]);
     }
 
@@ -57,6 +61,17 @@ public class PurePursuitLineCommand extends Command {
     @Override
     protected void interrupted() {
         super.interrupted();
+    }
+
+    public void logData() {
+        double [] data = calc.getData();
+        String dataStr = "";
+        for(int i = 0; i < data.length; i++) {
+            dataStr += data[i];
+            dataStr += ",";
+        }
+
+        PPLog.log(dataStr);
     }
 
 }
