@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
 
     public static Logging logger;
     public static Logging posLog;
+    public static Logging PPLog;
 
     private Drivetrain drivetrain;
     private Elevator elevator;
@@ -145,6 +146,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         logger = Logging.getInstance("Autolog");
         posLog = Logging.getInstance("AutoPosLog");
+        PPLog = Logging.getInstance("PPLog");
         posLog.log("x,y,leftInches,rightInches,gyro");
 
         collector.resetClawEnc();
