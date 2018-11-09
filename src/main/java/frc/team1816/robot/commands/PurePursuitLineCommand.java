@@ -57,11 +57,12 @@ public class PurePursuitLineCommand extends Command {
     protected void end() {
         System.out.println("PP Command End");
         drivetrain.setDrivetrain(0,0);
+        PPLog.close();
     }
 
     @Override
     protected void interrupted() {
-        super.interrupted();
+        end();
     }
 
     public void logData() {

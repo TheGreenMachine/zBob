@@ -5,7 +5,7 @@ public class PurePursuitCalc {
 
     //todo: tune PID values
     private static final double kP_TURN = 0.002;
-    private static final double kI_TURN = 0;
+    private static final double kI_TURN = 0.001;
     private static final double kD_TURN = 0;
     private static final double DELTA_T = 0.02;
 
