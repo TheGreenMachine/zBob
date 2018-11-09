@@ -4,7 +4,7 @@ public class PurePursuitCalc {
     private static final double MIN_TURN_SPEED = 0.1;
 
     //todo: tune PID values
-    private static final double kP_TURN = 0.0089;
+    private static final double kP_TURN = 0.002;
     private static final double kI_TURN = 0;
     private static final double kD_TURN = 0;
     private static final double DELTA_T = 0.02;
@@ -71,8 +71,11 @@ public class PurePursuitCalc {
         return !path.continueRun(currX, currY);
     }
 
+    public String getDataHeader() {
+        return "currX,currY,currHeading,desiredHeading,angleErr,control,leftSetV,rightSetV";
+    }
     public double[] getData() {
-        double [] data = new double[] {currX, currY, currHeading, desiredHeading, leftSetV, rightSetV};
+        double [] data = new double[] {currX, currY, currHeading, desiredHeading, angleErr, control, leftSetV, rightSetV};
         return data;
     }
 

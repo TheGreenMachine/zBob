@@ -33,6 +33,7 @@ public class PurePursuitLineCommand extends Command {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
         currHeading = drivetrain.getGyroAngle();
+        PPLog.log(calc.getDataHeader());
     }
 
     @Override
@@ -65,13 +66,13 @@ public class PurePursuitLineCommand extends Command {
 
     public void logData() {
         double [] data = calc.getData();
-        String dataStr = "";
+        StringBuilder builder = new StringBuilder();
         for(int i = 0; i < data.length; i++) {
-            dataStr += data[i];
-            dataStr += ",";
+            builder.append(data[i]);
+            builder.append(",");
         }
 
-        PPLog.log(dataStr);
+        PPLog.log(builder.toString());
     }
 
 }
