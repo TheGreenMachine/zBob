@@ -67,6 +67,44 @@ public class PurePursuitCalc {
         return velocities;
     }
 
+    public double[] calcVelocitiesEndpoint(double x, double y, double heading) {
+        // TODO: test this method/logic
+        
+        double[] velocities = new double[2];
+        currX = x;
+        currY = y;
+        currHeading = heading;
+
+        desiredHeading = path.getDesiredHeadingEndpoint(currX, currY) - 90;
+
+        angleErr = desiredHeading - currHeading;
+
+        pOut = kP_TURN * angleErr;
+        iOut += kI_TURN * (((angleErr + prevErr) * DELTA_T ) / 2); //trapezoidal integral/area approximation
+        dOut = kD_TURN * ((prevErr - angleErr) / DELTA_T);
+
+        control = pOut + iOut + dOut;
+
+        control = Math.min(Math.abs(control), maxVel - MIN_TURN_SPEED); //max control (deduction) is MIN_TURN_SPEED
+
+        System.out.println("Angle Error: " + angleErr + "\tControl: " + control);
+
+        if(angleErr > 0) {
+            leftSetV = maxVel;
+            rightSetV = maxVel - control;
+        } else if (angleErr < 0) {
+            leftSetV = maxVel - control;;
+            rightSetV = maxVel;
+        } else {
+            leftSetV = maxVel;
+            rightSetV = maxVel;
+        }
+
+        velocities[0] = leftSetV;
+        velocities[1] = rightSetV;
+        return velocities;
+    }
+
     public boolean endPath() {
         return !path.continueRun(currX, currY);
     }

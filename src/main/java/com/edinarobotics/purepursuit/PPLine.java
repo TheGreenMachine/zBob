@@ -24,17 +24,25 @@ public class PPLine {
 
         double yOffset = Math.sin(theta) * dist;
 
-        double desiredHeading;
-
         if (Math.abs(yOffset) < lookAheadDist) {
             //calculate desired heading
-            desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+            double desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
             return desiredHeading;
         } else {
             //if out of range, attempt to 'find' line again
             return 90 + getAngleDeg();
         }
 
+    }
+
+    public double getDesiredHeadingEndpoint(double botX, double botY) {
+        // TODO: no clue if this works
+        // return the angle between current point and line endpoint
+        // used for the final line segment of a Pure Pursuit path-chain
+
+        double theta = Math.atan2(pt2.y - botY, pt2.x - botX);
+        
+        return Math.toDegrees(theta);
     }
 
     public boolean continueRun(double botX, double botY) {
