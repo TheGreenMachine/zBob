@@ -1,9 +1,19 @@
 package com.edinarobotics.purepursuit;
 
+/**
+ * The PurePursuitCalc class is used in the control aspect of the robot when
+ * utilizing a pure pursuit autonomous system. It contains methods to take
+ * in a robot's position and heading, calculate desired heading, and 
+ * return desired motor velocities via a built-in PID controller.
+ *
+ * @author    Andrew Hou
+ * @version   1.1
+ * @since     2018-11-14
+ */
 public class PurePursuitCalc {
     private static final double MIN_TURN_SPEED = 0.1;
 
-    //todo: tune PID values
+    // TODO: tune PID values, make these parameters/settable?
     private static final double kP_TURN = 0.002;
     private static final double kI_TURN = 0.001; //needs heavier I term
     private static final double kD_TURN = 0;
@@ -31,6 +41,15 @@ public class PurePursuitCalc {
         iOut = 0;
     }
 
+    /**
+     * This method is used to find the desired heading of the robot using an
+     * instance of PPLine, then calculate desired velocities using a PID
+     * controller.
+     * @param x This is the robot's cartesian x coordinate
+     * @param y This is the robot's cartesian y coordinate
+     * @return double[] This returns an array containing the left and right
+     * velocities of the robot
+     */
     public double[] calcVelocities(double x, double y, double heading) {
         double[] velocities = new double[2];
         currX = x;
@@ -67,6 +86,15 @@ public class PurePursuitCalc {
         return velocities;
     }
 
+    /**
+     * This method is a special case of the calcVelocities method for the
+     * endpoint of a path-chain, calling PPLine's getDesiredHeadingEndpoint
+     * method.
+     * @param x This is the robot's cartesian x coordinate
+     * @param y This is the robot's cartesian y coordinate
+     * @return double[] This returns an array containing the left and right
+     * velocities of the robot
+     */
     public double[] calcVelocitiesEndpoint(double x, double y, double heading) {
         // TODO: test this method/logic
         
