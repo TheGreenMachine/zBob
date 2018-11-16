@@ -37,7 +37,8 @@ public class PurePursuitCalc {
         currY = y;
         currHeading = heading;
 
-        desiredHeading = path.getDesiredHeading(currX, currY) - 90;
+        desiredHeading = path.getDesiredHeading(currX, currY)-180;
+        System.out.println("Desired Heading " + desiredHeading);
 
         angleErr = desiredHeading - currHeading;
 

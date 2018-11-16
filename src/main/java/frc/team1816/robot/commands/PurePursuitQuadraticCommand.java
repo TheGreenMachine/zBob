@@ -38,6 +38,8 @@ public class PurePursuitQuadraticCommand extends Command {
 
         double[] velocities = calc.calcVelocities(currXPos, currYPos, currHeading);
 
+        System.out.println("Current Heading: " + currHeading);
+
         drivetrain.setDrivetrain(velocities[0], velocities[1]);
     }
 

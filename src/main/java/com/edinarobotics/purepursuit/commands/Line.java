@@ -3,7 +3,7 @@ package com.edinarobotics.purepursuit.commands;
 import com.edinarobotics.utils.math.Math1816;
 
 public class Line {
-    private Point pt1, pt2;
+    private Point p1, p2;
     private double lookAheadDist;
     private double slope;
     private double angle;
@@ -11,8 +11,8 @@ public class Line {
 
     public Line(Point p1, Point p2, double lookAheadDist){
         this.lookAheadDist = lookAheadDist;
-        this.pt1 = pt1;
-        this.pt2 = pt2;
+        this.p1 = p1;
+        this.p2 = p2;
         this.slope = (p2.getY() - p1.getY())/(p2.getX() - p1.getX());
         this.yIntercept = p1.getY() - this.slope * p1.getX();
         this.angle = Math.atan2((p2.getY() - p1.getY()), (p2.getX() - p1.getX()));
@@ -42,7 +42,7 @@ public class Line {
 
 
     public boolean continueRun(double robotX, double robotY) {
-        double dist = ( Math.pow(robotX - pt2.x, 2) ) + ( Math.pow(robotY - pt2.y, 2) );
+        double dist = ( Math.pow(robotX - p2.getX(), 2) ) + ( Math.pow(robotY - p2.getY(), 2) );
 
         if(dist < Math.pow(lookAheadDist, 2)) {
             return false;
