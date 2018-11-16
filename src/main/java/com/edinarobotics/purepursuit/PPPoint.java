@@ -9,7 +9,7 @@ package com.edinarobotics.purepursuit;
  * @since     2018-11-14
  */
 public class PPPoint {
-    double x, y;
+    public double x, y;
 
     public PPPoint(double x, double y) {
         this.x = x; this.y = y;
