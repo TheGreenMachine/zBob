@@ -2,7 +2,7 @@ package com.edinarobotics.purepursuit;
 
 public class PPTest {
     /**
-     * Run this by executing:  java com.edinarobotics.purpursuit.PPTest xRobot yRobot numPts maxAngle.
+     * Run this by executing:  java com.edinarobotics.purepursuit.PPTest xRobot yRobot numPts maxAngle.
      *
      * For example this command will show 21 points going from -20 degrees to 20 degrees for a robot at 0, 0:
      *
