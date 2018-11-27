@@ -6,14 +6,14 @@ import frc.team1816.robot.Components;
 import frc.team1816.robot.Robot;
 import frc.team1816.robot.subsystems.Drivetrain;
 
-public class PurePursuitLineCommand extends Command {
+public class PurePursuitEndpointCommand extends Command {
     private Drivetrain drivetrain;
     private PurePursuitCalc calc;
 
     private double currXPos, currYPos, currHeading;
 
-    public PurePursuitLineCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
-        super("purepursuitlinecommand");
+    public PurePursuitEndpointCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
+        super("purepursuitendpointcommand");
         drivetrain = Components.getInstance().drivetrain;
 
         calc = new PurePursuitCalc(pt1, pt2, lookAheadDist, targetVelocity);
@@ -37,7 +37,7 @@ public class PurePursuitLineCommand extends Command {
         currYPos = drivetrain.getYPos();
         currHeading = drivetrain.getGyroAngle();
 
-        double[] velocities = calc.calcVelocities(currXPos, currYPos, currHeading);
+        double[] velocities = calc.calcVelocitiesEndpoint(currXPos, currYPos, currHeading);
 
         logData();
         drivetrain.setDrivetrain(velocities[0], velocities[1]);
