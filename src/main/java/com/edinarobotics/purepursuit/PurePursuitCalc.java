@@ -7,8 +7,8 @@ package com.edinarobotics.purepursuit;
  * motor velocities via a built-in PID controller.
  *
  * @author Andrew Hou
- * @version 1.1
- * @since 2018-11-14
+ * @version 1.2
+ * @since 2018-11-27
  */
 
 public class PurePursuitCalc {
