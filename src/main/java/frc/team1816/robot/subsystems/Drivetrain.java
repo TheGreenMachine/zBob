@@ -404,5 +404,7 @@ public class Drivetrain extends Subsystem1816{
         builder.addDoubleProperty("LeftTalonPos", this::getLeftTalonInches, null);
         builder.addDoubleProperty("RightTalonPos", this::getRightTalonInches, null);
         builder.addDoubleProperty("GyroAngle", this::getGyroAngle, null);
+        builder.addDoubleProperty("CurrentXPos", this::getXPos, null);
+        builder.addDoubleProperty("CurrentYPos", this::getYPos, null);
     }
 }

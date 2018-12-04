@@ -128,6 +128,7 @@ public class Robot extends TimedRobot {
         avoidanceParameter.getEntry("Long-Run Velocity").setDouble(1);
 
         collector.resetClawEnc(); //todo consider removing as redundancy
+        drivetrain.initCoordinateTracking();
         SmartDashboard.putData("Manually Reset Collector Up/Down Encoder", new ResetClawEncoderCommand());
     }
 

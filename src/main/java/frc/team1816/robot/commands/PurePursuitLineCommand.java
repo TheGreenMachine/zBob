@@ -52,7 +52,6 @@ public class PurePursuitLineCommand extends Command {
     protected void end() {
         System.out.println("PP Command End");
         drivetrain.setDrivetrain(0,0);
-        Robot.PPLog.close();
     }
 
     @Override
