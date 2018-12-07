@@ -10,13 +10,16 @@ public class PurePursuitEndpointCommand extends Command {
     private Drivetrain drivetrain;
     private PurePursuitCalc calc;
 
-    private double currXPos, currYPos, currHeading;
+    private double currXPos, currYPos, currHeading, initHeading;
 
-    public PurePursuitEndpointCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
+    public PurePursuitEndpointCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity,
+            double initHeading) {
         super("purepursuitendpointcommand");
         drivetrain = Components.getInstance().drivetrain;
 
         calc = new PurePursuitCalc(pt1, pt2, lookAheadDist, targetVelocity);
+
+        this.initHeading = initHeading;
 
         requires(drivetrain);
     }
@@ -27,7 +30,7 @@ public class PurePursuitEndpointCommand extends Command {
 
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
-        currHeading = drivetrain.getGyroAngle();
+        currHeading = drivetrain.getGyroAngle() - initHeading;
         Robot.PPLog.log(calc.getDataHeader());
     }
 
@@ -35,7 +38,7 @@ public class PurePursuitEndpointCommand extends Command {
     protected void execute() {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
-        currHeading = drivetrain.getGyroAngle();
+        currHeading = drivetrain.getGyroAngle() - initHeading;
 
         double[] velocities = calc.calcVelocitiesEndpoint(currXPos, currYPos, currHeading);
 
@@ -51,7 +54,7 @@ public class PurePursuitEndpointCommand extends Command {
     @Override
     protected void end() {
         System.out.println("PP Command End");
-        drivetrain.setDrivetrain(0,0);
+        drivetrain.setDrivetrain(0, 0);
         Robot.PPLog.close();
     }
 
@@ -61,9 +64,9 @@ public class PurePursuitEndpointCommand extends Command {
     }
 
     public void logData() {
-        double [] data = calc.getData();
+        double[] data = calc.getData();
         StringBuilder builder = new StringBuilder();
-        for(int i = 0; i < data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
             builder.append(data[i]);
             builder.append(",");
         }

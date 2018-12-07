@@ -10,13 +10,15 @@ public class PurePursuitLineCommand extends Command {
     private Drivetrain drivetrain;
     private PurePursuitCalc calc;
 
-    private double currXPos, currYPos, currHeading;
+    private double currXPos, currYPos, currHeading, initHeading;
 
-    public PurePursuitLineCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity) {
+    public PurePursuitLineCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity, double initHeading) {
         super("purepursuitlinecommand");
         drivetrain = Components.getInstance().drivetrain;
 
         calc = new PurePursuitCalc(pt1, pt2, lookAheadDist, targetVelocity);
+
+        this.initHeading = initHeading;
 
         requires(drivetrain);
     }
@@ -27,7 +29,7 @@ public class PurePursuitLineCommand extends Command {
 
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
-        currHeading = drivetrain.getGyroAngle();
+        currHeading = drivetrain.getGyroAngle() - initHeading;
         Robot.PPLog.log(calc.getDataHeader());
     }
 
@@ -35,7 +37,7 @@ public class PurePursuitLineCommand extends Command {
     protected void execute() {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
-        currHeading = drivetrain.getGyroAngle();
+        currHeading = drivetrain.getGyroAngle() - initHeading;
 
         double[] velocities = calc.calcVelocities(currXPos, currYPos, currHeading);
 

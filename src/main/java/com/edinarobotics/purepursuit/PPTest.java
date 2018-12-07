@@ -12,13 +12,14 @@ public class PPTest {
      *     java com.edinarobotics.purepursuit.PPTest 0.0 0.0 21 20
      */
     public static void main(String [] args) {
-    	if (args.length > 1 && args[0].equals("-f")) {
-    		readFile(args[1]);
-    	} else if (args.length > 1 && args[0].equals("-l")) {
-    		testLine();
-    	} else {
-    		testCalc(args);
-    	}
+        testLine();
+    	// if (args.length > 1 && args[0].equals("-f")) {
+    	// 	readFile(args[1]);
+    	// } else if (args.length > 1 && args[0].equals("-l")) {
+    	// 	testLine();
+    	// } else {
+    	// 	testCalc(args);
+    	// }
     }
     
     public static void testLine() {

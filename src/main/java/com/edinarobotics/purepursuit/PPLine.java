@@ -46,6 +46,7 @@ public class PPLine {
             return desiredHeading;
         } else {
             //if out of range, attempt to 'find' line again
+            System.out.println("Out of Range");
             return 90 + getAngleDeg();
         }
 
