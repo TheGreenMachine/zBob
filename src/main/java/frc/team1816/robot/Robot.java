@@ -200,6 +200,8 @@ public class Robot extends TimedRobot {
             System.out.println("-----AUTO ALREADY CREATED, RUNNING PREVIOUS-----");
         }
 
+        PPTestCommand.setInitHeading(drivetrain.getGyroAngle());
+
         Command autoCommand = autoChooser.getSelected();
 
         System.out.println("Auto Running ---- " + startPos + "Start " + autoCommand.getName());

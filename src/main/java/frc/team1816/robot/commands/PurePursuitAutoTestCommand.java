@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team1816.robot.Components;
 import frc.team1816.robot.subsystems.Drivetrain;
 
-
 public class PurePursuitAutoTestCommand extends CommandGroup {
     private Drivetrain drivetrain;
     private double initHeading;
@@ -19,10 +18,18 @@ public class PurePursuitAutoTestCommand extends CommandGroup {
         drivetrain = Components.getInstance().drivetrain;
         initHeading = drivetrain.getGyroAngle();
         
-        addSequential(new PurePursuitLineCommand(pt1 ,pt2, 4, 0.25, initHeading));
-        addSequential(new PurePursuitLineCommand(pt2, pt4, 8, 0.25, initHeading));
+        addSequential(new PurePursuitLineCommand(pt1 ,pt2, 4, 0.25, this));
+        addSequential(new PurePursuitLineCommand(pt2, pt4, 8, 0.25, this));
         // addSequential(new PurePursuitEndpointCommand(pt3, pt4, 4, 0.25, initHeading));
 
         System.out.println("Test Command End");
+    }
+
+    public void setInitHeading(double initHeading) {
+        this.initHeading = initHeading;
+    }
+
+    public double getInitHeading() {
+        return initHeading;
     }
 }

@@ -9,16 +9,16 @@ import frc.team1816.robot.subsystems.Drivetrain;
 public class PurePursuitLineCommand extends Command {
     private Drivetrain drivetrain;
     private PurePursuitCalc calc;
+    private PurePursuitAutoTestCommand parent;
 
     private double currXPos, currYPos, currHeading, initHeading;
 
-    public PurePursuitLineCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity, double initHeading) {
+    public PurePursuitLineCommand(PPPoint pt1, PPPoint pt2, double lookAheadDist, double targetVelocity, PurePursuitAutoTestCommand parent) {
         super("purepursuitlinecommand");
         drivetrain = Components.getInstance().drivetrain;
+        this.parent = parent;
 
         calc = new PurePursuitCalc(pt1, pt2, lookAheadDist, targetVelocity);
-
-        this.initHeading = initHeading;
 
         requires(drivetrain);
     }
@@ -29,6 +29,7 @@ public class PurePursuitLineCommand extends Command {
 
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
+        initHeading = parent.getInitHeading();
         currHeading = drivetrain.getGyroAngle() - initHeading;
         Robot.PPLog.log(calc.getDataHeader());
     }
