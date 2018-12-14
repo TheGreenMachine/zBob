@@ -30,7 +30,6 @@ public class PurePursuitLineCommand extends Command {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
         initHeading = parent.getInitHeading();
-        currHeading = drivetrain.getGyroAngle() - initHeading;
         Robot.PPLog.log(calc.getDataHeader());
     }
 
