@@ -27,6 +27,8 @@ public class PPLine {
     public double getAngleRad() { return angle; }
     public double getAngleDeg() { return Math.toDegrees(angle); }
 
+    public double getSlope() { return (pt2.y - pt1.y) / (pt2.x - pt1.x); }
+
     /**
      * This method is used to find the angle of the line between the robot's
      * position and the generated PPLine, with length {@code lookAheadDist}.
@@ -42,7 +44,15 @@ public class PPLine {
 
         if (Math.abs(yOffset) < lookAheadDist) {
             //calculate desired heading
-            double desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+
+            double lineY = (getSlope() * (pt1.x - botX)) + botY;
+            double desiredHeading;
+            if(lineY < botY) { //TODO: I suspect different math for above/below
+                desiredHeading = Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+            } else {
+                desiredHeading = - Math.toDegrees(Math.asin(yOffset / lookAheadDist)) + getAngleDeg();
+            }
+            
             return desiredHeading;
         } else {
             //if out of range, attempt to 'find' line again
