@@ -12,11 +12,11 @@ package com.edinarobotics.purepursuit;
  */
 
 public class PurePursuitCalc {
-    private static final double MIN_TURN_SPEED = 0.1;
+    private static final double MIN_TURN_SPEED = 0.02;
 
     private double kP_TURN = 0.004;
-    private double kI_TURN = 0.002; // needs heavier I term
-    private double kD_TURN = 0;
+    private double kI_TURN = 0.0; // needs heavier I term
+    private double kD_TURN = 0.0;
     private static final double DELTA_T = 0.02;
 
     private double pOut, iOut, dOut;
@@ -56,7 +56,7 @@ public class PurePursuitCalc {
         currY = y;
         currHeading = heading;
 
-        desiredHeading = path.getDesiredHeading(currX, currY) - 90;
+        desiredHeading = path.getDesiredHeading(currX, currY);
 
         angleErr = desiredHeading - currHeading;
 

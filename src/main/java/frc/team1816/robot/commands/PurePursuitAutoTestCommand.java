@@ -18,8 +18,8 @@ public class PurePursuitAutoTestCommand extends CommandGroup {
         drivetrain = Components.getInstance().drivetrain;
         initHeading = drivetrain.getGyroAngle();
         
-        addSequential(new PurePursuitLineCommand(pt1 ,pt2, 4, 0.25, this));
-        addSequential(new PurePursuitLineCommand(pt2, pt4, 8, 0.25, this));
+        addSequential(new PurePursuitLineCommand(pt1 ,pt2, 12, 0.25, this));
+        addSequential(new PurePursuitLineCommand(pt2, pt3, 12, 0.25, this));
         // addSequential(new PurePursuitEndpointCommand(pt3, pt4, 4, 0.25, initHeading));
 
         System.out.println("Test Command End");
