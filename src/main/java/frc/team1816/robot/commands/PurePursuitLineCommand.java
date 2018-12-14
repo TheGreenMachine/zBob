@@ -30,7 +30,6 @@ public class PurePursuitLineCommand extends Command {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
         initHeading = parent.getInitHeading();
-        currHeading = drivetrain.getGyroAngle() - initHeading;
         Robot.PPLog.log(calc.getDataHeader());
     }
 
@@ -38,7 +37,7 @@ public class PurePursuitLineCommand extends Command {
     protected void execute() {
         currXPos = drivetrain.getXPos();
         currYPos = drivetrain.getYPos();
-        currHeading = drivetrain.getGyroAngle() - initHeading;
+        currHeading = 90 - (drivetrain.getGyroAngle() - initHeading); //correct robot heading so 90° is forwards
 
         double[] velocities = calc.calcVelocities(currXPos, currYPos, currHeading);
 
