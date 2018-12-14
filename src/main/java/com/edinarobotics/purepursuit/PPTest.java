@@ -25,15 +25,15 @@ public class PPTest {
     public static void testLine() {
     	PPPoint pt2 = new PPPoint(0, 24);
 		PPPoint pt3 = new PPPoint(36, 36);
-        double lookAheadDist = 4.0;
+        double lookAheadDist = 12.0;
         double targetVelocity = 0.25;
 
 		PPLine line = new PPLine(pt2, pt3, lookAheadDist);
 
 		double x = 0.0;
-		for (double y = 20.0; y < 30.0; y += 1.0) {
+		for (double y = 12.0; y <= 36.0; y += 1.0) {
 			double desiredHdg = line.getDesiredHeading(x, y);
-			System.out.printf("%6.2f, %6.2f, %7.2f, %7.2f\n", x, y, desiredHdg, desiredHdg -90);
+			System.out.printf("%6.2f, %6.2f, %7.2f\n", x, y, desiredHdg);
 		}
     }
     

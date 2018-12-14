@@ -96,15 +96,16 @@ public class PurePursuitCalc {
      * @return double[] This returns an array containing the left and right
      *         velocities of the robot
      */
-    public double[] calcVelocitiesEndpoint(double x, double y, double heading) {
+    public double[] calcVelocitiesEndpoint(double x, double y, double heading) { 
         // TODO: test this method/logic
+        // TODO: consolidate endpoint and normal method logic (much duplicate logic)
 
         double[] velocities = new double[2];
         currX = x;
         currY = y;
         currHeading = heading;
 
-        desiredHeading = path.getDesiredHeadingEndpoint(currX, currY) - 90;
+        desiredHeading = path.getDesiredHeadingEndpoint(currX, currY) - 90; // TODO: this value is constant, I think
 
         angleErr = desiredHeading - currHeading;
 
